@@ -1,6 +1,6 @@
 // 提取 omp exe 的入口模块 (cli.js) → 输出文件
 // 用法: node extract-cli.js [src.exe] [out.js]
-// 默认: node extract-cli.js G:/omp/omp.exe ~/AppData/Local/Temp/cli-172.js
+// 默认: node extract-cli.js G:/omp/omp.exe %TEMP%/cli-172.js
 const fs = require('fs');
 const { parseExe, readModules } = require('./rebuild.js');
 
