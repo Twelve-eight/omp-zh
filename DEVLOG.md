@@ -115,3 +115,20 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
 - 终验：--help CJK=1643 直出 ✓ verify PASS ✓ RPC ✓ --version ✓
 - **交付 G:\omp\omp-zh-18.0.0.exe**（主文件被运行会话占用；用户关闭全部会话后替换 omp-zh.exe 即可）。
 - 注意：此前交付的 omp-zh.exe（19:37 版）是**未修复的坏版本**，必须替换！
+
+## 2026-08-22 晚（三）：合规审查 + web 资产转义修正
+- **合规审查结论（MIT，可发布）**：
+  1. 上游 MIT（Copyright Mario Zechner / Can Bölük / Stencil Labs）——修改、再分发、更名均允许
+  2. 产物 exe 内 LICENSE 文本完整保留 ✓
+  3. 字典 2460 条无版权文本/URL 污染；8 条长工具文档翻译属 MIT 衍生作品正常范围
+  4. 发布要求：附带 LICENSE 副本、说明「基于 can1357/oh-my-pi 的非官方汉化」、不用官方 logo 站名误导即可。命名 omp-zh 无商标冲突（MIT 不含商标授权但 omp-zh 与官方 omp 足够区分）
+- **自查发现并修复 web 资产转义 bug**：上一版对 mod3(HTML)/mod4(JS) 统一 \u 转义——HTML 里 \uXXXX 不会被解码。
+  修正为分治：mod3 用 &#xXXXX; 数字实体（往返验证 OK）；mod4 实为纯 JS（树形字符在 JS 字符串里）改用 \u；mod5 维持 \u。
+- 重建交付：G:\omp\omp-zh-18.0.0.exe（主文件仍被会话占用）
+
+## 2026-08-22 晚（四）：公开发布
+- GitHub 仓库 https://github.com/Twelve-eight/omp-zh 已建（公开，MIT）
+- Release v18.0.0 已发布：omp-zh.exe (151,715,328 B) + SHA256SUMS.txt
+  sha256 = dd66e710067c06e2edbb969ab75092a01f33aa4856a9d1be4dd7e89eaef6a2aa
+- 合规：README 注明非官方/来源/License；LICENSE 副本随仓库分发
+- git 推送注意：本机代理常掉线，push 失败时用 git -c http.proxy= -c https.proxy= push
