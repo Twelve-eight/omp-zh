@@ -107,3 +107,11 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
 - 构建：translated literals 3006、verify PASS、CJK 27030、RPC 冒烟 ✓、-p 模式 ✓
 - **已直接交付 G:\omp\omp-zh.exe**（用户会话空闲时 build 自动交付成功）——当前运行的就是 18.0.0 汉化版
 - **上游新问题（非汉化引入）**：18.0.0 非 TTY 的 text 输出双重编码 mojibake（--help 等 banner；UTF-8 字节被按 Latin-1 再编码）。TTY/rpc/-p 均正常。还原方法：Buffer.from(s,'latin1') 还原原始字节。待上游修复或本地补丁。
+
+## 2026-08-22 晚（续）：18.0.0 乱码根因与修复
+- **用户报告 TUI 全部中文乱码** → 深挖定位：不是上游输出 bug，是 **Bun 1.4.0 standalone loader 把模块源码按 latin1 解码**。
+  证据链：① 最小中文嵌入复现（rebuild 18.0.0 exe + `console.log("用法测试")` → mojibake）；② 同样脚本嵌入 17.4.1 exe 正常；③ `\uXXXX` 转义字面量正常；④ mojibake 可用 latin1→utf8 完美还原（字节无损）；⑤ bun 1.4.0 直接跑文件正常——仅 standalone 模块加载路径受影响。17.x 的 Bun 1.3.14 无此问题。
+- **修复（build-zh.js）**：翻译产物后处理——所有非 ASCII 字符转 `\uXXXX` 转义（含代理对）。纯 ASCII 源码在任何解码下语义不变，绕过 loader 缺陷。Web 资产模块（mod3/4/5）同样处理。
+- 终验：--help CJK=1643 直出 ✓ verify PASS ✓ RPC ✓ --version ✓
+- **交付 G:\omp\omp-zh-18.0.0.exe**（主文件被运行会话占用；用户关闭全部会话后替换 omp-zh.exe 即可）。
+- 注意：此前交付的 omp-zh.exe（19:37 版）是**未修复的坏版本**，必须替换！

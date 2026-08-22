@@ -36,16 +36,37 @@ const dedup = [...seen.values()];
 
 const cli = fs.readFileSync(CLI, 'utf8');
 const { code, count } = translate(cli, dedup);
-fs.writeFileSync(T + '/work/cli-zh.js', code);
-console.log('translated literals:', count);
+// 【18.0.0 修复】Bun 1.4.0 standalone loader 把模块源码按 latin1 解码，非 ASCII 字面量全部 mojibake。
+// 预补偿：把所有非 ASCII 字符转成 \uXXXX 转义（纯 ASCII 源码在任何解码下语义不变）。
+function asciiEscape(s) {
+  return s.replace(/[^\x00-\x7F]+/g, (m) => {
+    let out = '';
+    for (const ch of m) {
+      const cp = ch.codePointAt(0);
+      if (cp > 0xFFFF) {
+        const h = Math.floor((cp - 0x10000) / 0x400) + 0xD800;
+        const l = ((cp - 0x10000) % 0x400) + 0xDC00;
+        out += '\\u' + h.toString(16).padStart(4, '0') + '\\u' + l.toString(16).padStart(4, '0');
+      } else {
+        out += '\\u' + cp.toString(16).padStart(4, '0');
+      }
+    }
+    return out;
+  });
+}
+const ascii = asciiEscape(code);
+fs.writeFileSync(T + '/work/cli-zh.js', ascii);
+console.log('translated literals:', count, '(ascii-escaped for Bun 1.4.0 standalone)');
 
 const srcBuf = fs.readFileSync(SRC);
 // ---- Web UI 模块汉化（mod3 导出页 HTML / mod4 主题 JS / mod5 工具视图） ----
 const { translateWeb } = require('./web-translate.js');
 const web = translateWeb(dedup);
 console.log('web translated: html=' + web.htmlCount + ' js=' + web.jsCount);
-// 模块0=cli.js；模块3/4/5=Web UI 资产；其余保持原样
-const out = rebuild(srcBuf, [Buffer.from(code), undefined, undefined, web.mods[3], web.mods[4], web.mods[5]]);
+// 模块0=cli.js；模块3/4/5=Web UI 资产；其余保持原样。
+// Web 资产同样 ASCII 化——HTML/JS 模块在 Bun 1.4.0 standalone 里同样被 latin1 解码。
+const asciiWeb = { 3: asciiEscape(web.mods[3].toString('utf8')), 4: asciiEscape(web.mods[4].toString('utf8')), 5: asciiEscape(web.mods[5].toString('utf8')) };
+const out = rebuild(srcBuf, [Buffer.from(ascii), undefined, undefined, Buffer.from(asciiWeb[3]), Buffer.from(asciiWeb[4]), Buffer.from(asciiWeb[5])]);
 fs.writeFileSync(DST, out);
 
 try {
