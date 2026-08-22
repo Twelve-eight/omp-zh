@@ -64,8 +64,20 @@ const { translateWeb } = require('./web-translate.js');
 const web = translateWeb(dedup);
 console.log('web translated: html=' + web.htmlCount + ' js=' + web.jsCount);
 // 模块0=cli.js；模块3/4/5=Web UI 资产；其余保持原样。
-// Web 资产同样 ASCII 化——HTML/JS 模块在 Bun 1.4.0 standalone 里同样被 latin1 解码。
-const asciiWeb = { 3: asciiEscape(web.mods[3].toString('utf8')), 4: asciiEscape(web.mods[4].toString('utf8')), 5: asciiEscape(web.mods[5].toString('utf8')) };
+// Bun 1.4.0 standalone 把所有模块源码按 latin1 解码，非 ASCII 必须预编码：
+//   JS 语义模块（0/4/5）用 \uXXXX 转义；纯 HTML 模块（3）用 &#xXXXX; 数字字符引用（浏览器原生解码）。
+function htmlEscapeNonAscii(s) {
+  return s.replace(/[^\x00-\x7F]+/g, (m) => {
+    let out = '';
+    for (const ch of m) out += '&#x' + ch.codePointAt(0).toString(16) + ';';
+    return out;
+  });
+}
+const asciiWeb = {
+  3: htmlEscapeNonAscii(web.mods[3].toString('utf8')),
+  4: asciiEscape(web.mods[4].toString('utf8')),
+  5: asciiEscape(web.mods[5].toString('utf8')),
+};
 const out = rebuild(srcBuf, [Buffer.from(ascii), undefined, undefined, Buffer.from(asciiWeb[3]), Buffer.from(asciiWeb[4]), Buffer.from(asciiWeb[5])]);
 fs.writeFileSync(DST, out);
 
