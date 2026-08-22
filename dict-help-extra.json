@@ -1,0 +1,1542 @@
+[
+ {
+  "from": "Environment Variables:",
+  "to": "环境变量/Environment Variables:",
+  "mode": "sub"
+ },
+ {
+  "from": "# Core Providers",
+  "to": "# 核心提供商/Core Providers",
+  "mode": "sub"
+ },
+ {
+  "from": "# Additional LLM Providers",
+  "to": "# 其他 LLM 提供商/Additional LLM Providers",
+  "mode": "sub"
+ },
+ {
+  "from": "# Cloud Providers",
+  "to": "# 云提供商/Cloud Providers",
+  "mode": "sub"
+ },
+ {
+  "from": "# Search & Tools",
+  "to": "# 搜索与工具/Search & Tools",
+  "mode": "sub"
+ },
+ {
+  "from": "# Configuration",
+  "to": "# 配置/Configuration",
+  "mode": "sub"
+ },
+ {
+  "from": "Anthropic Claude models",
+  "to": "Anthropic Claude 模型/Anthropic Claude models",
+  "mode": "sub"
+ },
+ {
+  "from": "Anthropic OAuth (takes precedence over API key)",
+  "to": "Anthropic OAuth（优先于 API 密钥）/Anthropic OAuth (takes precedence over API key)",
+  "mode": "sub"
+ },
+ {
+  "from": "Enable Anthropic Foundry mode (uses Foundry endpoint + mTLS)",
+  "to": "启用 Anthropic Foundry 模式（使用 Foundry 端点 + mTLS）/Enable Anthropic Foundry mode (uses Foundry endpoint + mTLS)",
+  "mode": "sub"
+ },
+ {
+  "from": "Anthropic Foundry base URL (e.g., https://<foundry-host>)",
+  "to": "Anthropic Foundry 基础 URL（如 https://<foundry-host>）/Anthropic Foundry base URL (e.g., https://<foundry-host>)",
+  "mode": "sub"
+ },
+ {
+  "from": "Anthropic token used as Authorization: Bearer <token> in Foundry mode",
+  "to": "Foundry 模式下用作 Authorization: Bearer <token> 的 Anthropic 令牌/Anthropic token used as Authorization: Bearer <token> in Foundry mode",
+  "mode": "sub"
+ },
+ {
+  "from": "Extra headers for Foundry or any custom ANTHROPIC_BASE_URL gateway (e.g., \"user-id: USERNAME\")",
+  "to": "Foundry 或任意自定义 ANTHROPIC_BASE_URL 网关的额外请求头（如 \"user-id: USERNAME\"）/Extra headers for Foundry or any custom ANTHROPIC_BASE_URL gateway (e.g., \"user-id: USERNAME\")",
+  "mode": "sub"
+ },
+ {
+  "from": "Client certificate (PEM path or inline PEM) for mTLS",
+  "to": "mTLS 的客户端证书（PEM 路径或内联 PEM）/Client certificate (PEM path or inline PEM) for mTLS",
+  "mode": "sub"
+ },
+ {
+  "from": "Client private key (PEM path or inline PEM) for mTLS",
+  "to": "mTLS 的客户端私钥（PEM 路径或内联 PEM）/Client private key (PEM path or inline PEM) for mTLS",
+  "mode": "sub"
+ },
+ {
+  "from": "CA bundle path (or inline PEM) for server certificate validation",
+  "to": "服务器证书校验的 CA 证书包路径（或内联 PEM）/CA bundle path (or inline PEM) for server certificate validation",
+  "mode": "sub"
+ },
+ {
+  "from": "OpenAI GPT models",
+  "to": "OpenAI GPT 模型/OpenAI GPT models",
+  "mode": "sub"
+ },
+ {
+  "from": "Google Gemini models",
+  "to": "Google Gemini 模型/Google Gemini models",
+  "mode": "sub"
+ },
+ {
+  "from": "Azure OpenAI models",
+  "to": "Azure OpenAI 模型/Azure OpenAI models",
+  "mode": "sub"
+ },
+ {
+  "from": "Groq models",
+  "to": "Groq 模型/Groq models",
+  "mode": "sub"
+ },
+ {
+  "from": "Cerebras models",
+  "to": "Cerebras 模型/Cerebras models",
+  "mode": "sub"
+ },
+ {
+  "from": "xAI Grok models",
+  "to": "xAI Grok 模型/xAI Grok models",
+  "mode": "sub"
+ },
+ {
+  "from": "OpenRouter aggregated models",
+  "to": "OpenRouter 聚合模型/OpenRouter aggregated models",
+  "mode": "sub"
+ },
+ {
+  "from": "Kilo Gateway models",
+  "to": "Kilo Gateway 模型/Kilo Gateway models",
+  "mode": "sub"
+ },
+ {
+  "from": "Mistral models",
+  "to": "Mistral 模型/Mistral models",
+  "mode": "sub"
+ },
+ {
+  "from": "z.ai models (ZhipuAI/GLM)",
+  "to": "z.ai 模型（智谱 AI/GLM）/z.ai models (ZhipuAI/GLM)",
+  "mode": "sub"
+ },
+ {
+  "from": "Umans AI Coding Plan models",
+  "to": "Umans AI Coding Plan 模型/Umans AI Coding Plan models",
+  "mode": "sub"
+ },
+ {
+  "from": "Umans gateway web search backend (native or exa)",
+  "to": "Umans 网关的网络搜索后端（native 或 exa）/Umans gateway web search backend (native or exa)",
+  "mode": "sub"
+ },
+ {
+  "from": "MiniMax models",
+  "to": "MiniMax 模型/MiniMax models",
+  "mode": "sub"
+ },
+ {
+  "from": "OpenCode Zen/OpenCode Go models",
+  "to": "OpenCode Zen/OpenCode Go 模型/OpenCode Zen/OpenCode Go models",
+  "mode": "sub"
+ },
+ {
+  "from": "Cursor AI models",
+  "to": "Cursor AI 模型/Cursor AI models",
+  "mode": "sub"
+ },
+ {
+  "from": "AWS Bedrock (or AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY)",
+  "to": "AWS Bedrock（或 AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY）/AWS Bedrock (or AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY)",
+  "mode": "sub"
+ },
+ {
+  "from": "Google Vertex AI (requires GOOGLE_CLOUD_LOCATION)",
+  "to": "Google Vertex AI（需 GOOGLE_CLOUD_LOCATION）/Google Vertex AI (requires GOOGLE_CLOUD_LOCATION)",
+  "mode": "sub"
+ },
+ {
+  "from": "Service account for Vertex AI",
+  "to": "Vertex AI 的服务账户/Service account for Vertex AI",
+  "mode": "sub"
+ },
+ {
+  "from": "Exa web search",
+  "to": "Exa 网络搜索/Exa web search",
+  "mode": "sub"
+ },
+ {
+  "from": "Brave web search",
+  "to": "Brave 网络搜索/Brave web search",
+  "mode": "sub"
+ },
+ {
+  "from": "Perplexity web search API key (optional; anonymous fallback)",
+  "to": "Perplexity 网络搜索 API 密钥（可选；匿名回退）/Perplexity web search API key (optional; anonymous fallback)",
+  "mode": "sub"
+ },
+ {
+  "from": "Perplexity web search (session cookie)",
+  "to": "Perplexity 网络搜索（会话 Cookie）/Perplexity web search (session cookie)",
+  "mode": "sub"
+ },
+ {
+  "from": "Tavily web search",
+  "to": "Tavily 网络搜索/Tavily web search",
+  "mode": "sub"
+ },
+ {
+  "from": "TinyFish web search",
+  "to": "TinyFish 网络搜索/TinyFish web search",
+  "mode": "sub"
+ },
+ {
+  "from": "Firecrawl web search",
+  "to": "Firecrawl 网络搜索/Firecrawl web search",
+  "mode": "sub"
+ },
+ {
+  "from": "Anthropic web search (override; isolates search from main ANTHROPIC_API_KEY)",
+  "to": "Anthropic 网络搜索（覆盖；与主 ANTHROPIC_API_KEY 隔离）/Anthropic web search (override; isolates search from main ANTHROPIC_API_KEY)",
+  "mode": "sub"
+ },
+ {
+  "from": "Anthropic web search base URL (override; pairs with ANTHROPIC_SEARCH_API_KEY)",
+  "to": "Anthropic 网络搜索基础 URL（覆盖；与 ANTHROPIC_SEARCH_API_KEY 配对）/Anthropic web search base URL (override; pairs with ANTHROPIC_SEARCH_API_KEY)",
+  "mode": "sub"
+ },
+ {
+  "from": "Named profile for isolated agent state (same as --profile)",
+  "to": "独立代理状态的命名 profile（同 --profile）/Named profile for isolated agent state (same as --profile)",
+  "mode": "sub"
+ },
+ {
+  "from": "Use `omp --profile <name> --alias <command>` to create a shell shortcut for a profile",
+  "to": "使用 `omp --profile <名称> --alias <命令>` 为 profile 创建 shell 快捷方式/Use `omp --profile <name> --alias <command>` to create a shell shortcut for a profile",
+  "mode": "sub"
+ },
+ {
+  "from": "Session storage directory (default: ~/.omp/agent)",
+  "to": "会话存储目录（默认：~/.omp/agent）/Session storage directory (default: ~/.omp/agent)",
+  "mode": "sub"
+ },
+ {
+  "from": "Override package directory (for Nix/Guix store paths)",
+  "to": "覆盖包目录（用于 Nix/Guix store 路径）/Override package directory (for Nix/Guix store paths)",
+  "mode": "sub"
+ },
+ {
+  "from": "Override smol/fast model (see --smol)",
+  "to": "覆盖 smol/快速模型（见 --smol）/Override smol/fast model (see --smol)",
+  "mode": "sub"
+ },
+ {
+  "from": "Override slow/reasoning model (see --slow)",
+  "to": "覆盖 slow/推理模型（见 --slow）/Override slow/reasoning model (see --slow)",
+  "mode": "sub"
+ },
+ {
+  "from": "Override planning model (see --plan)",
+  "to": "覆盖规划模型（见 --plan）/Override planning model (see --plan)",
+  "mode": "sub"
+ },
+ {
+  "from": "For complete environment variable reference, see:",
+  "to": "完整环境变量参考见：/For complete environment variable reference, see:",
+  "mode": "sub"
+ },
+ {
+  "from": "Available Tools (default-enabled unless noted):",
+  "to": "可用工具（默认启用，除非注明）：/Available Tools (default-enabled unless noted):",
+  "mode": "sub"
+ },
+ {
+  "from": "Read file contents",
+  "to": "读取文件内容/Read file contents",
+  "mode": "sub"
+ },
+ {
+  "from": "Execute bash commands",
+  "to": "执行 bash 命令/Execute bash commands",
+  "mode": "sub"
+ },
+ {
+  "from": "Edit files with find/replace",
+  "to": "用查找/替换编辑文件/Edit files with find/replace",
+  "mode": "sub"
+ },
+ {
+  "from": "Write files (creates/overwrites)",
+  "to": "写入文件（创建/覆盖）/Write files (creates/overwrites)",
+  "mode": "sub"
+ },
+ {
+  "from": "Search file contents",
+  "to": "搜索文件内容/Search file contents",
+  "mode": "sub"
+ },
+ {
+  "from": "Find files by glob pattern",
+  "to": "按 glob 模式查找文件/Find files by glob pattern",
+  "mode": "sub"
+ },
+ {
+  "from": "Language server protocol (code intelligence)",
+  "to": "语言服务器协议（代码智能）/Language server protocol (code intelligence)",
+  "mode": "sub"
+ },
+ {
+  "from": "Execute Python code (requires: omp setup python)",
+  "to": "执行 Python 代码（需先运行：omp setup python）/Execute Python code (requires: omp setup python)",
+  "mode": "sub"
+ },
+ {
+  "from": "Edit Jupyter notebooks",
+  "to": "编辑 Jupyter notebook/Edit Jupyter notebooks",
+  "mode": "sub"
+ },
+ {
+  "from": "Analyze images with a vision model",
+  "to": "用视觉模型分析图像/Analyze images with a vision model",
+  "mode": "sub"
+ },
+ {
+  "from": "Browser automation (Puppeteer)",
+  "to": "浏览器自动化（Puppeteer）/Browser automation (Puppeteer)",
+  "mode": "sub"
+ },
+ {
+  "from": "Native host desktop capture and input (disabled by default)",
+  "to": "本机桌面捕获与输入（默认禁用）/Native host desktop capture and input (disabled by default)",
+  "mode": "sub"
+ },
+ {
+  "from": "Launch sub-agents for parallel tasks",
+  "to": "为并行任务启动子代理/Launch sub-agents for parallel tasks",
+  "mode": "sub"
+ },
+ {
+  "from": "Manage todo/task lists",
+  "to": "管理待办/任务清单/Manage todo/task lists",
+  "mode": "sub"
+ },
+ {
+  "from": "Search the web",
+  "to": "搜索网络/Search the web",
+  "mode": "sub"
+ },
+ {
+  "from": "Ask user questions (interactive mode only)",
+  "to": "向用户提问（仅交互模式）/Ask user questions (interactive mode only)",
+  "mode": "sub"
+ },
+ {
+  "from": "Plugin Options:",
+  "to": "插件选项/Plugin Options:",
+  "mode": "sub"
+ },
+ {
+  "from": "Load plugin from directory (repeatable)",
+  "to": "从目录加载插件（可重复）/Load plugin from directory (repeatable)",
+  "mode": "sub"
+ },
+ {
+  "from": "Useful Commands:",
+  "to": "常用命令/Useful Commands:",
+  "mode": "sub"
+ },
+ {
+  "from": "Export bundled subagents to ~/.omp/agent/agents (default)",
+  "to": "将内置子代理导出到 ~/.omp/agent/agents（默认）/Export bundled subagents to ~/.omp/agent/agents (default)",
+  "mode": "sub"
+ },
+ {
+  "from": "Export bundled subagents to ./.omp/agents",
+  "to": "将内置子代理导出到 ./.omp/agents/Export bundled subagents to ./.omp/agents",
+  "mode": "sub"
+ },
+ {
+  "from": "Set thinking level",
+  "to": "设置思考层级/Set thinking level",
+  "mode": "sub"
+ },
+ {
+  "from": "Interactive mode",
+  "to": "交互模式/Interactive mode",
+  "mode": "sub"
+ },
+ {
+  "from": "Interactive mode with initial prompt",
+  "to": "带初始提示的交互模式/Interactive mode with initial prompt",
+  "mode": "sub"
+ },
+ {
+  "from": "Include files in initial message",
+  "to": "在初始消息中包含文件/Include files in initial message",
+  "mode": "sub"
+ },
+ {
+  "from": "Non-interactive mode (process and exit)",
+  "to": "非交互模式（处理并退出）/Non-interactive mode (process and exit)",
+  "mode": "sub"
+ },
+ {
+  "from": "Create a shell shortcut for a work profile",
+  "to": "为工作 profile 创建 shell 快捷方式/Create a shell shortcut for a work profile",
+  "mode": "sub"
+ },
+ {
+  "from": "Use different model (fuzzy matching)",
+  "to": "使用不同模型（模糊匹配）/Use different model (fuzzy matching)",
+  "mode": "sub"
+ },
+ {
+  "from": "Limit model cycling to specific models",
+  "to": "限制模型循环切换范围/Limit model cycling to specific models",
+  "mode": "sub"
+ },
+ {
+  "from": "Export a session file to HTML",
+  "to": "将会话文件导出为 HTML/Export a session file to HTML",
+  "mode": "sub"
+ },
+ {
+  "from": "Alibaba Token Plan China session response invalid",
+  "to": "Alibaba Token Plan China 会话响应无效/Alibaba Token Plan China session response invalid",
+  "mode": "full"
+ },
+ {
+  "from": "Press Alt+A to show all, Alt+D for default",
+  "to": "按 Alt+A 显示全部，Alt+D 默认/Press Alt+A to show all, Alt+D for default",
+  "mode": "full"
+ },
+ {
+  "from": "Alibaba Token Plan usage response invalid",
+  "to": "Alibaba Token Plan 用量响应无效/Alibaba Token Plan usage response invalid",
+  "mode": "full"
+ },
+ {
+  "from": "Alibaba Token Plan session lookup failed",
+  "to": "Alibaba Token Plan 会话查找失败/Alibaba Token Plan session lookup failed",
+  "mode": "full"
+ },
+ {
+  "from": "Alibaba Token Plan usage request failed",
+  "to": "Alibaba Token Plan 用量请求失败/Alibaba Token Plan usage request failed",
+  "mode": "full"
+ },
+ {
+  "from": "Alibaba Token Plan usage fetch failed",
+  "to": "Alibaba Token Plan 用量获取失败/Alibaba Token Plan usage fetch failed",
+  "mode": "full"
+ },
+ {
+  "from": "Drop recoverable heavy content in place without an LLM call",
+  "to": "就地丢弃可恢复的重内容，无需 LLM 调用/Drop recoverable heavy content in place without an LLM call",
+  "mode": "full"
+ },
+ {
+  "from": "Target another project directory instead of the current one",
+  "to": "以另一个项目目录为目标，而非当前目录/Target another project directory instead of the current one",
+  "mode": "full"
+ },
+ {
+  "from": "File delete fallback handler threw; trying next handler",
+  "to": "文件删除回退处理器抛出异常；尝试下一个处理器/File delete fallback handler threw; trying next handler",
+  "mode": "full"
+ },
+ {
+  "from": "File write fallback handler threw; trying next handler",
+  "to": "文件写入回退处理器抛出异常；尝试下一个处理器/File write fallback handler threw; trying next handler",
+  "mode": "full"
+ },
+ {
+  "from": "Filled one-row field anchored by a single accent rail",
+  "to": "单行填充字段，由单一强调色栏锚定/Filled one-row field anchored by a single accent rail",
+  "mode": "full"
+ },
+ {
+  "from": "model cache corrupt; quarantined and recreated a fresh cache",
+  "to": "模型缓存损坏；已隔离并重建新缓存/model cache corrupt; quarantined and recreated a fresh cache",
+  "mode": "full"
+ },
+ {
+  "from": "Status line embedded in top border, compact 2-line prompt",
+  "to": "状态栏嵌入顶部边框，紧凑双行提示/Status line embedded in top border, compact 2-line prompt",
+  "mode": "full"
+ },
+ {
+  "from": "List every project and global service scope (list)",
+  "to": "列出每个项目与全局服务作用域（list）/List every project and global service scope (list)",
+  "mode": "full"
+ },
+ {
+  "from": "Visual layout of the input editor and status line",
+  "to": "输入编辑器与状态栏的视觉布局/Visual layout of the input editor and status line",
+  "mode": "full"
+ },
+ {
+  "from": "Tool Call Handler Timeout (ms)",
+  "to": "工具调用处理器超时（毫秒）/Tool Call Handler Timeout (ms)",
+  "mode": "full"
+ },
+ {
+  "from": "Automatic compaction method failed; trying next preference",
+  "to": "自动压缩方法失败；尝试下一个偏好设置/Automatic compaction method failed; trying next preference",
+  "mode": "full"
+ },
+ {
+  "from": "Release every managed tab and kill spawned-app processes",
+  "to": "释放每个受管标签页并终止衍生应用进程/Release every managed tab and kill spawned-app processes",
+  "mode": "full"
+ },
+ {
+  "from": "Static listing instead of the interactive monitor (list)",
+  "to": "静态列表而非交互式监视器（list）/Static listing instead of the interactive monitor (list)",
+  "mode": "full"
+ },
+ {
+  "from": "Composer shape id must be a non-empty trimmed string",
+  "to": "输入框形状 id 必须是非空、去除首尾空白的字符串/Composer shape id must be a non-empty trimmed string",
+  "mode": "full"
+ },
+ {
+  "from": "Composer style id must be a non-empty trimmed string",
+  "to": "输入框样式 id 必须是非空、去除首尾空白的字符串/Composer style id must be a non-empty trimmed string",
+  "mode": "full"
+ },
+ {
+  "from": "Process name (required for every action except list)",
+  "to": "进程名（除 list 外每个操作均需）/Process name (required for every action except list)",
+  "mode": "full"
+ },
+ {
+  "from": "Single top rule with status docked onto it and below",
+  "to": "单条顶部规则线，状态栏停靠于其上及下方/Single top rule with status docked onto it and below",
+  "mode": "full"
+ },
+ {
+  "from": "Framed horizontal rules with status line at bottom",
+  "to": "带框的水平规则线，状态栏位于底部/Framed horizontal rules with status line at bottom",
+  "mode": "full"
+ },
+ {
+  "from": "Used portion in accent color, remainder dimmed",
+  "to": "已用部分用强调色，其余部分变暗/Used portion in accent color, remainder dimmed",
+  "mode": "full"
+ },
+ {
+  "from": "legacy Pi extension parse cache write failed",
+  "to": "legacy Pi 扩展解析缓存写入失败/legacy Pi extension parse cache write failed",
+  "mode": "full"
+ },
+ {
+  "from": "No Codex accounts with saved resets",
+  "to": "没有保存重置额度的 Codex 账户/No Codex accounts with saved resets",
+  "mode": "full"
+ },
+ {
+  "from": "Target a machine-global service scope (e.g. browser-relay)",
+  "to": "以机器全局服务作用域为目标（例如 browser-relay）/Target a machine-global service scope (e.g. browser-relay)",
+  "mode": "full"
+ },
+ {
+  "from": "Read from the beginning instead of the tail (logs)",
+  "to": "从头读取而非从尾部（logs）/Read from the beginning instead of the tail (logs)",
+  "mode": "full"
+ },
+ {
+  "from": "MCP OAuth broker refresh requires an auth storage",
+  "to": "MCP OAuth broker 刷新需要认证存储/MCP OAuth broker refresh requires an auth storage",
+  "mode": "full"
+ },
+ {
+  "from": "Grace period in seconds before hard kill (stop)",
+  "to": "硬终止前的宽限期（秒）（stop）/Grace period in seconds before hard kill (stop)",
+  "mode": "full"
+ },
+ {
+  "from": "Failed to scan daemon runtime root for pruning",
+  "to": "扫描守护进程运行时根以进行清理失败/Failed to scan daemon runtime root for pruning",
+  "mode": "full"
+ },
+ {
+  "from": "legacy Pi extension parse cache read failed",
+  "to": "legacy Pi 扩展解析缓存读取失败/legacy Pi extension parse cache read failed",
+  "mode": "full"
+ },
+ {
+  "from": "Press Backspace to clear the search",
+  "to": "按 Backspace 清除搜索/Press Backspace to clear the search",
+  "mode": "full"
+ },
+ {
+  "from": "Pre-prompt threshold deferred to speculative compaction",
+  "to": "提示前阈值推迟至推测性压缩/Pre-prompt threshold deferred to speculative compaction",
+  "mode": "full"
+ },
+ {
+  "from": "Post-turn threshold deferred to speculative compaction",
+  "to": "回合后阈值推迟至推测性压缩/Post-turn threshold deferred to speculative compaction",
+  "mode": "full"
+ },
+ {
+  "from": "Mid-run threshold deferred to speculative compaction",
+  "to": "运行中阈值推迟至推测性压缩/Mid-run threshold deferred to speculative compaction",
+  "mode": "full"
+ },
+ {
+  "from": "Disable prompt caching and cache-affinity routing",
+  "to": "禁用提示缓存与缓存亲和路由/Disable prompt caching and cache-affinity routing",
+  "mode": "full"
+ },
+ {
+  "from": "Detached session event extension emit failed",
+  "to": "分离会话事件扩展发送失败/Detached session event extension emit failed",
+  "mode": "full"
+ },
+ {
+  "from": "legacy Pi extension parse cache unavailable",
+  "to": "legacy Pi 扩展解析缓存不可用/legacy Pi extension parse cache unavailable",
+  "mode": "full"
+ },
+ {
+  "from": "Filled one-row field with accent end caps",
+  "to": "带强调色端帽的单行填充字段/Filled one-row field with accent end caps",
+  "mode": "full"
+ },
+ {
+  "from": "Regex filter applied to log lines (logs)",
+  "to": "应用于日志行的正则过滤器（logs）/Regex filter applied to log lines (logs)",
+  "mode": "full"
+ },
+ {
+  "from": "Failed to prune dead daemon runtime dir",
+  "to": "清理失效守护进程运行时目录失败/Failed to prune dead daemon runtime dir",
+  "mode": "full"
+ },
+ {
+  "from": "Failed to record daemon scope metadata",
+  "to": "记录守护进程作用域元数据失败/Failed to record daemon scope metadata",
+  "mode": "full"
+ },
+ {
+  "from": "model cache: could not quarantine corrupt file",
+  "to": "模型缓存：无法隔离损坏文件/model cache: could not quarantine corrupt file",
+  "mode": "full"
+ },
+ {
+  "from": "Scope is not addressable from this machine",
+  "to": "此机器无法寻址该作用域/Scope is not addressable from this machine",
+  "mode": "full"
+ },
+ {
+  "from": "OpenCode config references a missing file",
+  "to": "OpenCode 配置引用了缺失的文件/OpenCode config references a missing file",
+  "mode": "full"
+ },
+ {
+  "from": "Session persistence error observer failed",
+  "to": "会话持久化错误观察器失败/Session persistence error observer failed",
+  "mode": "full"
+ },
+ {
+  "from": "Solid accent line, no context feedback",
+  "to": "实心强调色线，无上下文反馈/Solid accent line, no context feedback",
+  "mode": "full"
+ },
+ {
+  "from": "Agent registry status update rejected",
+  "to": "代理注册表状态更新被拒绝/Agent registry status update rejected",
+  "mode": "full"
+ },
+ {
+  "from": "Compaction Method Order",
+  "to": "压缩方法顺序/Compaction Method Order",
+  "mode": "full"
+ },
+ {
+  "from": "Prompt Cache Retention",
+  "to": "提示缓存保留/Prompt Cache Retention",
+  "mode": "full"
+ },
+ {
+  "from": "Rounded Box (Default)",
+  "to": "圆角框（默认）/Rounded Box (Default)",
+  "mode": "full"
+ },
+ {
+  "from": "Top Rule Dock",
+  "to": "顶部规则停靠栏/Top Rule Dock",
+  "mode": "full"
+ },
+ {
+  "from": "Unexpected end of protobuf 64-bit varint",
+  "to": "protobuf 64 位 varint 意外结束/Unexpected end of protobuf 64-bit varint",
+  "mode": "full"
+ },
+ {
+  "from": "Nothing to hand off (already compacted)",
+  "to": "无可交接（已压缩）/Nothing to hand off (already compacted)",
+  "mode": "full"
+ },
+ {
+  "from": "User did not select any options",
+  "to": "用户未选择任何选项/User did not select any options",
+  "mode": "full"
+ },
+ {
+  "from": "Spend a saved rate-limit reset",
+  "to": "消耗一次已保存的速率限制重置额度/Spend a saved rate-limit reset",
+  "mode": "full"
+ },
+ {
+  "from": "No stored accounts to log out",
+  "to": "没有可登出的已存账户/No stored accounts to log out",
+  "mode": "full"
+ },
+ {
+  "from": "list (default), info, logs, stop, kill, or restart",
+  "to": "list（默认）、info、logs、stop、kill 或 restart/list (default), info, logs, stop, kill, or restart",
+  "mode": "full"
+ },
+ {
+  "from": "broker client usage summary unavailable",
+  "to": "broker 客户端用量摘要不可用/broker client usage summary unavailable",
+  "mode": "full"
+ },
+ {
+  "from": "model cache: re-healed corrupt database",
+  "to": "模型缓存：已修复损坏的数据库/model cache: re-healed corrupt database",
+  "mode": "full"
+ },
+ {
+  "from": "AgentSession run-state listener threw",
+  "to": "AgentSession 运行状态监听器抛出异常/AgentSession run-state listener threw",
+  "mode": "full"
+ },
+ {
+  "from": "Applying armed speculative compaction",
+  "to": "正在应用已就绪的推测性压缩/Applying armed speculative compaction",
+  "mode": "full"
+ },
+ {
+  "from": "Number of log lines, max 1000 (logs)",
+  "to": "日志行数，最多 1000（logs）/Number of log lines, max 1000 (logs)",
+  "mode": "full"
+ },
+ {
+  "from": "Use standard-pricing context windows",
+  "to": "使用标准定价上下文窗口/Use standard-pricing context windows",
+  "mode": "full"
+ },
+ {
+  "from": "Enable premium long-context windows",
+  "to": "启用高级长上下文窗口/Enable premium long-context windows",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle premium long-context windows",
+  "to": "切换高级长上下文窗口/Toggle premium long-context windows",
+  "mode": "full"
+ },
+ {
+  "from": "Unexpected end of protobuf varint",
+  "to": "protobuf varint 意外结束/Unexpected end of protobuf varint",
+  "mode": "full"
+ },
+ {
+  "from": "Auto server compaction cancelled",
+  "to": "自动服务器压缩已取消/Auto server compaction cancelled",
+  "mode": "full"
+ },
+ {
+  "from": "Keep streaming new output (logs)",
+  "to": "持续流式输出新日志（logs）/Keep streaming new output (logs)",
+  "mode": "full"
+ },
+ {
+  "from": "Describe what to detect and fix",
+  "to": "描述要检测和修复的内容/Describe what to detect and fix",
+  "mode": "full"
+ },
+ {
+  "from": "Show extended context status",
+  "to": "显示扩展上下文状态/Show extended context status",
+  "mode": "full"
+ },
+ {
+  "from": "Daemon runtime prune failed",
+  "to": "守护进程运行时清理失败/Daemon runtime prune failed",
+  "mode": "full"
+ },
+ {
+  "from": "Detached session_compact emit failed",
+  "to": "分离会话的 session_compact 发送失败/Detached session_compact emit failed",
+  "mode": "full"
+ },
+ {
+  "from": "Select provider to logout",
+  "to": "选择要登出的提供商/Select provider to logout",
+  "mode": "full"
+ },
+ {
+  "from": "Select provider to login",
+  "to": "选择要登录的提供商/Select provider to login",
+  "mode": "full"
+ },
+ {
+  "from": "extended-context policy reapply failed",
+  "to": "扩展上下文策略重新应用失败/extended-context policy reapply failed",
+  "mode": "full"
+ },
+ {
+  "from": "status-line context gauge preview",
+  "to": "状态栏上下文仪表预览/status-line context gauge preview",
+  "mode": "full"
+ },
+ {
+  "from": "Speculative compaction failed",
+  "to": "推测性压缩失败/Speculative compaction failed",
+  "mode": "full"
+ },
+ {
+  "from": "Unexpected EOF reading double",
+  "to": "读取 double 时意外 EOF/Unexpected EOF reading double",
+  "mode": "full"
+ },
+ {
+  "from": "Speculative compaction armed",
+  "to": "推测性压缩已就绪/Speculative compaction armed",
+  "mode": "full"
+ },
+ {
+  "from": "Unexpected EOF reading bytes",
+  "to": "读取 bytes 时意外 EOF/Unexpected EOF reading bytes",
+  "mode": "full"
+ },
+ {
+  "from": "Unexpected EOF reading float",
+  "to": "读取 float 时意外 EOF/Unexpected EOF reading float",
+  "mode": "full"
+ },
+ {
+  "from": "Expected unsigned bigint",
+  "to": "应为无符号 bigint/Expected unsigned bigint",
+  "mode": "full"
+ },
+ {
+  "from": "OpenAI server compaction",
+  "to": "OpenAI 服务器压缩/OpenAI server compaction",
+  "mode": "full"
+ },
+ {
+  "from": "Requests (burst ceiling)",
+  "to": "请求数（突发上限）/Requests (burst ceiling)",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle extended context",
+  "to": "切换扩展上下文/Toggle extended context",
+  "mode": "full"
+ },
+ {
+  "from": "Auto server compaction",
+  "to": "自动服务器压缩/Auto server compaction",
+  "mode": "full"
+ },
+ {
+  "from": "Retry budget exhausted",
+  "to": "重试预算已用尽/Retry budget exhausted",
+  "mode": "full"
+ },
+ {
+  "from": "Select what to cleanse",
+  "to": "选择要 cleanse 的内容/Select what to cleanse",
+  "mode": "full"
+ },
+ {
+  "from": "Choose composer shape",
+  "to": "选择输入框形状/Choose composer shape",
+  "mode": "full"
+ },
+ {
+  "from": "Context-Reactive Line",
+  "to": "上下文响应线/Context-Reactive Line",
+  "mode": "full"
+ },
+ {
+  "from": "Showing current scope",
+  "to": "正在显示当前作用域/Showing current scope",
+  "mode": "full"
+ },
+ {
+  "from": "Eval Auto-Background",
+  "to": "Eval 自动后台/Eval Auto-Background",
+  "mode": "full"
+ },
+ {
+  "from": "Esc cancel /cleanse",
+  "to": "Esc 取消 /cleanse/Esc cancel /cleanse",
+  "mode": "full"
+ },
+ {
+  "from": "Expected Uint8Array",
+  "to": "应为 Uint8Array/Expected Uint8Array",
+  "mode": "full"
+ },
+ {
+  "from": "Async Compaction",
+  "to": "异步压缩/Async Compaction",
+  "mode": "full"
+ },
+ {
+  "from": "Extended Context",
+  "to": "扩展上下文/Extended Context",
+  "mode": "full"
+ },
+ {
+  "from": "No entries found",
+  "to": "未找到条目/No entries found",
+  "mode": "full"
+ },
+ {
+  "from": "Composer Shape",
+  "to": "输入框形状/Composer Shape",
+  "mode": "full"
+ },
+ {
+  "from": "Compact Field",
+  "to": "紧凑字段/Compact Field",
+  "mode": "full"
+ },
+ {
+  "from": "Context Gauge",
+  "to": "上下文仪表/Context Gauge",
+  "mode": "full"
+ },
+ {
+  "from": "Session Tree",
+  "to": "会话树/Session Tree",
+  "mode": "full"
+ },
+ {
+  "from": "Accent Rail",
+  "to": "强调色栏/Accent Rail",
+  "mode": "full"
+ },
+ {
+  "from": "Show Images",
+  "to": "显示图片/Show Images",
+  "mode": "full"
+ },
+ {
+  "from": "Queue Mode",
+  "to": "队列模式/Queue Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Unexpected EOF skipping 32-bit",
+  "to": "跳过 32 位时意外 EOF/Unexpected EOF skipping 32-bit",
+  "mode": "full"
+ },
+ {
+  "from": "Unexpected EOF skipping 64-bit",
+  "to": "跳过 64 位时意外 EOF/Unexpected EOF skipping 64-bit",
+  "mode": "full"
+ },
+ {
+  "from": "release every managed tab",
+  "to": "释放每个受管标签页/release every managed tab",
+  "mode": "full"
+ },
+ {
+  "from": "Varint exceeds 32 bits",
+  "to": "varint 超过 32 位/Varint exceeds 32 bits",
+  "mode": "full"
+ },
+ {
+  "from": "Varint exceeds 64 bits",
+  "to": "varint 超过 64 位/Varint exceeds 64 bits",
+  "mode": "full"
+ },
+ {
+  "from": "Extension send failed",
+  "to": "扩展发送失败/Extension send failed",
+  "mode": "full"
+ },
+ {
+  "from": "Showing all scopes",
+  "to": "正在显示所有作用域/Showing all scopes",
+  "mode": "full"
+ },
+ {
+  "from": "Eval cell aborted",
+  "to": "eval 单元已中止/Eval cell aborted",
+  "mode": "full"
+ },
+ {
+  "from": "Eval cell failed",
+  "to": "eval 单元失败/Eval cell failed",
+  "mode": "full"
+ },
+ {
+  "from": "oneshot retry aborted",
+  "to": "一次性重试已中止/oneshot retry aborted",
+  "mode": "full"
+ },
+ {
+  "from": "Requests (soft cap)",
+  "to": "请求数（软上限）/Requests (soft cap)",
+  "mode": "full"
+ },
+ {
+  "from": "Release all tabs",
+  "to": "释放所有标签页/Release all tabs",
+  "mode": "full"
+ },
+ {
+  "from": "Fetch completed",
+  "to": "抓取完成/Fetch completed",
+  "mode": "full"
+ },
+ {
+  "from": "Dialog aborted",
+  "to": "对话框已中止/Dialog aborted",
+  "mode": "full"
+ },
+ {
+  "from": "Fetch failed",
+  "to": "抓取失败/Fetch failed",
+  "mode": "full"
+ },
+ {
+  "from": "Host to bind",
+  "to": "要绑定的主机/Host to bind",
+  "mode": "full"
+ },
+ {
+  "from": "broker not running",
+  "to": "broker 未运行/broker not running",
+  "mode": "full"
+ },
+ {
+  "from": "provider error",
+  "to": "提供商错误/provider error",
+  "mode": "full"
+ },
+ {
+  "from": "broker exited",
+  "to": "broker 已退出/broker exited",
+  "mode": "full"
+ },
+ {
+  "from": "missing token",
+  "to": "缺少 token/missing token",
+  "mode": "full"
+ },
+ {
+  "from": "Short (5m)",
+  "to": "短（5m）/Short (5m)",
+  "mode": "full"
+ },
+ {
+  "from": "Long (1h)",
+  "to": "长（1h）/Long (1h)",
+  "mode": "full"
+ },
+ {
+  "from": "e.g. \"ts errors",
+  "to": "例如「ts errors」/e.g. \"ts errors",
+  "mode": "full"
+ },
+ {
+  "from": "no processes",
+  "to": "没有进程/no processes",
+  "mode": "full"
+ },
+ {
+  "from": "process info",
+  "to": "进程信息/process info",
+  "mode": "full"
+ },
+ {
+  "from": "eval cell",
+  "to": "eval 单元/eval cell",
+  "mode": "full"
+ },
+ {
+  "from": "test turn",
+  "to": "测试回合/test turn",
+  "mode": "full"
+ },
+ {
+  "from": "7 Day",
+  "to": "7 天/7 Day",
+  "mode": "full"
+ },
+ {
+  "from": "ANSI-safe",
+  "to": "ANSI 安全/ANSI-safe",
+  "mode": "full"
+ },
+ {
+  "from": "Appearance",
+  "to": "外观/Appearance",
+  "mode": "full"
+ },
+ {
+  "from": "Auth",
+  "to": "认证/Auth",
+  "mode": "full"
+ },
+ {
+  "from": "Back",
+  "to": "返回/Back",
+  "mode": "full"
+ },
+ {
+  "from": "Bun Documentation",
+  "to": "Bun 文档/Bun Documentation",
+  "mode": "full"
+ },
+ {
+  "from": "Close",
+  "to": "关闭/Close",
+  "mode": "full"
+ },
+ {
+  "from": "Concurrency",
+  "to": "并发/Concurrency",
+  "mode": "full"
+ },
+ {
+  "from": "Code Mode initialization at session startup failed",
+  "to": "会话启动时 Code Mode 初始化失败/Code Mode initialization at session startup failed",
+  "mode": "full"
+ },
+ {
+  "from": "Codex Code Mode",
+  "to": "Codex Code Mode（Codex 代码模式）/Codex Code Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Codex Code Mode Direct Tools",
+  "to": "Codex Code Mode 直连工具/Codex Code Mode Direct Tools",
+  "mode": "full"
+ },
+ {
+  "from": "Settings \\u2192 Plugins: failed to load marketplace plugin settings",
+  "to": "Settings → Plugins：加载市场插件设置失败/Settings \\u2192 Plugins: failed to load marketplace plugin settings",
+  "mode": "full"
+ },
+ {
+  "from": "Extra tool names to keep directly callable alongside eval/ask/todo when Codex Code Mode is active.",
+  "to": "Codex Code Mode 激活时，除 eval/ask/todo 外保持可直接调用的额外工具名。/Extra tool names to keep directly callable alongside eval/ask/todo when Codex Code Mode is active.",
+  "mode": "full"
+ },
+ {
+  "from": "Code Mode reconcile after model change failed",
+  "to": "模型切换后 Code Mode 协调失败/Code Mode reconcile after model change failed",
+  "mode": "full"
+ },
+ {
+  "from": "Handoff cancelled.",
+  "to": "交接已取消。/Handoff cancelled.",
+  "mode": "full"
+ },
+ {
+  "from": "Handoff generation is already in progress.",
+  "to": "交接文档已在生成中。/Handoff generation is already in progress.",
+  "mode": "full"
+ },
+ {
+  "from": "Lazy local model context refresh failed",
+  "to": "本地模型上下文懒刷新失败/Lazy local model context refresh failed",
+  "mode": "full"
+ },
+ {
+  "from": "Summarize the session into a handoff document and compact in place",
+  "to": "将会话总结为交接文档并就地压缩/Summarize the session into a handoff document and compact in place",
+  "mode": "full"
+ },
+ {
+  "from": "Code Mode reconcile after setting change failed",
+  "to": "设置变更后 Code Mode 协调失败/Code Mode reconcile after setting change failed",
+  "mode": "full"
+ },
+ {
+  "from": "Context",
+  "to": "上下文/Context",
+  "mode": "full"
+ },
+ {
+  "from": "Custom",
+  "to": "自定义/Custom",
+  "mode": "full"
+ },
+ {
+  "from": "Daily",
+  "to": "每天/Daily",
+  "mode": "full"
+ },
+ {
+  "from": "Disabled",
+  "to": "已禁用/Disabled",
+  "mode": "full"
+ },
+ {
+  "from": "Done",
+  "to": "完成/Done",
+  "mode": "full"
+ },
+ {
+  "from": "Edit",
+  "to": "编辑/Edit",
+  "mode": "full"
+ },
+ {
+  "from": "Enabled",
+  "to": "已启用/Enabled",
+  "mode": "full"
+ },
+ {
+  "from": "Endpoint",
+  "to": "端点/Endpoint",
+  "mode": "full"
+ },
+ {
+  "from": "Extensions",
+  "to": "扩展/Extensions",
+  "mode": "full"
+ },
+ {
+  "from": "Files",
+  "to": "文件/Files",
+  "mode": "full"
+ },
+ {
+  "from": "Find files by glob pattern.",
+  "to": "按 glob 模式查找文件。/Find files by glob pattern.",
+  "mode": "full"
+ },
+ {
+  "from": "Find-replace",
+  "to": "查找替换/Find-replace",
+  "mode": "full"
+ },
+ {
+  "from": "Generate a speech audio file from text and write it to output_path. Two backends, selected by the providers.tts setting (auto|local|xai):",
+  "to": "从文本生成语音音频文件并写入 output_path。两个后端，由 providers.tts 设置选择（auto|local|xai）：/Generate a speech audio file from text and write it to output_path. Two backends, selected by the providers.tts setting (auto|local|xai):",
+  "mode": "full"
+ },
+ {
+  "from": "Goal",
+  "to": "目标/Goal",
+  "mode": "full"
+ },
+ {
+  "from": "Handoff",
+  "to": "交接/Handoff",
+  "mode": "full"
+ },
+ {
+  "from": "Hooks",
+  "to": "钩子/Hooks",
+  "mode": "full"
+ },
+ {
+  "from": "Inspect",
+  "to": "检查/Inspect",
+  "mode": "full"
+ },
+ {
+  "from": "Instructions",
+  "to": "指令/Instructions",
+  "mode": "full"
+ },
+ {
+  "from": "Interaction",
+  "to": "交互/Interaction",
+  "mode": "full"
+ },
+ {
+  "from": "Interval",
+  "to": "间隔/Interval",
+  "mode": "full"
+ },
+ {
+  "from": "Issue",
+  "to": "问题/Issue",
+  "mode": "full"
+ },
+ {
+  "from": "Light",
+  "to": "浅色/Light",
+  "mode": "full"
+ },
+ {
+  "from": "Maximum number of inline images kept as live terminal graphics (default 8). Older images fall back to a text placeholder via a full redraw once the limit is exceeded. Set to 0 to keep every image (no limit).",
+  "to": "作为实时终端图形保留的内联图片数量上限（默认 8）。超过上限后，较旧的图片将通过完全重绘回退为文本占位符。设为 0 可保留所有图片（无限制）。/Maximum number of inline images kept as live terminal graphics (default 8). Older images fall back to a text placeholder via a full redraw once the limit is exceeded. Set to 0 to keep every image (no limit).",
+  "mode": "full"
+ },
+ {
+  "from": "Memory",
+  "to": "记忆/Memory",
+  "mode": "full"
+ },
+ {
+  "from": "Messages",
+  "to": "消息/Messages",
+  "mode": "full"
+ },
+ {
+  "from": "Model",
+  "to": "模型/Model",
+  "mode": "full"
+ },
+ {
+  "from": "Monthly",
+  "to": "每月/Monthly",
+  "mode": "full"
+ },
+ {
+  "from": "Move",
+  "to": "移动/Move",
+  "mode": "full"
+ },
+ {
+  "from": "Native Client Executable",
+  "to": "本机客户端可执行文件/Native Client Executable",
+  "mode": "full"
+ },
+ {
+  "from": "No editor configured. Set $VISUAL or $EDITOR environment variable.",
+  "to": "未配置编辑器。请设置 $VISUAL 或 $EDITOR 环境变量。/No editor configured. Set $VISUAL or $EDITOR environment variable.",
+  "mode": "full"
+ },
+ {
+  "from": "Notify",
+  "to": "通知/Notify",
+  "mode": "full"
+ },
+ {
+  "from": "One paragraph: bug, trigger, impact",
+  "to": "一段话：bug、触发条件、影响/One paragraph: bug, trigger, impact",
+  "mode": "full"
+ },
+ {
+  "from": "P0-P3: 0 blocks release, 1 fix next cycle, 2 fix eventually, 3 nice to have",
+  "to": "P0-P3：0 阻塞发布，1 下个周期修复，2 最终修复，3 可有可无/P0-P3: 0 blocks release, 1 fix next cycle, 2 fix eventually, 3 nice to have",
+  "mode": "full"
+ },
+ {
+  "from": "Parallel",
+  "to": "并行/Parallel",
+  "mode": "full"
+ },
+ {
+  "from": "Percentage",
+  "to": "百分比/Percentage",
+  "mode": "full"
+ },
+ {
+  "from": "Persist the durable autoresearch playbook (goal, scope notes, hypotheses, ideas backlog) on the active session. Pass `body` to replace the entire notes blob, or `append_idea` to append a single bullet under an `## Ideas` section.",
+  "to": "在活动会话上持久化 durable autoresearch 剧本（目标、作用域说明、假设、想法积压）。传入 `body` 可替换整个笔记块，或传入 `append_idea` 在「## Ideas」小节下追加一个条目。/Persist the durable autoresearch playbook (goal, scope notes, hypotheses, ideas backlog) on the active session. Pass `body` to replace the entire notes blob, or `append_idea` to append a single bullet under an `## Ideas` section.",
+  "mode": "full"
+ },
+ {
+  "from": "Portable Document Format",
+  "to": "便携式文档格式/Portable Document Format",
+  "mode": "full"
+ },
+ {
+  "from": "Portable Native Client Executable",
+  "to": "便携式本机客户端可执行文件/Portable Native Client Executable",
+  "mode": "full"
+ },
+ {
+  "from": "Prefer runtime.AddCleanup over runtime.SetFinalizer for new code (Go 1.24)",
+  "to": "新代码优先使用 runtime.AddCleanup 而非 runtime.SetFinalizer（Go 1.24）/Prefer runtime.AddCleanup over runtime.SetFinalizer for new code (Go 1.24)",
+  "mode": "full"
+ },
+ {
+  "from": "Priority",
+  "to": "优先级/Priority",
+  "mode": "full"
+ },
+ {
+  "from": "Prompt",
+  "to": "提示词/Prompt",
+  "mode": "full"
+ },
+ {
+  "from": "Prompts",
+  "to": "提示词/Prompts",
+  "mode": "full"
+ },
+ {
+  "from": "Providers",
+  "to": "提供商/Providers",
+  "mode": "full"
+ },
+ {
+  "from": "Read",
+  "to": "读取/Read",
+  "mode": "full"
+ },
+ {
+  "from": "Read-only security specialist for evidence-backed repository vulnerability discovery",
+  "to": "只读安全专家，用于基于证据的仓库漏洞发现/Read-only security specialist for evidence-backed repository vulnerability discovery",
+  "mode": "full"
+ },
+ {
+  "from": "Report",
+  "to": "报告/Report",
+  "mode": "full"
+ },
+ {
+  "from": "Reset",
+  "to": "重置额度/Reset",
+  "mode": "full"
+ },
+ {
+  "from": "Retain",
+  "to": "保留/Retain",
+  "mode": "full"
+ },
+ {
+  "from": "Reuse",
+  "to": "复用/Reuse",
+  "mode": "full"
+ },
+ {
+  "from": "Rewrite",
+  "to": "重写/Rewrite",
+  "mode": "full"
+ },
+ {
+  "from": "Roles",
+  "to": "角色/Roles",
+  "mode": "full"
+ },
+ {
+  "from": "Rules",
+  "to": "规则/Rules",
+  "mode": "full"
+ },
+ {
+  "from": "Scans",
+  "to": "扫描/Scans",
+  "mode": "full"
+ },
+ {
+  "from": "Search file contents for a pattern.",
+  "to": "按模式搜索文件内容。/Search file contents for a pattern.",
+  "mode": "full"
+ },
+ {
+  "from": "Settings",
+  "to": "设置/Settings",
+  "mode": "full"
+ },
+ {
+  "from": "Skills",
+  "to": "技能/Skills",
+  "mode": "full"
+ },
+ {
+  "from": "Source",
+  "to": "来源/Source",
+  "mode": "full"
+ },
+ {
+  "from": "Steering",
+  "to": "引导/Steering",
+  "mode": "full"
+ },
+ {
+  "from": "Sub-command",
+  "to": "子命令/Sub-command",
+  "mode": "full"
+ },
+ {
+  "from": "Submit",
+  "to": "提交/Submit",
+  "mode": "full"
+ },
+ {
+  "from": "Summary",
+  "to": "摘要/Summary",
+  "mode": "full"
+ },
+ {
+  "from": "Terminal",
+  "to": "终端/Terminal",
+  "mode": "full"
+ },
+ {
+  "from": "Think",
+  "to": "思考/Think",
+  "mode": "full"
+ },
+ {
+  "from": "Todo",
+  "to": "待办/Todo",
+  "mode": "full"
+ },
+ {
+  "from": "Tools",
+  "to": "工具/Tools",
+  "mode": "full"
+ },
+ {
+  "from": "Transport",
+  "to": "传输/Transport",
+  "mode": "full"
+ },
+ {
+  "from": "Undo",
+  "to": "撤销/Undo",
+  "mode": "full"
+ },
+ {
+  "from": "Unlimited",
+  "to": "无限制/Unlimited",
+  "mode": "full"
+ },
+ {
+  "from": "Unset",
+  "to": "未设置/Unset",
+  "mode": "full"
+ },
+ {
+  "from": "Use for b.Loop() in benchmarks instead of the for i := 0; i < b.N; i++ loop (Go 1.24)",
+  "to": "在基准测试中使用 b.Loop()，而非 for i := 0; i < b.N; i++ 循环（Go 1.24）/Use for b.Loop() in benchmarks instead of the for i := 0; i < b.N; i++ loop (Go 1.24)",
+  "mode": "full"
+ },
+ {
+  "from": "Use for i := range n instead of the C-style for i := 0; i < n; i++ loop (Go 1.22)",
+  "to": "使用 for i := range n，而非 C 风格 for i := 0; i < n; i++ 循环（Go 1.22）/Use for i := range n instead of the C-style for i := 0; i < n; i++ loop (Go 1.22)",
+  "mode": "full"
+ },
+ {
+  "from": "Username",
+  "to": "用户名/Username",
+  "mode": "full"
+ },
+ {
+  "from": "Weekly",
+  "to": "每周/Weekly",
+  "mode": "full"
+ },
+ {
+  "from": "Write",
+  "to": "写入/Write",
+  "mode": "full"
+ }
+]

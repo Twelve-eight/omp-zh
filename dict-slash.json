@@ -1,0 +1,1662 @@
+[
+ {
+  "from": "Plan, run, inspect, import, and compare OMP-native security scans",
+  "to": "计划、运行、检查、导入和比较 OMP 原生安全扫描/Plan, run, inspect, import, and compare OMP-native security scans",
+  "mode": "full"
+ },
+ {
+  "from": "Create an immutable security scan plan",
+  "to": "创建不可变的安全扫描计划/Create an immutable security scan plan",
+  "mode": "full"
+ },
+ {
+  "from": "Start a planned or newly planned native scan",
+  "to": "启动已计划或新计划的原生扫描/Start a planned or newly planned native scan",
+  "mode": "full"
+ },
+ {
+  "from": "Show native scan operation status",
+  "to": "显示原生扫描操作状态/Show native scan operation status",
+  "mode": "full"
+ },
+ {
+  "from": "Cancel a running native scan",
+  "to": "取消正在运行的原生扫描/Cancel a running native scan",
+  "mode": "full"
+ },
+ {
+  "from": "List stored project security scans",
+  "to": "列出已存储的项目安全扫描/List stored project security scans",
+  "mode": "full"
+ },
+ {
+  "from": "Render a scan or security:// resource",
+  "to": "渲染扫描或 security:// 资源/Render a scan or security:// resource",
+  "mode": "full"
+ },
+ {
+  "from": "Import SARIF or a Codex Security bundle",
+  "to": "导入 SARIF 或 Codex Security 包/Import SARIF or a Codex Security bundle",
+  "mode": "full"
+ },
+ {
+  "from": "Export a canonical bundle, SARIF, or report",
+  "to": "导出规范包、SARIF 或报告/Export a canonical bundle, SARIF, or report",
+  "mode": "full"
+ },
+ {
+  "from": "Validate one finding with OMP-native tools",
+  "to": "用 OMP 原生工具验证一条发现/Validate one finding with OMP-native tools",
+  "mode": "full"
+ },
+ {
+  "from": "Compare finding lineage across two scans",
+  "to": "比较两次扫描之间的发现谱系/Compare finding lineage across two scans",
+  "mode": "full"
+ },
+ {
+  "from": "Set a finding disposition with rationale",
+  "to": "带理由设置发现的处置/Set a finding disposition with rationale",
+  "mode": "full"
+ },
+ {
+  "from": "Open settings menu",
+  "to": "打开设置菜单/Open settings menu",
+  "mode": "full"
+ },
+ {
+  "from": "Configure sign-in and web search providers",
+  "to": "配置登录和网页搜索提供商/Configure sign-in and web search providers",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle plan mode (agent plans before executing)",
+  "to": "切换计划模式（代理在执行前先规划）/Toggle plan mode (agent plans before executing)",
+  "mode": "full"
+ },
+ {
+  "from": "Re-open the plan review for the latest plan (plan mode only)",
+  "to": "重新打开最新计划的计划审查（仅计划模式）/Re-open the plan review for the latest plan (plan mode only)",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle vibe mode (direct persistent fast/good worker sessions; read-only toolset)",
+  "to": "切换 vibe 模式（直接持久化快速/优质工作会话；只读工具集）/Toggle vibe mode (direct persistent fast/good worker sessions; read-only toolset)",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle goal mode (persistent autonomous objective for this session)",
+  "to": "切换目标模式（本会话的持久自主目标）/Toggle goal mode (persistent autonomous objective for this session)",
+  "mode": "full"
+ },
+ {
+  "from": "Set or replace the goal",
+  "to": "设置或替换目标/Set or replace the goal",
+  "mode": "full"
+ },
+ {
+  "from": "Show current goal details",
+  "to": "显示当前目标详情/Show current goal details",
+  "mode": "full"
+ },
+ {
+  "from": "Pause the current goal",
+  "to": "暂停当前目标/Pause the current goal",
+  "mode": "full"
+ },
+ {
+  "from": "Resume a paused goal",
+  "to": "恢复已暂停的目标/Resume a paused goal",
+  "mode": "full"
+ },
+ {
+  "from": "Drop the current goal",
+  "to": "放弃当前目标/Drop the current goal",
+  "mode": "full"
+ },
+ {
+  "from": "Adjust the token budget",
+  "to": "调整 token 预算/Adjust the token budget",
+  "mode": "full"
+ },
+ {
+  "from": "Have the agent interview you in chat, then set up goal mode",
+  "to": "让代理在聊天中访谈你，然后设置目标模式/Have the agent interview you in chat, then set up goal mode",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle loop mode. While enabled, the next prompt you send re-submits after every yield. Esc cancels the current iteration; /loop again to disable.",
+  "to": "切换循环模式。启用后，你发送的下一条提示会在每次产出后重新提交。Esc 取消当前迭代；再次 /loop 可禁用。/Toggle loop mode. While enabled, the next prompt you send re-submits after every yield. Esc cancels the current iteration; /loop again to disable.",
+  "mode": "full"
+ },
+ {
+  "from": "Queue a message for after the agent yields",
+  "to": "排队一条消息供代理产出后发送/Queue a message for after the agent yields",
+  "mode": "full"
+ },
+ {
+  "from": "Switch model for this session (same as alt+p)",
+  "to": "为此会话切换模型（同 alt+p）/Switch model for this session (same as alt+p)",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle priority service tier (OpenAI service_tier=priority, Anthropic speed=fast)",
+  "to": "切换优先服务层级（OpenAI service_tier=priority，Anthropic speed=fast）/Toggle priority service tier (OpenAI service_tier=priority, Anthropic speed=fast)",
+  "mode": "full"
+ },
+ {
+  "from": "Enable fast mode",
+  "to": "启用快速模式/Enable fast mode",
+  "mode": "full"
+ },
+ {
+  "from": "Disable fast mode",
+  "to": "禁用快速模式/Disable fast mode",
+  "mode": "full"
+ },
+ {
+  "from": "Show fast mode status",
+  "to": "显示快速模式状态/Show fast mode status",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle the native computer-use tool for this session",
+  "to": "切换本会话的原生 computer-use 工具/Toggle the native computer-use tool for this session",
+  "mode": "full"
+ },
+ {
+  "from": "Enable computer use for this session",
+  "to": "为本会话启用 computer use/Enable computer use for this session",
+  "mode": "full"
+ },
+ {
+  "from": "Disable computer use for this session",
+  "to": "为本会话禁用 computer use/Disable computer use for this session",
+  "mode": "full"
+ },
+ {
+  "from": "Show computer use status",
+  "to": "显示 computer use 状态/Show computer use status",
+  "mode": "full"
+ },
+ {
+  "from": "Control the inspect_image vision-delegation tool for this session",
+  "to": "控制本会话的 inspect_image 视觉委派工具/Control the inspect_image vision-delegation tool for this session",
+  "mode": "full"
+ },
+ {
+  "from": "Always expose inspect_image this session",
+  "to": "本会话始终暴露 inspect_image/Always expose inspect_image this session",
+  "mode": "full"
+ },
+ {
+  "from": "Never expose inspect_image this session",
+  "to": "本会话绝不暴露 inspect_image/Never expose inspect_image this session",
+  "mode": "full"
+ },
+ {
+  "from": "Follow inspect_image.mode (auto hides it for vision-capable models)",
+  "to": "遵循 inspect_image.mode（对支持视觉的模型自动隐藏）/Follow inspect_image.mode (auto hides it for vision-capable models)",
+  "mode": "full"
+ },
+ {
+  "from": "Show inspect_image status",
+  "to": "显示 inspect_image 状态/Show inspect_image status",
+  "mode": "full"
+ },
+ {
+  "from": "Switch to a fast/cheap model at the next action (works even without --prewalk)",
+  "to": "在下一个动作切换到快速/便宜模型（即使没有 --prewalk 也有效）/Switch to a fast/cheap model at the next action (works even without --prewalk)",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle the advisor (a second model that reviews each turn and injects notes)",
+  "to": "切换 advisor（一个审查每轮并注入注释的第二个模型）/Toggle the advisor (a second model that reviews each turn and injects notes)",
+  "mode": "full"
+ },
+ {
+  "from": "Enable the advisor",
+  "to": "启用 advisor/Enable the advisor",
+  "mode": "full"
+ },
+ {
+  "from": "Disable the advisor",
+  "to": "禁用 advisor/Disable the advisor",
+  "mode": "full"
+ },
+ {
+  "from": "Show advisor status",
+  "to": "显示 advisor 状态/Show advisor status",
+  "mode": "full"
+ },
+ {
+  "from": "Copy the advisor's transcript to clipboard",
+  "to": "将 advisor 的对话记录复制到剪贴板/Copy the advisor's transcript to clipboard",
+  "mode": "full"
+ },
+ {
+  "from": "Open the advisor configuration editor (TUI)",
+  "to": "打开 advisor 配置编辑器（TUI）/Open the advisor configuration editor (TUI)",
+  "mode": "full"
+ },
+ {
+  "from": "Export session to HTML file",
+  "to": "将会话导出为 HTML 文件/Export session to HTML file",
+  "mode": "full"
+ },
+ {
+  "from": "Copy session transcript to clipboard (and write LLM request JSON to tmp)",
+  "to": "将会话对话记录复制到剪贴板（并把 LLM 请求 JSON 写入 tmp）/Copy session transcript to clipboard (and write LLM request JSON to tmp)",
+  "mode": "full"
+ },
+ {
+  "from": "Share session via an encrypted link (share server or secret gist)",
+  "to": "通过加密链接分享会话（分享服务器或 secret gist）/Share session via an encrypted link (share server or secret gist)",
+  "mode": "full"
+ },
+ {
+  "from": "Share this session live via a relay",
+  "to": "通过中继实时分享此会话/Share this session live via a relay",
+  "mode": "full"
+ },
+ {
+  "from": "Share a read-only link (guests can watch, not prompt)",
+  "to": "分享只读链接（访客可观看，不能提示）/Share a read-only link (guests can watch, not prompt)",
+  "mode": "full"
+ },
+ {
+  "from": "Show link + participants",
+  "to": "显示链接和参与者/Show link + participants",
+  "mode": "full"
+ },
+ {
+  "from": "Stop sharing",
+  "to": "停止分享/Stop sharing",
+  "mode": "full"
+ },
+ {
+  "from": "Join a shared collab session",
+  "to": "加入共享的协作会话/Join a shared collab session",
+  "mode": "full"
+ },
+ {
+  "from": "Leave the collab session",
+  "to": "离开协作会话/Leave the collab session",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle browser headless vs visible mode",
+  "to": "切换浏览器无头模式与可见模式/Toggle browser headless vs visible mode",
+  "mode": "full"
+ },
+ {
+  "from": "Switch to headless mode",
+  "to": "切换到无头模式/Switch to headless mode",
+  "mode": "full"
+ },
+ {
+  "from": "Switch to visible mode",
+  "to": "切换到可见模式/Switch to visible mode",
+  "mode": "full"
+ },
+ {
+  "from": "Pick text or code from the conversation to copy",
+  "to": "从对话中选取文本或代码以复制/Pick text or code from the conversation to copy",
+  "mode": "full"
+ },
+ {
+  "from": "View or modify the agent's todo list",
+  "to": "查看或修改代理的待办列表/View or modify the agent's todo list",
+  "mode": "full"
+ },
+ {
+  "from": "Open todos in $EDITOR (Markdown round-trip)",
+  "to": "在 $EDITOR 中打开待办（Markdown 往返）/Open todos in $EDITOR (Markdown round-trip)",
+  "mode": "full"
+ },
+ {
+  "from": "Copy todos as Markdown to clipboard",
+  "to": "将待办作为 Markdown 复制到剪贴板/Copy todos as Markdown to clipboard",
+  "mode": "full"
+ },
+ {
+  "from": "Write todos as Markdown to a file (default: TODO.md)",
+  "to": "将待办作为 Markdown 写入文件（默认：TODO.md）/Write todos as Markdown to a file (default: TODO.md)",
+  "mode": "full"
+ },
+ {
+  "from": "Replace todos from a Markdown file (default: TODO.md)",
+  "to": "从 Markdown 文件替换待办（默认：TODO.md）/Replace todos from a Markdown file (default: TODO.md)",
+  "mode": "full"
+ },
+ {
+  "from": "Append a task; phase fuzzy-matched or auto-created",
+  "to": "追加一个任务；阶段模糊匹配或自动创建/Append a task; phase fuzzy-matched or auto-created",
+  "mode": "full"
+ },
+ {
+  "from": "Mark task in_progress (fuzzy-matched)",
+  "to": "将任务标记为 in_progress（模糊匹配）/Mark task in_progress (fuzzy-matched)",
+  "mode": "full"
+ },
+ {
+  "from": "Mark task/phase/all completed (fuzzy-matched)",
+  "to": "将任务/阶段/全部标记为完成（模糊匹配）/Mark task/phase/all completed (fuzzy-matched)",
+  "mode": "full"
+ },
+ {
+  "from": "Mark task/phase/all abandoned (fuzzy-matched)",
+  "to": "将任务/阶段/全部标记为放弃（模糊匹配）/Mark task/phase/all abandoned (fuzzy-matched)",
+  "mode": "full"
+ },
+ {
+  "from": "Remove task/phase/all (fuzzy-matched)",
+  "to": "移除任务/阶段/全部（模糊匹配）/Remove task/phase/all (fuzzy-matched)",
+  "mode": "full"
+ },
+ {
+  "from": "Session management commands",
+  "to": "会话管理命令/Session management commands",
+  "mode": "full"
+ },
+ {
+  "from": "Show session info and stats",
+  "to": "显示会话信息和统计/Show session info and stats",
+  "mode": "full"
+ },
+ {
+  "from": "Delete current session and return to selector",
+  "to": "删除当前会话并返回选择器/Delete current session and return to selector",
+  "mode": "full"
+ },
+ {
+  "from": "Pin the current provider to a stored OAuth account",
+  "to": "将当前提供商固定到已存储的 OAuth 账户/Pin the current provider to a stored OAuth account",
+  "mode": "full"
+ },
+ {
+  "from": "Show async background jobs status",
+  "to": "显示异步后台任务状态/Show async background jobs status",
+  "mode": "full"
+ },
+ {
+  "from": "Show provider usage and limits",
+  "to": "显示提供商用量和限额/Show provider usage and limits",
+  "mode": "full"
+ },
+ {
+  "from": "Spend a saved Codex rate-limit reset",
+  "to": "使用一次已保存的 Codex 速率限制重置/Spend a saved Codex rate-limit reset",
+  "mode": "full"
+ },
+ {
+  "from": "Launch the local stats dashboard",
+  "to": "启动本地统计控制面板/Launch the local stats dashboard",
+  "mode": "full"
+ },
+ {
+  "from": "Show changelog entries",
+  "to": "显示变更日志条目/Show changelog entries",
+  "mode": "full"
+ },
+ {
+  "from": "Show complete changelog",
+  "to": "显示完整变更日志/Show complete changelog",
+  "mode": "full"
+ },
+ {
+  "from": "Show all keyboard shortcuts",
+  "to": "显示所有快捷键/Show all keyboard shortcuts",
+  "mode": "full"
+ },
+ {
+  "from": "Show tools currently visible to the agent",
+  "to": "显示当前对代理可见的工具/Show tools currently visible to the agent",
+  "mode": "full"
+ },
+ {
+  "from": "Show estimated context usage breakdown",
+  "to": "显示估算的上下文用量分解/Show estimated context usage breakdown",
+  "mode": "full"
+ },
+ {
+  "from": "Open Agent Control Center dashboard",
+  "to": "打开代理控制中心控制面板/Open Agent Control Center dashboard",
+  "mode": "full"
+ },
+ {
+  "from": "Create a new branch from a previous message",
+  "to": "从先前消息创建新分支/Create a new branch from a previous message",
+  "mode": "full"
+ },
+ {
+  "from": "Create a new fork from a previous message",
+  "to": "从先前消息创建新 fork/Create a new fork from a previous message",
+  "mode": "full"
+ },
+ {
+  "from": "Navigate session tree (switch branches)",
+  "to": "导航会话树（切换分支）/Navigate session tree (switch branches)",
+  "mode": "full"
+ },
+ {
+  "from": "Login with OAuth provider",
+  "to": "使用 OAuth 提供商登录/Login with OAuth provider",
+  "mode": "full"
+ },
+ {
+  "from": "Logout from OAuth provider",
+  "to": "从 OAuth 提供商登出/Logout from OAuth provider",
+  "mode": "full"
+ },
+ {
+  "from": "Manage MCP servers (add, list, remove, test)",
+  "to": "管理 MCP 服务器（添加、列出、移除、测试）/Manage MCP servers (add, list, remove, test)",
+  "mode": "full"
+ },
+ {
+  "from": "Add a new MCP server",
+  "to": "添加新的 MCP 服务器/Add a new MCP server",
+  "mode": "full"
+ },
+ {
+  "from": "List all configured MCP servers",
+  "to": "列出所有已配置的 MCP 服务器/List all configured MCP servers",
+  "mode": "full"
+ },
+ {
+  "from": "Remove an MCP server",
+  "to": "移除一个 MCP 服务器/Remove an MCP server",
+  "mode": "full"
+ },
+ {
+  "from": "Test connection to a server",
+  "to": "测试到服务器的连接/Test connection to a server",
+  "mode": "full"
+ },
+ {
+  "from": "Reauthorize OAuth for a server",
+  "to": "为服务器重新授权 OAuth/Reauthorize OAuth for a server",
+  "mode": "full"
+ },
+ {
+  "from": "Remove OAuth auth from a server",
+  "to": "从服务器移除 OAuth 认证/Remove OAuth auth from a server",
+  "mode": "full"
+ },
+ {
+  "from": "Enable an MCP server",
+  "to": "启用一个 MCP 服务器/Enable an MCP server",
+  "mode": "full"
+ },
+ {
+  "from": "Disable an MCP server",
+  "to": "禁用一个 MCP 服务器/Disable an MCP server",
+  "mode": "full"
+ },
+ {
+  "from": "Search Smithery registry and deploy an MCP server",
+  "to": "搜索 Smithery 注册表并部署一个 MCP 服务器/Search Smithery registry and deploy an MCP server",
+  "mode": "full"
+ },
+ {
+  "from": "Login to Smithery and cache API key",
+  "to": "登录 Smithery 并缓存 API 密钥/Login to Smithery and cache API key",
+  "mode": "full"
+ },
+ {
+  "from": "Remove cached Smithery API key",
+  "to": "移除缓存的 Smithery API 密钥/Remove cached Smithery API key",
+  "mode": "full"
+ },
+ {
+  "from": "Reconnect to a specific MCP server",
+  "to": "重新连接到指定 MCP 服务器/Reconnect to a specific MCP server",
+  "mode": "full"
+ },
+ {
+  "from": "Force reload MCP runtime tools",
+  "to": "强制重载 MCP 运行时工具/Force reload MCP runtime tools",
+  "mode": "full"
+ },
+ {
+  "from": "List available resources from connected servers",
+  "to": "列出已连接服务器上的可用资源/List available resources from connected servers",
+  "mode": "full"
+ },
+ {
+  "from": "List available prompts from connected servers",
+  "to": "列出已连接服务器上的可用提示/List available prompts from connected servers",
+  "mode": "full"
+ },
+ {
+  "from": "Show notification capabilities and subscriptions",
+  "to": "显示通知能力和订阅/Show notification capabilities and subscriptions",
+  "mode": "full"
+ },
+ {
+  "from": "Show help message",
+  "to": "显示帮助消息/Show help message",
+  "mode": "full"
+ },
+ {
+  "from": "Manage SSH hosts (add, list, remove)",
+  "to": "管理 SSH 主机（添加、列出、移除）/Manage SSH hosts (add, list, remove)",
+  "mode": "full"
+ },
+ {
+  "from": "Add an SSH host",
+  "to": "添加一个 SSH 主机/Add an SSH host",
+  "mode": "full"
+ },
+ {
+  "from": "List all configured SSH hosts",
+  "to": "列出所有已配置的 SSH 主机/List all configured SSH hosts",
+  "mode": "full"
+ },
+ {
+  "from": "Remove an SSH host",
+  "to": "移除一个 SSH 主机/Remove an SSH host",
+  "mode": "full"
+ },
+ {
+  "from": "Start a new session",
+  "to": "启动新会话/Start a new session",
+  "mode": "full"
+ },
+ {
+  "from": "Reset provider stream state without changing the local transcript",
+  "to": "在不改变本地对话记录的情况下重置提供商流状态/Reset provider stream state without changing the local transcript",
+  "mode": "full"
+ },
+ {
+  "from": "Clear the conversation context in place, keeping the session",
+  "to": "原地清空对话上下文，保留会话/Clear the conversation context in place, keeping the session",
+  "mode": "full"
+ },
+ {
+  "from": "Delete the current session and start a new one",
+  "to": "删除当前会话并启动新会话/Delete the current session and start a new one",
+  "mode": "full"
+ },
+ {
+  "from": "Manually compact the session context",
+  "to": "手动压缩会话上下文/Manually compact the session context",
+  "mode": "full"
+ },
+ {
+  "from": "Drop heavy content from context (tool results, large blocks)",
+  "to": "从上下文丢弃重内容（工具结果、大块）/Drop heavy content from context (tool results, large blocks)",
+  "mode": "full"
+ },
+ {
+  "from": "Strip tool results + large blocks (default)",
+  "to": "剥离工具结果和大块（默认）/Strip tool results + large blocks (default)",
+  "mode": "full"
+ },
+ {
+  "from": "Strip image blocks",
+  "to": "剥离图像块/Strip image blocks",
+  "mode": "full"
+ },
+ {
+  "from": "Hand off session context to a new session",
+  "to": "将会话上下文移交给新会话/Hand off session context to a new session",
+  "mode": "full"
+ },
+ {
+  "from": "Resume a different session",
+  "to": "恢复另一个会话/Resume a different session",
+  "mode": "full"
+ },
+ {
+  "from": "Ask an ephemeral side question using the current session context",
+  "to": "使用当前会话上下文提出一个临时旁路问题/Ask an ephemeral side question using the current session context",
+  "mode": "full"
+ },
+ {
+  "from": "Run a full background agent on tangential work",
+  "to": "在旁路工作上运行一个完整后台代理/Run a full background agent on tangential work",
+  "mode": "full"
+ },
+ {
+  "from": "Forge a TTSR rule from a complaint to stop a recurring behavior",
+  "to": "从投诉中打造一条 TTSR 规则以停止重复行为/Forge a TTSR rule from a complaint to stop a recurring behavior",
+  "mode": "full"
+ },
+ {
+  "from": "Retry the last failed agent turn",
+  "to": "重试上次失败的代理轮次/Retry the last failed agent turn",
+  "mode": "full"
+ },
+ {
+  "from": "Open debug tools selector",
+  "to": "打开调试工具选择器/Open debug tools selector",
+  "mode": "full"
+ },
+ {
+  "from": "Inspect and operate memory maintenance",
+  "to": "检查并操作内存维护/Inspect and operate memory maintenance",
+  "mode": "full"
+ },
+ {
+  "from": "Show current memory injection payload",
+  "to": "显示当前内存注入负载/Show current memory injection payload",
+  "mode": "full"
+ },
+ {
+  "from": "Show memory backend statistics",
+  "to": "显示内存后端统计/Show memory backend statistics",
+  "mode": "full"
+ },
+ {
+  "from": "Run memory backend diagnostics",
+  "to": "运行内存后端诊断/Run memory backend diagnostics",
+  "mode": "full"
+ },
+ {
+  "from": "Clear persisted memory data and artifacts",
+  "to": "清空持久化内存数据和工件/Clear persisted memory data and artifacts",
+  "mode": "full"
+ },
+ {
+  "from": "Alias for clear",
+  "to": "清空的别名/Alias for clear",
+  "mode": "full"
+ },
+ {
+  "from": "Enqueue memory consolidation maintenance",
+  "to": "将内存整合维护入队/Enqueue memory consolidation maintenance",
+  "mode": "full"
+ },
+ {
+  "from": "Alias for enqueue",
+  "to": "入队的别名/Alias for enqueue",
+  "mode": "full"
+ },
+ {
+  "from": "List mental models on the active bank",
+  "to": "列出活动库上的心智模型/List mental models on the active bank",
+  "mode": "full"
+ },
+ {
+  "from": "Show one mental model (id required)",
+  "to": "显示一个心智模型（需要 id）/Show one mental model (id required)",
+  "mode": "full"
+ },
+ {
+  "from": "Refresh auto-refresh models bank-wide, or one model by id",
+  "to": "刷新全库的自动刷新模型，或按 id 刷新一个模型/Refresh auto-refresh models bank-wide, or one model by id",
+  "mode": "full"
+ },
+ {
+  "from": "Diff the change history of a mental model",
+  "to": "对比一个心智模型的变更历史/Diff the change history of a mental model",
+  "mode": "full"
+ },
+ {
+  "from": "Create any built-in mental models that are missing",
+  "to": "创建所有缺失的内置心智模型/Create any built-in mental models that are missing",
+  "mode": "full"
+ },
+ {
+  "from": "Delete a mental model from the bank (id required)",
+  "to": "从库中删除一个心智模型（需要 id）/Delete a mental model from the bank (id required)",
+  "mode": "full"
+ },
+ {
+  "from": "Re-pull the cached <mental_models> block",
+  "to": "重新拉取缓存的 <mental_models> 块/Re-pull the cached <mental_models> block",
+  "mode": "full"
+ },
+ {
+  "from": "Rename the current session",
+  "to": "重命名当前会话/Rename the current session",
+  "mode": "full"
+ },
+ {
+  "from": "Move the current session to a different directory",
+  "to": "将当前会话移动到不同目录/Move the current session to a different directory",
+  "mode": "full"
+ },
+ {
+  "from": "Add a workspace directory to this session (multi-root)",
+  "to": "为本会话添加工作区目录（多根）/Add a workspace directory to this session (multi-root)",
+  "mode": "full"
+ },
+ {
+  "from": "Remove a workspace directory from this session",
+  "to": "从本会话移除工作区目录/Remove a workspace directory from this session",
+  "mode": "full"
+ },
+ {
+  "from": "List this session's workspace directories",
+  "to": "列出本会话的工作区目录/List this session's workspace directories",
+  "mode": "full"
+ },
+ {
+  "from": "Exit the application",
+  "to": "退出应用程序/Exit the application",
+  "mode": "full"
+ },
+ {
+  "from": "Manage marketplace plugin sources and installed plugins",
+  "to": "管理市场插件源和已安装插件/Manage marketplace plugin sources and installed plugins",
+  "mode": "full"
+ },
+ {
+  "from": "Add a marketplace source",
+  "to": "添加一个市场源/Add a marketplace source",
+  "mode": "full"
+ },
+ {
+  "from": "Remove a marketplace source",
+  "to": "移除一个市场源/Remove a marketplace source",
+  "mode": "full"
+ },
+ {
+  "from": "Update marketplace catalog(s)",
+  "to": "更新市场目录/Update marketplace catalog(s)",
+  "mode": "full"
+ },
+ {
+  "from": "List configured marketplaces",
+  "to": "列出已配置的市场/List configured marketplaces",
+  "mode": "full"
+ },
+ {
+  "from": "Browse available plugins",
+  "to": "浏览可用插件/Browse available plugins",
+  "mode": "full"
+ },
+ {
+  "from": "Install a plugin (interactive browser if no args)",
+  "to": "安装插件（无参数时交互式浏览器）/Install a plugin (interactive browser if no args)",
+  "mode": "full"
+ },
+ {
+  "from": "Uninstall a plugin (selector if no args)",
+  "to": "卸载插件（无参数时选择器）/Uninstall a plugin (selector if no args)",
+  "mode": "full"
+ },
+ {
+  "from": "List installed marketplace plugins",
+  "to": "列出已安装的市场插件/List installed marketplace plugins",
+  "mode": "full"
+ },
+ {
+  "from": "Upgrade outdated plugins",
+  "to": "升级过时的插件/Upgrade outdated plugins",
+  "mode": "full"
+ },
+ {
+  "from": "Show usage guide",
+  "to": "显示使用指南/Show usage guide",
+  "mode": "full"
+ },
+ {
+  "from": "View and manage installed plugins",
+  "to": "查看并管理已安装插件/View and manage installed plugins",
+  "mode": "full"
+ },
+ {
+  "from": "List all installed plugins (npm + marketplace)",
+  "to": "列出所有已安装插件（npm + 市场）/List all installed plugins (npm + marketplace)",
+  "mode": "full"
+ },
+ {
+  "from": "Enable a marketplace plugin",
+  "to": "启用一个市场插件/Enable a marketplace plugin",
+  "mode": "full"
+ },
+ {
+  "from": "Disable a marketplace plugin",
+  "to": "禁用一个市场插件/Disable a marketplace plugin",
+  "mode": "full"
+ },
+ {
+  "from": "Reload all plugins (skills, commands, hooks, tools, agents, MCP)",
+  "to": "重载所有插件（技能、命令、钩子、工具、代理、MCP）/Reload all plugins (skills, commands, hooks, tools, agents, MCP)",
+  "mode": "full"
+ },
+ {
+  "from": "Force next turn to use a specific tool",
+  "to": "强制下一轮使用指定工具/Force next turn to use a specific tool",
+  "mode": "full"
+ },
+ {
+  "from": "Start Codex-backed realtime voice mode",
+  "to": "启动 Codex 驱动的实时语音模式/Start Codex-backed realtime voice mode",
+  "mode": "full"
+ },
+ {
+  "from": "Freeze all agents (main, subagents, advisor) until resumed",
+  "to": "冻结所有代理（主代理、子代理、advisor）直到恢复/Freeze all agents (main, subagents, advisor) until resumed",
+  "mode": "full"
+ },
+ {
+  "from": "Open provider setup",
+  "to": "打开提供商设置/Open provider setup",
+  "mode": "full"
+ },
+ {
+  "from": "Switch model for this session",
+  "to": "切换本会话的模型/Switch model for this session",
+  "mode": "full"
+ },
+ {
+  "from": "Open Extension Control Center dashboard",
+  "to": "打开扩展控制中心面板/Open Extension Control Center dashboard",
+  "mode": "full"
+ },
+ {
+  "from": "Quit the application",
+  "to": "退出应用/Quit the application",
+  "mode": "full"
+ },
+ {
+  "from": "Rewrite a text file into the dense prompt register, reporting what it drops",
+  "to": "把文本文件改写进密集提示寄存器，并报告丢弃了什么/Rewrite a text file into the dense prompt register, reporting what it drops",
+  "mode": "full"
+ },
+ {
+  "from": "Files or glob patterns to compress",
+  "to": "要压缩的文件或 glob 模式/Files or glob patterns to compress",
+  "mode": "full"
+ },
+ {
+  "from": "Push after committing",
+  "to": "提交后推送/Push after committing",
+  "mode": "full"
+ },
+ {
+  "from": "Preview without committing",
+  "to": "仅预览，不提交/Preview without committing",
+  "mode": "full"
+ },
+ {
+  "from": "Skip changelog updates",
+  "to": "跳过变更日志更新/Skip changelog updates",
+  "mode": "full"
+ },
+ {
+  "from": "Use legacy deterministic pipeline",
+  "to": "使用旧版确定性管线/Use legacy deterministic pipeline",
+  "mode": "full"
+ },
+ {
+  "from": "Setting key",
+  "to": "设置键名/Setting key",
+  "mode": "full"
+ },
+ {
+  "from": "Value (for set/reset)",
+  "to": "值（用于 set/reset）/Value (for set/reset)",
+  "mode": "full"
+ },
+ {
+  "from": "Output JSON",
+  "to": "输出 JSON/Output JSON",
+  "mode": "full"
+ },
+ {
+  "from": "Model selector (provider/model or fuzzy id). Defaults to the configured default model.",
+  "to": "模型选择器（provider/model 或模糊 id）。默认为已配置的默认模型。/Model selector (provider/model or fuzzy id). Defaults to the configured default model.",
+  "mode": "full"
+ },
+ {
+  "from": "Model selector (same syntax as --model on omp)",
+  "to": "模型选择器（语法同 omp 的 --model）/Model selector (same syntax as --model on omp)",
+  "mode": "full"
+ },
+ {
+  "from": "Number of random session ids to try",
+  "to": "要尝试的随机会话 ID 数量/Number of random session ids to try",
+  "mode": "full"
+ },
+ {
+  "from": "Maximum concurrent credential resolutions",
+  "to": "并发凭据解析上限/Maximum concurrent credential resolutions",
+  "mode": "full"
+ },
+ {
+  "from": "Send one live benchmark request per OAuth account",
+  "to": "向每个 OAuth 账户发送一次实时基准请求/Send one live benchmark request per OAuth account",
+  "mode": "full"
+ },
+ {
+  "from": "Strip ANSI styling from the output",
+  "to": "去除输出中的 ANSI 样式/Strip ANSI styling from the output",
+  "mode": "full"
+ },
+ {
+  "from": "Capture the rendered output as PNG screenshot(s) via VHS instead of printing ANSI (requires vhs)",
+  "to": "通过 VHS 将渲染输出捕获为 PNG 截图而非打印 ANSI（需要 vhs）/Capture the rendered output as PNG screenshot(s) via VHS instead of printing ANSI (requires vhs)",
+  "mode": "full"
+ },
+ {
+  "from": "Screenshot font family (default: JetBrainsMono Nerd Font)",
+  "to": "截图字体族（默认：JetBrainsMono Nerd Font）/Screenshot font family (default: JetBrainsMono Nerd Font)",
+  "mode": "full"
+ },
+ {
+  "from": "Screenshot font size in points (default: 18)",
+  "to": "截图字号（磅，默认：18）/Screenshot font size in points (default: 18)",
+  "mode": "full"
+ },
+ {
+  "from": "Apply changes (default is dry-run)",
+  "to": "应用更改（默认仅试运行）/Apply changes (default is dry-run)",
+  "mode": "full"
+ },
+ {
+  "from": "Agent directory to maintain",
+  "to": "要维护的代理目录/Agent directory to maintain",
+  "mode": "full"
+ },
+ {
+  "from": "Sweep unreferenced blobs",
+  "to": "清扫未引用的 blob/Sweep unreferenced blobs",
+  "mode": "full"
+ },
+ {
+  "from": "Archive cold sessions",
+  "to": "归档冷会话/Archive cold sessions",
+  "mode": "full"
+ },
+ {
+  "from": "Checkpoint history/model database WAL files",
+  "to": "对历史/模型数据库的 WAL 文件做检查点/Checkpoint history/model database WAL files",
+  "mode": "full"
+ },
+ {
+  "from": "Minimum session age before archiving",
+  "to": "归档前的最短会话存续时间/Minimum session age before archiving",
+  "mode": "full"
+ },
+ {
+  "from": "Always keep this many newest sessions active",
+  "to": "始终保留最新 N 个会话为活跃状态/Always keep this many newest sessions active",
+  "mode": "full"
+ },
+ {
+  "from": "Always keep this many newest sessions per cwd active",
+  "to": "每个工作目录始终保留最新 N 个会话为活跃状态/Always keep this many newest sessions per cwd active",
+  "mode": "full"
+ },
+ {
+  "from": "Delete a single grievance by id (clean)",
+  "to": "按 ID 删除单条上报问题（clean）/Delete a single grievance by id (clean)",
+  "mode": "full"
+ },
+ {
+  "from": "Delete every grievance (clean)",
+  "to": "删除全部上报问题（clean）/Delete every grievance (clean)",
+  "mode": "full"
+ },
+ {
+  "from": "Filter/search substring, or provider name (required for find)",
+  "to": "过滤/搜索子串，或提供商名称（find 必填）/Filter/search substring, or provider name (required for find)",
+  "mode": "full"
+ },
+ {
+  "from": "Packages, paths, or plugin names",
+  "to": "包、路径或插件名/Packages, paths, or plugin names",
+  "mode": "full"
+ },
+ {
+  "from": "Attempt to fix issues (doctor)",
+  "to": "尝试修复问题（doctor）/Attempt to fix issues (doctor)",
+  "mode": "full"
+ },
+ {
+  "from": "Force install",
+  "to": "强制安装/Force install",
+  "mode": "full"
+ },
+ {
+  "from": "Show actions without applying changes",
+  "to": "只展示将执行的操作，不实际更改/Show actions without applying changes",
+  "mode": "full"
+ },
+ {
+  "from": "Enable a feature",
+  "to": "启用某功能/Enable a feature",
+  "mode": "full"
+ },
+ {
+  "from": "Disable a feature",
+  "to": "禁用某功能/Disable a feature",
+  "mode": "full"
+ },
+ {
+  "from": "Set plugin config (key=value)",
+  "to": "设置插件配置（key=value）/Set plugin config (key=value)",
+  "mode": "full"
+ },
+ {
+  "from": "Install scope: \"user\" (default) or \"project\"",
+  "to": "安装作用域：「user」（默认）或「project」/Install scope: \"user\" (default) or \"project\"",
+  "mode": "full"
+ },
+ {
+  "from": "Session id (prefix) or path to a session .jsonl",
+  "to": "会话 ID（前缀）或会话 .jsonl 文件路径/Session id (prefix) or path to a session .jsonl",
+  "mode": "full"
+ },
+ {
+  "from": "Upload to a secret GitHub gist instead of the share server",
+  "to": "上传到私密 GitHub gist 而非分享服务器/Upload to a secret GitHub gist instead of the share server",
+  "mode": "full"
+ },
+ {
+  "from": "Output status as JSON",
+  "to": "以 JSON 输出状态/Output status as JSON",
+  "mode": "full"
+ },
+ {
+  "from": "Skip sourcing snapshot from user shell",
+  "to": "跳过从用户 shell 加载快照/Skip sourcing snapshot from user shell",
+  "mode": "full"
+ },
+ {
+  "from": "Host address",
+  "to": "主机地址/Host address",
+  "mode": "full"
+ },
+ {
+  "from": "Port number",
+  "to": "端口号/Port number",
+  "mode": "full"
+ },
+ {
+  "from": "Identity key path",
+  "to": "身份密钥路径/Identity key path",
+  "mode": "full"
+ },
+ {
+  "from": "Host description",
+  "to": "主机描述/Host description",
+  "mode": "full"
+ },
+ {
+  "from": "Enable compatibility mode",
+  "to": "启用兼容模式/Enable compatibility mode",
+  "mode": "full"
+ },
+ {
+  "from": "Config scope (project|user)",
+  "to": "配置作用域（project|user）/Config scope (project|user)",
+  "mode": "full"
+ },
+ {
+  "from": "Output the raw credential value without parsing nested JSON structures",
+  "to": "输出原始凭据值，不解析嵌套 JSON 结构/Output the raw credential value without parsing nested JSON structures",
+  "mode": "full"
+ },
+ {
+  "from": "Force refresh the OAuth token even if it has not expired",
+  "to": "即使 OAuth 令牌未过期也强制刷新/Force refresh the OAuth token even if it has not expired",
+  "mode": "full"
+ },
+ {
+  "from": "Inline snippet text to test (ttsr test) or directory to scan (ttsr scan)",
+  "to": "待测试的内联代码片段（ttsr test）或待扫描目录（ttsr scan）/Inline snippet text to test (ttsr test) or directory to scan (ttsr scan)",
+  "mode": "full"
+ },
+ {
+  "from": "Snippet file path, or - for stdin (ttsr test)",
+  "to": "片段文件路径，「-」表示标准输入（ttsr test）/Snippet file path, or - for stdin (ttsr test)",
+  "mode": "full"
+ },
+ {
+  "from": "Match source: text, thinking, or tool (inferred from --file when omitted)",
+  "to": "匹配来源：text、thinking 或 tool（省略时由 --file 推断）/Match source: text, thinking, or tool (inferred from --file when omitted)",
+  "mode": "full"
+ },
+ {
+  "from": "Tool name when source is tool (e.g. edit, write); defaults to edit",
+  "to": "来源为 tool 时的工具名（如 edit、write）；默认 edit/Tool name when source is tool (e.g. edit, write); defaults to edit",
+  "mode": "full"
+ },
+ {
+  "from": "Include files excluded by .gitignore (ttsr scan)",
+  "to": "包含被 .gitignore 排除的文件（ttsr scan）/Include files excluded by .gitignore (ttsr scan)",
+  "mode": "full"
+ },
+ {
+  "from": "Maximum file size to scan in bytes; 0 disables the limit (ttsr scan)",
+  "to": "扫描的最大文件大小（字节）；0 表示不限制（ttsr scan）/Maximum file size to scan in bytes; 0 disables the limit (ttsr scan)",
+  "mode": "full"
+ },
+ {
+  "from": "Show recorded usage-limit history (hourly snapshots) instead of a live snapshot",
+  "to": "显示记录的用量限额历史（每小时快照）而非实时快照/Show recorded usage-limit history (hourly snapshots) instead of a live snapshot",
+  "mode": "full"
+ },
+ {
+  "from": "Clear every entry, including live PR-checkout worktrees (clear)",
+  "to": "清除所有条目，包括活跃的 PR-checkout worktree（clear）/Clear every entry, including live PR-checkout worktrees (clear)",
+  "mode": "full"
+ },
+ {
+  "from": "Output directory (overrides --user/--project)",
+  "to": "输出目录（覆盖 --user/--project）/Output directory (overrides --user/--project)",
+  "mode": "full"
+ },
+ {
+  "from": "Write to ~/.omp/agent/agents (default)",
+  "to": "写入 ~/.omp/agent/agents（默认）/Write to ~/.omp/agent/agents (default)",
+  "mode": "full"
+ },
+ {
+  "from": "Write to ./.omp/agents",
+  "to": "写入 ./.omp/agents/Write to ./.omp/agents",
+  "mode": "full"
+ },
+ {
+  "from": "Regenerate the bearer token",
+  "to": "重新生成持有者令牌/Regenerate the bearer token",
+  "mode": "full"
+ },
+ {
+  "from": "SSH user@host for remote login (login --via=user@host)",
+  "to": "远程登录用的 SSH user@host（login --via=user@host）/SSH user@host for remote login (login --via=user@host)",
+  "mode": "full"
+ },
+ {
+  "from": "Import credentials whose JSON has `disabled: true` (import)",
+  "to": "导入 JSON 中含 `disabled: true` 的凭据（import）/Import credentials whose JSON has `disabled: true` (import)",
+  "mode": "full"
+ },
+ {
+  "from": "migrate source: local SQLite + env vars (required for `migrate`)",
+  "to": "迁移来源：本地 SQLite + 环境变量（`migrate` 必填）/migrate source: local SQLite + env vars (required for `migrate`)",
+  "mode": "full"
+ },
+ {
+  "from": "Capture env-var API keys for providers not yet on broker (migrate)",
+  "to": "捕获尚未加入 broker 的提供商的环境变量 API 密钥（migrate）/Capture env-var API keys for providers not yet on broker (migrate)",
+  "mode": "full"
+ },
+ {
+  "from": "Also upload OAuth from local SQLite during migrate (default skips them)",
+  "to": "迁移时同时上传本地 SQLite 中的 OAuth（默认跳过）/Also upload OAuth from local SQLite during migrate (default skips them)",
+  "mode": "full"
+ },
+ {
+  "from": "Print actions without executing (import / login --via / migrate)",
+  "to": "只打印将执行的操作，不实际执行（import / login --via / migrate）/Print actions without executing (import / login --via / migrate)",
+  "mode": "full"
+ },
+ {
+  "from": "Output JSON (token/status/check)",
+  "to": "以 JSON 输出（token/status/check）/Output JSON (token/status/check)",
+  "mode": "full"
+ },
+ {
+  "from": "Regenerate the gateway bearer token (token)",
+  "to": "重新生成网关持有者令牌（token）/Regenerate the gateway bearer token (token)",
+  "mode": "full"
+ },
+ {
+  "from": "For `check`: additionally probe each credential against its provider's chat-completion endpoint. Slower; consumes a tiny amount of quota per credential.",
+  "to": "「check」附加项：进一步用每个凭据探测其提供商的 chat-completion 端点。较慢；每个凭据消耗极少量配额。/For `check`: additionally probe each credential against its provider's chat-completion endpoint. Slower; consumes a tiny amount of quota per credential.",
+  "mode": "full"
+ },
+ {
+  "from": "Requests per model (results are averaged; default: 10)",
+  "to": "每模型请求数（结果取平均；默认：10）/Requests per model (results are averaged; default: 10)",
+  "mode": "full"
+ },
+ {
+  "from": "Max output tokens per request (default: 512; cache mode: 64)",
+  "to": "每请求最大输出 token 数（默认：512；缓存模式：64）/Max output tokens per request (default: 512; cache mode: 64)",
+  "mode": "full"
+ },
+ {
+  "from": "Custom prompt text (default: bundled bench prompt)",
+  "to": "自定义提示词文本（默认：内置基准提示词）/Custom prompt text (default: bundled bench prompt)",
+  "mode": "full"
+ },
+ {
+  "from": "Service tier applied per model family (default: configured `tier.*` settings; `none` omits it)",
+  "to": "按模型家族应用的服务层级（默认：已配置的 `tier.*` 设置；`none` 表示不使用）/Service tier applied per model family (default: configured `tier.*` settings; `none` omits it)",
+  "mode": "full"
+ },
+ {
+  "from": "Execute runs with N parallel queries/requests (default: 4)",
+  "to": "以 N 路并行查询/请求执行测试（默认：4）/Execute runs with N parallel queries/requests (default: 4)",
+  "mode": "full"
+ },
+ {
+  "from": "Run independent cold/warm prompt-cache pairs (not supported for openai-codex-responses)",
+  "to": "运行独立的冷/热提示缓存配对（openai-codex-responses 不支持）/Run independent cold/warm prompt-cache pairs (not supported for openai-codex-responses)",
+  "mode": "full"
+ },
+ {
+  "from": "Stable prompt prefix file for --cache",
+  "to": "--cache 使用的稳定提示前缀文件/Stable prompt prefix file for --cache",
+  "mode": "full"
+ },
+ {
+  "from": "Stable prefix byte budget for --cache (default: 8192)",
+  "to": "--cache 的稳定前缀字节预算（默认：8192）/Stable prefix byte budget for --cache (default: 8192)",
+  "mode": "full"
+ },
+ {
+  "from": "Cold/warm pairs per model for --cache (default: 1)",
+  "to": "--cache 下每模型的冷/热配对数（默认：1）/Cold/warm pairs per model for --cache (default: 1)",
+  "mode": "full"
+ },
+ {
+  "from": "Concurrent cache pairs for --cache; each pair remains sequential (default: 1)",
+  "to": "--cache 的并发缓存配对数；每对内部保持串行（默认：1）/Concurrent cache pairs for --cache; each pair remains sequential (default: 1)",
+  "mode": "full"
+ },
+ {
+  "from": "Require the extension to present this token",
+  "to": "要求扩展出示此令牌/Require the extension to present this token",
+  "mode": "full"
+ },
+ {
+  "from": "Extension install directory (install; default ~/.omp/browser-relay/extension)",
+  "to": "扩展安装目录（install；默认 ~/.omp/browser-relay/extension）/Extension install directory (install; default ~/.omp/browser-relay/extension)",
+  "mode": "full"
+ },
+ {
+  "from": "Don't gather controllable tabs into an 'omp' tab group",
+  "to": "不将可控标签页收进「omp」标签组/Don't gather controllable tabs into an 'omp' tab group",
+  "mode": "full"
+ },
+ {
+  "from": "Local path, npm spec, or marketplace ref (e.g. ./my-ext, my-pkg@1.2.3, name@marketplace)",
+  "to": "本地路径、npm 规格或市场引用（如 ./my-ext、my-pkg@1.2.3、name@marketplace）/Local path, npm spec, or marketplace ref (e.g. ./my-ext, my-pkg@1.2.3, name@marketplace)",
+  "mode": "full"
+ },
+ {
+  "from": "Install scope: \"user\" (default) or \"project\" (marketplace installs only)",
+  "to": "安装作用域：「user」（默认）或「project」（仅限市场安装）/Install scope: \"user\" (default) or \"project\" (marketplace installs only)",
+  "mode": "full"
+ },
+ {
+  "from": "Collab link shared by the host (/collab)",
+  "to": "主持人分享的协作链接（/collab）/Collab link shared by the host (/collab)",
+  "mode": "full"
+ },
+ {
+  "from": "Text to speak (or use --file)",
+  "to": "要朗读的文本（或用 --file）/Text to speak (or use --file)",
+  "mode": "full"
+ },
+ {
+  "from": "Voice id",
+  "to": "语音 ID/Voice id",
+  "mode": "full"
+ },
+ {
+  "from": "Local TTS model key",
+  "to": "本地 TTS 模型键名/Local TTS model key",
+  "mode": "full"
+ },
+ {
+  "from": "Search query text",
+  "to": "搜索查询文本/Search query text",
+  "mode": "full"
+ },
+ {
+  "from": "Search provider",
+  "to": "搜索提供商/Search provider",
+  "mode": "full"
+ },
+ {
+  "from": "Recency filter",
+  "to": "时效过滤/Recency filter",
+  "mode": "full"
+ },
+ {
+  "from": "Render condensed output",
+  "to": "渲染精简输出/Render condensed output",
+  "mode": "full"
+ },
+ {
+  "from": "Model key, or all",
+  "to": "模型键名，或 all/Model key, or all",
+  "mode": "full"
+ },
+ {
+  "from": "Disable inbound bearer-token auth (serve). Useful when bound to loopback \\u2014 any caller is allowed.",
+  "to": "禁用入站持有者令牌认证（serve）。绑定到回环地址时有用——任何调用者都被允许。/Disable inbound bearer-token auth (serve). Useful when bound to loopback \\u2014 any caller is allowed.",
+  "mode": "full"
+ },
+ {
+  "from": "Target shell",
+  "to": "目标 shell/Target shell",
+  "mode": "full"
+ },
+ {
+  "from": "Config action",
+  "to": "配置操作/Config action",
+  "mode": "full"
+ },
+ {
+  "from": "Optional component to install",
+  "to": "可选安装组件/Optional component to install",
+  "mode": "full"
+ },
+ {
+  "from": "Override provider id for `import` (e.g. when JSON `type` is unrecognized)",
+  "to": "为「import」覆盖提供商 ID（如 JSON 的 `type` 无法识别时）/Override provider id for `import` (e.g. when JSON `type` is unrecognized)",
+  "mode": "full"
+ },
+ {
+  "from": "Write the approved text here instead of stdout (single file)",
+  "to": "把批准的文本写到此处而非标准输出（单文件）/Write the approved text here instead of stdout (single file)",
+  "mode": "full"
+ },
+ {
+  "from": "Overwrite each source file with its approved text",
+  "to": "用批准的文本覆盖每个源文件/Overwrite each source file with its approved text",
+  "mode": "full"
+ },
+ {
+  "from": "Maximum drafts per file before giving up",
+  "to": "每文件放弃前的最大草稿轮数/Maximum drafts per file before giving up",
+  "mode": "full"
+ },
+ {
+  "from": "Files compressed concurrently",
+  "to": "并发压缩的文件数/Files compressed concurrently",
+  "mode": "full"
+ },
+ {
+  "from": "Model selector",
+  "to": "模型选择器/Model selector",
+  "mode": "full"
+ },
+ {
+  "from": "Additional context for the model",
+  "to": "给模型的额外上下文/Additional context for the model",
+  "mode": "full"
+ },
+ {
+  "from": "Override model selection",
+  "to": "覆盖模型选择/Override model selection",
+  "mode": "full"
+ },
+ {
+  "from": "Render a single tool by name",
+  "to": "按名称渲染单个工具/Render a single tool by name",
+  "mode": "full"
+ },
+ {
+  "from": "Render only the given lifecycle state(s)",
+  "to": "只渲染指定的生命周期状态/Render only the given lifecycle state(s)",
+  "mode": "full"
+ },
+ {
+  "from": "Render width in columns",
+  "to": "渲染宽度（列数）/Render width in columns",
+  "mode": "full"
+ },
+ {
+  "from": "Render the expanded variant of each renderer",
+  "to": "渲染每个渲染器的展开变体/Render the expanded variant of each renderer",
+  "mode": "full"
+ },
+ {
+  "from": "Screenshot output path (with --screenshot); suffixed per image when split across multiple",
+  "to": "截图输出路径（配合 --screenshot）；拆分为多图时逐张加后缀/Screenshot output path (with --screenshot); suffixed per image when split across multiple",
+  "mode": "full"
+ },
+ {
+  "from": "Number of recent issues to show (list)",
+  "to": "要显示的近期问题数量（list）/Number of recent issues to show (list)",
+  "mode": "full"
+ },
+ {
+  "from": "Filter by tool name (list, clean)",
+  "to": "按工具名过滤（list、clean）/Filter by tool name (list, clean)",
+  "mode": "full"
+ },
+ {
+  "from": "Output as JSON",
+  "to": "以 JSON 输出/Output as JSON",
+  "mode": "full"
+ },
+ {
+  "from": "Load an extension file before listing (repeatable)",
+  "to": "列出前先加载扩展文件（可重复）/Load an extension file before listing (repeatable)",
+  "mode": "full"
+ },
+ {
+  "from": "Operate on local plugin directory",
+  "to": "操作本地插件目录/Operate on local plugin directory",
+  "mode": "full"
+ },
+ {
+  "from": "Check if dependencies are installed",
+  "to": "检查依赖是否已安装/Check if dependencies are installed",
+  "mode": "full"
+ },
+ {
+  "from": "Timeout per command in milliseconds",
+  "to": "每条命令的超时（毫秒）/Timeout per command in milliseconds",
+  "mode": "full"
+ },
+ {
+  "from": "Port for the dashboard server",
+  "to": "仪表板服务器端口/Port for the dashboard server",
+  "mode": "full"
+ },
+ {
+  "from": "Output stats as JSON",
+  "to": "以 JSON 输出统计/Output stats as JSON",
+  "mode": "full"
+ },
+ {
+  "from": "Print summary to console",
+  "to": "把摘要打印到控制台/Print summary to console",
+  "mode": "full"
+ },
+ {
+  "from": "Select the Nth OAuth account (1-based) in stored order instead of the round-robin default",
+  "to": "选择存储顺序中第 N 个 OAuth 账户（从 1 起），替代默认轮询/Select the Nth OAuth account (1-based) in stored order instead of the round-robin default",
+  "mode": "full"
+ },
+ {
+  "from": "List the provider's OAuth accounts (index + identity) and exit",
+  "to": "列出该提供商的 OAuth 账户（索引 + 身份）后退出/List the provider's OAuth accounts (index + identity) and exit",
+  "mode": "full"
+ },
+ {
+  "from": "Rule markdown file to test in isolation (skips project rule loading)",
+  "to": "单独测试用的规则 markdown 文件（跳过项目规则加载）/Rule markdown file to test in isolation (skips project rule loading)",
+  "mode": "full"
+ },
+ {
+  "from": "Candidate file path for scope/glob matching and AST language inference",
+  "to": "用于作用域/glob 匹配与 AST 语言推断的候选文件路径/Candidate file path for scope/glob matching and AST language inference",
+  "mode": "full"
+ },
+ {
+  "from": "Show every evaluated rule, not just triggered ones",
+  "to": "显示每条参与评估的规则，不止被触发的/Show every evaluated rule, not just triggered ones",
+  "mode": "full"
+ },
+ {
+  "from": "Force update",
+  "to": "强制更新/Force update",
+  "mode": "full"
+ },
+ {
+  "from": "Check for updates without installing",
+  "to": "只检查更新，不安装/Check for updates without installing",
+  "mode": "full"
+ },
+ {
+  "from": "Update installed plugins",
+  "to": "更新已安装的插件/Update installed plugins",
+  "mode": "full"
+ },
+ {
+  "from": "Output usage reports as JSON",
+  "to": "以 JSON 输出用量报告/Output usage reports as JSON",
+  "mode": "full"
+ },
+ {
+  "from": "Only show usage for this provider id (e.g. anthropic)",
+  "to": "只显示该提供商 ID 的用量（如 anthropic）/Only show usage for this provider id (e.g. anthropic)",
+  "mode": "full"
+ },
+ {
+  "from": "Redact account emails/ids (shortest unique prefix) for sharing screenshots",
+  "to": "为便于分享截图，隐去账户邮箱/ID（最短唯一前缀）/Redact account emails/ids (shortest unique prefix) for sharing screenshots",
+  "mode": "full"
+ },
+ {
+  "from": "History window in days (with --history)",
+  "to": "历史窗口天数（配合 --history）/History window in days (with --history)",
+  "mode": "full"
+ },
+ {
+  "from": "Print what would be removed without touching the filesystem (clear)",
+  "to": "只打印将移除的内容，不动文件系统（clear）/Print what would be removed without touching the filesystem (clear)",
+  "mode": "full"
+ },
+ {
+  "from": "Emit machine-readable JSON",
+  "to": "输出机器可读 JSON/Emit machine-readable JSON",
+  "mode": "full"
+ },
+ {
+  "from": "Overwrite existing agent files",
+  "to": "覆盖既有代理文件/Overwrite existing agent files",
+  "mode": "full"
+ },
+ {
+  "from": "Bind address for `serve` (host:port)",
+  "to": "`serve` 的绑定地址（host:port）/Bind address for `serve` (host:port)",
+  "mode": "full"
+ },
+ {
+  "from": "Port to listen on",
+  "to": "监听端口/Port to listen on",
+  "mode": "full"
+ },
+ {
+  "from": "Log relay traffic summaries to stderr",
+  "to": "把中继流量摘要记录到 stderr/Log relay traffic summaries to stderr",
+  "mode": "full"
+ },
+ {
+  "from": "Read the text to speak from this file",
+  "to": "从此文件读取要朗读的文本/Read the text to speak from this file",
+  "mode": "full"
+ },
+ {
+  "from": "Write WAV to this path instead of playing",
+  "to": "把 WAV 写到此路径而不播放/Write WAV to this path instead of playing",
+  "mode": "full"
+ },
+ {
+  "from": "Max results to return",
+  "to": "返回结果上限/Max results to return",
+  "mode": "full"
+ },
+ {
+  "from": "Maximum number of file-disjoint subagents",
+  "to": "文件互斥子代理的最大数量/Maximum number of file-disjoint subagents",
+  "mode": "full"
+ },
+ {
+  "from": "Subagent model selector",
+  "to": "子代理模型选择器/Subagent model selector",
+  "mode": "full"
+ },
+ {
+  "from": "Also run configured project test suites",
+  "to": "同时运行已配置的项目测试套件/Also run configured project test suites",
+  "mode": "full"
+ },
+ {
+  "from": "Run every discovered checker without the interactive picker",
+  "to": "运行发现的全部检查器，不经交互选择/Run every discovered checker without the interactive picker",
+  "mode": "full"
+ },
+ {
+  "from": "list (default), clean, or push",
+  "to": "list（默认）、clean 或 push/list (default), clean, or push",
+  "mode": "full"
+ },
+ {
+  "from": "ls (default) | find | refresh | <provider>",
+  "to": "ls（默认）| find | refresh | <提供商>/ls (default) | find | refresh | <provider>",
+  "mode": "full"
+ },
+ {
+  "from": "Plugin action",
+  "to": "插件操作/Plugin action",
+  "mode": "full"
+ },
+ {
+  "from": "SSH action",
+  "to": "SSH 操作/SSH action",
+  "mode": "full"
+ },
+ {
+  "from": "TTSR action",
+  "to": "TTSR 操作/TTSR action",
+  "mode": "full"
+ },
+ {
+  "from": "Agents action",
+  "to": "代理操作/Agents action",
+  "mode": "full"
+ },
+ {
+  "from": "Action to perform",
+  "to": "要执行的操作/Action to perform",
+  "mode": "full"
+ },
+ {
+  "from": "Optional subcommand to execute",
+  "to": "可选子命令/Optional subcommand to execute",
+  "mode": "full"
+ },
+ {
+  "from": "list (default) or clear",
+  "to": "list（默认）或 clear/list (default) or clear",
+  "mode": "full"
+ },
+ {
+  "from": "Host name or arguments",
+  "to": "主机名或参数/Host name or arguments",
+  "mode": "full"
+ },
+ {
+  "from": "Provider ID (e.g. anthropic, openai)",
+  "to": "提供商 ID（如 anthropic、openai）/Provider ID (e.g. anthropic, openai)",
+  "mode": "full"
+ },
+ {
+  "from": "OAuth provider id (login/logout) or path (import)",
+  "to": "OAuth 提供商 ID（login/logout）或路径（import）/OAuth provider id (login/logout) or path (import)",
+  "mode": "full"
+ },
+ {
+  "from": "Model selectors (provider/model or fuzzy id, e.g. opus)",
+  "to": "模型选择器（provider/model 或模糊 id，如 opus）/Model selectors (provider/model or fuzzy id, e.g. opus)",
+  "mode": "full"
+ },
+ {
+  "from": "What to detect and fix (e.g. \"ts errors\"); a discovery agent works out the command",
+  "to": "要检测并修复的内容（如 \"ts errors\"）；由发现代理推导出具体命令/What to detect and fix (e.g. \"ts errors\"); a discovery agent works out the command",
+  "mode": "full"
+ },
+ {
+  "from": "Action: ${Phs.join(\" | \")} (default serve)",
+  "to": "操作：${Phs.join(\" | \")}（默认 serve）/Action: serve | install (default serve)",
+  "mode": "full"
+ }
+]

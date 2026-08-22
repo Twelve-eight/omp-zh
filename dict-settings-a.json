@@ -1,0 +1,1872 @@
+[
+ {
+  "from": "Auto Resume",
+  "to": "自动恢复/Auto Resume",
+  "mode": "full"
+ },
+ {
+  "from": "Sleep Prevention",
+  "to": "阻止睡眠/Sleep Prevention",
+  "mode": "full"
+ },
+ {
+  "from": "Enable Advisor",
+  "to": "启用 Advisor/Enable Advisor",
+  "mode": "full"
+ },
+ {
+  "from": "Enable Prewalk",
+  "to": "启用预检/Enable Prewalk",
+  "mode": "full"
+ },
+ {
+  "from": "Advisor for Subagents",
+  "to": "子代理 Advisor/Advisor for Subagents",
+  "mode": "full"
+ },
+ {
+  "from": "Advisor Sync Backlog",
+  "to": "Advisor 同步积压/Advisor Sync Backlog",
+  "mode": "full"
+ },
+ {
+  "from": "Advisor Immune Turns",
+  "to": "Advisor 免疫轮次/Advisor Immune Turns",
+  "mode": "full"
+ },
+ {
+  "from": "Enable Git Integration",
+  "to": "启用 Git 集成/Enable Git Integration",
+  "mode": "full"
+ },
+ {
+  "from": "Model Role Storage",
+  "to": "模型角色存储/Model Role Storage",
+  "mode": "full"
+ },
+ {
+  "from": "Dark Theme",
+  "to": "深色主题/Dark Theme",
+  "mode": "full"
+ },
+ {
+  "from": "Light Theme",
+  "to": "浅色主题/Light Theme",
+  "mode": "full"
+ },
+ {
+  "from": "Symbol Preset",
+  "to": "符号预设/Symbol Preset",
+  "mode": "full"
+ },
+ {
+  "from": "Color-Blind Mode",
+  "to": "色盲模式/Color-Blind Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Status Line Preset",
+  "to": "状态栏预设/Status Line Preset",
+  "mode": "full"
+ },
+ {
+  "from": "Status Line Separator",
+  "to": "状态栏分隔符/Status Line Separator",
+  "mode": "full"
+ },
+ {
+  "from": "Session Accent",
+  "to": "会话强调色/Session Accent",
+  "mode": "full"
+ },
+ {
+  "from": "Transparent Status Line",
+  "to": "透明状态栏/Transparent Status Line",
+  "mode": "full"
+ },
+ {
+  "from": "Compact Thinking Level",
+  "to": "紧凑思考层级/Compact Thinking Level",
+  "mode": "full"
+ },
+ {
+  "from": "Artifact Spill Threshold (KB)",
+  "to": "产物溢出阈值 (KB)/Artifact Spill Threshold (KB)",
+  "mode": "full"
+ },
+ {
+  "from": "Artifact Tail Size (KB)",
+  "to": "产物尾部大小 (KB)/Artifact Tail Size (KB)",
+  "mode": "full"
+ },
+ {
+  "from": "Artifact Head Size (KB)",
+  "to": "产物头部大小 (KB)/Artifact Head Size (KB)",
+  "mode": "full"
+ },
+ {
+  "from": "Output Column Cap",
+  "to": "输出列上限/Output Column Cap",
+  "mode": "full"
+ },
+ {
+  "from": "Artifact Tail Lines",
+  "to": "产物尾部行数/Artifact Tail Lines",
+  "mode": "full"
+ },
+ {
+  "from": "Show Hook Status",
+  "to": "显示钩子状态/Show Hook Status",
+  "mode": "full"
+ },
+ {
+  "from": "Show Inline Images",
+  "to": "显示内联图像/Show Inline Images",
+  "mode": "full"
+ },
+ {
+  "from": "Auto-Resize Images",
+  "to": "自动调整图像大小/Auto-Resize Images",
+  "mode": "full"
+ },
+ {
+  "from": "Block Images",
+  "to": "阻止图像/Block Images",
+  "mode": "full"
+ },
+ {
+  "from": "Describe Images for Text Models",
+  "to": "为文本模型描述图像/Describe Images for Text Models",
+  "mode": "full"
+ },
+ {
+  "from": "Native Terminal Progress",
+  "to": "原生终端进度/Native Terminal Progress",
+  "mode": "full"
+ },
+ {
+  "from": "Large Headings (Kitty)",
+  "to": "大标题 (Kitty)/Large Headings (Kitty)",
+  "mode": "full"
+ },
+ {
+  "from": "Render Mermaid Diagrams",
+  "to": "渲染 Mermaid 图表/Render Mermaid Diagrams",
+  "mode": "full"
+ },
+ {
+  "from": "Codex Reset Fireworks",
+  "to": "Codex 重置烟花/Codex Reset Fireworks",
+  "mode": "full"
+ },
+ {
+  "from": "Terminal Title Run State",
+  "to": "终端标题运行状态/Terminal Title Run State",
+  "mode": "full"
+ },
+ {
+  "from": "Terminal Hyperlinks",
+  "to": "终端超链接/Terminal Hyperlinks",
+  "mode": "full"
+ },
+ {
+  "from": "Tight Layout",
+  "to": "紧凑布局/Tight Layout",
+  "mode": "full"
+ },
+ {
+  "from": "Rewrite Scrollback",
+  "to": "重写回滚缓冲/Rewrite Scrollback",
+  "mode": "full"
+ },
+ {
+  "from": "Shimmer",
+  "to": "微光效果/Shimmer",
+  "mode": "full"
+ },
+ {
+  "from": "Smooth Streaming",
+  "to": "平滑流式输出/Smooth Streaming",
+  "mode": "full"
+ },
+ {
+  "from": "Hide Tool Activity",
+  "to": "隐藏工具活动/Hide Tool Activity",
+  "mode": "full"
+ },
+ {
+  "from": "Show Token Usage",
+  "to": "显示 Token 用量/Show Token Usage",
+  "mode": "full"
+ },
+ {
+  "from": "Cache Miss Marker",
+  "to": "缓存未命中标记/Cache Miss Marker",
+  "mode": "full"
+ },
+ {
+  "from": "Collapse Compacted History",
+  "to": "折叠压缩历史/Collapse Compacted History",
+  "mode": "full"
+ },
+ {
+  "from": "Show Hardware Cursor",
+  "to": "显示硬件光标/Show Hardware Cursor",
+  "mode": "full"
+ },
+ {
+  "from": "IME-Safe Prompt Layout",
+  "to": "IME 安全提示布局/IME-Safe Prompt Layout",
+  "mode": "full"
+ },
+ {
+  "from": "Thinking Level",
+  "to": "思考层级/Thinking Level",
+  "mode": "full"
+ },
+ {
+  "from": "Hide Thinking Blocks",
+  "to": "隐藏思考块/Hide Thinking Blocks",
+  "mode": "full"
+ },
+ {
+  "from": "Prose Only Thinking",
+  "to": "仅正文思考/Prose Only Thinking",
+  "mode": "full"
+ },
+ {
+  "from": "Omit Thinking summaries",
+  "to": "省略思考摘要/Omit Thinking summaries",
+  "mode": "full"
+ },
+ {
+  "from": "Loop Guard",
+  "to": "循环保护/Loop Guard",
+  "mode": "full"
+ },
+ {
+  "from": "Loop Guard Scan Prose",
+  "to": "循环保护扫描正文/Loop Guard Scan Prose",
+  "mode": "full"
+ },
+ {
+  "from": "Loop Guard Tool-Call Reminder",
+  "to": "循环保护工具调用提醒/Loop Guard Tool-Call Reminder",
+  "mode": "full"
+ },
+ {
+  "from": "Tool-Call Loop Guard",
+  "to": "工具调用循环保护/Tool-Call Loop Guard",
+  "mode": "full"
+ },
+ {
+  "from": "Tool-Call Loop Threshold",
+  "to": "工具调用循环阈值/Tool-Call Loop Threshold",
+  "mode": "full"
+ },
+ {
+  "from": "Tool-Call Loop Exempt Tools",
+  "to": "工具调用循环豁免工具/Tool-Call Loop Exempt Tools",
+  "mode": "full"
+ },
+ {
+  "from": "Inline Tool Descriptors",
+  "to": "内联工具描述符/Inline Tool Descriptors",
+  "mode": "full"
+ },
+ {
+  "from": "Include Model in Prompt",
+  "to": "在提示词中包含模型/Include Model in Prompt",
+  "mode": "full"
+ },
+ {
+  "from": "Include Workspace Tree",
+  "to": "包含工作区树/Include Workspace Tree",
+  "mode": "full"
+ },
+ {
+  "from": "Additional Workspace Dirs",
+  "to": "附加工作区目录/Additional Workspace Dirs",
+  "mode": "full"
+ },
+ {
+  "from": "Personality",
+  "to": "个性/Personality",
+  "mode": "full"
+ },
+ {
+  "from": "Temperature",
+  "to": "温度/Temperature",
+  "mode": "full"
+ },
+ {
+  "from": "Top P",
+  "to": "Top P/Top P",
+  "mode": "full"
+ },
+ {
+  "from": "Top K",
+  "to": "Top K/Top K",
+  "mode": "full"
+ },
+ {
+  "from": "Min P",
+  "to": "Min P/Min P",
+  "mode": "full"
+ },
+ {
+  "from": "Presence Penalty",
+  "to": "存在惩罚/Presence Penalty",
+  "mode": "full"
+ },
+ {
+  "from": "Repetition Penalty",
+  "to": "重复惩罚/Repetition Penalty",
+  "mode": "full"
+ },
+ {
+  "from": "Text Verbosity",
+  "to": "文本详尽度/Text Verbosity",
+  "mode": "full"
+ },
+ {
+  "from": "Service Tier \\u2014 OpenAI",
+  "to": "服务层级/Service Tier \\u2014 OpenAI",
+  "mode": "full"
+ },
+ {
+  "from": "Service Tier \\u2014 Google",
+  "to": "服务层级/Service Tier \\u2014 Google",
+  "mode": "full"
+ },
+ {
+  "from": "Service Tier \\u2014 Subagent",
+  "to": "服务层级/Service Tier \\u2014 Subagent",
+  "mode": "full"
+ },
+ {
+  "from": "Service Tier \\u2014 Advisor",
+  "to": "服务层级/Service Tier \\u2014 Advisor",
+  "mode": "full"
+ },
+ {
+  "from": "Retry Attempts",
+  "to": "重试次数/Retry Attempts",
+  "mode": "full"
+ },
+ {
+  "from": "Max Retry Delay",
+  "to": "最大重试延迟/Max Retry Delay",
+  "mode": "full"
+ },
+ {
+  "from": "Retry Model Fallback",
+  "to": "重试模型回退/Retry Model Fallback",
+  "mode": "full"
+ },
+ {
+  "from": "Usage-Aware Fallback",
+  "to": "用量感知回退/Usage-Aware Fallback",
+  "mode": "full"
+ },
+ {
+  "from": "Reserve Margin",
+  "to": "预留余量/Reserve Margin",
+  "mode": "full"
+ },
+ {
+  "from": "Reserve Policy",
+  "to": "预留策略/Reserve Policy",
+  "mode": "full"
+ },
+ {
+  "from": "Fallback Revert Policy",
+  "to": "回退还原策略/Fallback Revert Policy",
+  "mode": "full"
+ },
+ {
+  "from": "Anthropic Server-Side Fallback (Fable 5)",
+  "to": "Anthropic 服务端回退（Fable 5）/Anthropic Server-Side Fallback (Fable 5)",
+  "mode": "full"
+ },
+ {
+  "from": "Steering Mode",
+  "to": "引导模式/Steering Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Follow-Up Mode",
+  "to": "追问模式/Follow-Up Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Interrupt Mode",
+  "to": "中断模式/Interrupt Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Loop Mode",
+  "to": "循环模式/Loop Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Double-Escape Action",
+  "to": "双按 Esc 操作/Double-Escape Action",
+  "mode": "full"
+ },
+ {
+  "from": "Session Tree Filter",
+  "to": "会话树过滤器/Session Tree Filter",
+  "mode": "full"
+ },
+ {
+  "from": "Autocomplete Items",
+  "to": "自动补全条目/Autocomplete Items",
+  "mode": "full"
+ },
+ {
+  "from": "Emoji Autocomplete",
+  "to": "Emoji 自动补全/Emoji Autocomplete",
+  "mode": "full"
+ },
+ {
+  "from": "Large Paste Menu",
+  "to": "大段粘贴菜单/Large Paste Menu",
+  "mode": "full"
+ },
+ {
+  "from": "Quiet Startup",
+  "to": "静默启动/Quiet Startup",
+  "mode": "full"
+ },
+ {
+  "from": "Show Startup Splash",
+  "to": "显示启动画面/Show Startup Splash",
+  "mode": "full"
+ },
+ {
+  "from": "Setup Wizard",
+  "to": "设置向导/Setup Wizard",
+  "mode": "full"
+ },
+ {
+  "from": "Check for Updates",
+  "to": "检查更新/Check for Updates",
+  "mode": "full"
+ },
+ {
+  "from": "Marketplace Auto-Update",
+  "to": "市场自动更新/Marketplace Auto-Update",
+  "mode": "full"
+ },
+ {
+  "from": "Startup Changelog",
+  "to": "启动变更日志/Startup Changelog",
+  "mode": "full"
+ },
+ {
+  "from": "Magic Keywords",
+  "to": "魔法关键词/Magic Keywords",
+  "mode": "full"
+ },
+ {
+  "from": "Ultrathink Keyword",
+  "to": "Ultrathink 关键词/Ultrathink Keyword",
+  "mode": "full"
+ },
+ {
+  "from": "Orchestrate Keyword",
+  "to": "Orchestrate 关键词/Orchestrate Keyword",
+  "mode": "full"
+ },
+ {
+  "from": "Workflow Keyword",
+  "to": "Workflow 关键词/Workflow Keyword",
+  "mode": "full"
+ },
+ {
+  "from": "Completion Notification",
+  "to": "完成通知/Completion Notification",
+  "mode": "full"
+ },
+ {
+  "from": "Error Notification",
+  "to": "错误通知/Error Notification",
+  "mode": "full"
+ },
+ {
+  "from": "Ask Timeout",
+  "to": "询问超时/Ask Timeout",
+  "mode": "full"
+ },
+ {
+  "from": "Ask Notification",
+  "to": "询问通知/Ask Notification",
+  "mode": "full"
+ },
+ {
+  "from": "Idle Recap",
+  "to": "空闲回顾/Idle Recap",
+  "mode": "full"
+ },
+ {
+  "from": "Idle Recap Delay",
+  "to": "空闲回顾延迟/Idle Recap Delay",
+  "mode": "full"
+ },
+ {
+  "from": "Relay URL",
+  "to": "中继 URL/Relay URL",
+  "mode": "full"
+ },
+ {
+  "from": "Web UI URL",
+  "to": "Web 界面 URL/Web UI URL",
+  "mode": "full"
+ },
+ {
+  "from": "Display Name",
+  "to": "显示名称/Display Name",
+  "mode": "full"
+ },
+ {
+  "from": "Share Server",
+  "to": "共享服务器/Share Server",
+  "mode": "full"
+ },
+ {
+  "from": "Share Store",
+  "to": "共享存储/Share Store",
+  "mode": "full"
+ },
+ {
+  "from": "Share Secret Redaction",
+  "to": "共享密钥脱敏/Share Secret Redaction",
+  "mode": "full"
+ },
+ {
+  "from": "Speech-to-Text",
+  "to": "语音转文本/Speech-to-Text",
+  "mode": "full"
+ },
+ {
+  "from": "Speech Model",
+  "to": "语音模型/Speech Model",
+  "mode": "full"
+ },
+ {
+  "from": "Speech-to-Text Submit Trigger",
+  "to": "语音转文本提交触发/Speech-to-Text Submit Trigger",
+  "mode": "full"
+ },
+ {
+  "from": "Auto-Promote Context",
+  "to": "自动提升上下文/Auto-Promote Context",
+  "mode": "full"
+ },
+ {
+  "from": "Auto-Compact",
+  "to": "自动压缩/Auto-Compact",
+  "mode": "full"
+ },
+ {
+  "from": "Mid-Turn Compaction",
+  "to": "对话中压缩/Mid-Turn Compaction",
+  "mode": "full"
+ },
+ {
+  "from": "Compaction Strategy",
+  "to": "压缩策略/Compaction Strategy",
+  "mode": "full"
+ },
+ {
+  "from": "Compaction Threshold",
+  "to": "压缩阈值/Compaction Threshold",
+  "mode": "full"
+ },
+ {
+  "from": "Compaction Token Limit",
+  "to": "压缩 Token 限额/Compaction Token Limit",
+  "mode": "full"
+ },
+ {
+  "from": "Save Handoff Docs",
+  "to": "保存交接文档/Save Handoff Docs",
+  "mode": "full"
+ },
+ {
+  "from": "Remote Compaction",
+  "to": "远程压缩/Remote Compaction",
+  "mode": "full"
+ },
+ {
+  "from": "Remote Compaction V2",
+  "to": "远程压缩 V2/Remote Compaction V2",
+  "mode": "full"
+ },
+ {
+  "from": "Idle Compaction",
+  "to": "空闲压缩/Idle Compaction",
+  "mode": "full"
+ },
+ {
+  "from": "Idle Compaction Threshold",
+  "to": "空闲压缩阈值/Idle Compaction Threshold",
+  "mode": "full"
+ },
+ {
+  "from": "Idle Compaction Delay",
+  "to": "空闲压缩延迟/Idle Compaction Delay",
+  "mode": "full"
+ },
+ {
+  "from": "Supersede Stale Reads",
+  "to": "取代过期读取/Supersede Stale Reads",
+  "mode": "full"
+ },
+ {
+  "from": "Elide Uneventful Results",
+  "to": "省略平淡结果/Elide Uneventful Results",
+  "mode": "full"
+ },
+ {
+  "from": "Snapcompact System Prompt",
+  "to": "Snapcompact 系统提示词/Snapcompact System Prompt",
+  "mode": "full"
+ },
+ {
+  "from": "Snapcompact Tool Results",
+  "to": "Snapcompact 工具结果/Snapcompact Tool Results",
+  "mode": "full"
+ },
+ {
+  "from": "Tool Calling Mode",
+  "to": "工具调用模式/Tool Calling Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Snapcompact Shape",
+  "to": "Snapcompact 形态/Snapcompact Shape",
+  "mode": "full"
+ },
+ {
+  "from": "Branch Summaries",
+  "to": "分支摘要/Branch Summaries",
+  "mode": "full"
+ },
+ {
+  "from": "Memory Backend",
+  "to": "记忆后端/Memory Backend",
+  "mode": "full"
+ },
+ {
+  "from": "Auto-Learn (experimental)",
+  "to": "自动学习（实验性）/Auto-Learn (experimental)",
+  "mode": "full"
+ },
+ {
+  "from": "Auto-run capture at stop",
+  "to": "停止时自动运行捕获/Auto-run capture at stop",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi DB Path",
+  "to": "Mnemopi 数据库路径/Mnemopi DB Path",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi Bank",
+  "to": "Mnemopi 记忆库/Mnemopi Bank",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi Scoping",
+  "to": "Mnemopi 范围界定/Mnemopi Scoping",
+  "mode": "full"
+ },
+ {
+  "from": "Embedding variant",
+  "to": "嵌入变体/Embedding variant",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi Auto Recall",
+  "to": "Mnemopi 自动召回/Mnemopi Auto Recall",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi Auto Retain",
+  "to": "Mnemopi 自动保留/Mnemopi Auto Retain",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi Polyphonic Recall",
+  "to": "Mnemopi 复调召回/Mnemopi Polyphonic Recall",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi Enhanced Recall",
+  "to": "Mnemopi 增强召回/Mnemopi Enhanced Recall",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi Proactive Linking",
+  "to": "Mnemopi 主动关联/Mnemopi Proactive Linking",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi Disable Embeddings",
+  "to": "Mnemopi 禁用嵌入/Mnemopi Disable Embeddings",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi Embedding Model",
+  "to": "Mnemopi 嵌入模型/Mnemopi Embedding Model",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi Embedding API URL",
+  "to": "Mnemopi 嵌入 API URL/Mnemopi Embedding API URL",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi Embedding API Key",
+  "to": "Mnemopi 嵌入 API 密钥/Mnemopi Embedding API Key",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi LLM Mode",
+  "to": "Mnemopi LLM 模式/Mnemopi LLM Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi LLM Base URL",
+  "to": "Mnemopi LLM 基础 URL/Mnemopi LLM Base URL",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi LLM API Key",
+  "to": "Mnemopi LLM API 密钥/Mnemopi LLM API Key",
+  "mode": "full"
+ },
+ {
+  "from": "Mnemopi LLM Model",
+  "to": "Mnemopi LLM 模型/Mnemopi LLM Model",
+  "mode": "full"
+ },
+ {
+  "from": "Hindsight API URL",
+  "to": "Hindsight API URL/Hindsight API URL",
+  "mode": "full"
+ },
+ {
+  "from": "Hindsight API Token",
+  "to": "Hindsight API 令牌/Hindsight API Token",
+  "mode": "full"
+ },
+ {
+  "from": "Hindsight Bank ID",
+  "to": "Hindsight 记忆库 ID/Hindsight Bank ID",
+  "mode": "full"
+ },
+ {
+  "from": "Hindsight Scoping",
+  "to": "Hindsight 范围界定/Hindsight Scoping",
+  "mode": "full"
+ },
+ {
+  "from": "Hindsight Auto Recall",
+  "to": "Hindsight 自动召回/Hindsight Auto Recall",
+  "mode": "full"
+ },
+ {
+  "from": "Hindsight Auto Retain",
+  "to": "Hindsight 自动保留/Hindsight Auto Retain",
+  "mode": "full"
+ },
+ {
+  "from": "Hindsight Retain Mode",
+  "to": "Hindsight 保留模式/Hindsight Retain Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Hindsight Mental Models",
+  "to": "Hindsight 心智模型/Hindsight Mental Models",
+  "mode": "full"
+ },
+ {
+  "from": "Hindsight Mental Model Auto-Seed",
+  "to": "Hindsight 心智模型自动初始化/Hindsight Mental Model Auto-Seed",
+  "mode": "full"
+ },
+ {
+  "from": "TTSR",
+  "to": "TTSR/TTSR",
+  "mode": "full"
+ },
+ {
+  "from": "TTSR Context Mode",
+  "to": "TTSR 上下文模式/TTSR Context Mode",
+  "mode": "full"
+ },
+ {
+  "from": "TTSR Interrupt Mode",
+  "to": "TTSR 中断模式/TTSR Interrupt Mode",
+  "mode": "full"
+ },
+ {
+  "from": "TTSR Repeat Mode",
+  "to": "TTSR 重复模式/TTSR Repeat Mode",
+  "mode": "full"
+ },
+ {
+  "from": "TTSR Repeat Gap",
+  "to": "TTSR 重复间隔/TTSR Repeat Gap",
+  "mode": "full"
+ },
+ {
+  "from": "Built-in Rules",
+  "to": "内置规则/Built-in Rules",
+  "mode": "full"
+ },
+ {
+  "from": "Disabled Rules",
+  "to": "已禁用规则/Disabled Rules",
+  "mode": "full"
+ },
+ {
+  "from": "Edit Mode",
+  "to": "编辑模式/Edit Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Fuzzy Match",
+  "to": "模糊匹配/Fuzzy Match",
+  "mode": "full"
+ },
+ {
+  "from": "Fuzzy Match Threshold",
+  "to": "模糊匹配阈值/Fuzzy Match Threshold",
+  "mode": "full"
+ },
+ {
+  "from": "Abort on Failed Preview",
+  "to": "预览失败时中止/Abort on Failed Preview",
+  "mode": "full"
+ },
+ {
+  "from": "Block Auto-Generated Files",
+  "to": "阻止自动生成的文件/Block Auto-Generated Files",
+  "mode": "full"
+ },
+ {
+  "from": "Enforce Seen-Line Guard",
+  "to": "强制已读行保护/Enforce Seen-Line Guard",
+  "mode": "full"
+ },
+ {
+  "from": "Line Numbers",
+  "to": "行号/Line Numbers",
+  "mode": "full"
+ },
+ {
+  "from": "Default Read Limit",
+  "to": "默认读取限制/Default Read Limit",
+  "mode": "full"
+ },
+ {
+  "from": "Markdown Previews",
+  "to": "Markdown 预览/Markdown Previews",
+  "mode": "full"
+ },
+ {
+  "from": "Read Summaries",
+  "to": "读取摘要/Read Summaries",
+  "mode": "full"
+ },
+ {
+  "from": "Prose Summaries",
+  "to": "正文摘要/Prose Summaries",
+  "mode": "full"
+ },
+ {
+  "from": "Read Summary Body Lines",
+  "to": "读取摘要正文行数/Read Summary Body Lines",
+  "mode": "full"
+ },
+ {
+  "from": "Read Summary Comment Lines",
+  "to": "读取摘要注释行数/Read Summary Comment Lines",
+  "mode": "full"
+ },
+ {
+  "from": "Read Summary Minimum File Length",
+  "to": "读取摘要最小文件长度/Read Summary Minimum File Length",
+  "mode": "full"
+ },
+ {
+  "from": "Read Summary Unfold Target",
+  "to": "读取摘要展开目标/Read Summary Unfold Target",
+  "mode": "full"
+ },
+ {
+  "from": "Read Summary Unfold Ceiling",
+  "to": "读取摘要展开上限/Read Summary Unfold Ceiling",
+  "mode": "full"
+ },
+ {
+  "from": "Inline Read Previews",
+  "to": "内联读取预览/Inline Read Previews",
+  "mode": "full"
+ },
+ {
+  "from": "LSP",
+  "to": "LSP/LSP",
+  "mode": "full"
+ },
+ {
+  "from": "Lazy LSP Startup",
+  "to": "延迟 LSP 启动/Lazy LSP Startup",
+  "mode": "full"
+ },
+ {
+  "from": "Shared Language Servers",
+  "to": "共享语言服务器/Shared Language Servers",
+  "mode": "full"
+ },
+ {
+  "from": "Format on Write",
+  "to": "写入时格式化/Format on Write",
+  "mode": "full"
+ },
+ {
+  "from": "Diagnostics on Write",
+  "to": "写入时诊断/Diagnostics on Write",
+  "mode": "full"
+ },
+ {
+  "from": "Diagnostics on Edit",
+  "to": "编辑时诊断/Diagnostics on Edit",
+  "mode": "full"
+ },
+ {
+  "from": "Deduplicate Diagnostics",
+  "to": "诊断去重/Deduplicate Diagnostics",
+  "mode": "full"
+ },
+ {
+  "from": "Bash",
+  "to": "Bash/Bash",
+  "mode": "full"
+ },
+ {
+  "from": "Bash Auto-Background",
+  "to": "Bash 自动后台化/Bash Auto-Background",
+  "mode": "full"
+ },
+ {
+  "from": "Bash Approval Patterns",
+  "to": "Bash 批准模式/Bash Approval Patterns",
+  "mode": "full"
+ },
+ {
+  "from": "Bash Interceptor",
+  "to": "Bash 拦截器/Bash Interceptor",
+  "mode": "full"
+ },
+ {
+  "from": "direnv Auto-Load",
+  "to": "direnv 自动加载/direnv Auto-Load",
+  "mode": "full"
+ },
+ {
+  "from": "direnv Load Timeout (ms)",
+  "to": "direnv 加载超时 (ms)/direnv Load Timeout (ms)",
+  "mode": "full"
+ },
+ {
+  "from": "Shell Minimizer",
+  "to": "Shell 精简器/Shell Minimizer",
+  "mode": "full"
+ },
+ {
+  "from": "Shell Minimizer Source Outline",
+  "to": "Shell 精简器源码大纲/Shell Minimizer Source Outline",
+  "mode": "full"
+ },
+ {
+  "from": "Python Eval Backend",
+  "to": "Python 求值后端/Python Eval Backend",
+  "mode": "full"
+ },
+ {
+  "from": "JavaScript Eval Backend",
+  "to": "JavaScript 求值后端/JavaScript Eval Backend",
+  "mode": "full"
+ },
+ {
+  "from": "Ruby Eval Backend",
+  "to": "Ruby 求值后端/Ruby Eval Backend",
+  "mode": "full"
+ },
+ {
+  "from": "Julia Eval Backend",
+  "to": "Julia 求值后端/Julia Eval Backend",
+  "mode": "full"
+ },
+ {
+  "from": "Python Kernel Mode",
+  "to": "Python 内核模式/Python Kernel Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Python Interpreter",
+  "to": "Python 解释器/Python Interpreter",
+  "mode": "full"
+ },
+ {
+  "from": "Ruby Interpreter",
+  "to": "Ruby 解释器/Ruby Interpreter",
+  "mode": "full"
+ },
+ {
+  "from": "Julia Interpreter",
+  "to": "Julia 解释器/Julia Interpreter",
+  "mode": "full"
+ },
+ {
+  "from": "Tool Approval Policies",
+  "to": "工具批准策略/Tool Approval Policies",
+  "mode": "full"
+ },
+ {
+  "from": "Tool Approval",
+  "to": "工具批准/Tool Approval",
+  "mode": "full"
+ },
+ {
+  "from": "Todos",
+  "to": "待办事项/Todos",
+  "mode": "full"
+ },
+ {
+  "from": "Todo Reminders",
+  "to": "待办提醒/Todo Reminders",
+  "mode": "full"
+ },
+ {
+  "from": "Todo Reminder Limit",
+  "to": "待办提醒限额/Todo Reminder Limit",
+  "mode": "full"
+ },
+ {
+  "from": "Create Todos Automatically",
+  "to": "自动创建待办/Create Todos Automatically",
+  "mode": "full"
+ },
+ {
+  "from": "Glob",
+  "to": "Glob/Glob",
+  "mode": "full"
+ },
+ {
+  "from": "Grep",
+  "to": "Grep/Grep",
+  "mode": "full"
+ },
+ {
+  "from": "Grep Context Before",
+  "to": "Grep 前文上下文/Grep Context Before",
+  "mode": "full"
+ },
+ {
+  "from": "Grep Context After",
+  "to": "Grep 后文上下文/Grep Context After",
+  "mode": "full"
+ },
+ {
+  "from": "AST Grep",
+  "to": "AST Grep/AST Grep",
+  "mode": "full"
+ },
+ {
+  "from": "AST Edit",
+  "to": "AST 编辑/AST Edit",
+  "mode": "full"
+ },
+ {
+  "from": "Debug",
+  "to": "调试/Debug",
+  "mode": "full"
+ },
+ {
+  "from": "Launch",
+  "to": "启动/Launch",
+  "mode": "full"
+ },
+ {
+  "from": "Speech Generation",
+  "to": "语音生成/Speech Generation",
+  "mode": "full"
+ },
+ {
+  "from": "Generate Image",
+  "to": "生成图像/Generate Image",
+  "mode": "full"
+ },
+ {
+  "from": "Inspect Image",
+  "to": "检查图像/Inspect Image",
+  "mode": "full"
+ },
+ {
+  "from": "Computer",
+  "to": "计算机/Computer",
+  "mode": "full"
+ },
+ {
+  "from": "Computer Display",
+  "to": "计算机显示/Computer Display",
+  "mode": "full"
+ },
+ {
+  "from": "Computer Screenshot Width",
+  "to": "计算机截图宽度/Computer Screenshot Width",
+  "mode": "full"
+ },
+ {
+  "from": "Computer Screenshot Height",
+  "to": "计算机截图高度/Computer Screenshot Height",
+  "mode": "full"
+ },
+ {
+  "from": "Inspect Image Timeout",
+  "to": "检查图像超时/Inspect Image Timeout",
+  "mode": "full"
+ },
+ {
+  "from": "Checkpoint/Rewind",
+  "to": "检查点与回退/Checkpoint/Rewind",
+  "mode": "full"
+ },
+ {
+  "from": "Read URLs",
+  "to": "读取 URL/Read URLs",
+  "mode": "full"
+ },
+ {
+  "from": "Obsidian Vault",
+  "to": "Obsidian 库/Obsidian Vault",
+  "mode": "full"
+ },
+ {
+  "from": "GitHub CLI",
+  "to": "GitHub CLI/GitHub CLI",
+  "mode": "full"
+ },
+ {
+  "from": "GitHub View Cache",
+  "to": "GitHub 视图缓存/GitHub View Cache",
+  "mode": "full"
+ },
+ {
+  "from": "GitHub Cache Soft TTL",
+  "to": "GitHub 缓存软 TTL/GitHub Cache Soft TTL",
+  "mode": "full"
+ },
+ {
+  "from": "GitHub Cache Hard TTL",
+  "to": "GitHub 缓存硬 TTL/GitHub Cache Hard TTL",
+  "mode": "full"
+ },
+ {
+  "from": "Web Search",
+  "to": "网络搜索/Web Search",
+  "mode": "full"
+ },
+ {
+  "from": "Security",
+  "to": "安全/Security",
+  "mode": "full"
+ },
+ {
+  "from": "Ask",
+  "to": "询问/Ask",
+  "mode": "full"
+ },
+ {
+  "from": "Browser",
+  "to": "浏览器/Browser",
+  "mode": "full"
+ },
+ {
+  "from": "Browser CDP URL",
+  "to": "浏览器 CDP URL/Browser CDP URL",
+  "mode": "full"
+ },
+ {
+  "from": "Browser Relay",
+  "to": "浏览器中继/Browser Relay",
+  "mode": "full"
+ },
+ {
+  "from": "Browser Relay URL",
+  "to": "浏览器中继 URL/Browser Relay URL",
+  "mode": "full"
+ },
+ {
+  "from": "Headless Browser",
+  "to": "无头浏览器/Headless Browser",
+  "mode": "full"
+ },
+ {
+  "from": "cmux Browser",
+  "to": "cmux 浏览器/cmux Browser",
+  "mode": "full"
+ },
+ {
+  "from": "Screenshot Directory",
+  "to": "截图目录/Screenshot Directory",
+  "mode": "full"
+ },
+ {
+  "from": "Intent Tracing",
+  "to": "意图追踪/Intent Tracing",
+  "mode": "full"
+ },
+ {
+  "from": "Abort On Fabricated Tool Result",
+  "to": "检测到伪造工具结果时中止/Abort On Fabricated Tool Result",
+  "mode": "full"
+ },
+ {
+  "from": "Max Tool Timeout",
+  "to": "最大工具超时/Max Tool Timeout",
+  "mode": "full"
+ },
+ {
+  "from": "Async Execution",
+  "to": "异步执行/Async Execution",
+  "mode": "full"
+ },
+ {
+  "from": "Max Poll Time",
+  "to": "最大轮询时间/Max Poll Time",
+  "mode": "full"
+ },
+ {
+  "from": "IRC Timeout",
+  "to": "IRC 超时/IRC Timeout",
+  "mode": "full"
+ },
+ {
+  "from": "xd:// Tools",
+  "to": "xd:// 工具/xd:// Tools",
+  "mode": "full"
+ },
+ {
+  "from": "xd:// Prompt Docs",
+  "to": "xd:// 提示词文档/xd:// Prompt Docs",
+  "mode": "full"
+ },
+ {
+  "from": "xd:// Inline Devices",
+  "to": "xd:// 内联设备/xd:// Inline Devices",
+  "mode": "full"
+ },
+ {
+  "from": "MCP Project Config",
+  "to": "MCP 项目配置/MCP Project Config",
+  "mode": "full"
+ },
+ {
+  "from": "MCP Markdown Results",
+  "to": "MCP Markdown 结果/MCP Markdown Results",
+  "mode": "full"
+ },
+ {
+  "from": "MCP Update Injection",
+  "to": "MCP 更新注入/MCP Update Injection",
+  "mode": "full"
+ },
+ {
+  "from": "MCP Notification Debounce",
+  "to": "MCP 通知防抖/MCP Notification Debounce",
+  "mode": "full"
+ },
+ {
+  "from": "Plan Mode",
+  "to": "计划模式/Plan Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Start in Plan Mode",
+  "to": "以计划模式启动/Start in Plan Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Goal Mode",
+  "to": "目标模式/Goal Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Goal Status in Footer",
+  "to": "页脚中的目标状态/Goal Status in Footer",
+  "mode": "full"
+ },
+ {
+  "from": "Goal Continuation Modes",
+  "to": "目标延续模式/Goal Continuation Modes",
+  "mode": "full"
+ },
+ {
+  "from": "Refresh Title on Replan",
+  "to": "重新规划时刷新标题/Refresh Title on Replan",
+  "mode": "full"
+ },
+ {
+  "from": "Apply Isolated Changes",
+  "to": "应用隔离更改/Apply Isolated Changes",
+  "mode": "full"
+ },
+ {
+  "from": "Isolation Merge Strategy",
+  "to": "隔离合并策略/Isolation Merge Strategy",
+  "mode": "full"
+ },
+ {
+  "from": "Isolation Commit Style",
+  "to": "隔离提交风格/Isolation Commit Style",
+  "mode": "full"
+ },
+ {
+  "from": "Worktree Base Directory",
+  "to": "工作树基础目录/Worktree Base Directory",
+  "mode": "full"
+ },
+ {
+  "from": "Prefer Task Delegation",
+  "to": "优先任务委派/Prefer Task Delegation",
+  "mode": "full"
+ },
+ {
+  "from": "Batch Task Calls",
+  "to": "批量任务调用/Batch Task Calls",
+  "mode": "full"
+ },
+ {
+  "from": "Per-Task Effort",
+  "to": "每任务投入/Per-Task Effort",
+  "mode": "full"
+ },
+ {
+  "from": "Max Concurrent Tasks",
+  "to": "最大并发任务/Max Concurrent Tasks",
+  "mode": "full"
+ },
+ {
+  "from": "LSP in Subagents",
+  "to": "子代理中的 LSP/LSP in Subagents",
+  "mode": "full"
+ },
+ {
+  "from": "Max Task Recursion",
+  "to": "最大任务递归/Max Task Recursion",
+  "mode": "full"
+ },
+ {
+  "from": "Max Subagent Runtime",
+  "to": "子代理最大运行时长/Max Subagent Runtime",
+  "mode": "full"
+ },
+ {
+  "from": "Agent Idle TTL",
+  "to": "代理空闲 TTL/Agent Idle TTL",
+  "mode": "full"
+ },
+ {
+  "from": "Soft Subagent Request Budget",
+  "to": "子代理软请求预算/Soft Subagent Request Budget",
+  "mode": "full"
+ },
+ {
+  "from": "Soft Request Budget Notice",
+  "to": "软请求预算提醒/Soft Request Budget Notice",
+  "mode": "full"
+ },
+ {
+  "from": "Maximum Per-Spawn Effort",
+  "to": "单次派发最大投入/Maximum Per-Spawn Effort",
+  "mode": "full"
+ },
+ {
+  "from": "Generic Task Prewalk",
+  "to": "通用任务预检/Generic Task Prewalk",
+  "mode": "full"
+ },
+ {
+  "from": "Todo Auto-Clear Delay",
+  "to": "待办自动清除延迟/Todo Auto-Clear Delay",
+  "mode": "full"
+ },
+ {
+  "from": "Show Resolved Model Badge",
+  "to": "显示已解析模型徽章/Show Resolved Model Badge",
+  "mode": "full"
+ },
+ {
+  "from": "Skill Commands",
+  "to": "技能命令/Skill Commands",
+  "mode": "full"
+ },
+ {
+  "from": "Claude User Commands",
+  "to": "Claude 用户命令/Claude User Commands",
+  "mode": "full"
+ },
+ {
+  "from": "Claude Project Commands",
+  "to": "Claude 项目命令/Claude Project Commands",
+  "mode": "full"
+ },
+ {
+  "from": "OpenCode User Commands",
+  "to": "OpenCode 用户命令/OpenCode User Commands",
+  "mode": "full"
+ },
+ {
+  "from": "OpenCode Project Commands",
+  "to": "OpenCode 项目命令/OpenCode Project Commands",
+  "mode": "full"
+ },
+ {
+  "from": "Hide Secrets",
+  "to": "隐藏机密/Hide Secrets",
+  "mode": "full"
+ },
+ {
+  "from": "Ollama Cloud Max Concurrency",
+  "to": "Ollama Cloud 最大并发/Ollama Cloud Max Concurrency",
+  "mode": "full"
+ },
+ {
+  "from": "Web Search Provider Order",
+  "to": "网络搜索提供商顺序/Web Search Provider Order",
+  "mode": "full"
+ },
+ {
+  "from": "Excluded Web Search Providers",
+  "to": "排除的网络搜索提供商/Excluded Web Search Providers",
+  "mode": "full"
+ },
+ {
+  "from": "Gemini web_search model",
+  "to": "Gemini web_search 模型/Gemini web_search model",
+  "mode": "full"
+ },
+ {
+  "from": "Antigravity Endpoint Mode",
+  "to": "Antigravity 端点模式/Antigravity Endpoint Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Image Provider Order",
+  "to": "图像提供商顺序/Image Provider Order",
+  "mode": "full"
+ },
+ {
+  "from": "Live Voice",
+  "to": "实时语音/Live Voice",
+  "mode": "full"
+ },
+ {
+  "from": "Text-to-Speech Provider",
+  "to": "文本转语音提供商/Text-to-Speech Provider",
+  "mode": "full"
+ },
+ {
+  "from": "Local TTS Model",
+  "to": "本地 TTS 模型/Local TTS Model",
+  "mode": "full"
+ },
+ {
+  "from": "Local TTS Voice",
+  "to": "本地 TTS 语音/Local TTS Voice",
+  "mode": "full"
+ },
+ {
+  "from": "Speech Vocalization",
+  "to": "语音发声/Speech Vocalization",
+  "mode": "full"
+ },
+ {
+  "from": "Speech Vocalization Mode",
+  "to": "语音发声模式/Speech Vocalization Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Enhanced Speech Rewriting",
+  "to": "增强语音重写/Enhanced Speech Rewriting",
+  "mode": "full"
+ },
+ {
+  "from": "Speech Vocalization Voice",
+  "to": "语音发声音色/Speech Vocalization Voice",
+  "mode": "full"
+ },
+ {
+  "from": "Tiny Model",
+  "to": "微型模型/Tiny Model",
+  "mode": "full"
+ },
+ {
+  "from": "Tiny Model Device",
+  "to": "微型模型设备/Tiny Model Device",
+  "mode": "full"
+ },
+ {
+  "from": "Tiny Model Precision",
+  "to": "微型模型精度/Tiny Model Precision",
+  "mode": "full"
+ },
+ {
+  "from": "Memory Model",
+  "to": "记忆模型/Memory Model",
+  "mode": "full"
+ },
+ {
+  "from": "Auto Thinking Model",
+  "to": "自动思考模型/Auto Thinking Model",
+  "mode": "full"
+ },
+ {
+  "from": "Auto Thinking Ceiling",
+  "to": "自动思考上限/Auto Thinking Ceiling",
+  "mode": "full"
+ },
+ {
+  "from": "Detect unexpected stops",
+  "to": "检测意外停止/Detect unexpected stops",
+  "mode": "full"
+ },
+ {
+  "from": "Unexpected Stop Model",
+  "to": "意外停止模型/Unexpected Stop Model",
+  "mode": "full"
+ },
+ {
+  "from": "Kimi API Format",
+  "to": "Kimi API 格式/Kimi API Format",
+  "mode": "full"
+ },
+ {
+  "from": "OpenAI WebSockets",
+  "to": "OpenAI WebSockets/OpenAI WebSockets",
+  "mode": "full"
+ },
+ {
+  "from": "Stream First Event Timeout",
+  "to": "流式首个事件超时/Stream First Event Timeout",
+  "mode": "full"
+ },
+ {
+  "from": "Stream Idle Timeout",
+  "to": "流式空闲超时/Stream Idle Timeout",
+  "mode": "full"
+ },
+ {
+  "from": "OpenRouter Routing",
+  "to": "OpenRouter 路由/OpenRouter Routing",
+  "mode": "full"
+ },
+ {
+  "from": "Fetch Provider",
+  "to": "Fetch 提供商/Fetch Provider",
+  "mode": "full"
+ },
+ {
+  "from": "Codex Auto-Redeem Saved Resets",
+  "to": "Codex 自动兑换已保存重置/Codex Auto-Redeem Saved Resets",
+  "mode": "full"
+ },
+ {
+  "from": "Codex Auto-Redeem Min Block",
+  "to": "Codex 自动兑换最小区块/Codex Auto-Redeem Min Block",
+  "mode": "full"
+ },
+ {
+  "from": "Codex Auto-Redeem Reserve",
+  "to": "Codex 自动兑换储备/Codex Auto-Redeem Reserve",
+  "mode": "full"
+ },
+ {
+  "from": "Codex Reset Salvage Horizon",
+  "to": "Codex 重置回收时间窗/Codex Reset Salvage Horizon",
+  "mode": "full"
+ },
+ {
+  "from": "Append-Only Context",
+  "to": "仅追加上下文/Append-Only Context",
+  "mode": "full"
+ },
+ {
+  "from": "Exa",
+  "to": "Exa/Exa",
+  "mode": "full"
+ },
+ {
+  "from": "Exa Search Delay",
+  "to": "Exa 搜索延迟/Exa Search Delay",
+  "mode": "full"
+ },
+ {
+  "from": "SearXNG Endpoint",
+  "to": "SearXNG 端点/SearXNG Endpoint",
+  "mode": "full"
+ },
+ {
+  "from": "Auto QA",
+  "to": "自动 QA/Auto QA",
+  "mode": "full"
+ },
+ {
+  "from": "Auto QA Push Endpoint",
+  "to": "自动 QA 推送端点/Auto QA Push Endpoint",
+  "mode": "full"
+ },
+ {
+  "from": "Single",
+  "to": "单行/Single",
+  "mode": "full"
+ },
+ {
+  "from": "Double",
+  "to": "双行/Double",
+  "mode": "full"
+ },
+ {
+  "from": "Triple",
+  "to": "三行/Triple",
+  "mode": "full"
+ },
+ {
+  "from": "Expanded",
+  "to": "展开显示/Expanded",
+  "mode": "full"
+ },
+ {
+  "from": "Focused",
+  "to": "专注/Focused",
+  "mode": "full"
+ },
+ {
+  "from": "Embedded",
+  "to": "内嵌/Embedded",
+  "mode": "full"
+ },
+ {
+  "from": "Lenient",
+  "to": "宽松/Lenient",
+  "mode": "full"
+ },
+ {
+  "from": "Conservative",
+  "to": "保守/Conservative",
+  "mode": "full"
+ },
+ {
+  "from": "Deterministic",
+  "to": "确定性输出/Deterministic",
+  "mode": "full"
+ },
+ {
+  "from": "Pragmatic",
+  "to": "务实工程师/Pragmatic",
+  "mode": "full"
+ },
+ {
+  "from": "Friendly",
+  "to": "友好伙伴/Friendly",
+  "mode": "full"
+ },
+ {
+  "from": "Generic",
+  "to": "通用/Generic",
+  "mode": "full"
+ },
+ {
+  "from": "Balanced",
+  "to": "均衡/Balanced",
+  "mode": "full"
+ },
+ {
+  "from": "Creative",
+  "to": "创意/Creative",
+  "mode": "full"
+ },
+ {
+  "from": "Annotated",
+  "to": "带注记/Annotated",
+  "mode": "full"
+ },
+ {
+  "from": "Block",
+  "to": "方块/Block",
+  "mode": "full"
+ },
+ {
+  "from": "Branch",
+  "to": "分支提交/Branch",
+  "mode": "full"
+ },
+ {
+  "from": "Distro",
+  "to": "发行版/Distro",
+  "mode": "full"
+ },
+ {
+  "from": "Kernel",
+  "to": "内核/Kernel",
+  "mode": "full"
+ },
+ {
+  "from": "Patch",
+  "to": "补丁应用/Patch",
+  "mode": "full"
+ },
+ {
+  "from": "Pipe",
+  "to": "竖线/Pipe",
+  "mode": "full"
+ },
+ {
+  "from": "Resolve",
+  "to": "解决/Resolve",
+  "mode": "full"
+ },
+ {
+  "from": "Scale",
+  "to": "Scale 额度/Scale",
+  "mode": "full"
+ },
+ {
+  "from": "Synthetic",
+  "to": "合成目录/Synthetic",
+  "mode": "full"
+ },
+ {
+  "from": "Task",
+  "to": "任务/Task",
+  "mode": "full"
+ },
+ {
+  "from": "Tasks",
+  "to": "任务/Tasks",
+  "mode": "full"
+ },
+ {
+  "from": "Always",
+  "to": "总是/Always",
+  "mode": "full"
+ },
+ {
+  "from": "Auto-fallback",
+  "to": "自动回退/Auto-fallback",
+  "mode": "full"
+ },
+ {
+  "from": "On-demand",
+  "to": "按需/On-demand",
+  "mode": "full"
+ },
+ {
+  "from": "Per-project",
+  "to": "每项目/Per-project",
+  "mode": "full"
+ },
+ {
+  "from": "Name",
+  "to": "名称/Name",
+  "mode": "full"
+ },
+ {
+  "from": "Priority",
+  "to": "优先额度/Priority",
+  "mode": "full"
+ },
+ {
+  "from": "Release",
+  "to": "松开发送/Release",
+  "mode": "full"
+ },
+ {
+  "from": "Hidden",
+  "to": "隐藏/Hidden",
+  "mode": "full"
+ },
+ {
+  "from": "Native",
+  "to": "原生/Native",
+  "mode": "full"
+ },
+ {
+  "from": "Remote",
+  "to": "远程/Remote",
+  "mode": "full"
+ },
+ {
+  "from": "Global",
+  "to": "全局/Global",
+  "mode": "full"
+ },
+ {
+  "from": "Eval",
+  "to": "评估/Eval",
+  "mode": "full"
+ },
+ {
+  "from": "Full",
+  "to": "完整/Full",
+  "mode": "full"
+ },
+ {
+  "from": "Light",
+  "to": "浅色/Light",
+  "mode": "full"
+ },
+ {
+  "from": "Never",
+  "to": "从不/Never",
+  "mode": "full"
+ },
+ {
+  "from": "Moderate",
+  "to": "适中/Moderate",
+  "mode": "full"
+ },
+ {
+  "from": "Minimal",
+  "to": "极简/Minimal",
+  "mode": "full"
+ },
+ {
+  "from": "Interval",
+  "to": "间隔/Interval",
+  "mode": "full"
+ },
+ {
+  "from": "Messages",
+  "to": "消息/Messages",
+  "mode": "full"
+ },
+ {
+  "from": "Memory",
+  "to": "记忆/Memory",
+  "mode": "full"
+ },
+ {
+  "from": "Smart",
+  "to": "智能/Smart",
+  "mode": "full"
+ }
+]

@@ -1,0 +1,217 @@
+[
+ {
+  "from": "USAGE",
+  "to": "用法/USAGE",
+  "mode": "full"
+ },
+ {
+  "from": "FLAGS",
+  "to": "标志/FLAGS",
+  "mode": "full"
+ },
+ {
+  "from": "Continue previous session",
+  "to": "继续上一个会话/Continue previous session",
+  "mode": "sub"
+ },
+ {
+  "from": "Disable PTY-based interactive bash execution",
+  "to": "禁用基于 PTY 的交互式 bash 执行/Disable PTY-based interactive bash execution",
+  "mode": "sub"
+ },
+ {
+  "from": "Session storage directory",
+  "to": "会话存储目录/Session storage directory",
+  "mode": "sub"
+ },
+ {
+  "from": "Execute Python code",
+  "to": "执行 Python 代码/Execute Python code",
+  "mode": "sub"
+ },
+ {
+  "from": "create a shell shortcut for a profile",
+  "to": "为 profile 创建 shell 快捷方式/create a shell shortcut for a profile",
+  "mode": "sub"
+ },
+ {
+  "from": " to run python",
+  "to": " 运行 python/ to run python",
+  "mode": "full"
+ },
+ {
+  "from": "LSP Servers",
+  "to": "LSP 服务器/LSP Servers",
+  "mode": "full"
+ },
+ {
+  "from": "No LSP servers",
+  "to": "无 LSP 服务器/No LSP servers",
+  "mode": "full"
+ },
+ {
+  "from": "No task matched",
+  "to": "未找到匹配的任务/No task matched",
+  "mode": "sub"
+ },
+ {
+  "from": "Use /todo to list current tasks.",
+  "to": "用 /todo 查看当前任务列表。",
+  "mode": "sub"
+ },
+ {
+  "from": "No task or phase matched",
+  "to": "未找到匹配的任务或阶段/No task or phase matched",
+  "mode": "sub"
+ },
+ {
+  "from": "No editor configured. Set $VISUAL or $EDITOR",
+  "to": "未配置编辑器。请设置 $VISUAL 或 $EDITOR/No editor configured. Set $VISUAL or $EDITOR",
+  "mode": "sub"
+ },
+ {
+  "from": "Branch Summary",
+  "to": "分支摘要/Branch Summary",
+  "mode": "full"
+ },
+ {
+  "from": "Close (Esc)",
+  "to": "关闭（Esc）/Close (Esc)",
+  "mode": "full"
+ },
+ {
+  "from": "Close sidebar",
+  "to": "关闭侧边栏/Close sidebar",
+  "mode": "full"
+ },
+ {
+  "from": "Close subagent view",
+  "to": "关闭子代理视图/Close subagent view",
+  "mode": "full"
+ },
+ {
+  "from": "Color theme",
+  "to": "颜色主题/Color theme",
+  "mode": "full"
+ },
+ {
+  "from": "Copy link to this message",
+  "to": "复制此消息的链接/Copy link to this message",
+  "mode": "full"
+ },
+ {
+  "from": "Cost:",
+  "to": "成本：/Cost:",
+  "mode": "full"
+ },
+ {
+  "from": "Dark",
+  "to": "深色/Dark",
+  "mode": "full"
+ },
+ {
+  "from": "Date:",
+  "to": "日期：/Date:",
+  "mode": "full"
+ },
+ {
+  "from": "Default minus tool results",
+  "to": "默认剔除工具结果/Default minus tool results",
+  "mode": "full"
+ },
+ {
+  "from": "Hide settings entries",
+  "to": "隐藏设置条目/Hide settings entries",
+  "mode": "full"
+ },
+ {
+  "from": "Labeled",
+  "to": "带标签/Labeled",
+  "mode": "full"
+ },
+ {
+  "from": "Light",
+  "to": "浅色/Light",
+  "mode": "full"
+ },
+ {
+  "from": "Messages:",
+  "to": "消息：/Messages:",
+  "mode": "full"
+ },
+ {
+  "from": "Models:",
+  "to": "模型：/Models:",
+  "mode": "full"
+ },
+ {
+  "from": "No reply yet — they may answer later; check inbox or wait again.",
+  "to": "暂无回复——对方稍后可能会回复；请查看收件箱或再次等待。/No reply yet — they may answer later; check inbox or wait again.",
+  "mode": "full"
+ },
+ {
+  "from": "No-tools",
+  "to": "不含工具调用/No-tools",
+  "mode": "full"
+ },
+ {
+  "from": "Only labeled entries",
+  "to": "仅带标签条目/Only labeled entries",
+  "mode": "full"
+ },
+ {
+  "from": "Only user messages",
+  "to": "仅用户消息/Only user messages",
+  "mode": "full"
+ },
+ {
+  "from": "Open sidebar",
+  "to": "打开侧边栏/Open sidebar",
+  "mode": "full"
+ },
+ {
+  "from": "Resize session tree sidebar",
+  "to": "调整会话树侧边栏大小/Resize session tree sidebar",
+  "mode": "full"
+ },
+ {
+  "from": "Search entries…",
+  "to": "搜索条目…/Search entries…",
+  "mode": "full"
+ },
+ {
+  "from": "Session Export",
+  "to": "会话导出/Session Export",
+  "mode": "full"
+ },
+ {
+  "from": "Show everything",
+  "to": "显示全部/Show everything",
+  "mode": "full"
+ },
+ {
+  "from": "Subagent breadcrumb",
+  "to": "子代理面包屑/Subagent breadcrumb",
+  "mode": "full"
+ },
+ {
+  "from": "Subagent session",
+  "to": "子代理会话/Subagent session",
+  "mode": "full"
+ },
+ {
+  "from": "T toggle thinking · O toggle tools",
+  "to": "T 切换思考 · O 切换工具/T toggle thinking · O toggle tools",
+  "mode": "full"
+ },
+ {
+  "from": "Thinking ...",
+  "to": "思考中…/Thinking ...",
+  "mode": "full"
+ },
+ {
+  "from": "Tokens:",
+  "to": "Token：/Tokens:",
+  "mode": "full"
+ }
+]

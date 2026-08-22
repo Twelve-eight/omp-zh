@@ -1,0 +1,397 @@
+[
+ {
+  "from": "Tips",
+  "to": "提示/Tips",
+  "mode": "full"
+ },
+ {
+  "from": " for prompt actions",
+  "to": " 提示操作/ for prompt actions",
+  "mode": "full"
+ },
+ {
+  "from": " for commands",
+  "to": " 查看命令/ for commands",
+  "mode": "full"
+ },
+ {
+  "from": " to run bash",
+  "to": " 运行 bash/ to run bash",
+  "mode": "full"
+ },
+ {
+  "from": "Waiting for pasted authorization code...",
+  "to": "等待粘贴授权码.../Waiting for pasted authorization code...",
+  "mode": "full"
+ },
+ {
+  "from": "Waiting for browser authentication...",
+  "to": "等待浏览器认证.../Waiting for browser authentication...",
+  "mode": "full"
+ },
+ {
+  "from": "Complete login in your browser. If the browser cannot reach this machine, paste the final redirect URL or authorization code when prompted.",
+  "to": "请在浏览器中完成登录。若浏览器无法访问本机，请按提示粘贴最终的重定向 URL 或授权码。/Complete login in your browser. If the browser cannot reach this machine, paste the final redirect URL or authorization code when prompted.",
+  "mode": "full"
+ },
+ {
+  "from": "A browser window should open. Complete login to finish.",
+  "to": "应会打开浏览器窗口，完成登录即可。/A browser window should open. Complete login to finish.",
+  "mode": "full"
+ },
+ {
+  "from": "Waiting for xAI device authorization...",
+  "to": "等待 xAI 设备授权.../Waiting for xAI device authorization...",
+  "mode": "full"
+ },
+ {
+  "from": "Interrupt current operation",
+  "to": "中断当前操作/Interrupt current operation",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle thinking mode",
+  "to": "切换思考模式/Toggle thinking mode",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle session path display",
+  "to": "切换会话路径显示/Toggle session path display",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle session sort order",
+  "to": "切换会话排序方式/Toggle session sort order",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle plan mode",
+  "to": "切换计划模式/Toggle plan mode",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle speech-to-text (default gesture: hold Space)",
+  "to": "切换语音转文字（默认手势：按住空格）/Toggle speech-to-text (default gesture: hold Space)",
+  "mode": "full"
+ },
+ {
+  "from": "Interrupt Mode",
+  "to": "中断模式/Interrupt Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Interrupt the agent mid-stream when output matches rule patterns (Time-Traveling Stream Rules)",
+  "to": "输出匹配规则模式时在流式中中断代理（时光回溯流规则）/Interrupt the agent mid-stream when output matches rule patterns (Time-Traveling Stream Rules)",
+  "mode": "full"
+ },
+ {
+  "from": "TTSR Interrupt Mode",
+  "to": "TTSR 中断模式/TTSR Interrupt Mode",
+  "mode": "full"
+ },
+ {
+  "from": "Interrupt on prose and tool streams",
+  "to": "在正文与工具流上中断/Interrupt on prose and tool streams",
+  "mode": "full"
+ },
+ {
+  "from": "Interrupt only on reply/thinking matches",
+  "to": "仅在回复/思考匹配时中断/Interrupt only on reply/thinking matches",
+  "mode": "full"
+ },
+ {
+  "from": "Interrupt only on tool-call argument matches",
+  "to": "仅在工具调用参数匹配时中断/Interrupt only on tool-call argument matches",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle Network",
+  "to": "切换网络/Toggle Network",
+  "mode": "full"
+ },
+ {
+  "from": "[Press Enter to skip or continue]",
+  "to": "[按回车跳过或继续]/[Press Enter to skip or continue]",
+  "mode": "full"
+ },
+ {
+  "from": "[Press Esc to go back]",
+  "to": "[按 Esc 返回]/[Press Esc to go back]",
+  "mode": "full"
+ },
+ {
+  "from": "(Press Esc to cancel)",
+  "to": "（按 Esc 取消）/(Press Esc to cancel)",
+  "mode": "full"
+ },
+ {
+  "from": "MCP Server Management",
+  "to": "MCP 服务器管理/MCP Server Management",
+  "mode": "full"
+ },
+ {
+  "from": "Waiting for authorization... (Press Esc to cancel, 5 minute timeout)",
+  "to": "等待授权...（按 Esc 取消，5 分钟超时）/Waiting for authorization... (Press Esc to cancel, 5 minute timeout)",
+  "mode": "full"
+ },
+ {
+  "from": "Tip: Press Ctrl+C or Esc anytime to cancel",
+  "to": "提示：随时可按 Ctrl+C 或 Esc 取消/Tip: Press Ctrl+C or Esc anytime to cancel",
+  "mode": "full"
+ },
+ {
+  "from": "Toggle browser headless vs visible mode",
+  "to": "切换浏览器无头/可见模式/Toggle browser headless vs visible mode",
+  "mode": "full"
+ },
+ {
+  "from": "Interrupt a process",
+  "to": "中断进程/Interrupt a process",
+  "mode": "full"
+ },
+ {
+  "from": "Waiting for input",
+  "to": "等待输入/Waiting for input",
+  "mode": "full"
+ },
+ {
+  "from": "Waiting for workflow runs for this commit.",
+  "to": "等待本次提交的工作流运行。/Waiting for workflow runs for this commit.",
+  "mode": "full"
+ },
+ {
+  "from": "  Press Backspace to clear the search",
+  "to": "  按退格键清除搜索/Press Backspace to clear the search",
+  "mode": "full"
+ },
+ {
+  "from": "  Press Alt+A to show all, Alt+D for default",
+  "to": "  按 Alt+A 显示全部，Alt+D 恢复默认/Press Alt+A to show all, Alt+D for default",
+  "mode": "full"
+ },
+ {
+  "from": "Interrupted: emit a tool call instead of more planning",
+  "to": "已中断：改为发出工具调用而非继续规划/Interrupted: emit a tool call instead of more planning",
+  "mode": "full"
+ },
+ {
+  "from": "Waiting for your answer",
+  "to": "等待你的回答/Waiting for your answer",
+  "mode": "full"
+ },
+ {
+  "from": "A bash command is already running. Press Esc to cancel it first.",
+  "to": "已有 bash 命令在运行，请先按 Esc 取消它。/A bash command is already running. Press Esc to cancel it first.",
+  "mode": "full"
+ },
+ {
+  "from": "A Python execution is already running. Press Esc to cancel it first.",
+  "to": "已有 Python 执行在运行，请先按 Esc 取消它。/A Python execution is already running. Press Esc to cancel it first.",
+  "mode": "full"
+ },
+ {
+  "from": "Waiting for the OMP Browser Relay extension to connect (omp browser-relay install)...",
+  "to": "等待 OMP Browser Relay 扩展连接（omp browser-relay install）.../Waiting for the OMP Browser Relay extension to connect (omp browser-relay install)...",
+  "mode": "full"
+ },
+ {
+  "from": "Set working directory for commands",
+  "to": "设置命令的工作目录/Set working directory for commands",
+  "mode": "full"
+ },
+ {
+  "from": "Interrupted by user",
+  "to": "已被用户中断/Interrupted by user",
+  "mode": "full"
+ },
+ {
+  "from": "No sessions found",
+  "to": "未找到会话/No sessions found",
+  "mode": "full"
+ },
+ {
+  "from": "New session started",
+  "to": "新会话已开始/New session started",
+  "mode": "full"
+ },
+ {
+  "from": "New session started with handoff context",
+  "to": "新会话已开始（含交接上下文）/New session started with handoff context",
+  "mode": "full"
+ },
+ {
+  "from": "Working...",
+  "to": "工作中.../Working...",
+  "mode": "full"
+ },
+ {
+  "from": "Cancelled",
+  "to": "已取消/Cancelled",
+  "mode": "full"
+ },
+ {
+  "from": "Aborted",
+  "to": "已中止/Aborted",
+  "mode": "full"
+ },
+ {
+  "from": "Manage Model Context Protocol (MCP) servers for external tool integrations.",
+  "to": "管理用于外部工具集成的模型上下文协议（MCP）服务器。/Manage Model Context Protocol (MCP) servers for external tool integrations.",
+  "mode": "full"
+ },
+ {
+  "from": "Manage SSH host configurations for remote command execution.",
+  "to": "管理用于远程命令执行的 SSH 主机配置。/Manage SSH host configurations for remote command execution.",
+  "mode": "full"
+ },
+ {
+  "from": "SSH Host Management",
+  "to": "SSH 主机管理/SSH Host Management",
+  "mode": "full"
+ },
+ {
+  "from": "Commands:",
+  "to": "命令：/Commands:",
+  "mode": "full"
+ },
+ {
+  "from": "Speculatively summarize in the background as context nears the compaction threshold, then splice the ready result in when the threshold is crossed",
+  "to": "当上下文接近压缩阈值时在后台推测性汇总，越过阈值后拼入已就绪的结果/Speculatively summarize in the background as context nears the compaction threshold, then splice the ready result in when the threshold is crossed",
+  "mode": "full"
+ },
+ {
+  "from": "An agent with no turn in flight cannot answer a message and never satisfies a bare `wait`; clear it with `hub` cancel.",
+  "to": "没有在途回合的代理无法应答消息，也永远不会满足裸 `wait`；请用 `hub` cancel 清除它/An agent with no turn in flight cannot answer a message and never satisfies a bare `wait`; clear it with `hub` cancel.",
+  "mode": "full"
+ },
+ {
+  "from": "Preferred fallback order for automatic context maintenance; unavailable or failed methods advance to the next choice",
+  "to": "自动上下文维护的首选回退顺序；不可用或失败的方法将推进到下一选项/Preferred fallback order for automatic context maintenance; unavailable or failed methods advance to the next choice",
+  "mode": "full"
+ },
+ {
+  "from": "Select a layout; live preview updates below. Press Enter to confirm.",
+  "to": "选择布局；下方实时预览会更新。按 Enter 确认/Select a layout; live preview updates below. Press Enter to confirm.",
+  "mode": "full"
+ },
+ {
+  "from": "Click to toggle \\xB7 drag selected items to reorder \\xB7 \\u2190/\\u2192 move \\xB7 1-9 place \\xB7 Esc to go back",
+  "to": "点击切换 · 拖拽选中项重新排序 · ←/→ 移动 · 1-9 放置 · Esc 返回/Click to toggle \\xB7 drag selected items to reorder \\xB7 \\u2190/\\u2192 move \\xB7 1-9 place \\xB7 Esc to go back",
+  "mode": "full"
+ },
+ {
+  "from": "Archive history onto dense bitmap images the active vision model reads back; no LLM call",
+  "to": "将历史记录归档为密集位图图像，由当前视觉模型读回；不调用 LLM/Archive history onto dense bitmap images the active vision model reads back; no LLM call",
+  "mode": "full"
+ },
+ {
+  "from": "No sessions in current folder. Press Tab to view all.",
+  "to": "当前文件夹中没有会话。按 Tab 查看全部/No sessions in current folder. Press Tab to view all.",
+  "mode": "full"
+ },
+ {
+  "from": "Summarize via OpenAI-compatible server compaction, then fall back to a local summary",
+  "to": "通过 OpenAI 兼容服务器压缩进行汇总，然后回退到本地汇总/Summarize via OpenAI-compatible server compaction, then fall back to a local summary",
+  "mode": "full"
+ },
+ {
+  "from": "Backgrounded early to handle an incoming message; the cell keeps running.",
+  "to": "提前转入后台以处理传入消息；该单元继续运行/Backgrounded early to handle an incoming message; the cell keeps running.",
+  "mode": "full"
+ },
+ {
+  "from": "Session append failed and its partial bytes could not be rolled back",
+  "to": "会话追加失败，且其部分字节无法回滚/Session append failed and its partial bytes could not be rolled back",
+  "mode": "full"
+ },
+ {
+  "from": "A /cleanse run is already active \\u2014 Esc cancels it.",
+  "to": "/cleanse 运行已在进行中 — Esc 可取消它/A /cleanse run is already active \\u2014 Esc cancels it.",
+  "mode": "full"
+ },
+ {
+  "from": "Automatically background long-running eval cells and deliver the result later",
+  "to": "自动将长时间运行的 eval 单元转入后台，稍后交付结果/Automatically background long-running eval cells and deliver the result later",
+  "mode": "full"
+ },
+ {
+  "from": "Tool execution was cancelled while an extension handler was pending",
+  "to": "扩展处理器挂起期间，工具执行被取消/Tool execution was cancelled while an extension handler was pending",
+  "mode": "full"
+ },
+ {
+  "from": "List and control daemon-supervised background processes (logs, stop, kill, restart)",
+  "to": "列出并控制守护进程监管的后台进程（日志、停止、强杀、重启）/List and control daemon-supervised background processes (logs, stop, kill, restart)",
+  "mode": "full"
+ },
+ {
+  "from": "Extension file delete fallback handler threw; trying next handler",
+  "to": "扩展文件删除回退处理器抛出异常；正在尝试下一个处理器/Extension file delete fallback handler threw; trying next handler",
+  "mode": "full"
+ },
+ {
+  "from": "Extension file write fallback handler threw; trying next handler",
+  "to": "扩展文件写入回退处理器抛出异常；正在尝试下一个处理器/Extension file write fallback handler threw; trying next handler",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2191/\\u2193 select \\xB7 enter info \\xB7 l logs \\xB7 s stop \\xB7 x kill \\xB7 r restart \\xB7 a all scopes \\xB7 q quit",
+  "to": "↑/↓ 选择 · enter 详情 · l 日志 · s 停止 · x 强杀 · r 重启 · a 全部作用域 · q 退出/\\u2191/\\u2193 select \\xB7 enter info \\xB7 l logs \\xB7 s stop \\xB7 x kill \\xB7 r restart \\xB7 a all scopes \\xB7 q quit",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2191/\\u2193 select \\xB7 \\u21B5 spend a reset \\xB7 Esc cancel",
+  "to": "↑/↓ 选择 · ⏎ 消耗一次重置额度 · Esc 取消/\\u2191/\\u2193 select \\xB7 \\u21B5 spend a reset \\xB7 Esc cancel",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2191/\\u2193 select \\xB7 \\u21B5 log out account \\xB7 Esc cancel",
+  "to": "↑/↓ 选择 · ⏎ 登出账户 · Esc 取消/\\u2191/\\u2193 select \\xB7 \\u21B5 log out account \\xB7 Esc cancel",
+  "mode": "full"
+ },
+ {
+  "from": "Enter to select \\xB7 Esc to cancel",
+  "to": "Enter 选择 · Esc 取消/Enter to select \\xB7 Esc to cancel",
+  "mode": "full"
+ },
+ {
+  "from": "Click/Enter/Space to toggle \\xB7 Esc to go back",
+  "to": "点击/Enter/Space 切换 · Esc 返回/Click/Enter/Space to toggle \\xB7 Esc to go back",
+  "mode": "full"
+ },
+ {
+  "from": "Enter to configure \\xB7 Esc to go back",
+  "to": "Enter 配置 · Esc 返回/Enter to configure \\xB7 Esc to go back",
+  "mode": "full"
+ },
+ {
+  "from": "Enter to toggle \\xB7 Esc to go back",
+  "to": "Enter 切换 · Esc 返回/Enter to toggle \\xB7 Esc to go back",
+  "mode": "full"
+ },
+ {
+  "from": "Enter to save \\xB7 Esc to cancel",
+  "to": "Enter 保存 · Esc 取消/Enter to save \\xB7 Esc to cancel",
+  "mode": "full"
+ },
+ {
+  "from": "Enter to edit \\xB7 Esc to go back",
+  "to": "Enter 编辑 · Esc 返回/Enter to edit \\xB7 Esc to go back",
+  "mode": "full"
+ },
+ {
+  "from": "Cleanse cancelled.",
+  "to": "cleanse 已取消/Cleanse cancelled.",
+  "mode": "full"
+ },
+ {
+  "from": "esc back \\xB7 q back \\xB7 view refreshes live",
+  "to": "esc 返回 · q 返回 · 视图实时刷新/esc back \\xB7 q back \\xB7 view refreshes live",
+  "mode": "full"
+ },
+ {
+  "from": "esc back \\xB7 q back",
+  "to": "esc 返回 · q 返回/esc back \\xB7 q back",
+  "mode": "full"
+ }
+]
