@@ -53,7 +53,7 @@ function download(tag) {
   const url = `https://github.com/${REPO}/releases/download/v${tag}/${ASSET}`;
   const sumsUrl = `https://github.com/${REPO}/releases/download/v${tag}/SHA256SUMS.txt`;
   const sumsTagFile = `${DL_SUMS}.${tag}`; // 每版本独立缓存，防止旧版 SUMS 误校验新版文件
-  const haveSums = () => { if (fs.existsSync(sumsTagFile)) return sumsTagFile; if (fs.existsSync(DL_SUMS)) return DL_SUMS; return null; };
+  const haveSums = () => { if (fs.existsSync(sumsTagFile)) return sumsTagFile; return null; }; // 仅信任当前版本清单，通用缓存可能是旧版本残留
   const fetchSums = () => { sh('curl', ['-fL', '--connect-timeout', '30', '-o', sumsTagFile, sumsUrl], { timeout: 120000 }); return sumsTagFile; };
   // 本地已有文件：先尝试只用校验文件验证（无校验文件则下载）
   if (fs.existsSync(DL_EXE)) {
@@ -72,16 +72,17 @@ function download(tag) {
       }
     } catch (e) { log('local reuse check failed: ' + e.message + ' — downloading'); }
   }
+  fs.rmSync(DL_EXE, { force: true }); // 禁用断点续传语义：上游替换资产后 -C - 会把新旧字节拼成确定性脏文件
   log('downloading ' + ASSET + ' v' + tag);
-  sh('curl', ['-fL', '--connect-timeout', '30', '--retry', '3', '-C', '-', '-o', DL_EXE, url], { timeout: 1800000 });
-  const sumsPath = haveSums() || fetchSums();
+  sh('curl', ['-fL', '--connect-timeout', '30', '--retry', '3', '-o', DL_EXE, url], { timeout: 1800000 });
+  const sumsPath = fetchSums(); // 下载完成后强制获取当前版本最新清单再校验
   const sums = fs.readFileSync(sumsPath, 'utf8');
   // 校验
   const line = sums.split('\n').find(l => l.includes(ASSET));
   if (!line) throw new Error('SHA256SUMS.txt missing entry for ' + ASSET);
   const expected = line.trim().split(/\s+/)[0].toLowerCase();
   const actual = crypto.createHash('sha256').update(fs.readFileSync(DL_EXE)).digest('hex');
-  if (expected !== actual) throw new Error(`sha256 mismatch for ${ASSET}: expected ${expected}, got ${actual}`);
+  if (expected !== actual) { fs.rmSync(DL_EXE, { force: true }); throw new Error(`sha256 mismatch for ${ASSET}: expected ${expected}, got ${actual}`); }
   log('sha256 OK: ' + actual.slice(0, 16) + '…');
   return DL_EXE;
 }
