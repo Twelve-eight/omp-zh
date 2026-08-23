@@ -165,3 +165,9 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   tag v18.0.0 重指；`git log --all -p` 三模式零命中。原始流留档 G:\omp works\omp-zh.export.raw。
 - **其它仓库**：voxy-net-lod / sts2-spire1 扫描亦见 o_Obl 与 sigdump bin/obj 构建产物入库，
   按用户指示未动，留档待决。凭据类模式（token/key/URL 凭据/私钥）三仓库及全工作区均零命中。
+- **归因与上游反馈（同日）**：对官方原版资产字节级核验——v18.0.1 含全部不安全模式
+  （daemon `windowsHide:!…Console`×1、MCP 三元式×1、kernel×3），v17.2.12 同类存在；
+  上游 main 分支 spawn-options.ts 今日仍为 `windowsHide: !opts.hostHasInheritableConsole`。
+  结论：上游 bug，与 omp-zh 改动无关（zh 仅改字符串字面量+catalog 字段）；18.0.1 与 main 均未修，
+  补丁2 保留必要。已提上游 issue：
+  https://github.com/can1357/oh-my-pi/issues/9463 （正文存 work/issue-body.md）
