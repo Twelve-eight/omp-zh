@@ -141,3 +141,5 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
 - **重试加固**：retry.maxRetries 50→**；fallbackChains 全部角色追加第二提供商 bai/deepseek-v4-flash
   （原配置所有角色回退指向主模型自身，服务抖动时无真实备选）。"stream closed before finish_reason" 错误
   在上游归类为 Transient 可重试，** 次 + 跨提供商回退双保险。
+- **用户修正**：不要跨模型回退（保持同一模型）。已撤销 bai 回退项，modelFallback: false，
+  仅保留 retry.maxRetries: ** 对同一模型重试(细节已隐去)。
