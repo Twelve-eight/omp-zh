@@ -132,3 +132,12 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   sha256 = dd66e710067c06e2edbb969ab75092a01f33aa4856a9d1be4dd7e89eaef6a2aa
 - 合规：README 注明非官方/来源/License；LICENSE 副本随仓库分发
 - git 推送注意：本机代理常掉线，push 失败时用 git -c http.proxy= -c https.proxy= push
+
+## 2026-08-22 深夜：泄露排查 + 重试加固
+- **API key 泄露排查**：云端仓库全历史、Release 资产、exe 二进制均无任何密钥（多模式扫描 sk-/ghp_/token= 等全零命中）。
+  发现轻度隐私泄露：Windows 用户名 REDACTED_USER 出现在文档路径（10 处）。已修复：
+  git filter-branch 全历史重写 + 强推覆盖 + 删 stash/refs/original/reflog/gc + **重打 v18.0.0 tag**（旧 tag 指向含泄露的 commit）。
+  最终 `git log --all -p | grep REDACTED_USER` = 0。
+- **重试加固**：retry.maxRetries 50→**；fallbackChains 全部角色追加第二提供商 bai/deepseek-v4-flash
+  （原配置所有角色回退指向主模型自身，服务抖动时无真实备选）。"stream closed before finish_reason" 错误
+  在上游归类为 Transient 可重试，** 次 + 跨提供商回退双保险。
