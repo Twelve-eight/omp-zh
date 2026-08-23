@@ -143,3 +143,25 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   在上游归类为 Transient 可重试，** 次 + 跨提供商回退双保险。
 - **用户修正**：不要跨模型回退（保持同一模型）。已撤销 bai 回退项，modelFallback: false，
   仅保留 retry.maxRetries: ** 对同一模型重试(细节已隐去)。
+
+## 2026-08-23：18.0.1 重建 + Windows 控制台泄漏修复 + 仓库敏感信息清理
+- **下载校验修复（update-zh.js）**：18.0.1 资产 sha256=9367cb63…。此前误报根源：通用缓存
+  SHA256SUMS.txt 是旧版本残留，haveSums 兜底回退导致新文件对旧清单校验；叠加 `curl -C -`
+  断点续传在上游替换资产后拼出确定性脏文件。现改为：只信按版本清单、下载前删旧文件禁续传、
+  下载后强制取当前版清单、校验失败即删。
+- **TUI 泄漏 bug 定位与修复**：症状为子进程日志直绘 TUI（光标处 [INFO]、重绘顶出"时空图"、
+  甚至落进其它 omp 实例窗口）。机制：win32+TUI 下 hostHasInheritableConsole()=true，
+  broker/daemon/MCP stdio 等多处 spawn windowsHide:false → 子进程附着 omp 控制台，孙进程经
+  NULL 句柄默认规则直写 CONOUT$；broker 由首实例孵化且 unref 长存、按项目目录共享 → 跨窗口。
+  patch-zh.js 新增补丁2：九处基础设施 spawn 强制 windowsHide:true（Bun 映射 CREATE_NO_WINDOW）；
+  eval kernel 三处豁免（上游 #1960：CREATE_NO_WINDOW 致 NumPy LoadLibraryExW 死锁）。
+  锚点逐一验证唯一性；补丁后危险模式 0、windowsHide:true 字面量 21→29、kernel 3 处不变。
+- **构建**：verify PASS，smoke OK version=omp/18.0.1 helpCJK=1643，产物 work/omp-zh.exe。
+  交付延迟（G:\omp\omp-zh.exe 被运行中会话占用）：退出后跑 `node update-zh.js --force` 补交付。
+  行为级验证状态：bundle 级已证伪全部危险模式；TUI 实机观察待下次会话确认。
+- **本仓库敏感信息清理**：自写 G:\omp works\.tooling\git-history-filter.js（fast-export|过滤|
+  fast-import，机器无 Python 故弃 filter-repo）。全史 redact：o_Obl→REDACTED_USER、
+  retry.maxRetries 数值与"无限重试"表述（正文+commit message）。强推完成 HEAD=85c4622，
+  tag v18.0.0 重指；`git log --all -p` 三模式零命中。原始流留档 G:\omp works\omp-zh.export.raw。
+- **其它仓库**：voxy-net-lod / sts2-spire1 扫描亦见 o_Obl 与 sigdump bin/obj 构建产物入库，
+  按用户指示未动，留档待决。凭据类模式（token/key/URL 凭据/私钥）三仓库及全工作区均零命中。

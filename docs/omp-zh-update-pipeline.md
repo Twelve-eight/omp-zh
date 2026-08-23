@@ -88,3 +88,10 @@ node update-zh.js --force --no-deliver
 - **翻译规模**：新增句子型字面量 378 + 键位扫描 370 + 帮助面三轮 ~160 + 选择器 label 47；cli.js 翻译点 1897、CJK 注入 20267 字符
 - **交付**：运行中会话占用 omp-zh.exe → 交付到 `G:\omp\omp-zh-17.4.0.exe`；浏览器中继扩展已安装（`browser.relay=true`，扩展在 ~\.omp\browser-relay\extension，Chrome 需手动加载一次）
 - 完整经验与安全方法论见 DEVLOG.md 与 skill「大版本更新额外步骤」
+
+## 2026-08-23：v18.0.1 重建 + 补丁2（Windows 控制台泄漏修复）
+- **下载校验**：update-zh.js 只认按版本清单（SHA256SUMS.txt.<tag>），下载前删旧文件禁 `-C -` 续传，下载后强制取当前版清单校验，失败即删脏文件。通用缓存 SHA256SUMS.txt 已删除（旧版残留曾致确定性误报）。
+- **补丁2 动机**：win32+TUI 下 hostHasInheritableConsole()=true 使 broker/daemon/MCP stdio/blob-broker/direnv/browser 等 spawn 附着控制台；孙进程 NULL 句柄默认规则直写 CONOUT$ → 日志绘入 TUI（"时空图"）；broker 由首实例孵化且 unref 长存、按项目目录共享 → 跨实例窗口泄漏。
+- **补丁2 内容**：9 处基础设施 spawn 强制 windowsHide:true；eval kernel（py/jl/rb shouldHideKernelWindow）豁免——上游 #1960 CREATE_NO_WINDOW 致 NumPy LoadLibraryExW 死锁，且 kernel 输出本就被管道捕获。
+- **验证方法**：改前对每个 find 串在 bundle 内计数（须 ==expect；本次 8 处唯一 + MCP 1 处，kernel 3 处不动）；补丁后复查危险模式归零、windowsHide:true 字面量 21→29、kernel 调用点不变。产物 verify PASS + smoke OK（omp/18.0.1，help CJK 1643）。
+- **交付**：宿主会话占用 G:\omp\omp-zh.exe 时用 --no-deliver 先构建，退出后 `node update-zh.js --force` 补交付。
