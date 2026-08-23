@@ -177,3 +177,8 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   （task/executor.ts yield 阶梯）。结构性保护保留：预算停止折叠阶梯、终端错误跳过提醒、
   loopGuard 与用户中断优先。压缩锚点 `KRo/XRo`、`xbo`、`sct` 随版本漂移，重定位方法：
   模块横幅注释 → 常量簇 → 渲染点反查。14/14 补丁 OK，verify PASS，smoke omp/18.0.3。
+- **#9463 实证回帖（同日）**：真实复现采集完成——写入者=hub daemon 启动的 STS2/Godot 游戏本体
+  （autoslay-p1smoke4.log，3959 行 [INFO]，指纹行可屏上核验）；拓扑=六实例共享 broker，
+  daemon 附着宿主(最早实例)控制台跨窗绘制；rewrite-readme 窗口(soundmodgui)为自身作用域
+  broker 同理。报告 G:\\omp works\\.tooling\\leak-evidence\\REPORT.md；英文评论已发：
+  https://github.com/can1357/oh-my-pi/issues/9463#issuecomment-5387962670 （附更窄修复选项供评估）。
