@@ -3,6 +3,7 @@
 //    （thinking 模式下强制 tool_choice 会 400；17.4.0 起 efforts 已原生含 "max"，无需再加）
 // 2. focus 补丁已移除：17.4.0 showTreeSelector 关闭回调原生调用 focusActiveEditorArea()
 // 3. Windows 控制台泄漏修复（18.0.1 起打）：强制基础设施子进程 windowsHide:true
+// 4. 停止恢复无上限（18.0.3 起打）：empty-stop/unexpected-stop/session-stop 续跑/yield 阶梯上限抬至 1e6
 // 用法: node patch-zh.js <cli.js路径>   （原地修改；失败仅警告，不中断）
 const fs = require('fs');
 
@@ -93,6 +94,39 @@ for (const p of LEAK_PATCHES) {
     console.log('patch SKIP: [leak] ' + p.name + ' (already patched)');
   } else {
     console.log('patch WARN: [leak] ' + p.name + ' found=' + c + ' expected=' + p.expect + ' (upstream changed?)');
+    warn++;
+  }
+}
+// ---- 补丁 3: 停止恢复无上限（"任何可重试情况，agent 不在用户要求前停止"）----
+// 上游四处硬编码放弃上限全部抬到 1000000（实际等效无限）：空停止重试 3、意外停止重试 3、
+// session-stop 续跑 8、子代理 yield 提醒阶梯 3。结构性保护不受影响：预算停止折叠阶梯、
+// 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
+// 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
+const STOPCAP_PATCHES = [
+  { name: 'empty/unexpected stop retries', expect: 1,
+    find: ', KRo = 3, VIa = 4000, XRo = 3, YIa = 1000,',
+    repl: ', KRo = 1000000, VIa = 4000, XRo = 1000000, YIa = 1000,',
+    done: 'KRo = 1000000' },
+  { name: 'session-stop continuation cap', expect: 1,
+    find: 'var xbo = 8, ',
+    repl: 'var xbo = 1000000, ',
+    done: 'var xbo = 1000000' },
+  { name: 'subagent yield ladder', expect: 1,
+    find: 'voa = 6, sct = 3;',
+    repl: 'voa = 6, sct = 1000000;',
+    done: 'sct = 1000000' },
+];
+for (const p of STOPCAP_PATCHES) {
+  const c = s.split(p.find).length - 1;
+  if (c === p.expect) {
+    s = s.split(p.find).join(p.repl);
+    ok++;
+    console.log('patch OK: [stopcap] ' + p.name);
+  } else if (c === 0 && (p.done ? s.includes(p.done) : s.includes(p.repl))) {
+    ok++;
+    console.log('patch SKIP: [stopcap] ' + p.name + ' (already patched)');
+  } else {
+    console.log('patch WARN: [stopcap] ' + p.name + ' found=' + c + ' expected=' + p.expect + ' (upstream changed?)');
     warn++;
   }
 }

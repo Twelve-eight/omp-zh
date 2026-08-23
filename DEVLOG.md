@@ -171,3 +171,9 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   结论：上游 bug，与 omp-zh 改动无关（zh 仅改字符串字面量+catalog 字段）；18.0.1 与 main 均未修，
   补丁2 保留必要。已提上游 issue：
   https://github.com/can1357/oh-my-pi/issues/9463 （正文存 work/issue-body.md）
+- **补丁3（18.0.3 起）：停止恢复无上限**——用户指令"任何可重试情况，agent 不在要求前停止"。
+  上游四处硬编码放弃上限全部抬至 1000000：EMPTY_STOP_MAX_RETRIES=3、UNEXPECTED_STOP_MAX_RETRIES=3
+  （turn-recovery.ts）、SESSION_STOP_CONTINUATION_CAP=8（agent-session.ts）、MAX_YIELD_RETRIES=3
+  （task/executor.ts yield 阶梯）。结构性保护保留：预算停止折叠阶梯、终端错误跳过提醒、
+  loopGuard 与用户中断优先。压缩锚点 `KRo/XRo`、`xbo`、`sct` 随版本漂移，重定位方法：
+  模块横幅注释 → 常量簇 → 渲染点反查。14/14 补丁 OK，verify PASS，smoke omp/18.0.3。
