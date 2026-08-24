@@ -4,6 +4,7 @@
 // 2. focus 补丁已移除：17.4.0 showTreeSelector 关闭回调原生调用 focusActiveEditorArea()
 // 3. Windows 控制台泄漏修复（18.0.1 起打）：强制基础设施子进程 windowsHide:true
 // 4. 停止恢复无上限（18.0.3 起打）：empty-stop/unexpected-stop/session-stop 续跑/yield 阶梯上限抬至 1e6
+// 5. 重放渲染完整性（18.0.3 起打）：transcript 重建应用 retryRecovery + 尾条 usage 无条件 flush
 // 用法: node patch-zh.js <cli.js路径>   （原地修改；失败仅警告，不中断）
 const fs = require('fs');
 
@@ -127,6 +128,36 @@ for (const p of STOPCAP_PATCHES) {
     console.log('patch SKIP: [stopcap] ' + p.name + ' (already patched)');
   } else {
     console.log('patch WARN: [stopcap] ' + p.name + ' found=' + c + ' expected=' + p.expect + ' (upstream changed?)');
+    warn++;
+  }
+}
+// ---- 补丁 4: 重放渲染完整性 ----
+// A) 上游仅实时路径应用 retryRecovery，历史重建不画 → "error; retried" 恢复后消失；
+//    在 assistant 追加函数尾部对主组件补调 applyRetryRecovery。
+// B) rebuild/append 尾部 flush 带 `#readArgs/#pendingTools 为空` 前置条件：崩溃回合的工具组件
+//    永远 pending → 尾条 usage 脚注被永久扣住。改为无条件 flush（行位于孤儿工具块上方可接受）。
+// 锚点含压缩名（#t/#e/#y/#n/#o/#r/#a/#i/aP/be），跨版本漂移按 DEVLOG 方法重抓。
+const REPLAY_PATCHES = [
+  { name: 'retryRecovery replay', expect: 1,
+    find: '    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? aP(e) : undefined;\n  }',
+    repl: '    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? aP(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }',
+    done: 'o.applyRetryRecovery' },
+  { name: 'tail usage flush', expect: 2,
+    find: 'if (this.#t.size === 0 && this.#e.size === 0)\n      this.#y();',
+    repl: 'this.#y();',
+    done: 'this.#T(t.message);\n    this.#y();' },
+];
+for (const p of REPLAY_PATCHES) {
+  const c = s.split(p.find).length - 1;
+  if (c === p.expect) {
+    s = s.split(p.find).join(p.repl);
+    ok++;
+    console.log('patch OK: [replay] ' + p.name);
+  } else if (c === 0 && (p.done ? s.includes(p.done) : s.includes(p.repl))) {
+    ok++;
+    console.log('patch SKIP: [replay] ' + p.name + ' (already patched)');
+  } else {
+    console.log('patch WARN: [replay] ' + p.name + ' found=' + c + ' expected=' + p.expect + ' (upstream changed?)');
     warn++;
   }
 }
