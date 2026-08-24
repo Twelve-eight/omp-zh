@@ -104,18 +104,19 @@ for (const p of LEAK_PATCHES) {
 // 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
 // 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
 const STOPCAP_PATCHES = [
+  // 18.0.4 锚点（18.0.3 为 KRo/XRo/xbo/voa+sct，已漂移）
   { name: 'empty/unexpected stop retries', expect: 1,
-    find: ', KRo = 3, VIa = 4000, XRo = 3, YIa = 1000,',
-    repl: ', KRo = 1000000, VIa = 4000, XRo = 1000000, YIa = 1000,',
-    done: 'KRo = 1000000' },
+    find: ', uSo = 3, $_a = 4000, cSo = 3, V_a = 1000,',
+    repl: ', uSo = 1000000, $_a = 4000, cSo = 1000000, V_a = 1000,',
+    done: 'uSo = 1000000' },
   { name: 'session-stop continuation cap', expect: 1,
-    find: 'var xbo = 8, ',
-    repl: 'var xbo = 1000000, ',
-    done: 'var xbo = 1000000' },
+    find: 'var YHs = 8, ',
+    repl: 'var YHs = 1000000, ',
+    done: 'var YHs = 1000000' },
   { name: 'subagent yield ladder', expect: 1,
-    find: 'voa = 6, sct = 3;',
-    repl: 'voa = 6, sct = 1000000;',
-    done: 'sct = 1000000' },
+    find: 'Aaa = 6, ppt = 3;',
+    repl: 'Aaa = 6, ppt = 1000000;',
+    done: 'ppt = 1000000' },
 ];
 for (const p of STOPCAP_PATCHES) {
   const c = s.split(p.find).length - 1;
@@ -139,8 +140,8 @@ for (const p of STOPCAP_PATCHES) {
 // 锚点含压缩名（#t/#e/#y/#n/#o/#r/#a/#i/aP/be），跨版本漂移按 DEVLOG 方法重抓。
 const REPLAY_PATCHES = [
   { name: 'retryRecovery replay', expect: 1,
-    find: '    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? aP(e) : undefined;\n  }',
-    repl: '    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? aP(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }',
+    find: '    this.#n = be.get("display.showTokenUsage") && _X(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? RP(e) : undefined;\n  }',
+    repl: '    this.#n = be.get("display.showTokenUsage") && _X(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? RP(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }',
     done: 'o.applyRetryRecovery' },
   { name: 'tail usage flush', expect: 2,
     find: 'if (this.#t.size === 0 && this.#e.size === 0)\n      this.#y();',

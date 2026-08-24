@@ -195,3 +195,9 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   扣住脚注 → 改无条件 flush（两处）。锚点 KRo/xbo/sct/#y/#T 等压缩名跨版本漂移需重抓。
   第三症状（输入横幅塌缩成细线、工具块被吞、下一条消息全量恢复）=渲染调度家族，
   上游无重复 issue，未打补丁，留作候选 issue C。构建产物待下载完成后自动接续。
+- **18.0.4 重建（08-24，资产由用户提供 I:\Downloads，sha256=8e04c83f… 与官方清单一致）**：
+  补丁2 九锚点原样；补丁3/4 涉及文件上游有改动 → 锚点漂移重抓：常量簇 KRo/XRo→uSo/cSo、
+  续跑 xbo→YHs、yield sct→ppt；replay 尾块仅 helper 改名（tX→_X、aP→RP），#t/#e/#y 未变。
+  16/16 OK，verify PASS，smoke omp/18.0.4 helpCJK=1643。产物 work\\omp-zh.exe 待交付
+  （退出后 `node update-zh.js --force`）。第三症状（输入横幅塌缩/工具块被吞）仍未打补丁，
+  上游无重复 issue，留作候选 issue C。
