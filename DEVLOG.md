@@ -138,10 +138,10 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   发现轻度隐私泄露：Windows 用户名 REDACTED_USER 出现在文档路径（10 处）。已修复：
   git filter-branch 全历史重写 + 强推覆盖 + 删 stash/refs/original/reflog/gc + **重打 v18.0.0 tag**（旧 tag 指向含泄露的 commit）。
   最终 `git log --all -p | grep REDACTED_USER` = 0。
-- **重试加固**：retry.maxRetries 50→**；fallbackChains 全部角色追加第二提供商 bai/deepseek-v4-flash
+- **重试加固**：retry.maxRetries 50→**；fallbackChains 曾追加第二提供商（该提供商现已从全部配置中整体移除）
   （原配置所有角色回退指向主模型自身，服务抖动时无真实备选）。"stream closed before finish_reason" 错误
   在上游归类为 Transient 可重试，** 次 + 跨提供商回退双保险。
-- **用户修正**：不要跨模型回退（保持同一模型）。已撤销 bai 回退项，modelFallback: false，
+- **用户修正**：不要跨模型回退（保持同一模型）。已撤销追加的回退项，modelFallback: false，
   仅保留 retry.maxRetries: ** 对同一模型重试(细节已隐去)。
 
 ## 2026-08-23：18.0.1 重建 + Windows 控制台泄漏修复 + 仓库敏感信息清理
