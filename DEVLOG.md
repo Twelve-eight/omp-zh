@@ -182,3 +182,9 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   daemon 附着宿主(最早实例)控制台跨窗绘制；rewrite-readme 窗口(soundmodgui)为自身作用域
   broker 同理。报告 G:\\omp works\\.tooling\\leak-evidence\\REPORT.md；英文评论已发：
   https://github.com/can1357/oh-my-pi/issues/9463#issuecomment-5387962670 （附更窄修复选项供评估）。
+- **元数据"消失"调查（08-24）**：18.0.3 实例退出后记录缺用量脚注与 "error; retried"。实测数据完整
+  （usage/duration/ttft/retryRecovery 全在 jsonl）；根因=上游重放渲染缺口：retryRecovery 仅实时路径
+  应用（transcript-builder 不调 applyRetryRecovery），尾条 assistant 的 pending-usage 无后继消息不 flush，
+  provider-error 回合不计费本就无脚注。退出原因：03:07 sighup=误杀标签页；06:40 集群=bai 断连终结 turn
+  （bai 已全配置抹除：models.yml/config.yml overrides/.env；DEVLOG 引用改写推送 0860ac6）。
+  详细分析 G:\\omp works\\.tooling\\leak-evidence\\metadata-findings.md。后续 A/B/C 待定。
