@@ -188,3 +188,10 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   provider-error 回合不计费本就无脚注。退出原因：03:07 sighup=误杀标签页；06:40 集群=bai 断连终结 turn
   （bai 已全配置抹除：models.yml/config.yml overrides/.env；DEVLOG 引用改写推送 0860ac6）。
   详细分析 G:\\omp works\\.tooling\\leak-evidence\\metadata-findings.md。后续 A/B/C 待定。
+- **补丁4（08-24）：重放渲染完整性**——用户报三实例退出后记录缺用量脚注与 retried 标记。
+  实测数据完整（usage/duration/ttft/retryRecovery 全持久化），根因为上游重放渲染缺口：
+  A) retryRecovery 仅实时路径应用 → builder assistant 尾部补调 applyRetryRecovery；
+  B) rebuild/append 尾 flush 带 readArgs/pendingTools 为空前置条件 → 崩溃回合工具永 pending
+  扣住脚注 → 改无条件 flush（两处）。锚点 KRo/xbo/sct/#y/#T 等压缩名跨版本漂移需重抓。
+  第三症状（输入横幅塌缩成细线、工具块被吞、下一条消息全量恢复）=渲染调度家族，
+  上游无重复 issue，未打补丁，留作候选 issue C。构建产物待下载完成后自动接续。
