@@ -104,16 +104,29 @@ for (const p of LEAK_PATCHES) {
 // 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
 // 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
 const STOPCAP_PATCHES = [
-  // 18.0.4 锚点（18.0.3 为 KRo/XRo/xbo/voa+sct，已漂移）
+  // 18.0.6 锚点（18.0.4 为 uSo/$_a/cSo/V_a、YHs、Aaa/ppt，已漂移）
   { name: 'empty/unexpected stop retries', expect: 1,
+    find: ', GAo = 3, V1a = 4000, HAo = 3, $1a = 1000,',
+    repl: ', GAo = 1000000, V1a = 4000, HAo = 1000000, $1a = 1000,',
+    done: 'GAo = 1000000' },
+  { name: 'session-stop continuation cap', expect: 1,
+    find: 'var fvo = 8, ',
+    repl: 'var fvo = 1000000, ',
+    done: 'var fvo = 1000000' },
+  { name: 'subagent yield ladder', expect: 1,
+    find: 'gfa = 6, Jdt = 3;',
+    repl: 'gfa = 6, Jdt = 1000000;',
+    done: 'Jdt = 1000000' },
+  // 18.0.4 锚点（历史版本重跑时仍可命中）
+  { name: 'empty/unexpected stop retries (18.0.4)', expect: 1,
     find: ', uSo = 3, $_a = 4000, cSo = 3, V_a = 1000,',
     repl: ', uSo = 1000000, $_a = 4000, cSo = 1000000, V_a = 1000,',
     done: 'uSo = 1000000' },
-  { name: 'session-stop continuation cap', expect: 1,
+  { name: 'session-stop continuation cap (18.0.4)', expect: 1,
     find: 'var YHs = 8, ',
     repl: 'var YHs = 1000000, ',
     done: 'var YHs = 1000000' },
-  { name: 'subagent yield ladder', expect: 1,
+  { name: 'subagent yield ladder (18.0.4)', expect: 1,
     find: 'Aaa = 6, ppt = 3;',
     repl: 'Aaa = 6, ppt = 1000000;',
     done: 'ppt = 1000000' },
@@ -135,11 +148,18 @@ for (const p of STOPCAP_PATCHES) {
 // ---- 补丁 4: 重放渲染完整性 ----
 // A) 上游仅实时路径应用 retryRecovery，历史重建不画 → "error; retried" 恢复后消失；
 //    在 assistant 追加函数尾部对主组件补调 applyRetryRecovery。
-// B) rebuild/append 尾部 flush 带 `#readArgs/#pendingTools 为空` 前置条件：崩溃回合的工具组件
-//    永远 pending → 尾条 usage 脚注被永久扣住。改为无条件 flush（行位于孤儿工具块上方可接受）。
-// 锚点含压缩名（#t/#e/#y/#n/#o/#r/#a/#i/aP/be），跨版本漂移按 DEVLOG 方法重抓。
 const REPLAY_PATCHES = [
+  // 18.0.6 锚点（18.0.4 为 _X/RP + #t/#e/#y，已漂移）
   { name: 'retryRecovery replay', expect: 1,
+    find: '    this.#n = be.get("display.showTokenUsage") && fQ(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? BP(e) : undefined;\n  }',
+    repl: '    this.#n = be.get("display.showTokenUsage") && fQ(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? BP(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }',
+    done: 'o.applyRetryRecovery' },
+  { name: 'tail usage flush', expect: 2,
+    find: 'if (this.#t.size === 0 && this.#e.size === 0)\n      this.#T();',
+    repl: 'this.#T();',
+    done: 'this.#y(t.message);\n    this.#T();' },
+  // 18.0.4 锚点（历史版本重跑时仍可命中）
+  { name: 'retryRecovery replay (18.0.4)', expect: 1,
     find: '    this.#n = be.get("display.showTokenUsage") && _X(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? RP(e) : undefined;\n  }',
     repl: '    this.#n = be.get("display.showTokenUsage") && _X(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? RP(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }',
     done: 'o.applyRetryRecovery' },
