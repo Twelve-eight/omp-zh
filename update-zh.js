@@ -12,7 +12,7 @@ const crypto = require('crypto');
 
 const T = __dirname;
 const REPO = 'can1357/oh-my-pi';
-const ASSET = 'omp-windows-x64.exe';
+const MIRROR = 'https://gh-proxy.com/'; // 大文件走镜像加速；SHA256SUMS 仍走官方源，镜像若篡改会被校验拦截
 const DL_EXE = T + '/work/omp-dl.exe';
 const DL_SUMS = T + '/work/SHA256SUMS.txt';
 const LOCAL_EXE = 'G:/omp/omp-zh.exe'; // 检测汉化版自身版本（原读官方版 omp.exe 导致检测与实际使用脱节）
@@ -50,7 +50,7 @@ function latestTag() {
 
 // ---- 3. 下载 + 校验（支持复用本地已下载文件） ----
 function download(tag) {
-  const url = `https://github.com/${REPO}/releases/download/v${tag}/${ASSET}`;
+  const url = MIRROR + `https://github.com/${REPO}/releases/download/v${tag}/${ASSET}`;
   const sumsUrl = `https://github.com/${REPO}/releases/download/v${tag}/SHA256SUMS.txt`;
   const sumsTagFile = `${DL_SUMS}.${tag}`; // 每版本独立缓存，防止旧版 SUMS 误校验新版文件
   const haveSums = () => { if (fs.existsSync(sumsTagFile)) return sumsTagFile; return null; }; // 仅信任当前版本清单，通用缓存可能是旧版本残留
@@ -74,7 +74,12 @@ function download(tag) {
   }
   fs.rmSync(DL_EXE, { force: true }); // 禁用断点续传语义：上游替换资产后 -C - 会把新旧字节拼成确定性脏文件
   log('downloading ' + ASSET + ' v' + tag);
-  sh('curl', ['-fL', '--connect-timeout', '30', '--retry', '3', '-o', DL_EXE, url], { timeout: 1800000 });
+  try {
+    sh('curl', ['-fL', '--connect-timeout', '30', '--retry', '3', '-o', DL_EXE, url], { timeout: 1800000 });
+  } catch (e) {
+    log('mirror download failed: ' + e.message + ' — falling back to direct GitHub');
+    sh('curl', ['-fL', '--connect-timeout', '30', '--retry', '3', '-o', DL_EXE, url.replace(MIRROR, '')], { timeout: 1800000 });
+  }
   const sumsPath = fetchSums(); // 下载完成后强制获取当前版本最新清单再校验
   const sums = fs.readFileSync(sumsPath, 'utf8');
   // 校验
