@@ -217,3 +217,13 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   work\omp-zh.exe（152,371,200 B）。会话退出后 `node "G:\omp works\omp-zh\update-zh.js" --force`
   交付（预下载 exe 与 SUMS 已缓存，跑一次秒级）。
 - 未翻译文本 11103 句型（与 18.0.4 持平，无新增翻译债）。
+
+## 2026-08-27（二）：18.0.7 重建
+- **上游当天连发两版**。18.0.7 minifier 又改名：stopcap 簇 GAo/HAo→WAo/GAo（GAo 复用为 empty-stop）、
+  续跑 fvo→dMo、yield Jdt→Rgt；replay helper fQ/BP→xX/IP、主组件类 Dc→qc、方法 #w→#R；
+  flush 门在 18.0.7 原生就是 #T(t.message)+#y() 形态——18.0.4 锚直接命中（found=2）。
+- 规则文件新增 18.0.7 锚（legacy 18.0.4/18.0.6 保留）。跑批输出行有丢失显示但实际全部生效
+  （终验 5/5 PASS：WAo/GAo/dMo/Rgt=1e6、o.applyRetryRecovery 注入、无条件 flush ×2）。
+  verify PASS，smoke omp/18.0.7 helpCJK=1643。产物 work\omp-zh.exe（18.0.7+全补丁），
+  交付仍因 G:\omp\omp-zh.exe 被三个运行中会话锁定而延迟（EBUSY），退出后 --force 秒级交付。
+- 未翻译 11118 句型（较 18.0.6 +15，上游新增少量文本）。
