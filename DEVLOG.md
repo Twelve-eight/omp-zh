@@ -201,3 +201,19 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   16/16 OK，verify PASS，smoke omp/18.0.4 helpCJK=1643。产物 work\\omp-zh.exe 待交付
   （退出后 `node update-zh.js --force`）。第三症状（输入横幅塌缩/工具块被吞）仍未打补丁，
   上游无重复 issue，留作候选 issue C。
+
+## 2026-08-27：18.0.6 重建 + gh-proxy 镜像下载
+- **镜像规范落地（update-zh.js）**：exe 下载 URL 拼接 `https://gh-proxy.com/` 前缀（152MB 实测 13.7s，
+  sha256 与官方 SUMS 逐位一致）；失败自动回退直连；SHA256SUMS 始终走官方源防镜像篡改。
+  技能 omp-zh-update 已同步。管线 bug 修复：MIRROR 常量插入误吞 ASSET 行（下载前即 fail-fast）。
+- **补丁锚点迁移（patch-zh.js，18.0.4→18.0.6）**：补丁2 九锚点原样全中；
+  补丁3 常量簇 uSo/cSo→GAo/HAo、续跑 YHs→fvo、yield ppt→Jdt；
+  补丁4 helper _X→fQ、RP→BP、flush #y()→#T()。语义核验：GAo=unexpected-stop 上限
+  （"Assistant returned unexpected stop after retry cap"）、HAo=empty-stop、fvo=session_stop
+  续跑（"session_stop continuation cap reached"）、Jdt=yield 提醒（"after 3 reminders"）。
+  旧 18.0.4 锚点保留为 legacy 规则（新 bundle 上 found=0 属预期 WARN）。
+  17/17 有效规则 OK，verify PASS，smoke omp/18.0.6 helpCJK=1643。
+- **交付延迟**：G:\omp\omp-zh.exe 被运行中会话占用（EBUSY）；产物在
+  work\omp-zh.exe（152,371,200 B）。会话退出后 `node "G:\omp works\omp-zh\update-zh.js" --force`
+  交付（预下载 exe 与 SUMS 已缓存，跑一次秒级）。
+- 未翻译文本 11103 句型（与 18.0.4 持平，无新增翻译债）。
