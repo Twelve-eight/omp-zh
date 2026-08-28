@@ -238,3 +238,23 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
 - 12/12 终验全 PASS（catalog、stopcap×3、replay×2、leak×6 形态校验）。verify PASS，
   smoke omp/18.0.9 helpCJK=1643。未翻译 11159（较 18.0.7 +41）。
 - 交付仍 EBUSY（运行中会话锁定 G:\omp\omp-zh.exe）；产物 work\omp-zh.exe。
+
+## 2026-08-28（二）：模型选择器/会话树补译（dict-tui +65）
+- **用户报告**：tree 对话与提供商选择页有未翻译文本。扫描确认两大 UI 面完整未译：
+  `modes/components/model-hub.ts`（/models 选择器）与 `tree-selector.ts` + Branch 覆盖层。
+- **新增 65 条**（全部 full 整串匹配，逐条与 bundle 逐字符核验存在）：
+  - model-hub：全部键盘提示条（Enter 指派/选择后备/受保护模型、↑↓ providers·→roles、
+    rows·Enter replace/pick/cycle 等 12 条）、状态行（Provider unavailable/requires auth/
+    not refreshed/Discovery 0 models/cached list）、Roles/All models/Models 表头、
+    New role name:(letters…)、+ New role/fallback…、less than a minute ago、Type to search。
+  - tree-selector：Branch from Message 标题+提示、No user messages/No matching messages、
+    Synthetic input、entry 类型标签（branch summary/service tier/credential pin/ttsr
+    injection/reset boundary/session init）、角色前缀（user:/developer:/assistant:/advisor:）、
+    (no content)/(cleared)/(aborted)、过滤器标记 [无工具]/[用户]/[已标记]/[全部]/[默认]、
+    Search:/Label (empty to remove):/enter: save esc: cancel。
+- **修正 2 条漂移**：Press Backspace…/Press Alt+A… 上游删了行首双空格（dict 原带 2 空格 → 永不命中）。
+  **删除 2 条死条目**：New session started with handoff context、Enter to toggle…Esc to go back
+  （18.0.9 已无此文案）。
+- **编码要点**：bundle 内 \xB7/\u2191 是字面反斜杠序列；dict JSON 存双反斜杠；构建时 ascii-escape
+  后校验需查 \\\\u63d5 形式而非解码后字符。翻译后 142/142 条全部在产物中命中（双语对照 21/21 抽检 PASS，
+  "残留原文"7 处均为对照后半段）。gap 11159→11101。verify PASS，smoke omp/18.0.9 helpCJK=1643。
