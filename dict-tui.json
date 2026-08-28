@@ -160,12 +160,12 @@
   "mode": "full"
  },
  {
-  "from": "  Press Backspace to clear the search",
+  "from": "Press Backspace to clear the search",
   "to": "  按退格键清除搜索/Press Backspace to clear the search",
   "mode": "full"
  },
  {
-  "from": "  Press Alt+A to show all, Alt+D for default",
+  "from": "Press Alt+A to show all, Alt+D for default",
   "to": "  按 Alt+A 显示全部，Alt+D 恢复默认/Press Alt+A to show all, Alt+D for default",
   "mode": "full"
  },
@@ -212,11 +212,6 @@
  {
   "from": "New session started",
   "to": "新会话已开始/New session started",
-  "mode": "full"
- },
- {
-  "from": "New session started with handoff context",
-  "to": "新会话已开始（含交接上下文）/New session started with handoff context",
   "mode": "full"
  },
  {
@@ -365,11 +360,6 @@
   "mode": "full"
  },
  {
-  "from": "Enter to toggle \\xB7 Esc to go back",
-  "to": "Enter 切换 · Esc 返回/Enter to toggle \\xB7 Esc to go back",
-  "mode": "full"
- },
- {
   "from": "Enter to save \\xB7 Esc to cancel",
   "to": "Enter 保存 · Esc 取消/Enter to save \\xB7 Esc to cancel",
   "mode": "full"
@@ -392,6 +382,331 @@
  {
   "from": "esc back \\xB7 q back",
   "to": "esc 返回 · q 返回/esc back \\xB7 q back",
+  "mode": "full"
+ },
+ {
+  "from": "less than a minute ago",
+  "to": "不到一分钟前/less than a minute ago",
+  "mode": "full"
+ },
+ {
+  "from": "  No recently used models yet",
+  "to": "  尚无最近使用的模型/No recently used models yet",
+  "mode": "full"
+ },
+ {
+  "from": "  Using cached model list. Live refresh is still pending.",
+  "to": "  正在使用缓存的模型列表，实时刷新仍在进行。/Using cached model list. Live refresh is still pending.",
+  "mode": "full"
+ },
+ {
+  "from": "  Provider unavailable.",
+  "to": "  提供商不可用。/Provider unavailable.",
+  "mode": "full"
+ },
+ {
+  "from": "  Provider requires authentication before models can be discovered.",
+  "to": "  需先完成提供商认证才能发现模型。/Provider requires authentication before models can be discovered.",
+  "mode": "full"
+ },
+ {
+  "from": "  Provider has not been refreshed yet.",
+  "to": "  提供商尚未刷新。/Provider has not been refreshed yet.",
+  "mode": "full"
+ },
+ {
+  "from": "  Discovery succeeded but returned 0 models. Check that /models returns { data: [{ id }] }.",
+  "to": "  发现成功但返回 0 个模型。请检查 /models 是否返回 { data: [{ id }] }。/Discovery succeeded but returned 0 models.",
+  "mode": "full"
+ },
+ {
+  "from": "  Add an API key for this provider in config.",
+  "to": "  在配置中为此提供商添加 API 密钥。/Add an API key for this provider in config.",
+  "mode": "full"
+ },
+ {
+  "from": "Adding fallback for",
+  "to": "正在为以下模型添加后备：/Adding fallback for",
+  "mode": "full"
+ },
+ {
+  "from": "Replacing fallback of",
+  "to": "正在替换以下模型的后备：/Replacing fallback of",
+  "mode": "full"
+ },
+ {
+  "from": "Model roles \\u2014 f adds a retry fallback, cleared roles fall back to auto-selection",
+  "to": "模型角色 \\u2014 f 添加重试后备，清空的角色回退到自动选择/Model roles \\u2014 f adds a retry fallback, cleared roles fall back to auto-selection",
+  "mode": "full"
+ },
+ {
+  "from": "New role name:",
+  "to": "新角色名：/New role name:",
+  "mode": "full"
+ },
+ {
+  "from": "(letters, digits, - and _)",
+  "to": "（字母、数字、- 和 _）/(letters, digits, - and _)",
+  "mode": "full"
+ },
+ {
+  "from": "+ New role\\u2026",
+  "to": "+ 新建角色\\u2026/+ New role\\u2026",
+  "mode": "full"
+ },
+ {
+  "from": "+ New fallback\\u2026",
+  "to": "+ 新建后备\\u2026/+ New fallback\\u2026",
+  "mode": "full"
+ },
+ {
+  "from": " New fallback chain \\u2014 Enter picks the model it protects, Esc cancels",
+  "to": " 新后备链 \\u2014 Enter 选择它保护的模型，Esc 取消/New fallback chain \\u2014 Enter picks the model it protects, Esc cancels",
+  "mode": "full"
+ },
+ {
+  "from": "Enter create + pick model \\xB7 Esc cancel",
+  "to": "Enter 创建并选择模型 \\xB7 Esc 取消/Enter create + pick model \\xB7 Esc cancel",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2190/\\u2192 choose \\xB7 Enter assign/clear \\xB7 Esc cancel",
+  "to": "\\u2190/\\u2192 选择 \\xB7 Enter 指派/清除 \\xB7 Esc 取消/\\u2190/\\u2192 choose \\xB7 Enter assign/clear \\xB7 Esc cancel",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2190/\\u2192 save scope \\xB7 Enter choose \\xB7 Esc cancel",
+  "to": "\\u2190/\\u2192 保存作用域 \\xB7 Enter 选择 \\xB7 Esc 取消/\\u2190/\\u2192 save scope \\xB7 Enter choose \\xB7 Esc cancel",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2190/\\u2192 thinking level \\xB7 Enter apply \\xB7 Esc keep",
+  "to": "\\u2190/\\u2192 思考级别 \\xB7 Enter 应用 \\xB7 Esc 保持/\\u2190/\\u2192 thinking level \\xB7 Enter apply \\xB7 Esc keep",
+  "mode": "full"
+ },
+ {
+  "from": "Enter pick fallback \\xB7 \\u2191/\\u2193 providers \\xB7 type to search \\xB7 Esc cancel",
+  "to": "Enter 选择后备 \\xB7 \\u2191/\\u2193 提供商 \\xB7 输入搜索 \\xB7 Esc 取消/Enter pick fallback \\xB7 \\u2191/\\u2193 providers \\xB7 type to search \\xB7 Esc cancel",
+  "mode": "full"
+ },
+ {
+  "from": "Enter pick the protected model \\xB7 \\u2191/\\u2193 providers \\xB7 type to search \\xB7 Esc cancel",
+  "to": "Enter 选择受保护的模型 \\xB7 \\u2191/\\u2193 提供商 \\xB7 输入搜索 \\xB7 Esc 取消/Enter pick the protected model \\xB7 \\u2191/\\u2193 providers \\xB7 type to search \\xB7 Esc cancel",
+  "mode": "full"
+ },
+ {
+  "from": "Enter assign \\xB7 \\u2191/\\u2193 providers \\xB7 type to search \\xB7 Esc cancel",
+  "to": "Enter 指派 \\xB7 \\u2191/\\u2193 提供商 \\xB7 输入搜索 \\xB7 Esc 取消/Enter assign \\xB7 \\u2191/\\u2193 providers \\xB7 type to search \\xB7 Esc cancel",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2191/\\u2193 providers \\xB7 \\u2192 roles \\xB7 Esc close",
+  "to": "\\u2191/\\u2193 提供商 \\xB7 \\u2192 角色 \\xB7 Esc 关闭/\\u2191/\\u2193 providers \\xB7 \\u2192 roles \\xB7 Esc close",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2191/\\u2193 rows \\xB7 Enter replace \\xB7 f add another \\xB7 x remove \\xB7 [/] reorder \\xB7 \\u2190 providers",
+  "to": "\\u2191/\\u2193 行 \\xB7 Enter 替换 \\xB7 f 追加 \\xB7 x 移除 \\xB7 [/] 排序 \\xB7 \\u2190 提供商/\\u2191/\\u2193 rows \\xB7 Enter replace \\xB7 f add another \\xB7 x remove \\xB7 [/] reorder \\xB7 \\u2190 providers",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2191/\\u2193 rows \\xB7 Enter/f add fallback \\xB7 x clear chain \\xB7 \\u2190 providers",
+  "to": "\\u2191/\\u2193 行 \\xB7 Enter/f 添加后备 \\xB7 x 清空链 \\xB7 \\u2190 提供商/\\u2191/\\u2193 rows \\xB7 Enter/f add fallback \\xB7 x clear chain \\xB7 \\u2190 providers",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2191/\\u2193 rows \\xB7 Enter new model/provider fallback chain \\xB7 \\u2190 providers",
+  "to": "\\u2191/\\u2193 行 \\xB7 Enter 新建模型/提供商后备链 \\xB7 \\u2190 提供商/\\u2191/\\u2193 rows \\xB7 Enter new model/provider fallback chain \\xB7 \\u2190 providers",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2191/\\u2193 rows \\xB7 Enter pick \\xB7 f fallback \\xB7 x clear \\xB7 t thinking \\xB7 c cycle \\xB7 [/] reorder \\xB7 n new",
+  "to": "\\u2191/\\u2193 行 \\xB7 Enter 选择 \\xB7 f 后备 \\xB7 x 清除 \\xB7 t 思考 \\xB7 c 循环 \\xB7 [/] 排序 \\xB7 n 新建/\\u2191/\\u2193 rows \\xB7 Enter pick \\xB7 f fallback \\xB7 x clear \\xB7 t thinking \\xB7 c cycle \\xB7 [/] reorder \\xB7 n new",
+  "mode": "full"
+ },
+ {
+  "from": "Enter log in \\xB7 \\u2191/\\u2193 providers \\xB7 Esc close",
+  "to": "Enter 登录 \\xB7 \\u2191/\\u2193 提供商 \\xB7 Esc 关闭/Enter log in \\xB7 \\u2191/\\u2193 providers \\xB7 Esc close",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2191/\\u2193 providers \\xB7 Esc close",
+  "to": "\\u2191/\\u2193 提供商 \\xB7 Esc 关闭/\\u2191/\\u2193 providers \\xB7 Esc close",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2191/\\u2193 providers \\xB7 \\u2192 models",
+  "to": "\\u2191/\\u2193 提供商 \\xB7 \\u2192 模型/\\u2191/\\u2193 providers \\xB7 \\u2192 models",
+  "mode": "full"
+ },
+ {
+  "from": "\\u2191/\\u2193 models \\xB7 \\u2190 providers",
+  "to": "\\u2191/\\u2193 模型 \\xB7 \\u2190 提供商/\\u2191/\\u2193 models \\xB7 \\u2190 providers",
+  "mode": "full"
+ },
+ {
+  "from": " \\xB7 F5 refresh",
+  "to": " \\xB7 F5 刷新/ \\xB7 F5 refresh",
+  "mode": "full"
+ },
+ {
+  "from": " \\xB7 --models scope",
+  "to": " \\xB7 --models 作用域/ \\xB7 --models scope",
+  "mode": "full"
+ },
+ {
+  "from": "Roles",
+  "to": "角色/Roles",
+  "mode": "full"
+ },
+ {
+  "from": "All models",
+  "to": "全部模型/All models",
+  "mode": "full"
+ },
+ {
+  "from": "Models",
+  "to": "模型/Models",
+  "mode": "full"
+ },
+ {
+  "from": "Type to search",
+  "to": "输入以搜索/Type to search",
+  "mode": "full"
+ },
+ {
+  "from": "  Type to search",
+  "to": "  输入以搜索/Type to search",
+  "mode": "full"
+ },
+ {
+  "from": "Branch from Message",
+  "to": "从消息创建分支/Branch from Message",
+  "mode": "full"
+ },
+ {
+  "from": "Select a message to create a new branch from that point",
+  "to": "选择一条消息，从该点创建新分支/Select a message to create a new branch from that point",
+  "mode": "full"
+ },
+ {
+  "from": "  No user messages found",
+  "to": "  未找到用户消息/No user messages found",
+  "mode": "full"
+ },
+ {
+  "from": "  No matching messages",
+  "to": "  无匹配消息/No matching messages",
+  "mode": "full"
+ },
+ {
+  "from": "Synthetic input",
+  "to": "合成输入/Synthetic input",
+  "mode": "full"
+ },
+ {
+  "from": "branch summary",
+  "to": "分支摘要/branch summary",
+  "mode": "full"
+ },
+ {
+  "from": "service tier",
+  "to": "服务档位/service tier",
+  "mode": "full"
+ },
+ {
+  "from": "credential pin",
+  "to": "凭据固定/credential pin",
+  "mode": "full"
+ },
+ {
+  "from": "ttsr injection",
+  "to": "ttsr 注入/ttsr injection",
+  "mode": "full"
+ },
+ {
+  "from": "reset boundary",
+  "to": "重置边界/reset boundary",
+  "mode": "full"
+ },
+ {
+  "from": "session init",
+  "to": "会话初始化/session init",
+  "mode": "full"
+ },
+ {
+  "from": "user: ",
+  "to": "用户：/user: ",
+  "mode": "full"
+ },
+ {
+  "from": "developer: ",
+  "to": "开发者：/developer: ",
+  "mode": "full"
+ },
+ {
+  "from": "assistant: ",
+  "to": "助手：/assistant: ",
+  "mode": "full"
+ },
+ {
+  "from": "advisor: ",
+  "to": "顾问：/advisor: ",
+  "mode": "full"
+ },
+ {
+  "from": "(no content)",
+  "to": "（无内容）/(no content)",
+  "mode": "full"
+ },
+ {
+  "from": "(cleared)",
+  "to": "（已清除）/(cleared)",
+  "mode": "full"
+ },
+ {
+  "from": "(aborted)",
+  "to": "（已中止）/(aborted)",
+  "mode": "full"
+ },
+ {
+  "from": " [no-tools]",
+  "to": " [无工具]",
+  "mode": "full"
+ },
+ {
+  "from": " [user]",
+  "to": " [用户]",
+  "mode": "full"
+ },
+ {
+  "from": " [labeled]",
+  "to": " [已标记]",
+  "mode": "full"
+ },
+ {
+  "from": " [all]",
+  "to": " [全部]",
+  "mode": "full"
+ },
+ {
+  "from": "[default]",
+  "to": "[默认]",
+  "mode": "full"
+ },
+ {
+  "from": "Search:",
+  "to": "搜索：/Search:",
+  "mode": "full"
+ },
+ {
+  "from": "Label (empty to remove):",
+  "to": "标签（留空移除）：/Label (empty to remove):",
+  "mode": "full"
+ },
+ {
+  "from": "enter: save  esc: cancel",
+  "to": "enter: 保存  esc: 取消/enter: save  esc: cancel",
   "mode": "full"
  }
 ]
