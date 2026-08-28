@@ -227,3 +227,14 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   verify PASS，smoke omp/18.0.7 helpCJK=1643。产物 work\omp-zh.exe（18.0.7+全补丁），
   交付仍因 G:\omp\omp-zh.exe 被三个运行中会话锁定而延迟（EBUSY），退出后 --force 秒级交付。
 - 未翻译 11118 句型（较 18.0.6 +15，上游新增少量文本）。
+
+## 2026-08-28：18.0.9 重建
+- **上游 18.0.8→18.0.9 连发**。18.0.9 变化：四个 leak spawn 点（tunnel/ssh/uploader-sh/uploader）
+  上游加了 `cwd:` 参数（tunnel/uploader-sh 为 j7()、ssh 为 pSt.homedir()、uploader 为 l）——
+  说明上游在整理工作目录语义，但 windowsHide 仍未加，补丁继续；其余 5 个 leak 锚原样命中。
+- stopcap 再漂移：`WAo` 名字保留（unexpected-stop），empty-stop `GAo→UAo`、簇 `sUa/nUa→oWa/rWa`、
+  续跑 `dMo→pMo`、yield `DTa/Rgt→uCa/Yft`。replay：helper `xX/IP→oX/CP`、settings `be→Re`、
+  **新增 showTurnTime 行**（`this.#l = ...display.showTurnTime...`，锚点须包含）、flush `#y()→#C()`。
+- 12/12 终验全 PASS（catalog、stopcap×3、replay×2、leak×6 形态校验）。verify PASS，
+  smoke omp/18.0.9 helpCJK=1643。未翻译 11159（较 18.0.7 +41）。
+- 交付仍 EBUSY（运行中会话锁定 G:\omp\omp-zh.exe）；产物 work\omp-zh.exe。
