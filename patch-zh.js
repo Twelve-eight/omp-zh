@@ -56,6 +56,19 @@ const LEAK_PATCHES = [
     repl: 'const n = true;',
     done: null },
   // 18.0.9 锚点：上游给四个 spawn 加了 cwd 参数（tunnel cwd:j7()、ssh cwd:homedir、uploader-sh cwd:j7()、uploader cwd:l）
+  // 18.0.11 锚点：cwd helper j7()→g6()、pSt→DSt（uploader 两处与 18.0.9 相同，未漂）
+  { name: 'blob-broker tunnel (18.0.11)', expect: 1,
+    find: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: g6() })',
+    repl: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: g6(), windowsHide: true })',
+    done: 'stdout: o, stderr: o, cwd: g6(), windowsHide: true })' },
+  { name: 'blob-broker ssh tunnel (18.0.11)', expect: 1,
+    find: '], { env: process.env, stdin: "ignore", stdout: "ignore", stderr: "ignore", cwd: DSt.homedir() })',
+    repl: '], { env: process.env, stdin: "ignore", stdout: "ignore", stderr: "ignore", cwd: DSt.homedir(), windowsHide: true })',
+    done: 'stderr: "ignore", cwd: DSt.homedir(), windowsHide: true })' },
+  { name: 'uploader self-hosted (18.0.11)', expect: 1,
+    find: 'Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: "ignore",\n          stderr: "pipe",\n          cwd: g6()\n        })',
+    repl: 'Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: "ignore",\n          stderr: "pipe",\n          cwd: g6(),\n          windowsHide: true\n        })',
+    done: 'cwd: g6(),\n          windowsHide: true' },
   { name: 'blob-broker tunnel (18.0.9)', expect: 1,
     find: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: j7() });',
     repl: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: j7(), windowsHide: true });',
@@ -105,6 +118,19 @@ for (const p of LEAK_PATCHES) {
 // 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
 // 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
 const STOPCAP_PATCHES = [
+  // 18.0.11 锚点（再漂移：MIo/OIo/aHa/lHa、s_o、mba/Rmt）
+  { name: 'empty/unexpected stop retries (18.0.11)', expect: 1,
+    find: ', MIo = 3, aHa = 4000, OIo = 3, lHa = 1000,',
+    repl: ', MIo = 1000000, aHa = 4000, OIo = 1000000, lHa = 1000,',
+    done: 'MIo = 1000000, aHa = 4000, OIo = 1000000' },
+  { name: 'session-stop continuation cap (18.0.11)', expect: 1,
+    find: 'var s_o = 8, ',
+    repl: 'var s_o = 1000000, ',
+    done: 'var s_o = 1000000' },
+  { name: 'subagent yield ladder (18.0.11)', expect: 1,
+    find: 'mba = 6, Rmt = 3;',
+    repl: 'mba = 6, Rmt = 1000000;',
+    done: 'Rmt = 1000000' },
   // 18.0.9 锚点（WAo 名字保留，其余再漂移：oWa/rWa、pMo、uCa/Yft）
   { name: 'empty/unexpected stop retries (18.0.9)', expect: 1,
     find: ', WAo = 3, oWa = 4000, UAo = 3, rWa = 1000,',
@@ -175,6 +201,11 @@ for (const p of STOPCAP_PATCHES) {
 // A) 上游仅实时路径应用 retryRecovery，历史重建不画 → "error; retried" 恢复后消失；
 //    在 assistant 追加函数尾部对主组件补调 applyRetryRecovery。
 const REPLAY_PATCHES = [
+  // 18.0.11 锚点（helper xX/ke/_c；flush 门上游已原生无条件化——18.0.9 的 tail-flush 规则在此版本起自然失配，保留无害）
+  { name: 'retryRecovery replay (18.0.11)', expect: 1,
+    find: '    this.#n = ke.get("display.showTokenUsage") && _X(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? IP(e) : undefined;\n    this.#l = this.#n && ke.get("display.showTurnTime") ? this.#k(e) : undefined;\n  }',
+    repl: '    this.#n = ke.get("display.showTokenUsage") && _X(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? IP(e) : undefined;\n    this.#l = this.#n && ke.get("display.showTurnTime") ? this.#k(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }',
+    done: 'o.applyRetryRecovery' },
   // 18.0.9 锚点（helper xX/IP→oX/CP；新增 showTurnTime 行；flush #y()→#C()；settings be→Re）
   { name: 'retryRecovery replay (18.0.9)', expect: 1,
     find: '    this.#n = Re.get("display.showTokenUsage") && oX(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? CP(e) : undefined;\n    this.#l = this.#n && Re.get("display.showTurnTime") ? this.#k(e) : undefined;\n  }',
