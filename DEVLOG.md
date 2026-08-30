@@ -258,3 +258,16 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
 - **编码要点**：bundle 内 \xB7/\u2191 是字面反斜杠序列；dict JSON 存双反斜杠；构建时 ascii-escape
   后校验需查 \\\\u63d5 形式而非解码后字符。翻译后 142/142 条全部在产物中命中（双语对照 21/21 抽检 PASS，
   "残留原文"7 处均为对照后半段）。gap 11159→11101。verify PASS，smoke omp/18.0.9 helpCJK=1643。
+
+## 2026-08-30：18.0.11 重建 + 镜像链改造
+- **gh-proxy.com 当日瘫痪**（20s 探针 0B/s，管线下载仅 ~50KB/s）。用户指点聚合站
+  github.akams.cn：从其 Next.js chunk 挖出 48 个镜像域，全量 3MB 并行探针测速，
+  top5：js.jiangss.shop 1.38MB/s、ghproxy.felicity.land 1.30、cfgh.ikgy.top 1.26、
+  gh.meali.top 1.21、gh.dpik.top 1.06（瞬时峰值更高，实际下载 150MB/14s ≈ 11MB/s）。
+  update-zh.js 改 MIRRORS 回退链（8 镜像+直连兜底，逐个 try，>1MB 即接受、sha256 兜底校验）。
+- **18.0.11 锚点再漂移**：leak 三处 cwd helper j7()→g6()、pSt→DSt（uploader 两处未变）；
+  stopcap 簇 MIo/OIo/aHa/lHa、续跑 s_o、yield mba/Rmt；replay settings Re→ke（helper _X/IP 未变）。
+- **上游吸收补丁4B**：rebuild/append 尾部 flush 已原生无条件化（this.#C() 直调），
+  tail-flush 规则自然失配保留无害。补丁4A（retryRecovery 重放）上游仍未修，继续打。
+- 12/12 终验 PASS，verify PASS，smoke omp/18.0.11 helpCJK=1618（-25：上游文案微调致个别词条失配，
+  gap 11101→11276 待补译）。交付 EBUSY（本会话运行中占用），退出后 --force 秒级交付。
