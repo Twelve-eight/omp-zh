@@ -12,7 +12,20 @@ const crypto = require('crypto');
 
 const T = __dirname;
 const REPO = 'can1357/oh-my-pi';
-const MIRROR = 'https://gh-proxy.com/'; // 大文件走镜像加速；SHA256SUMS 仍走官方源，镜像若篡改会被校验拦截
+const ASSET = 'omp-windows-x64.exe';
+// 镜像回退链（2026-08-30 从 github.akams.cn 聚合站 48 个镜像实测 3MB 探针排序；
+// gh-proxy.com 当日已瘫 0B/s 故垫底）。SHA256SUMS 始终走官方源，镜像篡改会被校验拦截。
+const MIRRORS = [
+  'https://js.jiangss.shop/',
+  'https://ghproxy.felicity.land/',
+  'https://cfgh.ikgy.top/',
+  'https://gh.meali.top/',
+  'https://gh.dpik.top/',
+  'https://gh.927223.xyz/',
+  'https://github.tbap.top/',
+  'https://gh-proxy.com/',
+  '', // 直连 GitHub 兜底
+];
 const DL_EXE = T + '/work/omp-dl.exe';
 const DL_SUMS = T + '/work/SHA256SUMS.txt';
 const LOCAL_EXE = 'G:/omp/omp-zh.exe'; // 检测汉化版自身版本（原读官方版 omp.exe 导致检测与实际使用脱节）
@@ -48,13 +61,13 @@ function latestTag() {
   return out.trim().replace(/^v/, '');
 }
 
-// ---- 3. 下载 + 校验（支持复用本地已下载文件） ----
+// ---- 3. 下载 + 校验（支持复用本地已下载文件；镜像回退链） ----
 function download(tag) {
-  const url = MIRROR + `https://github.com/${REPO}/releases/download/v${tag}/${ASSET}`;
-  const sumsUrl = `https://github.com/${REPO}/releases/download/v${tag}/SHA256SUMS.txt`;
+  const ghUrl = `https://github.com/${REPO}/releases/download/v${tag}/${ASSET}`;
+  const sumsUrl = ghUrl.replace(ASSET, 'SHA256SUMS.txt');
   const sumsTagFile = `${DL_SUMS}.${tag}`; // 每版本独立缓存，防止旧版 SUMS 误校验新版文件
-  const haveSums = () => { if (fs.existsSync(sumsTagFile)) return sumsTagFile; return null; }; // 仅信任当前版本清单，通用缓存可能是旧版本残留
-  const fetchSums = () => { sh('curl', ['-fL', '--connect-timeout', '30', '-o', sumsTagFile, sumsUrl], { timeout: 120000 }); return sumsTagFile; };
+  const haveSums = () => { if (fs.existsSync(sumsTagFile) && fs.statSync(sumsTagFile).size > 0) return sumsTagFile; return null; };
+  const fetchSums = () => { sh('curl', ['-fsSL', '--connect-timeout', '30', '-o', sumsTagFile, sumsUrl], { timeout: 120000 }); return sumsTagFile; };
   // 本地已有文件：先尝试只用校验文件验证（无校验文件则下载）
   if (fs.existsSync(DL_EXE)) {
     try {
@@ -74,12 +87,21 @@ function download(tag) {
   }
   fs.rmSync(DL_EXE, { force: true }); // 禁用断点续传语义：上游替换资产后 -C - 会把新旧字节拼成确定性脏文件
   log('downloading ' + ASSET + ' v' + tag);
-  try {
-    sh('curl', ['-fL', '--connect-timeout', '30', '--retry', '3', '-o', DL_EXE, url], { timeout: 1800000 });
-  } catch (e) {
-    log('mirror download failed: ' + e.message + ' — falling back to direct GitHub');
-    sh('curl', ['-fL', '--connect-timeout', '30', '--retry', '3', '-o', DL_EXE, url.replace(MIRROR, '')], { timeout: 1800000 });
+  // 镜像链依序尝试；最后一个条目是直连 GitHub 兜底。任一镜像产物均由下方官方 SUMS 强制校验。
+  let lastErr = null;
+  for (const m of MIRRORS) {
+    const url = m + ghUrl;
+    try {
+      sh('curl', ['-fL', '--connect-timeout', '30', '--retry', '2', '-o', DL_EXE, url], { timeout: 1800000 });
+      if (fs.existsSync(DL_EXE) && fs.statSync(DL_EXE).size > 1000000) break; // 基本完整（后续 sha256 兜底）
+      throw new Error('file too small (' + (fs.existsSync(DL_EXE) ? fs.statSync(DL_EXE).size : 0) + ' bytes)');
+    } catch (e) {
+      lastErr = e;
+      log('download failed via ' + (m || 'direct GitHub') + ': ' + e.message);
+      fs.rmSync(DL_EXE, { force: true });
+    }
   }
+  if (!fs.existsSync(DL_EXE)) throw new Error('all mirrors failed, last error: ' + (lastErr && lastErr.message));
   const sumsPath = fetchSums(); // 下载完成后强制获取当前版本最新清单再校验
   const sums = fs.readFileSync(sumsPath, 'utf8');
   // 校验
