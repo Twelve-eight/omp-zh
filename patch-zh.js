@@ -17,21 +17,29 @@ let ok = 0, warn = 0;
 // ---- 补丁 1: catalog compat（仅 deepseek-v4-flash / v4-pro 条目内 supportsForcedToolChoice → false） ----
 // 注意幂等检查必须限定在这两个条目窗口内：全文件有大量其他模型的 supportsForcedToolChoice:false
 const MODELS = ['"deepseek-v4-flash"', '"deepseek-v4-pro"'];
+// 18.1.2 起 catalog 扁平化：条目带 provider: 字段，同一模型出现在多个目录表。
+// 语义：把这两个模型在【所有 provider 条目】里的 supportsForcedToolChoice 改 false
+//（历史动机：thinking 模式强制 tool_choice 400；扩到全部 provider 保持行为一致）。
 for (const name of MODELS) {
-  const i = s.indexOf(name);
-  if (i < 0) {
-    console.log('patch WARN: ' + name + ' not found (upstream changed?) — tool_choice fix NOT applied');
-    warn++;
-    continue;
+  let i = -1, patched = 0, distinct = [];
+  while ((i = s.indexOf(name, i + 1)) !== -1) {
+    const win = s.slice(i, i + 2500);
+    if (win.includes('supportsForcedToolChoice: true')) distinct.push(i);
   }
-  const win = s.slice(i, i + 2500);
-  if (win.includes('supportsForcedToolChoice: false')) {
+  // 同一条目内 name 出现多次（id/name 行），按 200 字符去重
+  const dd = distinct.filter((x, k) => k === 0 || x - distinct[k - 1] > 200);
+  // 从后往前替换，避免偏移失效
+  for (let k = dd.length - 1; k >= 0; k--) {
+    const win = s.slice(dd[k], dd[k] + 2500);
+    s = s.slice(0, dd[k]) + win.replace('supportsForcedToolChoice: true', 'supportsForcedToolChoice: false') + s.slice(dd[k] + win.length);
+    patched++;
+  }
+  if (patched > 0) {
+    ok++;
+    console.log('patch OK: ' + name + ' supportsForcedToolChoice → false (' + patched + ' entries)');
+  } else if (s.includes(name) && s.slice(s.indexOf(name), s.indexOf(name) + 2500).includes('supportsForcedToolChoice: false')) {
+    ok++;
     console.log('patch SKIP: ' + name + ' compat already patched');
-    ok++;
-  } else if (win.includes('supportsForcedToolChoice: true')) {
-    s = s.slice(0, i) + win.replace('supportsForcedToolChoice: true', 'supportsForcedToolChoice: false') + s.slice(i + win.length);
-    ok++;
-    console.log('patch OK: ' + name + ' supportsForcedToolChoice → false');
   } else {
     console.log('patch WARN: ' + name + ' has no supportsForcedToolChoice field (upstream changed?)');
     warn++;
@@ -56,6 +64,23 @@ const LEAK_PATCHES = [
     repl: 'const n = true;',
     done: null },
   // 18.0.9 锚点：上游给四个 spawn 加了 cwd 参数（tunnel cwd:j7()、ssh cwd:homedir、uploader-sh cwd:j7()、uploader cwd:l）
+  // 18.1.2 锚点：cwd helper g6()→M9()、DSt→AEt、chrome launch 变量 d→c
+  { name: 'blob-broker tunnel (18.1.2)', expect: 1,
+    find: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: M9() })',
+    repl: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: M9(), windowsHide: true })',
+    done: 'stdout: o, stderr: o, cwd: M9(), windowsHide: true })' },
+  { name: 'blob-broker ssh tunnel (18.1.2)', expect: 1,
+    find: '], { env: process.env, stdin: "ignore", stdout: "ignore", stderr: "ignore", cwd: AEt.homedir() })',
+    repl: '], { env: process.env, stdin: "ignore", stdout: "ignore", stderr: "ignore", cwd: AEt.homedir(), windowsHide: true })',
+    done: 'stderr: "ignore", cwd: AEt.homedir(), windowsHide: true })' },
+  { name: 'uploader self-hosted (18.1.2)', expect: 1,
+    find: 'Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: "ignore",\n          stderr: "pipe",\n          cwd: M9()\n        })',
+    repl: 'Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: "ignore",\n          stderr: "pipe",\n          cwd: M9(),\n          windowsHide: true\n        })',
+    done: 'cwd: M9(),\n          windowsHide: true' },
+  { name: 'browser chrome launch (18.1.2)', expect: 1,
+    find: 'const c = Bun.spawn([s, ...p], {\n      stdout: "ignore",\n      stderr: "ignore",\n      stdin: "ignore"\n    });',
+    repl: 'const c = Bun.spawn([s, ...p], {\n      stdout: "ignore",\n      stderr: "ignore",\n      stdin: "ignore",\n      windowsHide: true\n    });',
+    done: 'const c = Bun.spawn([s, ...p], {\n      stdout: "ignore",\n      stderr: "ignore",\n      stdin: "ignore",\n      windowsHide: true\n    });' },
   // 18.0.11 锚点：cwd helper j7()→g6()、pSt→DSt（uploader 两处与 18.0.9 相同，未漂）
   { name: 'blob-broker tunnel (18.0.11)', expect: 1,
     find: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: g6() })',
@@ -118,6 +143,19 @@ for (const p of LEAK_PATCHES) {
 // 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
 // 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
 const STOPCAP_PATCHES = [
+  // 18.1.2 锚点（再漂移：q_o/L_o/OBa/IBa、uPo、Xxa/Ygt）
+  { name: 'empty/unexpected stop retries (18.1.2)', expect: 1,
+    find: ', q_o = 3, OBa = 4000, L_o = 3, IBa = 1000,',
+    repl: ', q_o = 1000000, OBa = 4000, L_o = 1000000, IBa = 1000,',
+    done: 'q_o = 1000000, OBa = 4000, L_o = 1000000' },
+  { name: 'session-stop continuation cap (18.1.2)', expect: 1,
+    find: 'var uPo = 8, ',
+    repl: 'var uPo = 1000000, ',
+    done: 'var uPo = 1000000' },
+  { name: 'subagent yield ladder (18.1.2)', expect: 1,
+    find: 'Xxa = 6, Ygt = 3;',
+    repl: 'Xxa = 6, Ygt = 1000000;',
+    done: 'Ygt = 1000000' },
   // 18.0.11 锚点（再漂移：MIo/OIo/aHa/lHa、s_o、mba/Rmt）
   { name: 'empty/unexpected stop retries (18.0.11)', expect: 1,
     find: ', MIo = 3, aHa = 4000, OIo = 3, lHa = 1000,',
@@ -201,6 +239,15 @@ for (const p of STOPCAP_PATCHES) {
 // A) 上游仅实时路径应用 retryRecovery，历史重建不画 → "error; retried" 恢复后消失；
 //    在 assistant 追加函数尾部对主组件补调 applyRetryRecovery。
 const REPLAY_PATCHES = [
+  // 18.1.2 锚点（helper uQ/BP/ke；上游回退了 flush 无条件化——gate 复活，需再打；方法 #b→#S、组件 _c→Pp）
+  { name: 'retryRecovery replay (18.1.2)', expect: 1,
+    find: '    this.#n = ke.get("display.showTokenUsage") && uQ(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? BP(e) : undefined;\n    this.#l = this.#n && ke.get("display.showTurnTime") ? this.#k(e) : undefined;\n  }',
+    repl: '    this.#n = ke.get("display.showTokenUsage") && uQ(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? BP(e) : undefined;\n    this.#l = this.#n && ke.get("display.showTurnTime") ? this.#k(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }',
+    done: 'o.applyRetryRecovery' },
+  { name: 'tail usage flush (18.1.2)', expect: 2,
+    find: 'if (this.#t.size === 0 && this.#e.size === 0)\n      this.#w();',
+    repl: 'this.#w();',
+    done: 'this.#y(t);\n    this.#w();' },
   // 18.0.11 锚点（helper xX/ke/_c；flush 门上游已原生无条件化——18.0.9 的 tail-flush 规则在此版本起自然失配，保留无害）
   { name: 'retryRecovery replay (18.0.11)', expect: 1,
     find: '    this.#n = ke.get("display.showTokenUsage") && _X(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? IP(e) : undefined;\n    this.#l = this.#n && ke.get("display.showTurnTime") ? this.#k(e) : undefined;\n  }',
