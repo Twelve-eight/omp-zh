@@ -271,3 +271,17 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   tail-flush 规则自然失配保留无害。补丁4A（retryRecovery 重放）上游仍未修，继续打。
 - 12/12 终验 PASS，verify PASS，smoke omp/18.0.11 helpCJK=1618（-25：上游文案微调致个别词条失配，
   gap 11101→11276 待补译）。交付 EBUSY（本会话运行中占用），退出后 --force 秒级交付。
+
+## 2026-09-02：18.1.2 重建（次级跳版）+ 结构扫描准则
+- **用户确立开发准则**：次级版本号变动（18.0.x→18.1.x）＝大版本级变化，必须先扫整体结构再定位锚点
+  （已沉淀技能）。本轮实证该准则的必要性：
+- **catalog 扁平化**：provider 分节结构消失，条目内联 `provider:` 字段，同一模型散布多个目录表
+  （v4-flash 6 条 / v4-pro 7 条带 supportsForcedToolChoice:true）。补丁1 重写为全表扫描：
+  收集所有含 true 的条目窗口、200 字符去重（同条目 id/name 多次出现）、从后往前替换防偏移漂移。
+- **上游回退 flush 无条件化**：18.0.11 采纳的原生无条件 flush 在 18.1.2 被撤回（gate 复活），
+  补丁4B 需重新打——证明「上游会反复横跳，flush 门存在性每版必查」。
+- 其余锚点漂移：leak cwd helper g6()→M9()、DSt→AEt、chrome launch d→c；stopcap
+  q_o/L_o/OBa/IBa、uPo、Xxa/Ygt；replay helper uQ（BP/ke 未变）、方法 #b→#S、组件 _c→Pp。
+- 13/13 终验 PASS（含 catalog 全表扫描后 true 清零）。verify PASS，smoke omp/18.1.2 helpCJK=1618。
+  gap 11415 待补译（+314，上游 18.1.x 新增大量文本）。交付 EBUSY（运行中会话），产物
+  work\omp-zh.exe（160,935,424 B）。
