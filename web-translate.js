@@ -21,18 +21,16 @@ function translateWeb(dictOrPath) {
   let nHtml = 0, nJs = 0;
   const out = {};
 
-  // ---- mod3 / mod4: HTML 属性与文本节点 ----
-  for (const idx of [3, 4]) {
-    const f = idx === 3 ? 'mod3-template' : 'mod4-template';
+  // ---- HTML 模块（导出页 template.html + oauth.html）：HTML 属性与文本节点 ----
+  for (const slot of ['html', 'oauth']) {
+    const f = slot === 'html' ? 'web-html' : 'web-oauth';
     let s = fs.readFileSync(T + '/work/' + f, 'utf8');
-    // 完整属性值: title="X" | aria-label="X" | placeholder="X"
     s = s.replace(/(title|aria-label|placeholder)="([^"]*)"/g, (full, attr, val) => {
       const zh = zhOf(val);
       if (!zh || zh === val) return full;
       nHtml++;
       return attr + '="' + zh + '/' + val + '"';
     });
-    // 完整文本节点: >X< （X 非空、无标签字符）
     s = s.replace(/>([^<>{}]+)</g, (full, val) => {
       const v = val.trim();
       if (!v) return full;
@@ -41,17 +39,18 @@ function translateWeb(dictOrPath) {
       nHtml++;
       return '>' + val.replace(v, zh + '/' + v) + '<';
     });
-    out[idx] = Buffer.from(s, 'utf8');
+    out[slot] = Buffer.from(s, 'utf8');
     fs.writeFileSync(T + '/work/web-out/' + f, s);
   }
 
-  // ---- mod5: JS 字面量级翻译 ----
-  {
-    const src = fs.readFileSync(T + '/work/mod5-tool-views.generated', 'utf8');
+  // ---- JS 模块（template.js 主题 + tool-views 工具视图）：字面量级翻译 ----
+  for (const slot of ['js', 'views']) {
+    const f = slot === 'js' ? 'web-js' : 'web-views';
+    const src = fs.readFileSync(T + '/work/' + f, 'utf8');
     const { code, count } = translate(src, dict);
-    out[5] = Buffer.from(code, 'utf8');
-    nJs = count;
-    fs.writeFileSync(T + '/work/web-out/mod5-tool-views.generated', code);
+    out[slot] = Buffer.from(code, 'utf8');
+    nJs += count;
+    fs.writeFileSync(T + '/work/web-out/' + f, code);
   }
   return { mods: out, htmlCount: nHtml, jsCount: nJs };
 }

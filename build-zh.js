@@ -59,13 +59,14 @@ fs.writeFileSync(T + '/work/cli-zh.js', ascii);
 console.log('translated literals:', count, '(ascii-escaped for Bun 1.4.0 standalone)');
 
 const srcBuf = fs.readFileSync(SRC);
-// ---- Web UI 模块汉化（mod3 导出页 HTML / mod4 主题 JS / mod5 工具视图） ----
+// ---- Web UI 模块汉化（索引由 extract-cli.js 动态发现，18.1.11 起模块表爆炸后不再固定 3/4/5） ----
 const { translateWeb } = require('./web-translate.js');
 const web = translateWeb(dedup);
 console.log('web translated: html=' + web.htmlCount + ' js=' + web.jsCount);
-// 模块0=cli.js；模块3/4/5=Web UI 资产；其余保持原样。
-// Bun 1.4.0 standalone 把所有模块源码按 latin1 解码，非 ASCII 必须预编码：
-//   JS 语义模块（0/4/5）用 \uXXXX 转义；纯 HTML 模块（3）用 &#xXXXX; 数字字符引用（浏览器原生解码）。
+const webIdx = JSON.parse(fs.readFileSync(T + '/work/web-mod-indices.json', 'utf8'));
+console.log('web module indices: ' + JSON.stringify(webIdx));
+// Bun 1.4.x standalone 把所有模块源码按 latin1 解码，非 ASCII 必须预编码：
+//   JS 语义模块（cli/template.js/tool-views）用 \uXXXX 转义；纯 HTML 模块用 &#xXXXX; 数字字符引用（浏览器原生解码）。
 function htmlEscapeNonAscii(s) {
   return s.replace(/[^\x00-\x7F]+/g, (m) => {
     let out = '';
@@ -73,12 +74,13 @@ function htmlEscapeNonAscii(s) {
     return out;
   });
 }
-const asciiWeb = {
-  3: htmlEscapeNonAscii(web.mods[3].toString('utf8')),
-  4: asciiEscape(web.mods[4].toString('utf8')),
-  5: asciiEscape(web.mods[5].toString('utf8')),
-};
-const out = rebuild(srcBuf, [Buffer.from(ascii), undefined, undefined, Buffer.from(asciiWeb[3]), Buffer.from(asciiWeb[4]), Buffer.from(asciiWeb[5])]);
+const newContents = [];
+newContents[0] = Buffer.from(ascii);
+// slots: html(导出页 HTML)/js(主题 JS)/views(工具视图) — 动态索引
+newContents[webIdx.html] = Buffer.from(htmlEscapeNonAscii(web.mods.html.toString('utf8')));
+newContents[webIdx.js] = Buffer.from(asciiEscape(web.mods.js.toString('utf8')));
+newContents[webIdx.views] = Buffer.from(asciiEscape(web.mods.views.toString('utf8')));
+const out = rebuild(srcBuf, newContents);
 fs.writeFileSync(DST, out);
 
 try {

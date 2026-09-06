@@ -64,6 +64,20 @@ const LEAK_PATCHES = [
     repl: 'const n = true;',
     done: null },
   // 18.0.9 锚点：上游给四个 spawn 加了 cwd 参数（tunnel cwd:j7()、ssh cwd:homedir、uploader-sh cwd:j7()、uploader cwd:l）
+  // 18.1.11 锚点：cwd helper M9()→sj()、AEt→oRt；chrome launch 已带 windowsHide（上游吸收）
+  { name: 'blob-broker tunnel (18.1.11)', expect: 1,
+    find: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: sj() })',
+    repl: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: sj(), windowsHide: true })',
+    done: 'stdout: o, stderr: o, cwd: sj(), windowsHide: true })' },
+  { name: 'blob-broker ssh tunnel (18.1.11)', expect: 1,
+    find: '], { env: process.env, stdin: "ignore", stdout: "ignore", stderr: "ignore", cwd: oRt.homedir() })',
+    repl: '], { env: process.env, stdin: "ignore", stdout: "ignore", stderr: "ignore", cwd: oRt.homedir(), windowsHide: true })',
+    done: 'stderr: "ignore", cwd: oRt.homedir(), windowsHide: true })' },
+  { name: 'uploader self-hosted (18.1.11)', expect: 1,
+    find: 'Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: "ignore",\n          stderr: "pipe",\n          cwd: sj()\n        })',
+    repl: 'Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: "ignore",\n          stderr: "pipe",\n          cwd: sj(),\n          windowsHide: true\n        })',
+    done: 'cwd: sj(),\n          windowsHide: true' },
+
   // 18.1.2 锚点：cwd helper g6()→M9()、DSt→AEt、chrome launch 变量 d→c
   { name: 'blob-broker tunnel (18.1.2)', expect: 1,
     find: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: M9() })',
@@ -143,6 +157,19 @@ for (const p of LEAK_PATCHES) {
 // 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
 // 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
 const STOPCAP_PATCHES = [
+  // 18.1.11 锚点（簇扩为 5 常量：URo unexpected / GRo empty / zRo malformed-call 均抬 1e6；续跑 mwo、yield Ept）
+  { name: 'empty/unexpected/malformed stop retries (18.1.11)', expect: 1,
+    find: ', URo = 3, Sva = 4000, GRo = 3, zRo = 3, Eva = 1000,',
+    repl: ', URo = 1000000, Sva = 4000, GRo = 1000000, zRo = 1000000, Eva = 1000,',
+    done: 'URo = 1000000, Sva = 4000, GRo = 1000000, zRo = 1000000' },
+  { name: 'session-stop continuation cap (18.1.11)', expect: 1,
+    find: 'var mwo = 8, ',
+    repl: 'var mwo = 1000000, ',
+    done: 'var mwo = 1000000' },
+  { name: 'subagent yield ladder (18.1.11)', expect: 1,
+    find: 'ola = 6, Ept = 3;',
+    repl: 'ola = 6, Ept = 1000000;',
+    done: 'Ept = 1000000' },
   // 18.1.2 锚点（再漂移：q_o/L_o/OBa/IBa、uPo、Xxa/Ygt）
   { name: 'empty/unexpected stop retries (18.1.2)', expect: 1,
     find: ', q_o = 3, OBa = 4000, L_o = 3, IBa = 1000,',
@@ -239,6 +266,15 @@ for (const p of STOPCAP_PATCHES) {
 // A) 上游仅实时路径应用 retryRecovery，历史重建不画 → "error; retried" 恢复后消失；
 //    在 assistant 追加函数尾部对主组件补调 applyRetryRecovery。
 const REPLAY_PATCHES = [
+  // 18.1.11 锚点（helper Q8/u_；字段序变化 #l=usage文本 #a=showTurnTime；flush gate 仍在需打）
+  { name: 'retryRecovery replay (18.1.11)', expect: 1,
+    find: '    this.#n = ke.get("display.showTokenUsage") && Q8(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? u_(e) : undefined;\n    this.#a = this.#n && ke.get("display.showTurnTime") ? this.#S(e) : undefined;\n  }',
+    repl: '    this.#n = ke.get("display.showTokenUsage") && Q8(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? u_(e) : undefined;\n    this.#a = this.#n && ke.get("display.showTurnTime") ? this.#S(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }',
+    done: 'o.applyRetryRecovery' },
+  { name: 'tail usage flush (18.1.11)', expect: 2,
+    find: 'if (this.#t.size === 0 && this.#e.size === 0)\n      this.#k();',
+    repl: 'this.#k();',
+    done: 'this.#y(t);\n    this.#k();' },
   // 18.1.2 锚点（helper uQ/BP/ke；上游回退了 flush 无条件化——gate 复活，需再打；方法 #b→#S、组件 _c→Pp）
   { name: 'retryRecovery replay (18.1.2)', expect: 1,
     find: '    this.#n = ke.get("display.showTokenUsage") && uQ(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? BP(e) : undefined;\n    this.#l = this.#n && ke.get("display.showTurnTime") ? this.#k(e) : undefined;\n  }',
