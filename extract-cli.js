@@ -32,6 +32,20 @@ if (!m0name.includes('cli.js') && !head.includes('@bun')) {
 }
 fs.writeFileSync(OUT, body);
 
+// 18.1.11 起模块表爆炸（7→309，上游内联 lint 文档等）：Web 资产索引漂移。
+// 动态发现并写映射文件 work/web-mod-indices.json 供 build-zh.js 消费；
+// 旧版本（模块少、索引即 3/4/5）同样适用——按 basename 匹配。
+{
+  const wanted = { 'template.html': 'html', 'template.js': 'js', 'tool-views.generated.js': 'views', 'oauth.html': 'oauth' };
+  const map = {};
+  for (let i = 0; i < mods.length; i++) {
+    const nm = mods[i].name.toString('latin1').replace(/\0/g, '');
+    const base = nm.split('/').pop().replace(/-[a-z0-9]+(\.\w+)?$/, '$1');
+    if (wanted[base] && map[wanted[base]] === undefined) map[wanted[base]] = i;
+  }
+  fs.writeFileSync(__dirname + '/work/web-mod-indices.json', JSON.stringify(map));
+  console.log('web module indices: ' + JSON.stringify(map));
+}
 // 17.4.0 起：同时导出 Web UI 资产模块（mod3 导出页 HTML / mod4 主题 JS / mod5 工具视图）
 // 供 build-zh.js → web-translate.js 使用；命名 work/mod<i>-<basename>
 for (let i = 2; i < mods.length; i++) {
@@ -41,4 +55,16 @@ for (let i = 2; i < mods.length; i++) {
   fs.writeFileSync(out2, mods[i].contents.slice(0, mods[i].contents.length - 1));
   console.log('wrote: ' + out2);
 }
+
+// 版本无关的稳定别名：web-html / web-js / web-views / web-oauth（供 web-translate.js）
+for (const [slot, base] of [['web-html','template.html'],['web-js','template.js'],['web-views','tool-views.generated.js'],['web-oauth','oauth.html']]) {
+  for (let i = 0; i < mods.length; i++) {
+    const nm = mods[i].name.toString('latin1').replace(/\0/g, '');
+    if (nm.split('/').pop().replace(/-[a-z0-9]+(\.\w+)?$/, '$1') === base) {
+      fs.writeFileSync(__dirname + '/work/' + slot, mods[i].contents.slice(0, mods[i].contents.length - 1));
+      break;
+    }
+  }
+}
+
 console.log('wrote: ' + OUT + ' (' + body.length + ' bytes)');
