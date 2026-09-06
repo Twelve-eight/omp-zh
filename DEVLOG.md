@@ -285,3 +285,22 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
 - 13/13 终验 PASS（含 catalog 全表扫描后 true 清零）。verify PASS，smoke omp/18.1.2 helpCJK=1618。
   gap 11415 待补译（+314，上游 18.1.x 新增大量文本）。交付 EBUSY（运行中会话），产物
   work\omp-zh.exe（160,935,424 B）。
+
+## 2026-09-06：18.1.11 重建（模块表爆炸修复）
+- **首跑 segfault**：构建产物 --version 崩溃（Bun 段错误），原版 exe 正常。根因：18.1.11
+  模块表从 7 个爆到 **309 个**（上游内联 lint 规则文档等），Web 资产模块从固定 3/4/5 漂到
+  71/72/73（oauth→17）。build-zh.js 硬编码槽位把翻译后的 HTML/JS 写进了现在的 anthropic.md/
+  deepseek.md 文档槽 → 模块表损坏 → 启动崩溃。
+- **管线改造（结构性修复，一次到位）**：
+  - extract-cli.js：动态发现 Web 资产索引（basename 匹配 + hash 后缀剥离），写
+    work/web-mod-indices.json；同时输出版本无关稳定别名 web-html/web-js/web-views/web-oauth
+  - web-translate.js：改为 slot 制（html/oauth/html-node + js/views 字面量），不再读 mod3/4/5
+  - build-zh.js：newContents 按动态索引填充；顺带把 oauth.html 纳入 HTML 翻译面（此前从未覆盖）
+- **补丁锚点（次级版本准则执行）**：leak cwd helper M9()→sj()、AEt→oRt；
+  chrome launch **上游已带 windowsHide**（吸收我们的补丁，规则保留 done 检测自动 SKIP）；
+  stopcap 簇扩为 5 常量（URo unexpected/GRo empty/**zRo malformed-call 新增**，三者全抬 1e6）、
+  续跑 mwo、yield Ept；replay helper Q8/u_ + 字段序变化（#l=usage 文本、#a=showTurnTime）、
+  flush gate 上游仍保留（继续打）。
+- 12/12 终验 PASS + Web 模块落位验证（mod71 htmlEsc=89、mod72/73 jsEsc=36）。
+  verify PASS，smoke omp/18.1.11 helpCJK=1577。gap 11220（较 18.1.2 -195，上游删了些文本）。
+  产物 work\omp-zh.exe（160,803,328 B）；交付 EBUSY 待会话退出。
