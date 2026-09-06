@@ -304,3 +304,23 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
 - 12/12 终验 PASS + Web 模块落位验证（mod71 htmlEsc=89、mod72/73 jsEsc=36）。
   verify PASS，smoke omp/18.1.11 helpCJK=1577。gap 11220（较 18.1.2 -195，上游删了些文本）。
   产物 work\omp-zh.exe（160,803,328 B）；交付 EBUSY 待会话退出。
+
+## 2026-09-07：18.1.12 重建（Bun 串区溢出段错误根因与补偿机制）
+- **症状**：构建产物 --version 段错误（Bun 1.4.2 crash），原版正常；verify PASS 但 smoke 崩。
+  通过 20+ 个二分构建实验定位根因：**Bun 1.4.2 standalone 加载器要求模块串区（name+contents
+  blob）总长不得超过原始值**（在 mod0 已增长的前提下；净增长为零则正常，如 css -800 平衡
+  html +751 的实验）。阈值并非对齐/内容相关，是总长约束。18.1.11 恰好没触发纯属尺寸运气。
+- **修复（build-zh.js 补偿机制）**：构建时计算串区新旧总长，若超原值则从 CHANGELOG 模块
+  （纯 markdown 非关键）尾部裁掉等量字节补齐。本轮裁 179,006 字节，串区回到与原版逐字节
+  等长（74573085）。三次 --version + --help 稳定。
+- **事故复盘（重要教训）**：本轮曾把 18.1.11 的 cli 常量（URo/mwo/Ept/sj/oRt）误当 18.1.12
+  锚点写入规则--分析时读的是前一天遗留的 cli-18_1_11.js。教训：**重定位锚点前必须重新
+  extract 当前版本 cli 并在文件名含版本号的产物上验证常量存在**（已写入本 DEVLOG 供下轮自查）。
+  真实 18.1.12 常量：stopcap xwo/Swo/Ewo（5 簇）、Qwo 续跑、rua/Gpt yield；leak cwd
+  sj()->rj()、oRt->CRt；replay helper eY/d_、方法 #x。
+- **网络插曲**：GitHub API 当日大面积 504/502（gh api 与 api.github.com 均瘫，镜像恢复 SUMS）；
+  管线改用缓存 exe 手动接续（extract->patch->scan->build->verify 全手工串联）。
+  可选改进：update-zh.js 在 gh api 失败时回退用镜像查 latest tag。
+- 13/13 终验 PASS（含 blob==vanilla、chrome 上游原生 hide）。verify PASS，smoke
+  omp/18.1.12 helpCJK=1577。产物 work\omp-zh.exe；交付 EBUSY 待会话退出。
+  gap 11235。已推送 812c6e2。
