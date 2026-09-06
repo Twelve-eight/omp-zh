@@ -76,10 +76,41 @@ function htmlEscapeNonAscii(s) {
 }
 const newContents = [];
 newContents[0] = Buffer.from(ascii);
-// slots: html(导出页 HTML)/js(主题 JS)/views(工具视图) — 动态索引
+// slots: html(导出页 HTML)/js(主题 JS)/views(工具视图) - 动态索引
 newContents[webIdx.html] = Buffer.from(htmlEscapeNonAscii(web.mods.html.toString('utf8')));
 newContents[webIdx.js] = Buffer.from(asciiEscape(web.mods.js.toString('utf8')));
 newContents[webIdx.views] = Buffer.from(asciiEscape(web.mods.views.toString('utf8')));
+
+// ---- 模块串区总长补偿（Bun 1.4.2 standalone 加载器 bug 规避，2026-09-07 发现） ----
+// 实测：mod0(cli) 增长后再增长其他模块，模块串区总长超过原值 -> Bun 启动段错误。
+// 净增长为零（如 css -800 平衡 html +751）则正常。规避：若串区总长超原值，
+// 从 CHANGELOG 模块（纯 markdown、非关键）尾部裁掉等量字节补齐。
+{
+  const { parseExe, readModules } = require('./rebuild.js');
+  const { bun } = parseExe(srcBuf);
+  const dataStart = bun.rawPtr + 8;
+  const hdr = Number(BigInt(srcBuf.readUInt32LE(bun.rawPtr)) | (BigInt(srcBuf.readUInt32LE(bun.rawPtr + 4)) << 32n));
+  const O = dataStart + hdr - 16 - 32;
+  const mods = readModules(srcBuf, dataStart, srcBuf.readUInt32LE(O + 8), srcBuf.readUInt32LE(O + 12));
+  const origBlobLen = mods.reduce((a, m) => a + m.name.length + m.contents.length, 0); // name(含NUL)+contents(含NUL)
+  let newBlobLen = 0;
+  mods.forEach((m, i) => {
+    const c = newContents[i] !== undefined ? newContents[i].length : m.contents.length - 1;
+    newBlobLen += m.name.length + c + 1;
+  });
+  const delta = newBlobLen - origBlobLen;
+  console.log('strings blob: orig=' + origBlobLen + ' new=' + newBlobLen + ' delta=' + (delta > 0 ? '+' : '') + delta);
+  if (delta > 0) {
+    let ci = -1;
+    mods.forEach((m, i) => { if (m.name.toString('latin1').includes('CHANGELOG')) ci = i; });
+    if (ci < 0) throw new Error('blob compensation needed (+' + delta + ') but no CHANGELOG module found');
+    const full = mods[ci].contents.slice(0, mods[ci].contents.length - 1);
+    const trimmed = full.slice(0, Math.max(0, full.length - delta));
+    newContents[ci] = trimmed;
+    console.log('compensated: CHANGELOG module trimmed by ' + (full.length - trimmed.length) + ' bytes');
+  }
+}
+
 const out = rebuild(srcBuf, newContents);
 fs.writeFileSync(DST, out);
 
