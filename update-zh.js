@@ -55,10 +55,30 @@ function localVersion() {
   } catch { return null; }
 }
 
-// ---- 2. 最新 release tag ----
+// ---- 2. 最新 release tag（gh api 优先，失败走镜像代理 API） ----
 function latestTag() {
-  const out = sh('gh', ['api', `repos/${REPO}/releases/latest`, '--jq', '.tag_name']);
-  return out.trim().replace(/^v/, '');
+  try {
+    const out = sh('gh', ['api', `repos/${REPO}/releases/latest`, '--jq', '.tag_name']);
+    return out.trim().replace(/^v/, '');
+  } catch (e) {
+    log('gh api failed (' + String(e.message).slice(0, 80) + ') - trying mirror API proxies');
+  }
+  // 镜像代理 API 回退（与下载同一镜像链；实测 gh-proxy.com 可代理 api.github.com，
+  // js.jiangss.shop 会撞未认证限流）。响应体里 grep tag_name，JSON 解析失败也能容错。
+  for (const m of MIRRORS) {
+    if (!m) continue; // 直连 api.github.com 已由 gh api 尝试过
+    try {
+      const out = sh('curl', ['-fsSL', '--connect-timeout', '15', '--max-time', '30',
+        m + `https://api.github.com/repos/${REPO}/releases/latest`], { timeout: 45000 });
+      const t = (out.match(/"tag_name":\s*"[^"]+"/) || [])[0];
+      if (t) {
+        const tag = t.split('"')[3].replace(/^v/, '');
+        log('latest tag via mirror ' + m + ': ' + tag);
+        return tag;
+      }
+    } catch { /* try next mirror */ }
+  }
+  throw new Error('all methods failed to fetch latest release tag');
 }
 
 // ---- 3. 下载 + 校验（支持复用本地已下载文件；镜像回退链） ----
@@ -67,7 +87,23 @@ function download(tag) {
   const sumsUrl = ghUrl.replace(ASSET, 'SHA256SUMS.txt');
   const sumsTagFile = `${DL_SUMS}.${tag}`; // 每版本独立缓存，防止旧版 SUMS 误校验新版文件
   const haveSums = () => { if (fs.existsSync(sumsTagFile) && fs.statSync(sumsTagFile).size > 0) return sumsTagFile; return null; };
-  const fetchSums = () => { sh('curl', ['-fsSL', '--connect-timeout', '30', '-o', sumsTagFile, sumsUrl], { timeout: 120000 }); return sumsTagFile; };
+  const fetchSums = () => {
+    // 官方源优先，失败走镜像链（SUMS 走镜像仍安全：篡改会被哈希校验拦截，与 exe 同理）
+    try {
+      sh('curl', ['-fsSL', '--connect-timeout', '30', '-o', sumsTagFile, sumsUrl], { timeout: 120000 });
+      if (fs.existsSync(sumsTagFile) && fs.statSync(sumsTagFile).size > 0) return sumsTagFile;
+      throw new Error('empty sums');
+    } catch { /* fall through to mirrors */ }
+    let lastE = null;
+    for (const m of MIRRORS) {
+      if (!m) continue;
+      try {
+        sh('curl', ['-fsSL', '--connect-timeout', '15', '--max-time', '30', '-o', sumsTagFile, m + sumsUrl], { timeout: 45000 });
+        if (fs.existsSync(sumsTagFile) && fs.statSync(sumsTagFile).size > 0) return sumsTagFile;
+      } catch (e) { lastE = e; }
+    }
+    throw new Error('SUMS fetch failed via all mirrors: ' + (lastE && lastE.message));
+  };
   // 本地已有文件：先尝试只用校验文件验证（无校验文件则下载）
   if (fs.existsSync(DL_EXE)) {
     try {

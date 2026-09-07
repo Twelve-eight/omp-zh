@@ -69,6 +69,10 @@ const LEAK_PATCHES = [
     find: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: rj() })',
     repl: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: rj(), windowsHide: true })',
     done: 'stdout: o, stderr: o, cwd: rj(), windowsHide: true })' },
+  { name: 'blob-broker ssh tunnel (18.1.13)', expect: 1,
+    find: '], { env: process.env, stdin: "ignore", stdout: "ignore", stderr: "ignore", cwd: TRt.homedir() })',
+    repl: '], { env: process.env, stdin: "ignore", stdout: "ignore", stderr: "ignore", cwd: TRt.homedir(), windowsHide: true })',
+    done: 'stderr: "ignore", cwd: TRt.homedir(), windowsHide: true })' },
   { name: 'blob-broker ssh tunnel (18.1.12)', expect: 1,
     find: '], { env: process.env, stdin: "ignore", stdout: "ignore", stderr: "ignore", cwd: CRt.homedir() })',
     repl: '], { env: process.env, stdin: "ignore", stdout: "ignore", stderr: "ignore", cwd: CRt.homedir(), windowsHide: true })',
@@ -170,6 +174,15 @@ for (const p of LEAK_PATCHES) {
 // 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
 // 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
 const STOPCAP_PATCHES = [
+  // 18.1.13 锚点（簇内 delay/1000 常量改名 EMa->OMa、vMa->IMa；yield rua/Upt->uua/Upt）
+  { name: 'empty/unexpected/malformed stop retries (18.1.13)', expect: 1,
+    find: 'xwo = 3, OMa = 4000, Swo = 3, Ewo = 3, IMa = 1000,',
+    repl: 'xwo = 1000000, OMa = 4000, Swo = 1000000, Ewo = 1000000, IMa = 1000,',
+    done: 'xwo = 1000000, OMa = 4000, Swo = 1000000, Ewo = 1000000' },
+  { name: 'subagent yield ladder (18.1.13)', expect: 1,
+    find: 'uua = 6, Upt = 3;',
+    repl: 'uua = 6, Upt = 1000000;',
+    done: 'Upt = 1000000' },
   // 18.1.12 锚点（真实常量：xwo unexpected/Swo empty/Ewo malformed、Qwo 续跑、rua/Gpt yield）
   { name: 'empty/unexpected/malformed stop retries (18.1.12)', expect: 1,
     find: 'xwo = 3, EMa = 4000, Swo = 3, Ewo = 3, vMa = 1000,',
