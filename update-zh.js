@@ -242,6 +242,30 @@ async function main() {
   }
   log('smoke OK: ' + (deferred ? 'DEFERRED (staged, watcher armed)' : NO_DELIVER ? 'work' : 'DELIVERED') + ' version=' + smoke.trim() + ' helpCJK=' + cjk);
 
+  // ---- omp-watchdog 构建时检验(2026-09-11 起规范) ----
+  // watchdog 是"模型出错静默中断"告警链的载体(hub 常驻进程 omp-watchdog,机器重启需人工拉起);
+  // 每次构建后必须核验,失败不阻断交付(旁路告警,不承担 omp 功能),但显式 WARN 提醒人工修复:
+  //   1) watchdog 可执行:watchdog.js --once 跑通(扫描逻辑无异常退出)
+  //   2) 常驻进程在位:进程表里能找到 node.*watchdog.js(被停/崩溃/重启丢失则 WARN)
+  try {
+    sh('node', ['G:/omp works/omp-watchdog/watchdog.js', '--once']);
+    // 常驻进程判定:命令行恰为 node watchdog.js(无参数结尾)的 node 进程.
+    // 不用 /watchdog\.js/.test(整串):本检查自身的 wmic/一次性调用会误命中.
+    let alive = false;
+    try {
+      const wmic = execFileSync('wmic', ['process', 'where', "name='node.exe'", 'get', 'commandline', '/format:csv'], { encoding: 'utf8', timeout: 30000 });
+      for (const l of wmic.split('\n')) {
+        const cmd = l.replace(/^[^,]*,/, '').trim();
+        if (/watchdog\.js\s*$/i.test(cmd)) { alive = true; break; }
+      }
+    } catch { alive = null; } // wmic 不可用 -> 无法判定(单独提示)
+    if (alive === true) log('watchdog check OK: --once pass, resident process alive');
+    else if (alive === false) log('WARN: omp-watchdog resident process NOT found - restart via hub: node "G:/omp works/omp-watchdog/watchdog.js" (name=omp-watchdog)');
+    else log('WARN: omp-watchdog process check unavailable (wmic missing) - verify resident process manually');
+  } catch (e) {
+    log('WARN: omp-watchdog --once FAILED (' + e.message + ') - watchdog broken, fix before next build');
+  }
+
   // 环比判定(在 smoke 得到 cjk 之后)
   if (prevCov) {
     if (cjk < prevCov.helpCJK) log('WARN: helpCJK 环比下降 ' + prevCov.helpCJK + ' -> ' + cjk + '(补译债未还或上游文案失配,须记 DEVLOG)');

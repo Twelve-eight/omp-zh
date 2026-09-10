@@ -66,6 +66,19 @@ const LEAK_PATCHES = [
   // 18.0.9 锚点：上游给四个 spawn 加了 cwd 参数（tunnel cwd:j7()、ssh cwd:homedir、uploader-sh cwd:j7()、uploader cwd:l）
   // 18.1.12 锚点：cwd helper sj()->rj()、oRt->CRt（上一轮误扫 18.1.11 产物所致修正）
   // 18.1.16 锚点:cwd helper rj()->kj(),TRt->KRt
+  // 18.1.17 锚点:cwd helper kj()->Fj(),KRt->wwt
+  { name: 'blob-broker tunnel (18.1.17)', expect: 1,
+    find: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: Fj() })',
+    repl: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: Fj(), windowsHide: true })',
+    done: 'stdout: o, stderr: o, cwd: Fj(), windowsHide: true })' },
+  { name: 'blob-broker ssh tunnel (18.1.17)', expect: 1,
+    find: '], { env: process.env, stdin: "ignore", stdout: "ignore", stderr: "ignore", cwd: wwt.homedir() })',
+    repl: '], { env: process.env, stdin: "ignore", stdout: "ignore", stderr: "ignore", cwd: wwt.homedir(), windowsHide: true })',
+    done: 'stderr: "ignore", cwd: wwt.homedir(), windowsHide: true })' },
+  { name: 'uploader self-hosted (18.1.17)', expect: 1,
+    find: 'Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: Fj()\n        })',
+    repl: 'Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: Fj(),\n          windowsHide: true\n        })',
+    done: 'cwd: Fj(),\n          windowsHide: true' },
   { name: 'blob-broker tunnel (18.1.16)', expect: 1,
     find: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: kj() })',
     repl: 'Bun.spawn(e, { env: process.env, stdin: "ignore", stdout: o, stderr: o, cwd: kj(), windowsHide: true })',
@@ -187,6 +200,19 @@ for (const p of LEAK_PATCHES) {
 // 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
 // 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
 const STOPCAP_PATCHES = [
+  // 18.1.17 锚点(整簇再改名:Xbo/Qbo/Zbo,xxo 续跑,vda/zct yield)
+  { name: 'empty/unexpected/malformed stop retries (18.1.17)', expect: 1,
+    find: 'Xbo = 3, c0a = 4000, Qbo = 3, Zbo = 3, d0a = 1000,',
+    repl: 'Xbo = 1000000, c0a = 4000, Qbo = 1000000, Zbo = 1000000, d0a = 1000,',
+    done: 'Xbo = 1000000, c0a = 4000, Qbo = 1000000, Zbo = 1000000' },
+  { name: 'session-stop continuation cap (18.1.17)', expect: 1,
+    find: 'var xxo = 8, ',
+    repl: 'var xxo = 1000000, ',
+    done: 'var xxo = 1000000' },
+  { name: 'subagent yield ladder (18.1.17)', expect: 1,
+    find: 'vda = 6, zct = 3;',
+    repl: 'vda = 6, zct = 1000000;',
+    done: 'zct = 1000000' },
   // 18.1.16 锚点(整簇再改名:jko/Kko/Vko,Cbo 续跑,sca/fct yield)
   { name: 'empty/unexpected/malformed stop retries (18.1.16)', expect: 1,
     find: 'jko = 3, FOa = 4000, Kko = 3, Vko = 3, NOa = 1000,',
@@ -331,6 +357,16 @@ for (const p of STOPCAP_PATCHES) {
 // A) 上游仅实时路径应用 retryRecovery，历史重建不画 → "error; retried" 恢复后消失；
 //    在 assistant 追加函数尾部对主组件补调 applyRetryRecovery。
 const REPLAY_PATCHES = [
+  // 18.1.17 锚点(helper _Y/v_;showTurnTime 方法 #x)
+  { name: 'retryRecovery replay (18.1.17)', expect: 1,
+    find: '    this.#n = ke.get("display.showTokenUsage") && _Y(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? v_(e) : undefined;\n    this.#u = this.#n && ke.get("display.showTurnTime") ? this.#x(e) : undefined;\n  }',
+    repl: '    this.#n = ke.get("display.showTokenUsage") && _Y(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? v_(e) : undefined;\n    this.#u = this.#n && ke.get("display.showTurnTime") ? this.#x(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }',
+    done: 'o.applyRetryRecovery' },
+  // flush gate 回归(上游 18.1.2 撤回无条件 flush,17 又把 add 方法改名 #g、flush #R)
+  { name: 'tail usage flush (18.1.17)', expect: 2,
+    find: 'if (this.#t.size === 0 && this.#e.size === 0)\n      this.#R();',
+    repl: 'this.#R();',
+    done: 'for (const t of e)\n      this.#g(t);\n    this.#R();' },
   // 18.1.16 锚点(helper g8/R_;showTurnTime 方法 #S;usage-text 字段 #l->#u 变量重排)
   { name: 'retryRecovery replay (18.1.16)', expect: 1,
     find: '    this.#n = ke.get("display.showTokenUsage") && g8(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? R_(e) : undefined;\n    this.#u = this.#n && ke.get("display.showTurnTime") ? this.#S(e) : undefined;\n  }',
