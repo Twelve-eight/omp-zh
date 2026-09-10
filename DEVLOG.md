@@ -382,3 +382,33 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
 - **18.1.16 终验**:extract->patch(25/47,锚点见 4a8425e)->scan(死 0/gap 11101)->
   build(3234 字面量,串区补偿 -195264)->verify PASS->smoke DEFERRED version=18.1.16
   helpCJK=1577.cov-history 已记 {18.1.16, 1577, 11101}.
+
+## 2026-09-11:18.1.17 构建 -- Bun 1.4.2 打包布局变更(rebuild.js 重写)+ watchdog 构建检验入规范
+- **背景**:上游 18.1.16 -> 18.1.17.常规锚点重定位外,首次命中 **rebuild.js 布局级不兼容**:
+  产物 smoke 段错误,零改动 roundtrip 也崩 -- 排除补丁/翻译因素(bisect 四组各自单独构建
+  全崩),根因在打包图重建.
+- **Bun 1.4.2 打包布局变更(实证,18.1.17 vs 18.1.16)**:
+  1. **names 与 contents 分离打包**:旧版逐模块交错 `[name\0 contents\0]`,新版
+     `[全部 contents(模块序)][全部 names(模块序)][模块表]`.旧 rebuild 按交错布局重排,
+     模块表位置提前 199B,覆盖 311-314 号模块的 name 串 -> 启动即段错误.
+  2. **模块表与 argv 之间新增 1268B 区域**(1243 零 + u32=1,用途未知但 loader 运行时读取):
+     旧 rebuild 丢弃 -> 同样段错误.18.1.16 布局中该区域不存在(table end == argv start).
+  3. graph 尾部结构确认:`[表][新增区域][argv(24B 'user-agent=omp/x.y.z')][offsets(32B,
+     byte_count 字段自引用)][16B marker '\n---- Bun! ----\n']`,header u64 = 全部长度.
+- **rebuild.js 重写**:按新布局重建 contents 区/names 区/模块表;tailZone
+  ([表尾, argv) 原 slice)与 argv 原样保留;offsets 按新位置重新生成.
+  验证:零改动 roundtrip 与 vanilla 字节数完全相等(161,257,984),315 模块重解析全等,
+  `--version` 正常;`--deliver` 全链路通过.
+- **18.1.17 锚点迁移**(minifier 全改名,簇形不变):
+  - stopcap:`Xbo/c0a/Qbo/Zbo/d0a` 簇(A/C/D->1e6),续跑 `xxo`(8->1e6),yield `vda/zct`
+  - leak:tunnel `kj()->Fj()`,ssh `KRt->wwt`,uploader-sh 同步改
+  - replay:`g8->_Y`,`R_->v_`,showTurnTime `#S->#x`;**flush 门回归**(18.1.16 曾原生
+    无条件化,18.1.17 又加回 gate `#t/#e` 判定 -> 补丁重新启用,`#g(t)+#R()` x2 无条件)
+- **omp-watchdog 构建时检验(入规范)**:update-zh.js smoke 之后新增检查块:
+  1) `watchdog.js --once` 跑通(扫描逻辑健康);
+  2) wmic 查常驻进程(命令行恰为 `node watchdog.js`,排除一次性调用误命中).
+  失败不阻断交付(watchdog 是旁路告警),WARN 显式提醒.已端到端验证输出
+  `watchdog check OK: --once pass, resident process alive`.
+- **终验**:12/12 PASS(stopcap x3 / replay 注入 / flush 门清零 x2 / leak x4 / catalog v4
+  true=0 / 串区 == vanilla 75,153,248).smoke `omp/18.1.17 helpCJK=1577`,verify PASS.
+  交付 DEFERRED(会话占用,`.new` staged + 看护在位).

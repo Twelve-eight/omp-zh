@@ -56,29 +56,60 @@ function rebuild(buf, newContents) {
   const mods = readModules(buf, dataStart, modOff, modLen);
   const contents = mods.map((m, i) => (newContents[i] !== undefined ? newContents[i] : m.contents.slice(0, m.contents.length - 1)));
 
-  // strings: name\0 + contents\0
-  const parts = [];
+  // ---- 18.1.17 布局适配(2026-09-11 发现) ----
+  // Bun 1.4.2 打包图布局: [contents 区][names 区][模块表][尾部区域][offsets][marker]
+  // - names 不再与 contents 交错,集中打包在 contents 之后(18.1.16 及以前为逐模块交错)
+  // - 模块表(modOff+modLen)与 argv 之间新增区域(18.1.17: 1268B 零+u32=1;含义未知,loader 运行时读取)
+  //   丢失该区域 -> 启动段错误(零改动 roundtrip 也崩,已实测)
+  // 策略: 按新布局重建 contents/names/table;尾部区域零字节区与 argv 原样保留,
+  //       offsets 结构按新位置重新生成(其 byte_count 为自引用指针)
+  const tableEnd = modOff + modLen;
+  const argvAbs = dataStart + argvOff;
+  const graphEnd = dataStart + header - 16; // offsets+marker 之前 = byteCount+32? 见下:byteCount 结构在 O
+  // 原尾部: [tableEnd, argvAbs) = 新增区域(可能含非零数据,原样拷贝)
+  const tailZone = buf.slice(dataStart + tableEnd, argvAbs);
+  // offsets 结构位置 O(=byteCount 自引用);其后 32B 为结构体,再后 16B marker
+  const marker = buf.slice(dataStart + header - 16, dataStart + header); // '\n---- Bun! ----\n'
+  const newArgv = argv;
+
+  // contents 区: 按模块序 concat(contents\0)
+  const cParts = [];
+  let cOff = 0;
+  const cOffs = [];
   mods.forEach((m, i) => {
-    parts.push(m.name);
-    parts.push(Buffer.concat([contents[i], Buffer.from([0])]));
+    cOffs.push(cOff);
+    const b = Buffer.concat([contents[i], Buffer.from([0])]);
+    cParts.push(b);
+    cOff += b.length;
   });
-  const stringsLen = parts.reduce((a, b) => a + b.length, 0);
-  const tableStart = stringsLen;
+  // names 区: 原样(含 NUL),从首个 name 偏移开始连续
+  // (readModules 的 name 已含 NUL;names 区起点 = 原 names 总布局,直接按模块序重排)
+  const nParts = [];
+  let nOff = cOff;
+  const nOffs = [];
+  mods.forEach((m, i) => {
+    nOffs.push(nOff);
+    nParts.push(m.name);
+    nOff += m.name.length;
+  });
+
+  // 模块表
   const tableBytes = Buffer.alloc(modLen);
-  let off = 0;
   mods.forEach((m, i) => {
     const p = i * 52;
-    tableBytes.writeUInt32LE(off, p);            // name.offset
-    tableBytes.writeUInt32LE(m.name.length - 1, p + 4); // name.length
-    const coff = off + m.name.length;
-    tableBytes.writeUInt32LE(coff, p + 8);       // contents.offset
-    tableBytes.writeUInt32LE(contents[i].length, p + 12); // contents.length
+    tableBytes.writeUInt32LE(nOffs[i], p);
+    tableBytes.writeUInt32LE(m.name.length - 1, p + 4);
+    tableBytes.writeUInt32LE(cOffs[i], p + 8);
+    tableBytes.writeUInt32LE(contents[i].length, p + 12);
     m.rest.copy(tableBytes, p + 16);
-    off = coff + contents[i].length + 1;
   });
-  const argvStart = tableStart + modLen;
+
+  // 尾部: tailZone + argv\0 + offsets(重新生成) + marker
+  const tableStart = nOff;
+  const argvStart = tableStart + modLen + tailZone.length;
+  const byteCount = argvStart + newArgv.length + 1; // offsets 自身起点
   const offsets = Buffer.alloc(32);
-  offsets.writeUInt32LE(argvStart + argv.length + 1, 0); // byte_count = argv起点+len+1(\0) = Offsets起点
+  offsets.writeUInt32LE(byteCount, 0);
   offsets.writeUInt32LE(0, 4);
   offsets.writeUInt32LE(tableStart, 8);
   offsets.writeUInt32LE(modLen, 12);
@@ -86,7 +117,7 @@ function rebuild(buf, newContents) {
   offsets.writeUInt32LE(argvStart, 20);
   offsets.writeUInt32LE(argvLen, 24);
   offsets.writeUInt32LE(flags, 28);
-  const newData = Buffer.concat([...parts, tableBytes, argv, Buffer.from([0]), offsets, Buffer.from('\n---- Bun! ----\n')]);
+  const newData = Buffer.concat([...cParts, ...nParts, tableBytes, tailZone, newArgv, Buffer.from([0]), offsets, marker]);
   if (newData.length > 0xFFFFFFFF - 8) throw new Error('data too big');
 
   // assemble exe
