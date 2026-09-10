@@ -40,11 +40,6 @@
   "mode": "full"
  },
  {
-  "from": "Waiting for xAI device authorization...",
-  "to": "等待 xAI 设备授权.../Waiting for xAI device authorization...",
-  "mode": "full"
- },
- {
   "from": "Interrupt current operation",
   "to": "中断当前操作/Interrupt current operation",
   "mode": "full"
@@ -140,11 +135,6 @@
   "mode": "full"
  },
  {
-  "from": "Toggle browser headless vs visible mode",
-  "to": "切换浏览器无头/可见模式/Toggle browser headless vs visible mode",
-  "mode": "full"
- },
- {
   "from": "Interrupt a process",
   "to": "中断进程/Interrupt a process",
   "mode": "full"
@@ -215,11 +205,6 @@
   "mode": "full"
  },
  {
-  "from": "Working...",
-  "to": "工作中.../Working...",
-  "mode": "full"
- },
- {
   "from": "Cancelled",
   "to": "已取消/Cancelled",
   "mode": "full"
@@ -267,11 +252,6 @@
  {
   "from": "Select a layout; live preview updates below. Press Enter to confirm.",
   "to": "选择布局；下方实时预览会更新。按 Enter 确认/Select a layout; live preview updates below. Press Enter to confirm.",
-  "mode": "full"
- },
- {
-  "from": "Click to toggle \\xB7 drag selected items to reorder \\xB7 \\u2190/\\u2192 move \\xB7 1-9 place \\xB7 Esc to go back",
-  "to": "点击切换 · 拖拽选中项重新排序 · ←/→ 移动 · 1-9 放置 · Esc 返回/Click to toggle \\xB7 drag selected items to reorder \\xB7 \\u2190/\\u2192 move \\xB7 1-9 place \\xB7 Esc to go back",
   "mode": "full"
  },
  {
@@ -347,11 +327,6 @@
  {
   "from": "Enter to select \\xB7 Esc to cancel",
   "to": "Enter 选择 · Esc 取消/Enter to select \\xB7 Esc to cancel",
-  "mode": "full"
- },
- {
-  "from": "Click/Enter/Space to toggle \\xB7 Esc to go back",
-  "to": "点击/Enter/Space 切换 · Esc 返回/Click/Enter/Space to toggle \\xB7 Esc to go back",
   "mode": "full"
  },
  {
@@ -577,26 +552,6 @@
  {
   "from": "  Type to search",
   "to": "  输入以搜索/Type to search",
-  "mode": "full"
- },
- {
-  "from": "Branch from Message",
-  "to": "从消息创建分支/Branch from Message",
-  "mode": "full"
- },
- {
-  "from": "Select a message to create a new branch from that point",
-  "to": "选择一条消息，从该点创建新分支/Select a message to create a new branch from that point",
-  "mode": "full"
- },
- {
-  "from": "  No user messages found",
-  "to": "  未找到用户消息/No user messages found",
-  "mode": "full"
- },
- {
-  "from": "  No matching messages",
-  "to": "  无匹配消息/No matching messages",
   "mode": "full"
  },
  {

@@ -180,22 +180,31 @@ async function main() {
   if (patchRes.stdout) log(patchRes.stdout.trim().split('\n').map(l => '  ' + l).join('\n'));
   if (patchRes.status !== 0) log('WARN: patch-zh exited ' + patchRes.status + ' — some fixes may be missing');
 
-  // 差异发现（新增英文文本）
+  // 差异发现(新增英文文本)
   log('scanning translation gaps');
   const dicts = ['dict-help.json','dict-help-extra.json','dict-inline.json','dict-tui.json','dict-settings-a.json','dict-settings-b.json','dict-tools.json','dict-slash.json','dict-plan.json']
-    .map(f => T + '/' + f);
+    .map(f => T + '/' + f)
+    .concat(fs.readdirSync(T + '/work').filter((x) => /^out-.+\.json$/.test(x)).map((x) => T + '/work/' + x)); // staging 与 build-zh 同源(2026-09-10 修正:gap 指标须含 staging,否则环比虚报)
   let gaps = '';
-  try { gaps = sh('node', [T + '/scan-gaps.js', cliNew, ...dicts]); } catch (e) { gaps = 'scan-gaps failed: ' + e.message; }
+  try { gaps = sh('node', [T + '/scan-gaps.js', cliNew].concat(dicts)); } catch (e) { gaps = 'scan-gaps failed: ' + e.message; }
   const gapMatch = gaps.match(/UNTRANSLATED_COUNT:\s*(\d+)/);
   const untranslated = gapMatch ? Number(gapMatch[1]) : -1;
   log('untranslated sentence-like literals: ' + (untranslated >= 0 ? untranslated : 'n/a'));
   fs.writeFileSync(T + '/work/gaps-' + latest + '.txt', gaps);
 
-  // 构建汉化版（Temp 输出；交付按 flag）
+  // ---- 覆盖率环比门槛(2026-09-09 加;此前 helpCJK 1643->1577 连续四轮回退无任何告警) ----
+  // 历史基线存 work/.omp-zh-cov-history.json;helpCJK 下降或 gap 增大 -> WARN(不阻断交付,
+  // 但必须显式记录在 DEVLOG,补译还债后基线回升).上一版本无基线(首记)仅记录.
+  const covFile = T + '/work/.omp-zh-cov-history.json';
+  let covHist = [];
+  try { covHist = JSON.parse(fs.readFileSync(covFile, 'utf8')); } catch { covHist = []; }
+  const prevCov = covHist.length ? covHist[covHist.length - 1] : null;
+
+  // 构建汉化版(Temp 输出;交付按 flag)
   log('building zh exe');
   const buildArgs = ['--src', exePath, '--cli', cliNew, '--dst', T + '/work/omp-zh.exe'];
   if (!NO_DELIVER) buildArgs.push('--deliver', DELIVER);
-  sh('node', [T + '/build-zh.js', ...buildArgs]);
+  sh('node', [T + '/build-zh.js'].concat(buildArgs)); // 交付失败 -> build-zh exit 1 -> sh 抛错中止(不写 last-version)
 
   // 验证
   log('verifying');
@@ -207,13 +216,39 @@ async function main() {
     process.exitCode = 1;
     return;
   }
-  // 冒烟：--version 含新版本号，--help 含 CJK
-  const smoke = execFileSync(T + '/work/omp-zh.exe', ['--version'], { encoding: 'utf8', timeout: 60000 });
-  if (!smoke.includes('omp/' + latest)) { log('SMOKE FAIL: --version = ' + smoke.trim()); process.exitCode = 1; return; }
-  const help = execFileSync(T + '/work/omp-zh.exe', ['--help'], { encoding: 'utf8', timeout: 120000 });
+
+  // 冒烟三态判定:
+  //   a) 交付目标已是新版本 -> smoke DELIVERED(常规交付成功);
+  //   b) 交付目标仍旧版本 且 staged .new 在位(交付延迟,看护在跑)-> smoke DEFERRED
+  //      (测 work 产物;看护会在占用会话退出后补交付并核验版本);
+  //   c) 都不是 -> FAIL(交付真失败:build-zh exit 1 或无 staged 无新版本).
+  // 2026-09-09 前盲区:smoke 只测 work 产物,交付失败照样绿灯 + 写 last-version,
+  // 用户手里还是旧版(08-22 坏版本滞留,09-06/07 两轮无人核验均为此形态).
+  const staged = DELIVER + '.new';
+  const targetIsNew = (() => {
+    try { return execFileSync(DELIVER, ['--version'], { encoding: 'utf8', timeout: 60000 }).includes('omp/' + latest); }
+    catch { return false; }
+  })();
+  const deferred = !NO_DELIVER && !targetIsNew && fs.existsSync(staged);
+  const smokeTarget = NO_DELIVER || deferred ? T + '/work/omp-zh.exe' : DELIVER;
+  const smoke = execFileSync(smokeTarget, ['--version'], { encoding: 'utf8', timeout: 60000 });
+  if (!smoke.includes('omp/' + latest)) { log('SMOKE FAIL: ' + smokeTarget + ' --version = ' + smoke.trim()); process.exitCode = 1; return; }
+  const help = execFileSync(smokeTarget, ['--help'], { encoding: 'utf8', timeout: 120000 });
   const cjk = (help.match(/[\u4e00-\u9fff]/g) || []).length;
   if (cjk < 20) { log('SMOKE FAIL: --help CJK chars = ' + cjk); process.exitCode = 1; return; }
-  log('smoke OK: version=' + smoke.trim() + ' helpCJK=' + cjk);
+  if (!NO_DELIVER && !targetIsNew && !deferred) {
+    log('SMOKE FAIL: delivery not confirmed - target old, no staged file. Check build-zh output.');
+    process.exitCode = 1; return;
+  }
+  log('smoke OK: ' + (deferred ? 'DEFERRED (staged, watcher armed)' : NO_DELIVER ? 'work' : 'DELIVERED') + ' version=' + smoke.trim() + ' helpCJK=' + cjk);
+
+  // 环比判定(在 smoke 得到 cjk 之后)
+  if (prevCov) {
+    if (cjk < prevCov.helpCJK) log('WARN: helpCJK 环比下降 ' + prevCov.helpCJK + ' -> ' + cjk + '(补译债未还或上游文案失配,须记 DEVLOG)');
+    if (untranslated >= 0 && prevCov.gap >= 0 && untranslated > prevCov.gap) log('WARN: gap 环比上升 ' + prevCov.gap + ' -> ' + untranslated + '(上游新增文本待补译,须记 DEVLOG)');
+  }
+  covHist.push({ version: latest, helpCJK: cjk, gap: untranslated, at: new Date().toISOString() });
+  fs.writeFileSync(covFile, JSON.stringify(covHist, null, 2));
 
   fs.writeFileSync(LAST_VER_FILE, latest);
   log('done. version ' + latest + ' processed');

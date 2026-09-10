@@ -20,11 +20,6 @@
   "mode": "full"
  },
  {
-  "from": "Advisor for Subagents",
-  "to": "子代理 Advisor/Advisor for Subagents",
-  "mode": "full"
- },
- {
   "from": "Advisor Sync Backlog",
   "to": "Advisor 同步积压/Advisor Sync Backlog",
   "mode": "full"
@@ -172,11 +167,6 @@
  {
   "from": "Tight Layout",
   "to": "紧凑布局/Tight Layout",
-  "mode": "full"
- },
- {
-  "from": "Rewrite Scrollback",
-  "to": "重写回滚缓冲/Rewrite Scrollback",
   "mode": "full"
  },
  {
@@ -575,11 +565,6 @@
   "mode": "full"
  },
  {
-  "from": "Compaction Strategy",
-  "to": "压缩策略/Compaction Strategy",
-  "mode": "full"
- },
- {
   "from": "Compaction Threshold",
   "to": "压缩阈值/Compaction Threshold",
   "mode": "full"
@@ -592,11 +577,6 @@
  {
   "from": "Save Handoff Docs",
   "to": "保存交接文档/Save Handoff Docs",
-  "mode": "full"
- },
- {
-  "from": "Remote Compaction",
-  "to": "远程压缩/Remote Compaction",
   "mode": "full"
  },
  {
@@ -1005,16 +985,6 @@
   "mode": "full"
  },
  {
-  "from": "Ruby Eval Backend",
-  "to": "Ruby 求值后端/Ruby Eval Backend",
-  "mode": "full"
- },
- {
-  "from": "Julia Eval Backend",
-  "to": "Julia 求值后端/Julia Eval Backend",
-  "mode": "full"
- },
- {
   "from": "Python Kernel Mode",
   "to": "Python 内核模式/Python Kernel Mode",
   "mode": "full"
@@ -1022,16 +992,6 @@
  {
   "from": "Python Interpreter",
   "to": "Python 解释器/Python Interpreter",
-  "mode": "full"
- },
- {
-  "from": "Ruby Interpreter",
-  "to": "Ruby 解释器/Ruby Interpreter",
-  "mode": "full"
- },
- {
-  "from": "Julia Interpreter",
-  "to": "Julia 解释器/Julia Interpreter",
   "mode": "full"
  },
  {
@@ -1115,11 +1075,6 @@
   "mode": "full"
  },
  {
-  "from": "Inspect Image",
-  "to": "检查图像/Inspect Image",
-  "mode": "full"
- },
- {
   "from": "Computer",
   "to": "计算机/Computer",
   "mode": "full"
@@ -1137,11 +1092,6 @@
  {
   "from": "Computer Screenshot Height",
   "to": "计算机截图高度/Computer Screenshot Height",
-  "mode": "full"
- },
- {
-  "from": "Inspect Image Timeout",
-  "to": "检查图像超时/Inspect Image Timeout",
   "mode": "full"
  },
  {
@@ -1542,11 +1492,6 @@
  {
   "from": "Auto Thinking Ceiling",
   "to": "自动思考上限/Auto Thinking Ceiling",
-  "mode": "full"
- },
- {
-  "from": "Detect unexpected stops",
-  "to": "检测意外停止/Detect unexpected stops",
   "mode": "full"
  },
  {
