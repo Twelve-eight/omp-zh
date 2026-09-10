@@ -125,18 +125,8 @@
   "mode": "full"
  },
  {
-  "from": "Toggle loop mode. While enabled, the next prompt you send re-submits after every yield. Esc cancels the current iteration; /loop again to disable.",
-  "to": "切换循环模式。启用后，你发送的下一条提示会在每次产出后重新提交。Esc 取消当前迭代；再次 /loop 可禁用。/Toggle loop mode. While enabled, the next prompt you send re-submits after every yield. Esc cancels the current iteration; /loop again to disable.",
-  "mode": "full"
- },
- {
   "from": "Queue a message for after the agent yields",
   "to": "排队一条消息供代理产出后发送/Queue a message for after the agent yields",
-  "mode": "full"
- },
- {
-  "from": "Switch model for this session (same as alt+p)",
-  "to": "为此会话切换模型（同 alt+p）/Switch model for this session (same as alt+p)",
   "mode": "full"
  },
  {
@@ -160,11 +150,6 @@
   "mode": "full"
  },
  {
-  "from": "Toggle the native computer-use tool for this session",
-  "to": "切换本会话的原生 computer-use 工具/Toggle the native computer-use tool for this session",
-  "mode": "full"
- },
- {
   "from": "Enable computer use for this session",
   "to": "为本会话启用 computer use/Enable computer use for this session",
   "mode": "full"
@@ -177,31 +162,6 @@
  {
   "from": "Show computer use status",
   "to": "显示 computer use 状态/Show computer use status",
-  "mode": "full"
- },
- {
-  "from": "Control the inspect_image vision-delegation tool for this session",
-  "to": "控制本会话的 inspect_image 视觉委派工具/Control the inspect_image vision-delegation tool for this session",
-  "mode": "full"
- },
- {
-  "from": "Always expose inspect_image this session",
-  "to": "本会话始终暴露 inspect_image/Always expose inspect_image this session",
-  "mode": "full"
- },
- {
-  "from": "Never expose inspect_image this session",
-  "to": "本会话绝不暴露 inspect_image/Never expose inspect_image this session",
-  "mode": "full"
- },
- {
-  "from": "Follow inspect_image.mode (auto hides it for vision-capable models)",
-  "to": "遵循 inspect_image.mode（对支持视觉的模型自动隐藏）/Follow inspect_image.mode (auto hides it for vision-capable models)",
-  "mode": "full"
- },
- {
-  "from": "Show inspect_image status",
-  "to": "显示 inspect_image 状态/Show inspect_image status",
   "mode": "full"
  },
  {
@@ -282,11 +242,6 @@
  {
   "from": "Leave the collab session",
   "to": "离开协作会话/Leave the collab session",
-  "mode": "full"
- },
- {
-  "from": "Toggle browser headless vs visible mode",
-  "to": "切换浏览器无头模式与可见模式/Toggle browser headless vs visible mode",
   "mode": "full"
  },
  {
@@ -417,16 +372,6 @@
  {
   "from": "Show estimated context usage breakdown",
   "to": "显示估算的上下文用量分解/Show estimated context usage breakdown",
-  "mode": "full"
- },
- {
-  "from": "Open Agent Control Center dashboard",
-  "to": "打开代理控制中心控制面板/Open Agent Control Center dashboard",
-  "mode": "full"
- },
- {
-  "from": "Create a new branch from a previous message",
-  "to": "从先前消息创建新分支/Create a new branch from a previous message",
   "mode": "full"
  },
  {
@@ -707,11 +652,6 @@
  {
   "from": "Re-pull the cached <mental_models> block",
   "to": "重新拉取缓存的 <mental_models> 块/Re-pull the cached <mental_models> block",
-  "mode": "full"
- },
- {
-  "from": "Rename the current session",
-  "to": "重命名当前会话/Rename the current session",
   "mode": "full"
  },
  {
@@ -1205,21 +1145,6 @@
   "mode": "full"
  },
  {
-  "from": "Requests per model (results are averaged; default: 10)",
-  "to": "每模型请求数（结果取平均；默认：10）/Requests per model (results are averaged; default: 10)",
-  "mode": "full"
- },
- {
-  "from": "Max output tokens per request (default: 512; cache mode: 64)",
-  "to": "每请求最大输出 token 数（默认：512；缓存模式：64）/Max output tokens per request (default: 512; cache mode: 64)",
-  "mode": "full"
- },
- {
-  "from": "Custom prompt text (default: bundled bench prompt)",
-  "to": "自定义提示词文本（默认：内置基准提示词）/Custom prompt text (default: bundled bench prompt)",
-  "mode": "full"
- },
- {
   "from": "Service tier applied per model family (default: configured `tier.*` settings; `none` omits it)",
   "to": "按模型家族应用的服务层级（默认：已配置的 `tier.*` 设置；`none` 表示不使用）/Service tier applied per model family (default: configured `tier.*` settings; `none` omits it)",
   "mode": "full"
@@ -1515,11 +1440,6 @@
   "mode": "full"
  },
  {
-  "from": "History window in days (with --history)",
-  "to": "历史窗口天数（配合 --history）/History window in days (with --history)",
-  "mode": "full"
- },
- {
   "from": "Print what would be removed without touching the filesystem (clear)",
   "to": "只打印将移除的内容，不动文件系统（clear）/Print what would be removed without touching the filesystem (clear)",
   "mode": "full"
@@ -1625,11 +1545,6 @@
   "mode": "full"
  },
  {
-  "from": "list (default) or clear",
-  "to": "list（默认）或 clear/list (default) or clear",
-  "mode": "full"
- },
- {
   "from": "Host name or arguments",
   "to": "主机名或参数/Host name or arguments",
   "mode": "full"
@@ -1652,11 +1567,6 @@
  {
   "from": "What to detect and fix (e.g. \"ts errors\"); a discovery agent works out the command",
   "to": "要检测并修复的内容（如 \"ts errors\"）；由发现代理推导出具体命令/What to detect and fix (e.g. \"ts errors\"); a discovery agent works out the command",
-  "mode": "full"
- },
- {
-  "from": "Action: ${Phs.join(\" | \")} (default serve)",
-  "to": "操作：${Phs.join(\" | \")}（默认 serve）/Action: serve | install (default serve)",
   "mode": "full"
  }
 ]

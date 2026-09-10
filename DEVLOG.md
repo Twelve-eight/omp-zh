@@ -324,3 +324,61 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
 - 13/13 终验 PASS（含 blob==vanilla、chrome 上游原生 hide）。verify PASS，smoke
   omp/18.1.12 helpCJK=1577。产物 work\omp-zh.exe；交付 EBUSY 待会话退出。
   gap 11235。已推送 812c6e2。
+
+## 2026-09-09:18.1.13 补记 + 管线交付/覆盖率盲区修复 + 补译还债
+- **18.1.13 轮补记(日志曾落后现实一轮,questioner 代理盲区提问揪出)**:09-07 晚完成第 5 轮
+  重建并成功交付:G:\omp\omp-zh.exe --version=18.1.13,与 work\omp-zh.exe sha256 逐字节一致
+  (20d10023..),交付版 helpCJK=1577。锚点(leak cwd sj()->rj() 之外本轮 commit 6a2ceac 记录的
+  OMa/IMa 簇,uua/Upt,TRt ssh)与镜像 API 回退改造当时已随 6a2ceac 推送,仅 DEVLOG 缺记。
+- **交付链路修复(build-zh.js)**:此前 copy 失败仅 console.log,EBUSY 延迟交付完全依赖人工补跑
+  (08-22 曾因此把坏版本留在主文件位,09-06/09-07 连续两轮"交付待会话退出"后无人核验)。
+  现改为:写 `<target>.new` 后 rename 交付(规避运行中 exe 的写锁,rename 失败重试 10x3s),
+  成功后回读交付目标 --version 与 work 产物比对核验,任一失败 **exit 1**。
+- **冒烟目标修复(update-zh.js)**:smoke 原测 work 产物,交付失败照样绿灯并写 last-version——
+  "work 产物好但用户手里还是旧版"的盲区。现 smoke 改测交付目标(no-deliver 模式仍测 work)。
+- **覆盖率环比门槛(update-zh.js,新)**:每轮把 {version, helpCJK, gap} 追加进
+  work/.omp-zh-cov-history.json;helpCJK 环比下降或 gap 环比上升 -> 显式 WARN(不阻断,
+  但须记本日志并还债)。历史基线已按 DEVLOG 各轮实测回填(18.0.9 起六轮)。
+  此前四轮 helpCJK 1643->1618->1618->1577->1577 静默回退,gap 11101->11235,无任何告警。
+- **dict 死条目清理**:18.1.13 死条目 155 条已确认(上游改文案即失配),本轮清理。
+- **补译还债**:08-28 以来首次。18.1.14 未命中句子型清单筛选(帮助/设置/TUI 面),按
+  dict-* 分域补译,细节见下。
+
+## 2026-09-10:18.1.16 补译还债 + 交付看护机制 + 管线三处契约修正
+- **背景**:18.1.14 轮(09-09)完成管线修复后,另一会话于 09-10 构建了 18.1.16(commit 4a8425e,
+  锚点 jko/Kko/Vko 簇,Cbo,sca/fct,kj/KRt leak,g8/R_ replay;上游 dispatch #y->#h,flush 补丁仍需
+  并已打).本会话在其上完成还债与收尾.两轮 gap 数据:18.1.16 首建 11305(上游 +70 新文本),
+  本轮补译后 **11101(-204)**.helpCJK 1577 持平(登录向导/状态行不在 --help 面).
+- **补译还债(08-28 以来首次实付)**:
+  - 新增 `work/out-login.json` 188 条(全部 full):OAuth/登录向导全链路--各提供商 "Paste/Copy
+    your XX API key"、凭据缺失提示(No xAI/DeepInfra/Anthropic/Codex/Kagi/Synthetic/Parallel
+    credentials..)、Smithery 全家、OAuth 错误/刷新/回调、Xiaomi 三区域 Token Plan、
+    QwenCloud 区域选择、GitHub Copilot 401/403、无模型/选择类短句、Nothing to copy 家族.
+  - 新增 `work/out-status.json` 16 条:TUI 状态行(Loading xx/Checking xx/Verifying xx,
+    8 条为 `\u2026` 字面转义形态).
+  - **死条目清理**:18.1.13 的 155 条 + 18.1.16 新死 4 条(loop 模式/Rename session 描述变更
+    及 2 条 tools 长文本)全部删除,dict-tools 17->3;staging out-*.json 清死 54+1 条.
+    复扫死条目 0.
+  - **编码陷阱(本轮实证,记档)**:(a) 终端/工具链显示层把三个 ASCII 点折叠成两个 --
+    `cli.includes(两点串)` 会因"两点是三点的子串"假通过,凡以 `..` 结尾的 from 必须用
+    codepoint 级比对定真身(本轮 7 条因此报废重修);(b) `http://127.0.0.1:8080;` 后的
+    `customize).` 尾括号句点形态要以 scanStrings 实收字面量为准,不能手抄;
+    (c) `->` 实为 `\u2192`,`—` 实为 `\u2014`(dict 存双反斜杠形态).
+- **交付看护机制(新文件 deliver-pending.js)**:运行中会话的映像锁使 rename/copyFile 双双
+  EPERM/EBUSY(09-09 实测,普通 r+ 句柄不等价).build-zh.js 检测到锁死时拉起 detached
+  node 看护:每 30s 试 rename,成功即交付(rename 原子移动),24h 超时自然退出;staged 文件
+  消失视为他处已交付,幂等退出.看护不 spawn 目标 exe(Bun 运行时行为不可控,且避免抢
+  第二实例).**演练实证**:模拟句柄锁 8s 释放,看护 exit 0,目标被替换为 staged 内容.
+  当前实况:G:\omp\omp-zh.exe 仍 18.1.13(被运行中会话 pid 18688 锁定),`.new` 已 staged
+  为 18.1.16 含全部还债,看护 20188 在位,锁释放后自动交付.
+- **管线三处契约修正**:
+  1. build-zh.js `--deliver` 改为显式 opt-in(默认空 = 只构建不交付) -- 原默认值
+     G:/omp/omp-zh.exe 使任何不带 flag 的调用都悄悄改主文件位,--no-deliver 契约名存实亡.
+  2. update-zh.js gap 扫描并入 work/out-*.json staging(与 build-zh 字典合并同源)--
+     否则补译后 gap 环比虚高,覆盖率门槛失真.
+  3. update-zh.js 冒烟三态:交付目标已是新版(DELIVERED)/旧版但 staged 在位(DEFERRED,
+     测 work 产物)/都不满足(FAIL).杜绝"work 产物好但用户手里旧版"盲区,同时不再把
+     看护中的延迟交付误判为失败.
+- **18.1.16 终验**:extract->patch(25/47,锚点见 4a8425e)->scan(死 0/gap 11101)->
+  build(3234 字面量,串区补偿 -195264)->verify PASS->smoke DEFERRED version=18.1.16
+  helpCJK=1577.cov-history 已记 {18.1.16, 1577, 11101}.

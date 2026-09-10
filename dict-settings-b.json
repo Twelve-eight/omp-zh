@@ -5,11 +5,6 @@
   "mode": "full"
  },
  {
-  "from": "Prevent macOS sleep during active sessions. Each level is cumulative \\u2014 it adds the flags of all lower levels.",
-  "to": "在活动会话期间阻止 macOS 休眠。每个级别是累积的 — 它包含所有更低级别的标志/Prevent macOS sleep during active sessions. Each level is cumulative \\u2014 it adds the flags of all lower levels.",
-  "mode": "full"
- },
- {
   "from": "Pair a second model (assigned to the 'advisor' role) that passively reviews each turn and injects notes.",
   "to": "配对第二个模型（分配为 'advisor' 角色），被动审查每一轮并注入备注/Pair a second model (assigned to the 'advisor' role) that passively reviews each turn and injects notes.",
   "mode": "full"
@@ -17,11 +12,6 @@
  {
   "from": "Start on the active model, then switch to a fast/cheap model (default the 'smol' role) at the first edit/write after the plan nudge's todo list exists \\u2014 the strong model plans, commits the todos, and starts the implementation before handing off. Overridable per session with --prewalk / --no-prewalk.",
   "to": "从当前活动模型开始，在计划提示的待办列表生成后的第一次编辑/写入时切换到快速/廉价模型（默认为 'smol' 角色）— 由强模型负责规划、提交待办并开始实现，然后交接。可通过 --prewalk / --no-prewalk 按会话覆盖/Start on the active model, then switch to a fast/cheap model (default the 'smol' role) at the first edit/write after the plan nudge's todo list exists \\u2014 the strong model plans, commits the todos, and starts the implementation before handing off. Overridable per session with --prewalk / --no-prewalk.",
-  "mode": "full"
- },
- {
-  "from": "Also enable the advisor on spawned task/eval subagents.",
-  "to": "也为生成的 task/eval 子代理启用 advisor/Also enable the advisor on spawned task/eval subagents.",
   "mode": "full"
  },
  {
@@ -175,11 +165,6 @@
   "mode": "full"
  },
  {
-  "from": "Erase and replay terminal scrollback when a block's final form replaces its live preview. When off (default), stale preview copies remain in history and the final content is appended below.",
-  "to": "当块的最终形式替换其实时预览时，擦除并重放终端回滚缓冲。关闭时（默认），过时的预览副本保留在历史中，最终内容附加在其下方/Erase and replay terminal scrollback when a block's final form replaces its live preview. When off (default), stale preview copies remain in history and the final content is appended below.",
-  "mode": "full"
- },
- {
   "from": "Animation style for working/loading messages",
   "to": "工作/加载消息的动画样式/Animation style for working/loading messages",
   "mode": "full"
@@ -197,11 +182,6 @@
  {
   "from": "Show per-turn token usage on assistant messages",
   "to": "在助手消息上显示每轮 token 用量/Show per-turn token usage on assistant messages",
-  "mode": "full"
- },
- {
-  "from": "Show a divider above an assistant turn whose request lost (missed) the prompt cache",
-  "to": "在请求未命中提示词缓存的助手轮次上方显示分隔线/Show a divider above an assistant turn whose request lost (missed) the prompt cache",
   "mode": "full"
  },
  {
@@ -355,11 +335,6 @@
   "mode": "full"
  },
  {
-  "from": "Maximum wait between retries, in ms. When the provider asks us to wait longer than this and no credential or model fallback succeeds, the request fails fast instead of sleeping (e.g. 3-hour Anthropic rate-limit windows).",
-  "to": "重试之间的最大等待时间（毫秒）。当提供商要求等待超过此时长且凭据或模型回退均不成功时，请求会快速失败而不是休眠等待（例如 Anthropic 3 小时的速率限制窗口）/Maximum wait between retries, in ms. When the provider asks us to wait longer than this and no credential or model fallback succeeds, the request fails fast instead of sleeping (e.g. 3-hour Anthropic rate-limit windows).",
-  "mode": "full"
- },
- {
   "from": "Allow retry recovery to switch to configured fallback models",
   "to": "允许重试恢复切换到已配置的回退模型/Allow retry recovery to switch to configured fallback models",
   "mode": "full"
@@ -407,11 +382,6 @@
  {
   "from": "What happens between /loop iterations before re-submitting the prompt",
   "to": "在重新提交提示词之前，/loop 迭代之间会发生什么/What happens between /loop iterations before re-submitting the prompt",
-  "mode": "full"
- },
- {
-  "from": "Action when pressing Escape twice with empty editor",
-  "to": "编辑器为空时按两次 Escape 的操作/Action when pressing Escape twice with empty editor",
   "mode": "full"
  },
  {
@@ -575,11 +545,6 @@
   "mode": "full"
  },
  {
-  "from": "Choose in-place context-full maintenance, auto-handoff, surgical shake (drop heavy content), snapcompact (archive history as dense images), or disable auto maintenance (off)",
-  "to": "选择就地上下文已满维护、自动交接、surgical shake（丢弃沉重内容）、snapcompact（将历史存档为密集图像）或禁用自动维护（off）/Choose in-place context-full maintenance, auto-handoff, surgical shake (drop heavy content), snapcompact (archive history as dense images), or disable auto maintenance (off)",
-  "mode": "full"
- },
- {
   "from": "Percent threshold for context maintenance; set to Default to use legacy reserve-based behavior",
   "to": "上下文维护的百分比阈值；设置为 Default 以使用旧版基于预留的行为/Percent threshold for context maintenance; set to Default to use legacy reserve-based behavior",
   "mode": "full"
@@ -592,11 +557,6 @@
  {
   "from": "Save generated handoff documents to markdown files for the auto-handoff flow",
   "to": "为自动交接流程将生成的交接文档保存为 markdown 文件/Save generated handoff documents to markdown files for the auto-handoff flow",
-  "mode": "full"
- },
- {
-  "from": "Use remote compaction endpoints when available instead of local summarization",
-  "to": "可用时使用远程压缩端点，而不是本地摘要/Use remote compaction endpoints when available instead of local summarization",
   "mode": "full"
  },
  {
@@ -652,11 +612,6 @@
  {
   "from": "Prompt to summarize when leaving a branch",
   "to": "离开分支时提示进行总结/Prompt to summarize when leaving a branch",
-  "mode": "full"
- },
- {
-  "from": "Off, local summary pipeline, Mnemopi SQLite, or Hindsight remote memory",
-  "to": "Off（关闭）、本地摘要流水线、Mnemopi SQLite 或 Hindsight 远程记忆/Off, local summary pipeline, Mnemopi SQLite, or Hindsight remote memory",
   "mode": "full"
  },
  {
@@ -1005,16 +960,6 @@
   "mode": "full"
  },
  {
-  "from": "Allow the eval tool to dispatch Ruby cells to the persistent Ruby kernel",
-  "to": "允许 eval 工具将 Ruby 单元分派到持久 Ruby 内核/Allow the eval tool to dispatch Ruby cells to the persistent Ruby kernel",
-  "mode": "full"
- },
- {
-  "from": "Allow the eval tool to dispatch Julia cells to the persistent Julia kernel",
-  "to": "允许 eval 工具将 Julia 单元分派到持久 Julia 内核/Allow the eval tool to dispatch Julia cells to the persistent Julia kernel",
-  "mode": "full"
- },
- {
   "from": "Keep the IPython kernel alive across eval calls or start fresh each time",
   "to": "在多次 eval 调用之间保持 IPython 内核存活，还是每次都全新启动/Keep the IPython kernel alive across eval calls or start fresh each time",
   "mode": "full"
@@ -1022,16 +967,6 @@
  {
   "from": "Optional path to an exact Python executable. When set, automatic Python runtime discovery is skipped.",
   "to": "指定 Python 可执行文件的可选路径。设置后跳过自动 Python 运行时发现/Optional path to an exact Python executable. When set, automatic Python runtime discovery is skipped.",
-  "mode": "full"
- },
- {
-  "from": "Optional path to an exact Ruby executable. When set, automatic Ruby runtime discovery is skipped.",
-  "to": "指定 Ruby 可执行文件的可选路径。设置后跳过自动 Ruby 运行时发现/Optional path to an exact Ruby executable. When set, automatic Ruby runtime discovery is skipped.",
-  "mode": "full"
- },
- {
-  "from": "Optional path to an exact Julia executable. When set, automatic Julia runtime discovery is skipped.",
-  "to": "指定 Julia 可执行文件的可选路径。设置后跳过自动 Julia 运行时发现/Optional path to an exact Julia executable. When set, automatic Julia runtime discovery is skipped.",
   "mode": "full"
  },
  {
@@ -1115,16 +1050,6 @@
   "mode": "full"
  },
  {
-  "from": "Controls the inspect_image tool, which delegates image understanding to a vision-capable model. 'auto' exposes it only when the active model lacks native image input; 'on' always exposes it; 'off' never does.",
-  "to": "控制 inspect_image 工具，该工具将图像理解委托给支持视觉的模型。'auto' 仅在活动模型缺乏原生图像输入时暴露它；'on' 始终暴露；'off' 从不暴露/Controls the inspect_image tool, which delegates image understanding to a vision-capable model. 'auto' exposes it only when the active model lacks native image input; 'on' always exposes it; 'off' never does.",
-  "mode": "full"
- },
- {
-  "from": "Enable the scriptable host-desktop control tool (screenshots, input, accessibility)",
-  "to": "启用可脚本化的主机桌面控制工具（截图、输入、无障碍功能）/Enable the scriptable host-desktop control tool (screenshots, input, accessibility)",
-  "mode": "full"
- },
- {
   "from": "Composite all displays or select a native display id",
   "to": "合成所有显示器，或选择原生显示器 ID/Composite all displays or select a native display id",
   "mode": "full"
@@ -1137,11 +1062,6 @@
  {
   "from": "Maximum composite screenshot height in pixels",
   "to": "合成截图的最大高度（像素）/Maximum composite screenshot height in pixels",
-  "mode": "full"
- },
- {
-  "from": "Per-request timeout for the inspect_image vision-model call, in milliseconds. A stalled provider fails fast with a timeout error instead of blocking until manual abort. Set to 0 to disable the timeout.",
-  "to": "inspect_image 视觉模型调用的每次请求超时（毫秒）。停滞的提供商会以超时错误快速失败，而不是阻塞到手动中止。设为 0 可禁用超时/Per-request timeout for the inspect_image vision-model call, in milliseconds. A stalled provider fails fast with a timeout error instead of blocking until manual abort. Set to 0 to disable the timeout.",
   "mode": "full"
  },
  {
@@ -1195,18 +1115,8 @@
   "mode": "full"
  },
  {
-  "from": "Enable the browser tool for scripted Chromium automation (puppeteer)",
-  "to": "启用 browser 工具进行脚本化 Chromium 自动化（puppeteer）/Enable the browser tool for scripted Chromium automation (puppeteer)",
-  "mode": "full"
- },
- {
   "from": "Default HTTP CDP discovery endpoint (for example http://127.0.0.1:9222) to attach to instead of launching a browser. Explicit app.cdp_url or app.path on the tool call take precedence.",
   "to": "默认附加的 HTTP CDP 发现端点（例如 http://127.0.0.1:9222），而不是启动浏览器。工具调用中显式的 app.cdp_url 或 app.path 优先/Default HTTP CDP discovery endpoint (for example http://127.0.0.1:9222) to attach to instead of launching a browser. Explicit app.cdp_url or app.path on the tool call take precedence.",
-  "mode": "full"
- },
- {
-  "from": "Drive your own Chrome tabs through the omp browser relay. Install the extension once (`omp browser-relay install`); the relay server auto-starts when the browser tool needs it. Takes precedence over Browser CDP URL; set PI_BROWSER_RELAY=0 or PI_BROWSER_RELAY=1 to override.",
-  "to": "通过 omp 浏览器中继驱动您自己的 Chrome 标签页。只需安装一次扩展（`omp browser-relay install`）；浏览器工具需要时中继服务器会自动启动。优先于 Browser CDP URL；设置 PI_BROWSER_RELAY=0 或 PI_BROWSER_RELAY=1 可覆盖/Drive your own Chrome tabs through the omp browser relay. Install the extension once (`omp browser-relay install`); the relay server auto-starts when the browser tool needs it. Takes precedence over Browser CDP URL; set PI_BROWSER_RELAY=0 or PI_BROWSER_RELAY=1 to override.",
   "mode": "full"
  },
  {
@@ -1257,11 +1167,6 @@
  {
   "from": "Default timeout for hub message waits (and send await:true) in milliseconds; 0 disables the timeout",
   "to": "hub 消息等待（以及 send await:true）的默认超时时间（毫秒）；0 禁用超时/Default timeout for hub message waits (and send await:true) in milliseconds; 0 disables the timeout",
-  "mode": "full"
- },
- {
-  "from": "Mount rarely-used (discoverable) tools under xd:// device URLs driven via read/write instead of shipping their schemas on every request. Sessions without a granted write tool skip mounting and expose every tool top-level. Disable to expose every enabled tool top-level.",
-  "to": "将很少使用（可发现）的工具挂载到通过 read/write 驱动的 xd:// 设备 URL 下，而不是在每次请求时携带它们的模式。没有授予 write 工具的会话跳过挂载并顶层暴露所有工具。禁用则在顶层暴露所有已启用的工具/Mount rarely-used (discoverable) tools under xd:// device URLs driven via read/write instead of shipping their schemas on every request. Sessions without a granted write tool skip mounting and expose every tool top-level. Disable to expose every enabled tool top-level.",
   "mode": "full"
  },
  {
@@ -1400,11 +1305,6 @@
   "mode": "full"
  },
  {
-  "from": "Arm prewalk for the bundled generic `task` subagent: it starts on its resolved model, plans and begins the implementation, then hands off to the 'smol' role at its first edit/write. Per-agent overrides (task.agentPrewalk, toggled with P in /agents) and user agent `prewalk` frontmatter apply regardless of this toggle.",
-  "to": "为内置的通用 `task` 子代理启用 prewalk：它在解析后的模型上开始，规划并开始实现，然后在第一次编辑/写入时交接给 'smol' 角色。按代理的覆盖（task.agentPrewalk，在 /agents 中用 P 切换）和用户代理的 `prewalk` frontmatter 无论此开关如何都生效/Arm prewalk for the bundled generic `task` subagent: it starts on its resolved model, plans and begins the implementation, then hands off to the 'smol' role at its first edit/write. Per-agent overrides (task.agentPrewalk, toggled with P in /agents) and user agent `prewalk` frontmatter apply regardless of this toggle.",
-  "mode": "full"
- },
- {
   "from": "Delay before completed or abandoned todos are removed from the todo widget",
   "to": "已完成或放弃的待办事项从待办组件中移除前的延迟时间/Delay before completed or abandoned todos are removed from the todo widget",
   "mode": "full"
@@ -1480,11 +1380,6 @@
   "mode": "full"
  },
  {
-  "from": "Backend for the tts tool: local on-device neural TTS (Kokoro-82M) or xAI Grok Voice",
-  "to": "tts 工具的后端：本地设备端神经 TTS（Kokoro-82M）或 xAI Grok Voice/Backend for the tts tool: local on-device neural TTS (Kokoro-82M) or xAI Grok Voice",
-  "mode": "full"
- },
- {
   "from": "On-device neural TTS model (Kokoro-82M) used by the local TTS backend",
   "to": "本地 TTS 后端使用的设备端神经 TTS 模型（Kokoro-82M）/On-device neural TTS model (Kokoro-82M) used by the local TTS backend",
   "mode": "full"
@@ -1520,16 +1415,6 @@
   "mode": "full"
  },
  {
-  "from": "ONNX execution provider for local tiny models (titles + memory). Default uses CPU-only inference. The PI_TINY_DEVICE env var overrides this.",
-  "to": "本地微型模型的 ONNX 执行提供程序（标题 + 记忆）。默认使用仅 CPU 推理。PI_TINY_DEVICE 环境变量覆盖此设置/ONNX execution provider for local tiny models (titles + memory). Default uses CPU-only inference. The PI_TINY_DEVICE env var overrides this.",
-  "mode": "full"
- },
- {
-  "from": "ONNX quantization/precision for local tiny models. Default uses each model's shipped dtype (q4); lower precision is faster, higher is more faithful. The PI_TINY_DTYPE env var overrides this.",
-  "to": "本地微型模型的 ONNX 量化/精度。默认使用每个模型随附的 dtype（q4）；精度越低越快，越高越忠实。PI_TINY_DTYPE 环境变量覆盖此设置/ONNX quantization/precision for local tiny models. Default uses each model's shipped dtype (q4); lower precision is faster, higher is more faithful. The PI_TINY_DTYPE env var overrides this.",
-  "mode": "full"
- },
- {
   "from": "Mnemopi LLM for fact extraction + consolidation: online (the TINY role from /models, else smol/remote) by default, or a local on-device model",
   "to": "用于事实提取 + 整合的 Mnemopi LLM：默认为在线（来自 /models 的 TINY 角色，否则 smol/remote），或本地设备端模型/Mnemopi LLM for fact extraction + consolidation: online (the TINY role from /models, else smol/remote) by default, or a local on-device model",
   "mode": "full"
@@ -1542,16 +1427,6 @@
  {
   "from": "Highest effort the `auto` classifier may resolve. `xhigh` keeps the classifier one tier below the top, so only an explicit `ultrathink` reaches `max`; `max` lets a turn the classifier judges exceptional bill the top tier on models that expose it.",
   "to": "`auto` 分类器可以解析出的最高努力档位。`xhigh` 使分类器保持比最高档低一档，因此只有显式的 `ultrathink` 能达到 `max`；`max` 允许被分类器判定为特殊的轮次在支持该档位的模型上计入最高档/Highest effort the `auto` classifier may resolve. `xhigh` keeps the classifier one tier below the top, so only an explicit `ultrathink` reaches `max`; `max` lets a turn the classifier judges exceptional bill the top tier on models that expose it.",
-  "mode": "full"
- },
- {
-  "from": "Use a small model to detect when the assistant says it will continue but stops without tool calls; automatically prompt it to continue.",
-  "to": "使用小模型检测助手声称会继续却未调用工具就停止的情况；自动提示它继续/Use a small model to detect when the assistant says it will continue but stops without tool calls; automatically prompt it to continue.",
-  "mode": "full"
- },
- {
-  "from": "Classifier for unexpected-stop detection: online (the TINY role from /models, else smol) by default, or a local on-device model.",
-  "to": "意外停止检测的分类器：默认为在线（来自 /models 的 TINY 角色，否则 smol），或本地设备端模型/Classifier for unexpected-stop detection: online (the TINY role from /models, else smol) by default, or a local on-device model.",
   "mode": "full"
  },
  {
@@ -1635,11 +1510,6 @@
   "mode": "full"
  },
  {
-  "from": "Use premium long-context windows on models that bill extra past a threshold (e.g. GPT-5.6 1M charges 2x input above 272K); off caps them at the standard-pricing window",
-  "to": "在超出阈值后额外计费的模型上使用高级长上下文窗口（例如 GPT-5.6 1M 在 272K 以上按输入 2 倍计费）；off 则将其限制在标准定价窗口内/Use premium long-context windows on models that bill extra past a threshold (e.g. GPT-5.6 1M charges 2x input above 272K); off caps them at the standard-pricing window",
-  "mode": "full"
- },
- {
   "from": "Use a private scratchpad while disabling supported GPT, Claude, and Gemini reasoning (at your own risk: providers have flagged this request shape as abuse)",
   "to": "在禁用受支持的 GPT、Claude 和 Gemini 推理时使用私有草稿区（自担风险：提供商已将这种请求形态标记为滥用）/Use a private scratchpad while disabling supported GPT, Claude, and Gemini reasoning (at your own risk: providers have flagged this request shape as abuse)",
   "mode": "full"
@@ -1675,18 +1545,8 @@
   "mode": "full"
  },
  {
-  "from": "This task requires structured output matching the declared schema; a last-turn result cannot satisfy it.",
-  "to": "此任务需要与声明的 schema 匹配的结构化输出；最后一轮的结果无法满足要求/This task requires structured output matching the declared schema; a last-turn result cannot satisfy it.",
-  "mode": "full"
- },
- {
   "from": "snapcompact could not bring the context under the limit; trying the next preferred compaction method.",
   "to": "snapcompact 无法将上下文压到限制以内；正在尝试下一个首选压缩方法/snapcompact could not bring the context under the limit; trying the next preferred compaction method.",
-  "mode": "full"
- },
- {
-  "from": "To insert after a whole construct, anchor on its closing line or use \\`PUT >N*:\\`.",
-  "to": "要在整个结构之后插入，请锚定其结束行，或使用 \\`PUT >N*:\\`。/To insert after a whole construct, anchor on its closing line or use \\`PUT >N*:\\`.",
   "mode": "full"
  },
  {
@@ -1790,11 +1650,6 @@
   "mode": "full"
  },
  {
-  "from": "Submit the full object: {\"result\":{\"data\":<object matching the schema>}}.",
-  "to": "提交完整对象：{\"result\":{\"data\":<匹配 schema 的对象>}}/Submit the full object: {\"result\":{\"data\":<object matching the schema>}}.",
-  "mode": "full"
- },
- {
   "from": "Summarize locally with the active model (skip server compaction)",
   "to": "使用活动模型在本地总结（跳过服务器压缩）/Summarize locally with the active model (skip server compaction)",
   "mode": "full"
@@ -1895,11 +1750,6 @@
   "mode": "full"
  },
  {
-  "from": "\\u2014 no turn in flight (stale registration?)",
-  "to": "— 没有进行中的回合（注册过期？）/— no turn in flight (stale registration?)",
-  "mode": "full"
- },
- {
   "from": "Loading all projects\\u2026",
   "to": "正在加载所有项目…/Loading all projects…",
   "mode": "full"
@@ -1927,11 +1777,6 @@
  {
   "from": "agent \\xB7 no turn",
   "to": "agent · 无回合/agent · no turn",
-  "mode": "full"
- },
- {
-  "from": "loading\\u2026",
-  "to": "正在加载…/loading…",
   "mode": "full"
  },
  {
@@ -2990,11 +2835,6 @@
   "mode": "full"
  },
  {
-  "from": "WebGPU alias for Apple GPUs",
-  "to": "Apple GPU 的 WebGPU 别名/WebGPU alias for Apple GPUs",
-  "mode": "full"
- },
- {
   "from": "WebGPU/Metal backend",
   "to": "WebGPU/Metal 后端/WebGPU/Metal backend",
   "mode": "full"
@@ -3115,31 +2955,6 @@
   "mode": "full"
  },
  {
-  "from": "Recommended local model; best speed/quality balance, about 212 MB cached.",
-  "to": "推荐的本地模型；速度/质量最平衡，缓存约 212 MB。/Recommended local model; best speed/quality balance, about 212 MB cached.",
-  "mode": "full"
- },
- {
-  "from": "Most robust local option; slower first load, about 500 MB cached.",
-  "to": "最稳健的本地选项；首次加载较慢，缓存约 500 MB。/Most robust local option; slower first load, about 500 MB cached.",
-  "mode": "full"
- },
- {
-  "from": "Smallest viable local option; lower quality, lowest cache footprint.",
-  "to": "最小的可行本地选项；质量较低、缓存占用最低。/Smallest viable local option; lower quality, lowest cache footprint.",
-  "mode": "full"
- },
- {
-  "from": "Balanced local fallback; moderate quality and cache footprint.",
-  "to": "均衡的本地后备；质量与缓存占用适中。/Balanced local fallback; moderate quality and cache footprint.",
-  "mode": "full"
- },
- {
-  "from": "Highest-quality local option; larger and slower than LFM2 350M.",
-  "to": "质量最高的本地选项；比 LFM2 350M 更大更慢。/Highest-quality local option; larger and slower than LFM2 350M.",
-  "mode": "full"
- },
- {
   "from": "Larger Llama 3.2 option for local memory/classifier tasks; higher quality potential at higher disk/RAM/latency cost.",
   "to": "更大的 Llama 3.2 本地记忆/分类任务选项；质量潜力更高，磁盘/内存/延迟成本也更高。/Larger Llama 3.2 option for local memory/classifier tasks; higher quality potential at higher disk/RAM/latency cost.",
   "mode": "full"
@@ -3157,11 +2972,6 @@
  {
   "from": "Fastest load; solid all-rounder, slightly noisier extraction labels.",
   "to": "加载最快；综合表现扎实，提取标签略噪。/Fastest load; solid all-rounder, slightly noisier extraction labels.",
-  "mode": "full"
- },
- {
-  "from": "Disabled for local inference: onnxruntime-node cannot run this ONNX export's RotaryEmbedding cache updates.",
-  "to": "本地推理不可用：onnxruntime-node 无法运行该 ONNX 导出的 RotaryEmbedding 缓存更新。/Disabled for local inference: onnxruntime-node cannot run this ONNX export's RotaryEmbedding cache updates.",
   "mode": "full"
  },
  {
@@ -3267,21 +3077,6 @@
  {
   "from": "Do not prevent any sleep",
   "to": "不阻止任何睡眠/Do not prevent any sleep",
-  "mode": "full"
- },
- {
-  "from": "Keep the system awake while a session is open (caffeinate -i)",
-  "to": "会话打开期间保持系统唤醒（caffeinate -i）/Keep the system awake while a session is open (caffeinate -i)",
-  "mode": "full"
- },
- {
-  "from": "Also keep the display from idle-sleeping (caffeinate -i -d)",
-  "to": "同时防止显示器空闲睡眠（caffeinate -i -d）/Also keep the display from idle-sleeping (caffeinate -i -d)",
-  "mode": "full"
- },
- {
-  "from": "Also block all system sleep on AC and declare the user active (caffeinate -i -d -s -u)",
-  "to": "同时在接通电源时阻止所有系统睡眠并声明用户活跃（caffeinate -i -d -s -u）/Also block all system sleep on AC and declare the user active (caffeinate -i -d -s -u)",
   "mode": "full"
  },
  {
@@ -4440,18 +4235,8 @@
   "mode": "full"
  },
  {
-  "from": "Quarter of a 200K window",
-  "to": "200K 窗口的四分之一/Quarter of a 200K window",
-  "mode": "full"
- },
- {
   "from": "50K tokens",
   "to": "50K token/50K tokens",
-  "mode": "full"
- },
- {
-  "from": "Half of a 200K window",
-  "to": "200K 窗口的一半/Half of a 200K window",
   "mode": "full"
  },
  {
@@ -4462,11 +4247,6 @@
  {
   "from": "150K tokens",
   "to": "150K token/150K tokens",
-  "mode": "full"
- },
- {
-  "from": "Three-quarters of a 200K window",
-  "to": "200K 窗口的四分之三/Three-quarters of a 200K window",
   "mode": "full"
  },
  {
@@ -4755,11 +4535,6 @@
   "mode": "full"
  },
  {
-  "from": "No isolation",
-  "to": "无隔离/No isolation",
-  "mode": "full"
- },
- {
   "from": "Let the PAL pick the best available backend",
   "to": "让 PAL 选择最佳可用后端/Let the PAL pick the best available backend",
   "mode": "full"
@@ -4792,11 +4567,6 @@
  {
   "from": "AI-generated commit message from diff",
   "to": "从 diff 生成的 AI 提交信息/AI-generated commit message from diff",
-  "mode": "full"
- },
- {
-  "from": "Model decides when to delegate",
-  "to": "由模型决定何时委派/Model decides when to delegate",
   "mode": "full"
  },
  {
@@ -4985,11 +4755,6 @@
   "mode": "full"
  },
  {
-  "from": "Path to a script or test name to bisect.",
-  "to": "要二分定位的脚本路径或测试名。/Path to a script or test name to bisect.",
-  "mode": "full"
- },
- {
   "from": "Local SQLite memory engine for Oh My Pi agents",
   "to": "Oh My Pi 代理的本地 SQLite 记忆引擎/Local SQLite memory engine for Oh My Pi agents",
   "mode": "full"
@@ -5035,11 +4800,6 @@
   "mode": "full"
  },
  {
-  "from": "Code review specialist for quality/security analysis",
-  "to": "负责质量/安全分析的代码评审专家/Code review specialist for quality/security analysis",
-  "mode": "full"
- },
- {
   "from": "General-purpose subagent with full capabilities for delegated multi-step tasks",
   "to": "具备完整能力的通用子代理，承接多步委派任务/General-purpose subagent with full capabilities for delegated multi-step tasks",
   "mode": "full"
@@ -5047,11 +4807,6 @@
  {
   "from": "Low-reasoning agent for strictly mechanical updates or data collection only",
   "to": "低推理量代理，仅用于机械更新或数据收集/Low-reasoning agent for strictly mechanical updates or data collection only",
-  "mode": "full"
- },
- {
-  "from": "Handoff context",
-  "to": "交接上下文/Handoff context",
   "mode": "full"
  },
  {
@@ -5200,18 +4955,8 @@
   "mode": "full"
  },
  {
-  "from": "Move cursor to end of message",
-  "to": "光标移到消息末尾/Move cursor to end of message",
-  "mode": "full"
- },
- {
   "from": "Current message",
   "to": "当前消息/Current message",
-  "mode": "full"
- },
- {
-  "from": "Move cursor to beginning of message",
-  "to": "光标移到消息开头/Move cursor to beginning of message",
   "mode": "full"
  },
  {
