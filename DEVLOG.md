@@ -448,3 +448,33 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
 - **配置侧**:models.yml 新增 agentrouter-responses 块(api: openai-responses,astra),
   config.yml default 角色指向 agentrouter-responses/gpt-6-astra:xhigh。详见
   G:/omp works/docs/omp-agentrouter-config.md。
+- **补丁 5 终版(8 处,2026-09-12 01:4x)**:补全 e/f/g/h 四处 gate.关键进展(捕获代理实证,
+  `G:\omp works\.tmp\omp-capture\`):
+  - **交替模式真相**:002/004 请求(0 个 reasoning items)-> 200;003/005 请求(10-11 个
+    reasoning items,全部 `id: undefined` + 密文)-> 400.400 与"请求里带回放的 reasoning item"
+    完全对应;与 effort/max_output_tokens/store 无关(矩阵测试:effort max/high/low ×
+    maxOut 均有、无,回放带 id 原样 item 全部 200).
+  - **agentrouter 支持带 id reasoning 回放**(直接 curl 多次验证 200),但**拒绝无 id 的
+    密文 reasoning item**(`could not be verified`);
+  - **omp 丢 id 源头**:remote compaction v2(Mbe stored-items `W` prepend,大会话 resume
+    `Resumed session` 166K tokens 命中)直接 `[..o, ..r]` 进 input -- QLt/T7 gate 都绕过了.
+    历史 providerPayload 的 raw items 经 U_t()/KSr() 转换时 `i=false -> id 被丢`.
+  - **补丁清单(e/f/g/h)**:
+    e) QLt items 分支:`const f = e.compat?.replayResponsesReasoning === false ? undefined : d?.items;`
+    f) QLt bKe:`!m && e.compat?.replayResponsesReasoning !== false`
+    g) Mbe:`(e.compat?.replayResponsesReasoning === false ? o.filter(z=>z?.type!=="reasoning") : o).concat(r)`
+    h) Xni:`(t.compat?.replayResponsesReasoning === false ? s.filter(z=>z?.type!=="reasoning") : s).concat(o)`
+  - models.yml astra 带 `compat.replayResponsesReasoning: false` 即全路径不回放 reasoning
+    (代价:跨轮推理记忆丢失;agent 循环/tools/上下文完好).
+- **codex-cli 对照(2026-09-12)**:npm 装 @openai/codex 0.154.0 于 G:\omp works\.tooling\npm-global
+  (npm prefix 已改 G;npm proxy 127.0.0.1:7897).codex 同 key 同 astra **全程无错**;
+  抓包(codex-probe-proxy.js :9999)显示 codex 请求:tools 走 additional_tools,reasoning
+  effort low + context all_turns,MaxOut 不传;重点:**codex 也回放推理时用带 id 原样 item**.
+- **回退/对照资产**:work\omp-vanilla-18.1.17.exe = 官方 pristine 备份;`~/.codex/config.toml`
+  指 127.0.0.1:9999 本地代理(转发 ps.air-outer.com,记录 4 轮/会话).
+- **当前待办(2026-09-12 01:4x 状态)**:work/omp-zh.exe 已构建(8 补丁全注入,161,257,984 B),
+  未交付.用户重启所有 omp 窗口(含本会话,同一 exe)后 Move-Item 替换再验证:
+  旧会话 resume,捕获代理 G:\omp works\.tmp\omp-capture-proxy.js(:9998,用户已接管常驻)
+  会记录;若 400 消退即完成,恢复 models.yml baseUrl 直连后收尾 commit.
+- **捕获代理**:omp-capture-proxy.js :9998(用户常驻);codex-probe-proxy.js :9999(可停).
+  models.yml 的 agentrouter-responses baseUrl 当前为 http://127.0.0.1:9998/v1(待最终恢复直连).
