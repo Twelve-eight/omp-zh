@@ -424,11 +424,21 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   永久错误,重试死循环。
 - **补丁 5(patch-zh.js)**:第一版只扩 PCr 不够 -- 分类条件 `oRr(e) = Xzs[0].test(e) ||
   Xzs[1].test(e) && PCr.test(e)` 要求文案同时含 `previous response`(Xzs[1]),agentrouter 文案
-  命不中.修正版双打:`Xzs[0]` 加分支
-  `|\bencrypted content\b[^.'"]{0,200}?could not be (?:verified|decrypted|parsed)`
-  (密文 base64 夹在中间,不能写死相邻文案;实测模拟分类通过),PCr 追加
-  `|encrypted content could not be decrypted` 作双保险.
-  效果:该 400 归为 stale-responses-item,零延迟重试(g=0)+ 会话自动恢复.
+  命不中.且实测(2026-09-12 凌晨)agentrouter 的 astra 是 **Azure OpenAI 资源池**:密文绑定
+  创建它的资源,回放落别的资源报 `different Azure OpenAI resource`;strip 密文回放报
+  `Item with id .. not found` -- reasoning item 回放完全不可行.主路径 Xni()/Obe() 硬编码
+  `includeThinkingSignatures: true`,重置 provider session 也挡不住下一轮回放.
+  修正版四处补丁:
+  a) `Xzs[0]` 加分支 `|\bencrypted content\b[^.'"]{0,200}?could not be (?:verified|decrypted|parsed)`
+     (密文 base64 夹在中间,不能写死相邻文案;模拟分类实测通过)
+  b) `PCr` 加 `|encrypted content could not be decrypted`(双保险,覆盖 Xzs[1] 路径)
+  c) compat schema 加 `replayResponsesReasoning?`: boolean
+  d) T7 gate 钳制:`e.model?.compat?.replayResponsesReasoning === false` -> c=false
+     -> bKe 跳过 thinking 回放(所有调用点共用 T7,单一入口)
+  效果:该 400 归为 stale-responses-item 零延迟重试(g=0)+ 会话自动恢复;models.yml 给
+  agentrouter-responses/gpt-6-astra 设 `compat.replayResponsesReasoning: false` 后彻底
+  不回放 reasoning item.端到端验证:function_call -> function_call_output -> 追问 全通.
+  最终版已交付(7E1302C8..),中途版 2E14C040(缺 c/d)16:06 曾误交付后被替换.
 - **构建**:src 必须用 work/omp-dl.exe(缓存的官方 18.1.17 vanilla,315 模块),不能用
   G:/omp/omp.exe(旧版 8 模块,产物 prelude 解析崩)。delta +195,077,CHANGELOG 补偿。
   产物 161,257,984 B 与上一版同尺寸,`--version` = omp/18.1.17,正则已注入。

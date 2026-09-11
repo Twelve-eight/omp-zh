@@ -456,17 +456,25 @@ for (const p of REPLAY_PATCHES) {
 // 背景:agentrouter 等第三方 Responses 网关背后是上游账号池,encrypted_content(gAAA.. Fernet)
 //       只能由产出它的同一上游账号解密.下次请求落到别的池成员时回放密文 -> 400
 //       "The encrypted content .. could not be verified. Reason: Encrypted content could not
-//        be decrypted or parsed."
+//        be decrypted or parsed."(agentrouter astra 实测为 Azure OpenAI 资源池:
+//       密文绑定创建它的 Azure 资源,回放落别的资源报 different Azure OpenAI resource;
+//       strip 密文回放也报 Item with id .. not found -- 回放 reasoning item 完全不可行)
 // 上游 omp 已有 StaleResponsesItem 自愈路径(错误分类 -> resetCurrentResponsesProviderSession
 //       -> nativeHistoryReplayWarmed=false -> 重试不再回放加密推理),但分类条件 oRr(e) =
 //       Xzs[0].test(e) || Xzs[1].test(e) && PCr.test(e) 中,agentrouter 文案既不命中
 //       Xzs[0](Item with id .. not found)也不命中 Xzs[1](previous response),PCr 也不匹配.
-// 修复(两处,单锚点各一):
+// 另外主请求路径 Xni()/Obe() 硬编码 includeThinkingSignatures: true,重置 provider session
+//       也挡不住下一轮回放 -- 对账号池型网关必须完全关闭 reasoning item 回放.
+// 修复(共四处,单锚点各一):
 //   a) Xzs[0] 增加分支 `|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)`
 //      (密文 base64 夹在中间,不能写死相邻文案)
 //   b) PCr 增加 |encrypted content could not be decrypted(双保险,覆盖 Xzs[1] 路径)
-// 效果:该 400 被归为 StaleResponsesItem(Fe.StaleResponsesItem),零延迟重试(g=0)+
-//       provider session 重置 -> 重试裸发不回放加密推理,会话不断.
+//   c) compat schema 增加 `replayResponsesReasoning?`: boolean(用户可在 models.yml 模型级
+//      compat 里设 false,关闭该模型的 Responses reasoning item 回放)
+//   d) T7 的 gate 钳制:`const c = ..` 前判 `e.model?.compat?.replayResponsesReasoning === false`
+//      -> c = false -> bKe 跳过 thinking 回放(所有调用点共用 T7,单一入口)
+// 效果:该 400 归为 stale-responses-item 零延迟重试(g=0)+ 会话自动恢复;对账号池型网关
+//       配置 replayResponsesReasoning: false 后彻底不再回放 reasoning item,不再 400.
 const ENCSTALE_PATCHES = [
   {
     name: 'Xzs[0] += encrypted-content-verify',
@@ -479,6 +487,18 @@ const ENCSTALE_PATCHES = [
     find: 'PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;',
     repl: 'PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;',
     done: 'encrypted content could not be decrypted',
+  },
+  {
+    name: 'compat schema += replayResponsesReasoning',
+    find: '"requiresToolResultId?": "boolean",\n      "replayUnsignedThinking?": "boolean"\n    };',
+    repl: '"requiresToolResultId?": "boolean",\n      "replayUnsignedThinking?": "boolean",\n      "replayResponsesReasoning?": "boolean"\n    };',
+    done: 'replayResponsesReasoning?',
+  },
+  {
+    name: 'T7 gate honors replayResponsesReasoning=false',
+    find: 'const c = e.includeThinkingSignatures ?? e.nativeHistory?.replay ?? true;',
+    repl: 'const c = e.model?.compat?.replayResponsesReasoning === false ? false : e.includeThinkingSignatures ?? e.nativeHistory?.replay ?? true;',
+    done: 'replayResponsesReasoning === false ? false :',
   },
 ];
 for (const p of ENCSTALE_PATCHES) {
