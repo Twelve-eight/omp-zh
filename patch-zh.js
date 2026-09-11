@@ -455,27 +455,41 @@ for (const p of REPLAY_PATCHES) {
 // ---- 补丁 5: encrypted-content 回放失败自愈(18.1.17 起打) ----
 // 背景:agentrouter 等第三方 Responses 网关背后是上游账号池,encrypted_content(gAAA.. Fernet)
 //       只能由产出它的同一上游账号解密.下次请求落到别的池成员时回放密文 -> 400
-//       "The encrypted content .. could not be verified".
+//       "The encrypted content .. could not be verified. Reason: Encrypted content could not
+//        be decrypted or parsed."
 // 上游 omp 已有 StaleResponsesItem 自愈路径(错误分类 -> resetCurrentResponsesProviderSession
-//       -> nativeHistoryReplayWarmed=false -> 重试不再回放加密推理),但分类正则 PCr 只匹配
-//       not found|invalid|expired|stale|zero-data-retention,不匹配 agentrouter 的报错文案.
-// 修复:PCr 增加 |encrypted content could not be decrypted
-// 效果:该 400 被归为 StaleResponsesItem,零延迟重试(g=0)+ 裸发恢复,会话不断.
-const ENCSTALE_PATCH = {
-  // 18.1.17 锚点(PCr 定义,单处)
-  find: 'PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;',
-  repl: 'PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;',
-  done: 'encrypted content could not be decrypted',
-};
-{
-  const c = s.split(ENCSTALE_PATCH.find).length - 1;
+//       -> nativeHistoryReplayWarmed=false -> 重试不再回放加密推理),但分类条件 oRr(e) =
+//       Xzs[0].test(e) || Xzs[1].test(e) && PCr.test(e) 中,agentrouter 文案既不命中
+//       Xzs[0](Item with id .. not found)也不命中 Xzs[1](previous response),PCr 也不匹配.
+// 修复(两处,单锚点各一):
+//   a) Xzs[0] 增加分支 `|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)`
+//      (密文 base64 夹在中间,不能写死相邻文案)
+//   b) PCr 增加 |encrypted content could not be decrypted(双保险,覆盖 Xzs[1] 路径)
+// 效果:该 400 被归为 StaleResponsesItem(Fe.StaleResponsesItem),零延迟重试(g=0)+
+//       provider session 重置 -> 重试裸发不回放加密推理,会话不断.
+const ENCSTALE_PATCHES = [
+  {
+    name: 'Xzs[0] += encrypted-content-verify',
+    find: "Xzs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];",
+    repl: "Xzs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];",
+    done: 'encrypted content',
+  },
+  {
+    name: 'PCr += encrypted-content-decrypt',
+    find: 'PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;',
+    repl: 'PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;',
+    done: 'encrypted content could not be decrypted',
+  },
+];
+for (const p of ENCSTALE_PATCHES) {
+  const c = s.split(p.find).length - 1;
   if (c === 1) {
-    s = s.split(ENCSTALE_PATCH.find).join(ENCSTALE_PATCH.repl);
-    console.log('patch OK: [encstale] PCr += encrypted-content');
-  } else if (c === 0 && s.includes(ENCSTALE_PATCH.done)) {
-    console.log('patch SKIP: [encstale] PCr already patched');
+    s = s.split(p.find).join(p.repl);
+    console.log('patch OK: [encstale] ' + p.name);
+  } else if (c === 0 && s.includes(p.done)) {
+    console.log('patch SKIP: [encstale] ' + p.name + ' (already patched)');
   } else {
-    console.log('patch WARN: [encstale] PCr found=' + c + ' (upstream changed?)');
+    console.log('patch WARN: [encstale] ' + p.name + ' found=' + c + ' (upstream changed?)');
     warn++;
   }
 }

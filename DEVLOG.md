@@ -422,9 +422,13 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   上游 omp 已有自愈(错误归类 StaleResponsesItem -> #jo 重置 provider session ->
   nativeHistoryReplayWarmed=false -> 重试裸发),但分类正则 PCr 不覆盖该文案 -> 400 被判为
   永久错误,重试死循环。
-- **补丁 5(patch-zh.js)**:PCr 追加 `|encrypted content could not be decrypted`。
-  锚点 `PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;`(18.1.17 单处)。
-  效果:该 400 归为 stale-responses-item,零延迟重试(g=0)+ 会话自动恢复。
+- **补丁 5(patch-zh.js)**:第一版只扩 PCr 不够 -- 分类条件 `oRr(e) = Xzs[0].test(e) ||
+  Xzs[1].test(e) && PCr.test(e)` 要求文案同时含 `previous response`(Xzs[1]),agentrouter 文案
+  命不中.修正版双打:`Xzs[0]` 加分支
+  `|\bencrypted content\b[^.'"]{0,200}?could not be (?:verified|decrypted|parsed)`
+  (密文 base64 夹在中间,不能写死相邻文案;实测模拟分类通过),PCr 追加
+  `|encrypted content could not be decrypted` 作双保险.
+  效果:该 400 归为 stale-responses-item,零延迟重试(g=0)+ 会话自动恢复.
 - **构建**:src 必须用 work/omp-dl.exe(缓存的官方 18.1.17 vanilla,315 模块),不能用
   G:/omp/omp.exe(旧版 8 模块,产物 prelude 解析崩)。delta +195,077,CHANGELOG 补偿。
   产物 161,257,984 B 与上一版同尺寸,`--version` = omp/18.1.17,正则已注入。
