@@ -478,3 +478,20 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   会记录;若 400 消退即完成,恢复 models.yml baseUrl 直连后收尾 commit.
 - **捕获代理**:omp-capture-proxy.js :9998(用户常驻);codex-probe-proxy.js :9999(可停).
   models.yml 的 agentrouter-responses baseUrl 当前为 http://127.0.0.1:9998/v1(待最终恢复直连).
+- **决定性根因实证(2026-09-12 02:2x)**:agentrouter 错误消息暴露机制:
+  `The requested item was created under a different *** OpenAI resource. Use the same resource that created the item to access it.`
+  -> agentrouter(ps.air-outer.com)背后是**多个 Azure OpenAI 资源**负载均衡,无粘性;
+  reasoning item 的 encrypted_content 由创建它的资源加密,回放请求路由到其他资源
+  -> 解密失败 400.`***` 为 agentrouter 脱敏的资源名.
+- **codex 同样中招(2026-09-12 02:2x)**:用户给 codex full access / approve-for-me / ask
+  权限切换后 continue 均 400(纯巧合否权限):同一 item rs_0635.. 反复 400,含带真实 id
+  的变体(trace_id 各异,路由不同资源).授权切换与 400 无关.
+- **修复收敛(2026-09-12 02:2x)**:客户端唯一可靠对策 = 不回放 reasoning 密文.
+  - omp:pacth-zh.js ENCSTALE_PATCHES 5 处 gate 升级为双通道
+    `process.env.OMP_NO_REPLAY_REASONING === "1" || e.compat?.replayResponsesReasoning === false`
+    (T7 / QLt items / QLt bKe / Mbe / Xni);patch 循环加 restore 支持(幂等升级);
+    KSr 保 id 补丁撤销(错误理论:带 id 照样 400).commit 088f4a5 已 push.
+  - work/omp-zh.exe = A0678A18(161,257,984 B)已构建含 env gate,未交付
+    (交付需用户退出全部 omp 会话后 Move-Item 替换,设置 OMP_NO_REPLAY_REASONING=1).
+  - codex:无关闭回放开关;临时缓解 model_reasoning_effort="minimal"(已加 config.toml)
+    + 撞 400 即开新会话;根治等 agentrouter 修粘性(固定资源/会话亲和).
