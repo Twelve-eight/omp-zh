@@ -505,38 +505,47 @@ const ENCSTALE_PATCHES = [
     repl: '"requiresToolResultId?": "boolean",\n      "replayUnsignedThinking?": "boolean",\n      "replayResponsesReasoning?": "boolean"\n    };',
     done: 'replayResponsesReasoning?',
   },
-  {
+{
     name: 'T7 gate honors replayResponsesReasoning=false',
     find: 'const c = e.includeThinkingSignatures ?? e.nativeHistory?.replay ?? true;',
-    repl: 'const c = e.model?.compat?.replayResponsesReasoning === false ? false : e.includeThinkingSignatures ?? e.nativeHistory?.replay ?? true;',
-    done: 'replayResponsesReasoning === false ? false :',
+    restore: 'const c = e.model?.compat?.replayResponsesReasoning === false ? false : e.includeThinkingSignatures ?? e.nativeHistory?.replay ?? true;',
+    repl: 'const c = process.env.OMP_NO_REPLAY_REASONING === "1" || e.model?.compat?.replayResponsesReasoning === false ? false : e.includeThinkingSignatures ?? e.nativeHistory?.replay ?? true;',
+    done: '"1" || e.model?.compat?.replayResponsesReasoning === false ? false',
   },
   {
     name: 'QLt items replay gate (main turn path)',
     find: 'const f = d?.items;',
-    repl: 'const f = e.compat?.replayResponsesReasoning === false ? undefined : d?.items;',
-    done: 'replayResponsesReasoning === false ? undefined : d?.items',
+    restore: 'const f = e.compat?.replayResponsesReasoning === false ? undefined : d?.items;',
+    repl: 'const f = process.env.OMP_NO_REPLAY_REASONING === "1" || e.compat?.replayResponsesReasoning === false ? undefined : d?.items;',
+    done: '"1" || e.compat?.replayResponsesReasoning === false ? undefined',
   },
   {
     name: 'QLt bKe replay gate (main turn path)',
     find: 'const g = bKe(e.supportsComputerUse === true ? c : q5r(c), e, i, l, !m, a, false, true, undefined, u);',
-    repl: 'const g = bKe(e.supportsComputerUse === true ? c : q5r(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);',
-    done: '!m && e.compat?.replayResponsesReasoning !== false',
+    restore: 'const g = bKe(e.supportsComputerUse === true ? c : q5r(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);',
+    repl: 'const g = bKe(e.supportsComputerUse === true ? c : q5r(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== "1" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);',
+    done: '!m && process.env.OMP_NO_REPLAY_REASONING !== "1"',
   },
   {
     name: 'Mbe stored-items prepend filter (remote compaction v2)',
-    find: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? [...o, ...r] : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
-    repl: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
-    done: 'replayResponsesReasoning === false ? o.filter',
+    find: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? [..o, ..r] : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
+    restore: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
+    repl: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
+    done: '"1" || e.compat?.replayResponsesReasoning === false ? o.filter',
   },
   {
     name: 'Xni replacement-history prepend filter (compaction)',
-    find: 'return $te(s ? [...s, ...o] : o);',
-    repl: 'return $te(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== "reasoning") : s).concat(o) : o);',
-    done: 'replayResponsesReasoning === false ? s.filter',
+    find: 'return $te(s ? [..s, ..o] : o);',
+    restore: 'return $te(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== "reasoning") : s).concat(o) : o);',
+    repl: 'return $te(s ? (process.env.OMP_NO_REPLAY_REASONING === "1" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== "reasoning") : s).concat(o) : o);',
+    done: '"1" || t.compat?.replayResponsesReasoning === false ? s.filter',
   },
 ];
 for (const p of ENCSTALE_PATCHES) {
+  if (p.restore && s.includes(p.restore)) {
+    s = s.split(p.restore).join(p.find);
+    console.log('patch RESTORE: [encstale] ' + p.name);
+  }
   const c = s.split(p.find).length - 1;
   if (c === 1) {
     s = s.split(p.find).join(p.repl);
