@@ -452,6 +452,34 @@ for (const p of REPLAY_PATCHES) {
   }
 }
 
+// ---- 补丁 5: encrypted-content 回放失败自愈(18.1.17 起打) ----
+// 背景:agentrouter 等第三方 Responses 网关背后是上游账号池,encrypted_content(gAAA.. Fernet)
+//       只能由产出它的同一上游账号解密.下次请求落到别的池成员时回放密文 -> 400
+//       "The encrypted content .. could not be verified".
+// 上游 omp 已有 StaleResponsesItem 自愈路径(错误分类 -> resetCurrentResponsesProviderSession
+//       -> nativeHistoryReplayWarmed=false -> 重试不再回放加密推理),但分类正则 PCr 只匹配
+//       not found|invalid|expired|stale|zero-data-retention,不匹配 agentrouter 的报错文案.
+// 修复:PCr 增加 |encrypted content could not be decrypted
+// 效果:该 400 被归为 StaleResponsesItem,零延迟重试(g=0)+ 裸发恢复,会话不断.
+const ENCSTALE_PATCH = {
+  // 18.1.17 锚点(PCr 定义,单处)
+  find: 'PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;',
+  repl: 'PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;',
+  done: 'encrypted content could not be decrypted',
+};
+{
+  const c = s.split(ENCSTALE_PATCH.find).length - 1;
+  if (c === 1) {
+    s = s.split(ENCSTALE_PATCH.find).join(ENCSTALE_PATCH.repl);
+    console.log('patch OK: [encstale] PCr += encrypted-content');
+  } else if (c === 0 && s.includes(ENCSTALE_PATCH.done)) {
+    console.log('patch SKIP: [encstale] PCr already patched');
+  } else {
+    console.log('patch WARN: [encstale] PCr found=' + c + ' (upstream changed?)');
+    warn++;
+  }
+}
+
 
 fs.writeFileSync(file, s);
 console.log('patched:', file, '| ok=' + ok + ' warn=' + warn);

@@ -412,3 +412,25 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
 - **终验**:12/12 PASS(stopcap x3 / replay 注入 / flush 门清零 x2 / leak x4 / catalog v4
   true=0 / 串区 == vanilla 75,153,248).smoke `omp/18.1.17 helpCJK=1577`,verify PASS.
   交付 DEFERRED(会话占用,`.new` staged + 看护在位).
+
+## 2026-09-11(晚):补丁 5 encrypted-content 回放自愈(18.1.17 增量,未升级版本)
+- **背景**:agentrouter(ps.air-outer.com)新增 gpt-6-astra,走 Responses 线。omp 回放上一轮
+  encrypted_content(Fernet `gAAA..`)时偶发 400 `The encrypted content .. could not be verified.
+  Reason: Encrypted content could not be decrypted or parsed.`。会话时间线实证:前 3 次回放成功、
+  第 4 次失败 -- 上游是账号池,密文与产出账号绑定,轮换后无法解密。
+- **根因链(源码级)**:Responses 线 T7/bKe 无条件重放 thinkingSignature(含 encrypted_content);
+  上游 omp 已有自愈(错误归类 StaleResponsesItem -> #jo 重置 provider session ->
+  nativeHistoryReplayWarmed=false -> 重试裸发),但分类正则 PCr 不覆盖该文案 -> 400 被判为
+  永久错误,重试死循环。
+- **补丁 5(patch-zh.js)**:PCr 追加 `|encrypted content could not be decrypted`。
+  锚点 `PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;`(18.1.17 单处)。
+  效果:该 400 归为 stale-responses-item,零延迟重试(g=0)+ 会话自动恢复。
+- **构建**:src 必须用 work/omp-dl.exe(缓存的官方 18.1.17 vanilla,315 模块),不能用
+  G:/omp/omp.exe(旧版 8 模块,产物 prelude 解析崩)。delta +195,077,CHANGELOG 补偿。
+  产物 161,257,984 B 与上一版同尺寸,`--version` = omp/18.1.17,正则已注入。
+- **交付**:G:/omp/omp-zh.exe 被本会话占用(EPERM/EBUSY),deliver-pending.js 看护挂起,退出后自动替换。
+- **注意**:patch-zh 补丁 1(deepseek supportsForcedToolChoice)在 18.1.17 报 WARN -- 上游已原生
+  改为 `false`,补丁目标达成,SKIP 分支未覆盖该表述(良性,下次升级可顺手收敛)。
+- **配置侧**:models.yml 新增 agentrouter-responses 块(api: openai-responses,astra),
+  config.yml default 角色指向 agentrouter-responses/gpt-6-astra:xhigh。详见
+  G:/omp works/docs/omp-agentrouter-config.md。
