@@ -463,18 +463,29 @@ for (const p of REPLAY_PATCHES) {
 //       -> nativeHistoryReplayWarmed=false -> 重试不再回放加密推理),但分类条件 oRr(e) =
 //       Xzs[0].test(e) || Xzs[1].test(e) && PCr.test(e) 中,agentrouter 文案既不命中
 //       Xzs[0](Item with id .. not found)也不命中 Xzs[1](previous response),PCr 也不匹配.
-// 另外主请求路径 Xni()/Obe() 硬编码 includeThinkingSignatures: true,重置 provider session
-//       也挡不住下一轮回放 -- 对账号池型网关必须完全关闭 reasoning item 回放.
-// 修复(共四处,单锚点各一):
+// 另外主请求路径 Mbe()->QLt() 有两个回放点绕过 T7 gate:1) 历史 providerPayload 原始
+//       items(u7 非空时整包回放,含 reasoning);2) bKe 从 thinkingSignature 重建 --
+//       重置仅清 providerSessionState,历史消息的 thinkingSignature 仍在,下一轮仍 400.
+//       对账号池型网关必须完全关闭 reasoning item 回放.
+// 修复(共八处,单锚点各一):
 //   a) Xzs[0] 增加分支 `|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)`
 //      (密文 base64 夹在中间,不能写死相邻文案)
 //   b) PCr 增加 |encrypted content could not be decrypted(双保险,覆盖 Xzs[1] 路径)
 //   c) compat schema 增加 `replayResponsesReasoning?`: boolean(用户可在 models.yml 模型级
 //      compat 里设 false,关闭该模型的 Responses reasoning item 回放)
 //   d) T7 的 gate 钳制:`const c = ..` 前判 `e.model?.compat?.replayResponsesReasoning === false`
-//      -> c = false -> bKe 跳过 thinking 回放(所有调用点共用 T7,单一入口)
+//      -> c = false -> bKe 跳过 thinking 回放(compaction/Xni 及旧调用点)
+//   e) QLt items 分支钳制:compat 关闭时 f=undefined,不整包回放历史 reasoning items
+//   f) QLt bKe 调用钳制:!m && compat 未关闭,不回放 thinkingSignature(主 turn 路径)
+//   g) Mbe stored-items prepend 过滤:remote compaction v2 的 W(远端压缩存储历史 items)
+//      直接 [...o, ...r] 进 input,绕过 QLt/T7 -- compat 关闭时过滤 reasoning items
+//       (Resumed session 恢复大上下文时仍 400 的根因)
+//   h) Xni replacement-history prepend 过滤:compaction 的 s 参数同样直通,一并过滤
 // 效果:该 400 归为 stale-responses-item 零延迟重试(g=0)+ 会话自动恢复;对账号池型网关
-//       配置 replayResponsesReasoning: false 后彻底不再回放 reasoning item,不再 400.
+//       配置 replayResponsesReasoning: false 后彻底不再回放 reasoning item(主路径+compaction),
+//       不再 400,agent 循环功能完好(代价:跨轮推理记忆丢失).
+//       2026-09-12 00:50 实测:QLt/T7 门后 Resumed session(remote compaction v2)仍 400
+//       -> 补 g/h;大上下文恢复同样安全.
 const ENCSTALE_PATCHES = [
   {
     name: 'Xzs[0] += encrypted-content-verify',
@@ -499,6 +510,30 @@ const ENCSTALE_PATCHES = [
     find: 'const c = e.includeThinkingSignatures ?? e.nativeHistory?.replay ?? true;',
     repl: 'const c = e.model?.compat?.replayResponsesReasoning === false ? false : e.includeThinkingSignatures ?? e.nativeHistory?.replay ?? true;',
     done: 'replayResponsesReasoning === false ? false :',
+  },
+  {
+    name: 'QLt items replay gate (main turn path)',
+    find: 'const f = d?.items;',
+    repl: 'const f = e.compat?.replayResponsesReasoning === false ? undefined : d?.items;',
+    done: 'replayResponsesReasoning === false ? undefined : d?.items',
+  },
+  {
+    name: 'QLt bKe replay gate (main turn path)',
+    find: 'const g = bKe(e.supportsComputerUse === true ? c : q5r(c), e, i, l, !m, a, false, true, undefined, u);',
+    repl: 'const g = bKe(e.supportsComputerUse === true ? c : q5r(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);',
+    done: '!m && e.compat?.replayResponsesReasoning !== false',
+  },
+  {
+    name: 'Mbe stored-items prepend filter (remote compaction v2)',
+    find: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? [...o, ...r] : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
+    repl: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
+    done: 'replayResponsesReasoning === false ? o.filter',
+  },
+  {
+    name: 'Xni replacement-history prepend filter (compaction)',
+    find: 'return $te(s ? [...s, ...o] : o);',
+    repl: 'return $te(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== "reasoning") : s).concat(o) : o);',
+    done: 'replayResponsesReasoning === false ? s.filter',
   },
 ];
 for (const p of ENCSTALE_PATCHES) {
