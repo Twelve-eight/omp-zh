@@ -242,26 +242,31 @@ async function main() {
   }
   log('smoke OK: ' + (deferred ? 'DEFERRED (staged, watcher armed)' : NO_DELIVER ? 'work' : 'DELIVERED') + ' version=' + smoke.trim() + ' helpCJK=' + cjk);
 
-  // ---- omp-watchdog 构建时检验(2026-09-11 起规范) ----
-  // watchdog 是"模型出错静默中断"告警链的载体(hub 常驻进程 omp-watchdog,机器重启需人工拉起);
-  // 每次构建后必须核验,失败不阻断交付(旁路告警,不承担 omp 功能),但显式 WARN 提醒人工修复:
-  //   1) watchdog 可执行:watchdog.js --once 跑通(扫描逻辑无异常退出)
-  //   2) 常驻进程在位:进程表里能找到 node.*watchdog.js(被停/崩溃/重启丢失则 WARN)
+  // ---- omp-watchdog 构建时检验(2026-09-11 起规范;部署形态 09-14 改为计划任务) ----
+  // watchdog 是"模型出错静默中断"告警链的载体.部署形态演进:长驻进程(hub PTY 与 detached)
+  // 三次被外部静默杀死(TerminateProcess 式,handler 无留痕)-> 现为 Windows 计划任务
+  // omp-error-watchdog 每 5 分钟跑一次 --once:无长驻进程可被杀,机器重启自动恢复,
+  // 冷却/去重状态存 watchdog-state.json.本检查每次构建后执行,失败不阻断交付
+  // (旁路告警链,不影响 omp 功能),但显式 WARN 提醒人工修复:
+  //   1) --once 跑通(扫描逻辑健康)
+  //   2) 心跳新鲜(计划任务在按期执行;判据与语言无关,不解析 schtasks 本地化输出)
   try {
     sh('node', ['G:/omp works/omp-watchdog/watchdog.js', '--once']);
-    // 常驻进程判定:命令行恰为 node watchdog.js(无参数结尾)的 node 进程.
-    // 不用 /watchdog\.js/.test(整串):本检查自身的 wmic/一次性调用会误命中.
-    let alive = false;
+    const hbPath = 'G:/omp works/omp-watchdog/watchdog-heartbeat.log';
+    let hbAgeMin = null;
     try {
-      const wmic = execFileSync('wmic', ['process', 'where', "name='node.exe'", 'get', 'commandline', '/format:csv'], { encoding: 'utf8', timeout: 30000 });
-      for (const l of wmic.split('\n')) {
-        const cmd = l.replace(/^[^,]*,/, '').trim();
-        if (/watchdog\.js\s*$/i.test(cmd)) { alive = true; break; }
-      }
-    } catch { alive = null; } // wmic 不可用 -> 无法判定(单独提示)
-    if (alive === true) log('watchdog check OK: --once pass, resident process alive');
-    else if (alive === false) log('WARN: omp-watchdog resident process NOT found - restart via hub: node "G:/omp works/omp-watchdog/watchdog.js" (name=omp-watchdog)');
-    else log('WARN: omp-watchdog process check unavailable (wmic missing) - verify resident process manually');
+      const lines = fs.readFileSync(hbPath, 'utf8').trim().split('\n');
+      const last = lines[lines.length - 1] || '';
+      const ts = Date.parse(last.split(' ')[0]);
+      if (!Number.isNaN(ts)) hbAgeMin = (Date.now() - ts) / 60000;
+    } catch {}
+    if (hbAgeMin === null) {
+      log('WARN: watchdog heartbeat unreadable (' + hbPath + ') - check scheduled task omp-error-watchdog');
+    } else if (hbAgeMin > 15) {
+      log('WARN: watchdog heartbeat stale (' + hbAgeMin.toFixed(1) + 'min > 15min) - scheduled task omp-error-watchdog not running? schtasks /query /tn omp-error-watchdog /v /fo list');
+    } else {
+      log('watchdog check OK: --once pass, heartbeat fresh (' + hbAgeMin.toFixed(1) + 'min)');
+    }
   } catch (e) {
     log('WARN: omp-watchdog --once FAILED (' + e.message + ') - watchdog broken, fix before next build');
   }

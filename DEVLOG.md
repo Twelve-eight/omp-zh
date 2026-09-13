@@ -495,3 +495,39 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
     (交付需用户退出全部 omp 会话后 Move-Item 替换,设置 OMP_NO_REPLAY_REASONING=1).
   - codex:无关闭回放开关;临时缓解 model_reasoning_effort="minimal"(已加 config.toml)
     + 撞 400 即开新会话;根治等 agentrouter 修粘性(固定资源/会话亲和).
+
+## 2026-09-14:18.1.19 构建 -- 全锚点迁移(含 encstale 组)+ 补丁信号净化 + watchdog 改计划任务
+- **背景**:18.1.17 已交付(09-12 02:07 目标更新完毕,staged 已清).上游跳过 18.1.18 直发
+  18.1.19.另一会话在此期间新增 ENCSTALE 补丁组(Azure 池型网关 reasoning 回放 400 自愈,
+  8 处,含 OMP_NO_REPLAY_REASONING env 门).本轮做全量锚点迁移 + 修两处补丁基建缺陷.
+- **18.1.19 锚点迁移**(minifier 全改名,四组 + encstale):
+  - stopcap:`XEo/Rqa/QEo/ZEo/wqa` 簇(A/C/D->1e6),续跑 `xMo`,yield `_ya/Hft`
+  - leak:tunnel/uploader-sh `cwd: bK()`,ssh `Lbt.homedir()`
+  - replay:`v$(e.usage)`/`nP(e)`/showTurnTime `#S`;flush 门**又加回**(gate `#t/#e` +
+    `#h()`/`#w()`,x2)-> 补丁重打
+  - encstale:`Xzs->YBs`,`PCr->Jbr`,`bKe->d7e`,`q5r->c6r`,`$te->Hse`(compat schema/T7/
+    QLt items 三条锚点跨版未变,原规则直接命中)
+- **两处补丁基建缺陷(本轮修复,均为历史遗留)**:
+  1. **两点展开陷阱(实证)**:Mbe 规则(Xni 同)的 `find` 里 spread 被写成两点 `..o`
+     (真身是三点 `...o`),`String.includes` 因"两点是三点子串"在**短语境**下假通过,
+     但完整 find 串永不匹配 -> 该规则自写入起从未生效(18.1.17 交付版也缺此补丁).
+     修复:三点展开一律用 `String.fromCharCode(46,46,46)` 拼接写入,并以
+     `strings blob == vanilla` + 逐条 find 命中数复核.凡含 `...` 的规则须 codepoint 级校验.
+  2. **版本号字符串比较**:`'18.1.2' > '18.1.19'` 为真(逐字符比较)-> 新鲜度判定取到
+     18.1.2.改数值分段比较(MAJOR.MINOR.PATCH 逐段相减).
+- **历史锚点判级(新机制)**:patch-zh.js 引入 `isLegacy()`:规则名带版本号且 != 本文件
+  最新版本 -> 老版锚点(found=0 记 `patch LEGACY`,不计 warn);无版本号视为现役(真漏必报),
+  确属遗留的显式标 `legacy: true`.效果:**warn 61 -> 0,exit 0**;管线不再误报
+  "some fixes may be missing",真漏(现役锚点 miss)重新可见.exit code 恢复语义.
+- **watchdog 部署形态第 3 次演进**:长驻 node 进程(hub PTY / detached)三次被外部静默杀死
+  (TerminateProcess 式,无 handler 留痕;期间功能正常--state 记录 3 条真实告警:
+  500 敏感词 / 402 预算耗尽 / 503 账号冷却).改为 **Windows 计划任务**
+  `omp-error-watchdog`(每 5 分钟 `node watchdog.js --once`,上次结果 0 已验证):
+  无长驻进程可被杀,机器重启自恢复,冷却/去重状态存 watchdog-state.json.
+  新增心跳 `watchdog-heartbeat.log`(每次扫描追加一行).构建检验块改为
+  "`--once` 跑通 + 心跳新鲜(<15min)",语言无关,不解析 schtasks 本地化输出.
+  toast 音频由 `loop="true"` 改单次(无限循环闹铃无法轻易关闭,属 UX 风险).
+- **终验**:20/20 PASS(stopcap x3 / replay 注入 + flush 门清零 x2 / leak x4 / catalog v4
+  true=0 / encstale x6 / 串区 75,497,749 == vanilla 严格相等).verify PASS,
+  smoke `omp/18.1.19 helpCJK=1577`,gap 11319(较 18.1.17 的 11136 +183).
+  交付 DEFERRED(会话占用,`.new` sha256 `29199ca9..` 与 work 产物一致,看护在位).

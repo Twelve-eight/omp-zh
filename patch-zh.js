@@ -55,6 +55,10 @@ for (const name of MODELS) {
 // 例外：eval kernel 三处不动——上游 #1960：CREATE_NO_WINDOW 致 NumPy 等 native 扩展
 //       LoadLibraryExW 死锁；且 kernel 自身输出本就被管道捕获。
 const LEAK_PATCHES = [
+  // 18.1.19 锚点(minifier 全改名;encstale: Xzs->YBs, PCr->Jbr, bKe->d7e, q5r->c6r, $te->Hse)
+  {"name":"blob-broker tunnel (18.1.19)","expect":1,"find":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: bK() })","repl":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: bK(), windowsHide: true })","done":"cwd: bK(), windowsHide: true })"},
+  {"name":"blob-broker ssh tunnel (18.1.19)","expect":1,"find":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: Lbt.homedir() })","repl":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: Lbt.homedir(), windowsHide: true })","done":"cwd: Lbt.homedir(), windowsHide: true })"},
+  {"name":"uploader self-hosted (18.1.19)","expect":1,"find":"Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: bK()\n        })","repl":"Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: bK(),\n          windowsHide: true\n        })","done":"cwd: bK(),\n          windowsHide: true"},
   { name: 'daemon/broker spawn options', expect: 1,
     find: '  return {\n    detached: false,\n    windowsHide: !e.hostHasInheritableConsole\n  };',
     repl: '  return {\n    detached: false,\n    windowsHide: true\n  };',
@@ -180,6 +184,32 @@ const LEAK_PATCHES = [
     repl: 'const s = Bun.spawn([e, "--version"], {\n      stdout: "pipe",\n      stderr: "ignore",\n      signal: AbortSignal.timeout(t),\n      killSignal: "SIGKILL",\n      windowsHide: true\n    });',
     done: 'killSignal: "SIGKILL",\n      windowsHide: true' },
 ];
+// ---- 锚点新鲜度判定(2026-09-12) ----
+// 每版 minifier 全改名 -> 历史版本锚点规则必然 miss.这些 miss 不是故障,但会让 exit code
+// 恒为 1(管线误报 "some fixes may be missing"),从而淹没真漏.判定:规则名带版本号且
+// 不等于本文件最新版本 -> 老版锚点(found=0 记 LEGACY,不计 warn);无版本号 -> 视为现役
+// (真漏必须报警).若某无版本号规则确属历史遗留,显式标 legacy: true.
+const VTAG = /\((\d+\.\d+\.\d+)\)\s*$/;
+// 现役版本 = 本文件所有规则名版本号的最大值(读自身文件,与数组声明顺序无关)
+const _cmpVer = (a, b) => {
+  const x = a.split('.').map(Number), y = b.split('.').map(Number);
+  for (let i = 0; i < 3; i++) { if (x[i] !== y[i]) return x[i] - y[i]; }
+  return 0;
+};
+const _newestVer = (() => {
+  let max = '';
+  for (const line of fs.readFileSync(__filename, 'utf8').split('\n')) {
+    if (line.trim().startsWith('//')) continue;
+    const m = /\((\d+\.\d+\.\d+)\)/.exec(line);
+    if (m && (max === '' || _cmpVer(m[1], max) > 0)) max = m[1];
+  }
+  return max;
+})();
+const isLegacy = (p) => {
+  if (p.legacy === true) return true;
+  const m = VTAG.exec(p.name || '');
+  return m ? m[1] !== _newestVer : false;
+};
 for (const p of LEAK_PATCHES) {
   const c = s.split(p.find).length - 1;
   if (c === p.expect) {
@@ -189,6 +219,8 @@ for (const p of LEAK_PATCHES) {
   } else if (c === 0 && (p.done ? s.includes(p.done) : s.includes(p.repl))) {
     ok++;
     console.log('patch SKIP: [leak] ' + p.name + ' (already patched)');
+  } else if (isLegacy(p)) {
+    console.log('patch LEGACY: [leak] ' + p.name + ' (anchor for an older bundle)');
   } else {
     console.log('patch WARN: [leak] ' + p.name + ' found=' + c + ' expected=' + p.expect + ' (upstream changed?)');
     warn++;
@@ -200,6 +232,10 @@ for (const p of LEAK_PATCHES) {
 // 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
 // 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
 const STOPCAP_PATCHES = [
+  // 18.1.19 锚点(minifier 全改名;encstale: Xzs->YBs, PCr->Jbr, bKe->d7e, q5r->c6r, $te->Hse)
+  {"name":"empty/unexpected/malformed stop retries (18.1.19)","expect":1,"find":"XEo = 3, Rqa = 4000, QEo = 3, ZEo = 3, wqa = 1000,","repl":"XEo = 1000000, Rqa = 4000, QEo = 1000000, ZEo = 1000000, wqa = 1000,","done":"XEo = 1000000, Rqa = 4000, QEo = 1000000, ZEo = 1000000"},
+  {"name":"session-stop continuation cap (18.1.19)","expect":1,"find":"var xMo = 8, ","repl":"var xMo = 1000000, ","done":"var xMo = 1000000"},
+  {"name":"subagent yield ladder (18.1.19)","expect":1,"find":"_ya = 6, Hft = 3;","repl":"_ya = 6, Hft = 1000000;","done":"Hft = 1000000"},
   // 18.1.17 锚点(整簇再改名:Xbo/Qbo/Zbo,xxo 续跑,vda/zct yield)
   { name: 'empty/unexpected/malformed stop retries (18.1.17)', expect: 1,
     find: 'Xbo = 3, c0a = 4000, Qbo = 3, Zbo = 3, d0a = 1000,',
@@ -348,6 +384,8 @@ for (const p of STOPCAP_PATCHES) {
   } else if (c === 0 && (p.done ? s.includes(p.done) : s.includes(p.repl))) {
     ok++;
     console.log('patch SKIP: [stopcap] ' + p.name + ' (already patched)');
+  } else if (isLegacy(p)) {
+    console.log('patch LEGACY: [stopcap] ' + p.name + ' (anchor for an older bundle)');
   } else {
     console.log('patch WARN: [stopcap] ' + p.name + ' found=' + c + ' expected=' + p.expect + ' (upstream changed?)');
     warn++;
@@ -357,6 +395,9 @@ for (const p of STOPCAP_PATCHES) {
 // A) 上游仅实时路径应用 retryRecovery，历史重建不画 → "error; retried" 恢复后消失；
 //    在 assistant 追加函数尾部对主组件补调 applyRetryRecovery。
 const REPLAY_PATCHES = [
+  // 18.1.19 锚点(minifier 全改名;encstale: Xzs->YBs, PCr->Jbr, bKe->d7e, q5r->c6r, $te->Hse)
+  {"name":"retryRecovery replay (18.1.19)","expect":1,"find":"    this.#n = ke.get(\"display.showTokenUsage\") && v$(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? nP(e) : undefined;\n    this.#u = this.#n && ke.get(\"display.showTurnTime\") ? this.#S(e) : undefined;\n  }","repl":"    this.#n = ke.get(\"display.showTokenUsage\") && v$(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? nP(e) : undefined;\n    this.#u = this.#n && ke.get(\"display.showTurnTime\") ? this.#S(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }","done":"o.applyRetryRecovery"},
+  {"name":"tail usage flush (18.1.19)","expect":2,"find":"if (this.#t.size === 0 && this.#e.size === 0)\n      this.#w();","repl":"this.#w();","done":"for (const t of e)\n      this.#h(t);\n    this.#w();"},
   // 18.1.17 锚点(helper _Y/v_;showTurnTime 方法 #x)
   { name: 'retryRecovery replay (18.1.17)', expect: 1,
     find: '    this.#n = ke.get("display.showTokenUsage") && _Y(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? v_(e) : undefined;\n    this.#u = this.#n && ke.get("display.showTurnTime") ? this.#x(e) : undefined;\n  }',
@@ -423,7 +464,7 @@ const REPLAY_PATCHES = [
     find: '    this.#n = be.get("display.showTokenUsage") && xX(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? IP(e) : undefined;\n  }',
     repl: '    this.#n = be.get("display.showTokenUsage") && xX(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? IP(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }',
     done: 'o.applyRetryRecovery' },
-  { name: 'tail usage flush', expect: 2,
+  { name: 'tail usage flush', legacy: true, expect: 2,
     find: 'if (this.#t.size === 0 && this.#e.size === 0)\n      this.#T();',
     repl: 'this.#T();',
     done: 'this.#y(t.message);\n    this.#T();' },
@@ -432,7 +473,7 @@ const REPLAY_PATCHES = [
     find: '    this.#n = be.get("display.showTokenUsage") && _X(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? RP(e) : undefined;\n  }',
     repl: '    this.#n = be.get("display.showTokenUsage") && _X(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? RP(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }',
     done: 'o.applyRetryRecovery' },
-  { name: 'tail usage flush', expect: 2,
+  { name: 'tail usage flush', legacy: true, expect: 2,
     find: 'if (this.#t.size === 0 && this.#e.size === 0)\n      this.#y();',
     repl: 'this.#y();',
     done: 'this.#T(t.message);\n    this.#y();' },
@@ -446,6 +487,8 @@ for (const p of REPLAY_PATCHES) {
   } else if (c === 0 && (p.done ? s.includes(p.done) : s.includes(p.repl))) {
     ok++;
     console.log('patch SKIP: [replay] ' + p.name + ' (already patched)');
+  } else if (isLegacy(p)) {
+    console.log('patch LEGACY: [replay] ' + p.name + ' (anchor for an older bundle)');
   } else {
     console.log('patch WARN: [replay] ' + p.name + ' found=' + c + ' expected=' + p.expect + ' (upstream changed?)');
     warn++;
@@ -487,6 +530,11 @@ for (const p of REPLAY_PATCHES) {
 //       2026-09-12 00:50 实测:QLt/T7 门后 Resumed session(remote compaction v2)仍 400
 //       -> 补 g/h;大上下文恢复同样安全.
 const ENCSTALE_PATCHES = [
+  // 18.1.19 锚点(minifier 全改名;encstale: Xzs->YBs, PCr->Jbr, bKe->d7e, q5r->c6r, $te->Hse)
+  {"name":"YBs[0] += encrypted-content-verify (18.1.19)","expect":1,"find":"YBs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"YBs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
+  {"name":"Jbr += encrypted-content-decrypt (18.1.19)","expect":1,"find":"Jbr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"Jbr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
+  {"name":"QLt bKe replay gate (18.1.19)","expect":1,"find":"const g = d7e(e.supportsComputerUse === true ? c : c6r(c), e, i, l, !m, a, false, true, undefined, u);","restore":"const g = d7e(e.supportsComputerUse === true ? c : c6r(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","repl":"const g = d7e(e.supportsComputerUse === true ? c : c6r(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== \"1\" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","done":"!m && process.env.OMP_NO_REPLAY_REASONING !== \"1\""},
+  {"name":"Xni replacement-history prepend filter (18.1.19)","expect":1,"find":"return Hse(s ? [...s, ...o] : o);","restore":"return Hse(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","repl":"return Hse(s ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","done":"\"1\" || t.compat?.replayResponsesReasoning === false ? s.filter"},
   {
     name: 'Xzs[0] += encrypted-content-verify',
     find: "Xzs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];",
@@ -528,7 +576,7 @@ const ENCSTALE_PATCHES = [
   },
   {
     name: 'Mbe stored-items prepend filter (remote compaction v2)',
-    find: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? [..o, ..r] : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
+    find: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? [...o, ...r] : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
     restore: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
     repl: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
     done: '"1" || e.compat?.replayResponsesReasoning === false ? o.filter',
@@ -552,6 +600,8 @@ for (const p of ENCSTALE_PATCHES) {
     console.log('patch OK: [encstale] ' + p.name);
   } else if (c === 0 && s.includes(p.done)) {
     console.log('patch SKIP: [encstale] ' + p.name + ' (already patched)');
+  } else if (isLegacy(p)) {
+    console.log('patch LEGACY: [encstale] ' + p.name + ' (anchor for an older bundle)');
   } else {
     console.log('patch WARN: [encstale] ' + p.name + ' found=' + c + ' (upstream changed?)');
     warn++;
