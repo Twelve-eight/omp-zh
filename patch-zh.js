@@ -55,6 +55,12 @@ for (const name of MODELS) {
 // 例外：eval kernel 三处不动——上游 #1960：CREATE_NO_WINDOW 致 NumPy 等 native 扩展
 //       LoadLibraryExW 死锁；且 kernel 自身输出本就被管道捕获。
 const LEAK_PATCHES = [
+  // 18.1.22
+  {"name":"browser chrome launch (18.1.22)","expect":1,"find":"const d = Bun.spawn([s, ...c], {\n      cwd: t.cwd,\n      stdout: \"ignore\",\n      stderr: \"ignore\",\n      stdin: \"ignore\"\n    })","repl":"const d = Bun.spawn([s, ...c], {\n      cwd: t.cwd,\n      stdout: \"ignore\",\n      stderr: \"ignore\",\n      stdin: \"ignore\",\n      windowsHide: true\n    })","done":"stdin: \"ignore\",\n      windowsHide: true\n    })"},
+  // 18.1.22 锚点(V5s/jSr/D7e/o4r/one;qK/gxt;DY/pP/#S)
+  {"name":"blob-broker tunnel (18.1.22)","expect":1,"find":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: qK() })","repl":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: qK(), windowsHide: true })","done":"cwd: qK(), windowsHide: true })"},
+  {"name":"blob-broker ssh tunnel (18.1.22)","expect":1,"find":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: gxt.homedir() })","repl":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: gxt.homedir(), windowsHide: true })","done":"cwd: gxt.homedir(), windowsHide: true })"},
+  {"name":"uploader self-hosted (18.1.22)","expect":1,"find":"Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: qK()\n        })","repl":"Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: qK(),\n          windowsHide: true\n        })","done":"cwd: qK(),\n          windowsHide: true"},
   // 18.1.19 锚点(minifier 全改名;encstale: Xzs->YBs, PCr->Jbr, bKe->d7e, q5r->c6r, $te->Hse)
   {"name":"blob-broker tunnel (18.1.19)","expect":1,"find":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: bK() })","repl":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: bK(), windowsHide: true })","done":"cwd: bK(), windowsHide: true })"},
   {"name":"blob-broker ssh tunnel (18.1.19)","expect":1,"find":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: Lbt.homedir() })","repl":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: Lbt.homedir(), windowsHide: true })","done":"cwd: Lbt.homedir(), windowsHide: true })"},
@@ -232,6 +238,10 @@ for (const p of LEAK_PATCHES) {
 // 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
 // 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
 const STOPCAP_PATCHES = [
+  // 18.1.22 锚点(V5s/jSr/D7e/o4r/one;qK/gxt;DY/pP/#S)
+  {"name":"empty/unexpected/malformed stop retries (18.1.22)","expect":1,"find":"aAo = 3, _La = 4000, lAo = 3, uAo = 3, PLa = 1000,","repl":"aAo = 1000000, _La = 4000, lAo = 1000000, uAo = 1000000, PLa = 1000,","done":"aAo = 1000000, _La = 4000, lAo = 1000000, uAo = 1000000"},
+  {"name":"session-stop continuation cap (18.1.22)","expect":1,"find":"var qAo = 8, ","repl":"var qAo = 1000000, ","done":"var qAo = 1000000"},
+  {"name":"subagent yield ladder (18.1.22)","expect":1,"find":"ECa = 6, Cmt = 3;","repl":"ECa = 6, Cmt = 1000000;","done":"Cmt = 1000000"},
   // 18.1.19 锚点(minifier 全改名;encstale: Xzs->YBs, PCr->Jbr, bKe->d7e, q5r->c6r, $te->Hse)
   {"name":"empty/unexpected/malformed stop retries (18.1.19)","expect":1,"find":"XEo = 3, Rqa = 4000, QEo = 3, ZEo = 3, wqa = 1000,","repl":"XEo = 1000000, Rqa = 4000, QEo = 1000000, ZEo = 1000000, wqa = 1000,","done":"XEo = 1000000, Rqa = 4000, QEo = 1000000, ZEo = 1000000"},
   {"name":"session-stop continuation cap (18.1.19)","expect":1,"find":"var xMo = 8, ","repl":"var xMo = 1000000, ","done":"var xMo = 1000000"},
@@ -395,6 +405,9 @@ for (const p of STOPCAP_PATCHES) {
 // A) 上游仅实时路径应用 retryRecovery，历史重建不画 → "error; retried" 恢复后消失；
 //    在 assistant 追加函数尾部对主组件补调 applyRetryRecovery。
 const REPLAY_PATCHES = [
+  // 18.1.22 锚点(V5s/jSr/D7e/o4r/one;qK/gxt;DY/pP/#S)
+  {"name":"retryRecovery replay (18.1.22)","expect":1,"find":"    this.#n = ke.get(\"display.showTokenUsage\") && DY(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? pP(e) : undefined;\n    this.#u = this.#n && ke.get(\"display.showTurnTime\") ? this.#S(e) : undefined;\n  }","repl":"    this.#n = ke.get(\"display.showTokenUsage\") && DY(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? pP(e) : undefined;\n    this.#u = this.#n && ke.get(\"display.showTurnTime\") ? this.#S(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }","done":"o.applyRetryRecovery"},
+  {"name":"tail usage flush (18.1.22)","expect":2,"find":"if (this.#t.size === 0 && this.#e.size === 0)\n      this.#R();","repl":"this.#R();","done":"for (const t of e)\n      this.#h(t);\n    this.#R();"},
   // 18.1.19 锚点(minifier 全改名;encstale: Xzs->YBs, PCr->Jbr, bKe->d7e, q5r->c6r, $te->Hse)
   {"name":"retryRecovery replay (18.1.19)","expect":1,"find":"    this.#n = ke.get(\"display.showTokenUsage\") && v$(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? nP(e) : undefined;\n    this.#u = this.#n && ke.get(\"display.showTurnTime\") ? this.#S(e) : undefined;\n  }","repl":"    this.#n = ke.get(\"display.showTokenUsage\") && v$(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? nP(e) : undefined;\n    this.#u = this.#n && ke.get(\"display.showTurnTime\") ? this.#S(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }","done":"o.applyRetryRecovery"},
   {"name":"tail usage flush (18.1.19)","expect":2,"find":"if (this.#t.size === 0 && this.#e.size === 0)\n      this.#w();","repl":"this.#w();","done":"for (const t of e)\n      this.#h(t);\n    this.#w();"},
@@ -530,19 +543,24 @@ for (const p of REPLAY_PATCHES) {
 //       2026-09-12 00:50 实测:QLt/T7 门后 Resumed session(remote compaction v2)仍 400
 //       -> 补 g/h;大上下文恢复同样安全.
 const ENCSTALE_PATCHES = [
+  // 18.1.22 锚点(V5s/jSr/D7e/o4r/one;qK/gxt;DY/pP/#S)
+  {"name":"V5s[0] += encrypted-content-verify (18.1.22)","expect":1,"find":"V5s = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"V5s = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
+  {"name":"jSr += encrypted-content-decrypt (18.1.22)","expect":1,"find":"jSr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"jSr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
+  {"name":"QLt bKe replay gate (18.1.22)","expect":1,"find":"const g = D7e(e.supportsComputerUse === true ? c : o4r(c), e, i, l, !m, a, false, true, undefined, u);","restore":"const g = D7e(e.supportsComputerUse === true ? c : o4r(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","repl":"const g = D7e(e.supportsComputerUse === true ? c : o4r(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== \"1\" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","done":"!m && process.env.OMP_NO_REPLAY_REASONING !== \"1\""},
+  {"name":"Xni replacement-history prepend filter (18.1.22)","expect":1,"find":"return one(s ? [...s, ...o] : o);","restore":"return one(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","repl":"return one(s ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","done":"\"1\" || t.compat?.replayResponsesReasoning === false ? s.filter"},
   // 18.1.19 锚点(minifier 全改名;encstale: Xzs->YBs, PCr->Jbr, bKe->d7e, q5r->c6r, $te->Hse)
   {"name":"YBs[0] += encrypted-content-verify (18.1.19)","expect":1,"find":"YBs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"YBs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
   {"name":"Jbr += encrypted-content-decrypt (18.1.19)","expect":1,"find":"Jbr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"Jbr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
   {"name":"QLt bKe replay gate (18.1.19)","expect":1,"find":"const g = d7e(e.supportsComputerUse === true ? c : c6r(c), e, i, l, !m, a, false, true, undefined, u);","restore":"const g = d7e(e.supportsComputerUse === true ? c : c6r(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","repl":"const g = d7e(e.supportsComputerUse === true ? c : c6r(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== \"1\" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","done":"!m && process.env.OMP_NO_REPLAY_REASONING !== \"1\""},
   {"name":"Xni replacement-history prepend filter (18.1.19)","expect":1,"find":"return Hse(s ? [...s, ...o] : o);","restore":"return Hse(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","repl":"return Hse(s ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","done":"\"1\" || t.compat?.replayResponsesReasoning === false ? s.filter"},
   {
-    name: 'Xzs[0] += encrypted-content-verify',
+    name: 'Xzs[0] += encrypted-content-verify (18.1.17)',
     find: "Xzs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];",
     repl: "Xzs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];",
     done: 'encrypted content',
   },
   {
-    name: 'PCr += encrypted-content-decrypt',
+    name: 'PCr += encrypted-content-decrypt (18.1.17)',
     find: 'PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;',
     repl: 'PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;',
     done: 'encrypted content could not be decrypted',
@@ -568,7 +586,7 @@ const ENCSTALE_PATCHES = [
     done: '"1" || e.compat?.replayResponsesReasoning === false ? undefined',
   },
   {
-    name: 'QLt bKe replay gate (main turn path)',
+    name: 'QLt bKe replay gate (18.1.18)',
     find: 'const g = bKe(e.supportsComputerUse === true ? c : q5r(c), e, i, l, !m, a, false, true, undefined, u);',
     restore: 'const g = bKe(e.supportsComputerUse === true ? c : q5r(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);',
     repl: 'const g = bKe(e.supportsComputerUse === true ? c : q5r(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== "1" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);',
@@ -582,7 +600,7 @@ const ENCSTALE_PATCHES = [
     done: '"1" || e.compat?.replayResponsesReasoning === false ? o.filter',
   },
   {
-    name: 'Xni replacement-history prepend filter (compaction)',
+    name: 'Xni replacement-history prepend filter (18.1.18)',
     find: 'return $te(s ? [..s, ..o] : o);',
     restore: 'return $te(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== "reasoning") : s).concat(o) : o);',
     repl: 'return $te(s ? (process.env.OMP_NO_REPLAY_REASONING === "1" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== "reasoning") : s).concat(o) : o);',
