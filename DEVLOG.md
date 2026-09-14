@@ -531,3 +531,23 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   true=0 / encstale x6 / 串区 75,497,749 == vanilla 严格相等).verify PASS,
   smoke `omp/18.1.19 helpCJK=1577`,gap 11319(较 18.1.17 的 11136 +183).
   交付 DEFERRED(会话占用,`.new` sha256 `29199ca9..` 与 work 产物一致,看护在位).
+
+## 2026-09-14(二):18.1.22 构建 -- 锚点迁移 + 遗留规则补版本标签
+- **背景**:上游 18.1.19 -> 18.1.22(跳三版).18.1.19 那轮 staged 未交付(看护 24h 超时退出,
+  会话持续占用目标);本轮直接建 18.1.22 覆盖 staged.
+- **18.1.22 锚点**(五组 13 条,全部命中,`ok=28 warn=0`):
+  - stopcap:`aAo/_La/lAo/uAo/PLa` 簇,续跑 `qAo`,yield `ECa/Cmt`
+  - leak:tunnel/uploader-sh `qK()`,ssh `gxt.homedir()`,chrome launch `[s, ..c]`(新增 cwd 字段)
+  - replay:`DY/pP/#S`;flush 门仍在(gate `#t/#e` + `#h()/#R()`)
+  - encstale:正则数组 `V5s`,`jSr`,QLt bKe 调用 `D7e/o4r`,Xni `one`;
+    compat schema/T7/QLt items/Mbe 四处跨版稳定(原规则直接命中)
+- **遗留规则补版本标签**:encstale 组最初 8 条规则由他轮写入时**无版本号**,导致 isLegacy
+  无法判级(每版恒 WARN 噪音).本轮补标:`Xzs`/`PCr` -> (18.1.17),`QLt bKe`/`Xni` -> (18.1.18).
+  无版本号规则此后视为现役(真漏必报),新增规则一律带版本号.
+- **spawn 泄漏点全量枚举(技能清单要求)**:18.1.22 bundle 共 50 处 `Bun.spawn`,其中 22 处
+  无 `windowsHide`.补丁族既定范围为历史上确实闪窗的站点(隧道/ssh/uploader/broker/MCP/chrome);
+  其余(ffmpeg/ffprobe 探测、powershell 截图、shell `-c`、exec 继承 stdio 等)在终端内继承
+  控制台不闪窗,未纳入.此结论记档,避免下轮重复枚举.
+- **终验**:`tools-verify-22.js` 21/21 PASS(新增 4 项覆盖 encstale 正则/门/预置过滤),
+  串区 75,615,615 == vanilla 严格相等.verify PASS,smoke `omp/18.1.22 helpCJK=1577`,
+  gap 11380(较 18.1.19 的 11319 +61).交付 DEFERRED(staged + 看护在位).
