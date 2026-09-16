@@ -102,7 +102,13 @@ newContents[webIdx.views] = Buffer.from(asciiEscape(web.mods.views.toString('utf
   });
   const delta = newBlobLen - origBlobLen;
   console.log('strings blob: orig=' + origBlobLen + ' new=' + newBlobLen + ' delta=' + (delta > 0 ? '+' : '') + delta);
-  if (delta > 0) {
+  // 18.2.1+ bytecode 布局:模块内容写入 bytecode 自由区,串区总长与加载器无关(rebuild mode B),
+  // 无需补偿 -- 强行裁 CHANGELOG 反而会白白丢内容.
+  const bcOff = mods.length ? srcBuf.readUInt32LE(dataStart + srcBuf.readUInt32LE(O + 8) + 24) : 0;
+  const modeB = bcOff > 0 && !process.env.OMP_LEGACY_REBUILD;
+  if (modeB) {
+    console.log('blob compensation skipped (bytecode layout: growth absorbed by free region)');
+  } else if (delta > 0) {
     let ci = -1;
     mods.forEach((m, i) => { if (m.name.toString('latin1').includes('CHANGELOG')) ci = i; });
     if (ci < 0) throw new Error('blob compensation needed (+' + delta + ') but no CHANGELOG module found');
