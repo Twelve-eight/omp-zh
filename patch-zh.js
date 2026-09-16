@@ -55,6 +55,22 @@ for (const name of MODELS) {
 // 例外：eval kernel 三处不动——上游 #1960：CREATE_NO_WINDOW 致 NumPy 等 native 扩展
 //       LoadLibraryExW 死锁；且 kernel 自身输出本就被管道捕获。
 const LEAK_PATCHES = [
+  // 18.2.1: 上游把 windowsHide 改为按 console 探测决定(iZt({platform,hostHasInheritableConsole:kD()}));
+  // 探测在"宿主有可继承控制台"时返回 false -> 仍可能开窗.强制恒真.
+  { name: 'python kernel windowsHide force-true (18.2.1)', expect: 1,
+    find: 'windowsHide: iZt({\n          platform: "win32",\n          hostHasInheritableConsole: kD()\n        })',
+    repl: 'windowsHide: true',
+    done: 'windowsHide: true\n      });' },
+  { name: 'python kernel console probe force-true (18.2.1)', expect: 1,
+    find: 'function iZt(e) {\n  if (e.platform !== "win32")\n    return false;\n  return !e.hostHasInheritableConsole;\n}',
+    repl: 'function iZt(e) {\n  if (e.platform !== "win32")\n    return false;\n  return true;\n}',
+    done: 'return true;\n}' },
+
+  // 18.2.1 锚点(eNn/MNn/mwa;V7/jOt;eZ/_F/#k; C$s/IOr/FXe/A6r/sie)
+  {"name":"blob-broker tunnel (18.2.1)","expect":1,"find":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: n, stderr: n, cwd: V7() })","repl":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: n, stderr: n, cwd: V7(), windowsHide: true })","done":"cwd: V7(), windowsHide: true })"},
+  {"name":"blob-broker ssh tunnel (18.2.1)","expect":1,"find":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: jOt.homedir() })","repl":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: jOt.homedir(), windowsHide: true })","done":"cwd: jOt.homedir(), windowsHide: true })"},
+  {"name":"uploader self-hosted (18.2.1)","expect":1,"find":"Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: V7()\n        })","repl":"Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: V7(),\n          windowsHide: true\n        })","done":"cwd: V7(),\n          windowsHide: true"},
+  {"name":"browser chrome launch (18.2.1)","expect":1,"find":"const d = Bun.spawn([s, ...c], {\n      cwd: t.cwd,\n      stdout: \"ignore\",\n      stderr: \"ignore\",\n      stdin: \"ignore\"\n    })","repl":"const d = Bun.spawn([s, ...c], {\n      cwd: t.cwd,\n      stdout: \"ignore\",\n      stderr: \"ignore\",\n      stdin: \"ignore\",\n      windowsHide: true\n    })","done":"stdin: \"ignore\",\n      windowsHide: true\n    })"},
   // 18.1.22
   {"name":"browser chrome launch (18.1.22)","expect":1,"find":"const d = Bun.spawn([s, ...c], {\n      cwd: t.cwd,\n      stdout: \"ignore\",\n      stderr: \"ignore\",\n      stdin: \"ignore\"\n    })","repl":"const d = Bun.spawn([s, ...c], {\n      cwd: t.cwd,\n      stdout: \"ignore\",\n      stderr: \"ignore\",\n      stdin: \"ignore\",\n      windowsHide: true\n    })","done":"stdin: \"ignore\",\n      windowsHide: true\n    })"},
   // 18.1.22 锚点(V5s/jSr/D7e/o4r/one;qK/gxt;DY/pP/#S)
@@ -69,7 +85,7 @@ const LEAK_PATCHES = [
     find: '  return {\n    detached: false,\n    windowsHide: !e.hostHasInheritableConsole\n  };',
     repl: '  return {\n    detached: false,\n    windowsHide: true\n  };',
     done: '    detached: false,\n    windowsHide: true\n  };' },
-  { name: 'MCP stdio spawn options', expect: 1,
+  { name: 'MCP stdio spawn options (18.0.4)', expect: 1,
     find: 'const n = t.hostHasInheritableConsole === undefined ? true : !t.hostHasInheritableConsole;',
     repl: 'const n = true;',
     done: null },
@@ -238,6 +254,10 @@ for (const p of LEAK_PATCHES) {
 // 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
 // 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
 const STOPCAP_PATCHES = [
+  // 18.2.1 锚点(eNn/MNn/mwa;V7/jOt;eZ/_F/#k; C$s/IOr/FXe/A6r/sie)
+  {"name":"empty/unexpected/malformed stop retries (18.2.1)","expect":1,"find":"eNn = 3, oWa = 4000, tNn = 3, sNn = 3, nWa = 1000,","repl":"eNn = 1000000, oWa = 4000, tNn = 1000000, sNn = 1000000, nWa = 1000,","done":"eNn = 1000000, oWa = 4000, tNn = 1000000, sNn = 1000000"},
+  {"name":"session-stop continuation cap (18.2.1)","expect":1,"find":"MNn = 8, FWa = 3, zIs = 5000, qWa = 3,","repl":"MNn = 1000000, FWa = 3, zIs = 5000, qWa = 3,","done":"MNn = 1000000"},
+  {"name":"subagent yield ladder (18.2.1)","expect":1,"find":"mwa = 6, LCt = 3;","repl":"mwa = 6, LCt = 1000000;","done":"LCt = 1000000"},
   // 18.1.22 锚点(V5s/jSr/D7e/o4r/one;qK/gxt;DY/pP/#S)
   {"name":"empty/unexpected/malformed stop retries (18.1.22)","expect":1,"find":"aAo = 3, _La = 4000, lAo = 3, uAo = 3, PLa = 1000,","repl":"aAo = 1000000, _La = 4000, lAo = 1000000, uAo = 1000000, PLa = 1000,","done":"aAo = 1000000, _La = 4000, lAo = 1000000, uAo = 1000000"},
   {"name":"session-stop continuation cap (18.1.22)","expect":1,"find":"var qAo = 8, ","repl":"var qAo = 1000000, ","done":"var qAo = 1000000"},
@@ -405,6 +425,9 @@ for (const p of STOPCAP_PATCHES) {
 // A) 上游仅实时路径应用 retryRecovery，历史重建不画 → "error; retried" 恢复后消失；
 //    在 assistant 追加函数尾部对主组件补调 applyRetryRecovery。
 const REPLAY_PATCHES = [
+  // 18.2.1 锚点(eNn/MNn/mwa;V7/jOt;eZ/_F/#k; C$s/IOr/FXe/A6r/sie)
+  {"name":"retryRecovery replay (18.2.1)","expect":1,"find":"    this.#o = xe.get(\"display.showTokenUsage\") && eZ(e.usage) ? e.usage : undefined;\n    this.#n = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#a = this.#o ? _F(e) : undefined;\n    this.#u = this.#o && xe.get(\"display.showTurnTime\") ? this.#k(e) : undefined;\n  }","repl":"    this.#o = xe.get(\"display.showTokenUsage\") && eZ(e.usage) ? e.usage : undefined;\n    this.#n = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#a = this.#o ? _F(e) : undefined;\n    this.#u = this.#o && xe.get(\"display.showTurnTime\") ? this.#k(e) : undefined;\n    if (e.retryRecovery)\n      this.applyRetryRecovery(e.retryRecovery);\n  }","done":"this.applyRetryRecovery"},
+  {"name":"tail usage flush (18.2.1)","expect":2,"find":"if (this.#t.size === 0 && this.#e.size === 0)\n      this.#S();","repl":"this.#S();","done":"for (const t of e)\n      this.#y(t);\n    this.#S();"},
   // 18.1.22 锚点(V5s/jSr/D7e/o4r/one;qK/gxt;DY/pP/#S)
   {"name":"retryRecovery replay (18.1.22)","expect":1,"find":"    this.#n = ke.get(\"display.showTokenUsage\") && DY(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? pP(e) : undefined;\n    this.#u = this.#n && ke.get(\"display.showTurnTime\") ? this.#S(e) : undefined;\n  }","repl":"    this.#n = ke.get(\"display.showTokenUsage\") && DY(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#i = e.timestamp;\n    this.#l = this.#n ? pP(e) : undefined;\n    this.#u = this.#n && ke.get(\"display.showTurnTime\") ? this.#S(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }","done":"o.applyRetryRecovery"},
   {"name":"tail usage flush (18.1.22)","expect":2,"find":"if (this.#t.size === 0 && this.#e.size === 0)\n      this.#R();","repl":"this.#R();","done":"for (const t of e)\n      this.#h(t);\n    this.#R();"},
@@ -468,7 +491,7 @@ const REPLAY_PATCHES = [
     repl: 'this.#C();',
     done: 'this.#w(t.message);\n    this.#C();' },
   // 18.0.6 锚点（18.0.4 为 _X/RP + #t/#e/#y，已漂移）
-  { name: 'retryRecovery replay', expect: 1,
+  { name: 'retryRecovery replay (18.0.4)', expect: 1,
     find: '    this.#n = be.get("display.showTokenUsage") && fQ(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? BP(e) : undefined;\n  }',
     repl: '    this.#n = be.get("display.showTokenUsage") && fQ(e.usage) ? e.usage : undefined;\n    this.#o = e.duration;\n    this.#r = e.ttft;\n    this.#a = e.timestamp;\n    this.#i = this.#n ? BP(e) : undefined;\n    if (e.retryRecovery)\n      o.applyRetryRecovery(e.retryRecovery);\n  }',
     done: 'o.applyRetryRecovery' },
@@ -543,6 +566,12 @@ for (const p of REPLAY_PATCHES) {
 //       2026-09-12 00:50 实测:QLt/T7 门后 Resumed session(remote compaction v2)仍 400
 //       -> 补 g/h;大上下文恢复同样安全.
 const ENCSTALE_PATCHES = [
+  // 18.2.1 锚点(eNn/MNn/mwa;V7/jOt;eZ/_F/#k; C$s/IOr/FXe/A6r/sie)
+  {"name":"C$s[0] += encrypted-content-verify (18.2.1)","expect":1,"find":"C$s = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"C$s = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
+  {"name":"IOr += encrypted-content-decrypt (18.2.1)","expect":1,"find":"IOr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"IOr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
+  {"name":"QLt bKe replay gate (18.2.1)","expect":1,"find":"const g = FXe(e.supportsComputerUse === true ? c : A6r(c), e, i, l, !m, a, false, true, undefined, u);","restore":"const g = FXe(e.supportsComputerUse === true ? c : A6r(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","repl":"const g = FXe(e.supportsComputerUse === true ? c : A6r(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== \"1\" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","done":"!m && process.env.OMP_NO_REPLAY_REASONING !== \"1\""},
+  {"name":"Xni replacement-history prepend filter (18.2.1)","expect":1,"find":"return sie(s ? [...s, ...n] : n);","restore":"return sie(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(n) : n);","repl":"return sie(s ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(n) : n);","done":"\"1\" || t.compat?.replayResponsesReasoning === false ? s.filter"},
+  {"name":"Mbe stored-items prepend filter (18.2.1)","expect":1,"find":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: n?.length ? [...n, ...r] : r,\n    stream: true,\n    prompt_cache_key: o\n  };","restore":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: n?.length ? (e.compat?.replayResponsesReasoning === false ? n.filter((Z) => Z?.type !== \"reasoning\") : n).concat(r) : r,\n    stream: true,\n    prompt_cache_key: o\n  };","repl":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: n?.length ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || e.compat?.replayResponsesReasoning === false ? n.filter((Z) => Z?.type !== \"reasoning\") : n).concat(r) : r,\n    stream: true,\n    prompt_cache_key: o\n  };","done":"\"1\" || e.compat?.replayResponsesReasoning === false ? n.filter"},
   // 18.1.22 锚点(V5s/jSr/D7e/o4r/one;qK/gxt;DY/pP/#S)
   {"name":"V5s[0] += encrypted-content-verify (18.1.22)","expect":1,"find":"V5s = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"V5s = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
   {"name":"jSr += encrypted-content-decrypt (18.1.22)","expect":1,"find":"jSr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"jSr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
@@ -593,7 +622,7 @@ const ENCSTALE_PATCHES = [
     done: '!m && process.env.OMP_NO_REPLAY_REASONING !== "1"',
   },
   {
-    name: 'Mbe stored-items prepend filter (remote compaction v2)',
+    name: 'Mbe stored-items prepend filter (18.1.18)',
     find: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? [...o, ...r] : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
     restore: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
     repl: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };",

@@ -1,6 +1,6 @@
 # omp 上游更新自动汉化管线（omp-zh auto-update pipeline）
 
-项目目录：`G:\omp works\omp-zh\`（脚本/字典在根，中间产物在 `work\`，文档在 `docs\`）
+项目目录：`G:\omp works\Tools\omp-zh\`（脚本/字典在根，中间产物在 `work\`，文档在 `docs\`）
 
 ## 管线组成
 

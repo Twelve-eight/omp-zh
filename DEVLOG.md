@@ -551,3 +551,39 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
 - **终验**:`tools-verify-22.js` 21/21 PASS(新增 4 项覆盖 encstale 正则/门/预置过滤),
   串区 75,615,615 == vanilla 严格相等.verify PASS,smoke `omp/18.1.22 helpCJK=1577`,
   gap 11380(较 18.1.19 的 11319 +61).交付 DEFERRED(staged + 看护在位).
+
+## 2026-09-16:18.2.1 构建 -- Bun 引入模块级 bytecode(布局第三次变更,rebuild 转零位移模式)
+- **背景**:18.1.22 -> 18.2.1(次级跳版,体积 +50MB:161.7 -> 211.7MB).工作区重组后
+  本项目位于 `G:\omp works\Tools\omp-zh\`(另一会话完成迁移,同步更新了计划任务路径).
+- **布局级不兼容(第三次)**:零改动 roundtrip 段错误(0xC0000409),vanilla 正常.定位:
+  18.2.1 在 dataStart 处新增 **53MB 前缀区**(mod0 的 45MB **预编译 bytecode** + 结构数据),
+  contents/names/table 整体后移;`rest+8/+12` 指向该区,前缀内另有 66 万处 u32 指向
+  contents 区.旧 rebuild 丢弃该区 -> 崩.
+- **关键判定实验(决定汉化路线)**:就地等长改 mod0 **JS 源码**里的 help 文案 -> `--help`
+  **不变**;改 **bytecode 区**里的同一文案 -> `--help` 立刻变.结论:18.2.1 运行时**优先执行
+  bytecode**,JS 源码只是回退.若不做处理,整个汉化与行为补丁都会失效.
+- **解法(零位移外科手术,rebuild mode B)**:
+  1) 清零 mod0 的 bytecode 指针(rest+8/+12)-> 运行时回退执行 JS 源码(实测生效);
+  2) 失效后的 45MB 成为自由区;被改模块的新内容写入该区,只改其记录(off/len);
+  3) 前缀/未改模块/表位置/argv/offsets/marker/文件大小**全部不动** -> 前缀内 66 万处
+     指针与 rest 跨区指针天然保持有效(这是重排方案必崩、而本方案可行的根本原因).
+  实测:mod0 +1MB 增长正常启动;exe 大小与原版完全一致(211,734,016 B).
+- **build-zh 补偿逻辑自适应**:mode B 下串区总长与加载器无关(增长由自由区吸收),
+  CHANGELOG 补偿跳过(否则白白丢内容);旧布局仍走原补偿路径.
+- **18.2.1 锚点**(五组 16 条,全部命中,`ok=19 warn=0`):
+  - stopcap:`eNn/oWa/tNn/sNn/nWa` 簇,续跑 `MNn = 8`(与 FWa/zIs/qWa 同 var 组),yield `mwa/LCt`
+  - leak:tunnel/uploader-sh `V7()`,ssh `jOt.homedir()`,chrome launch;另**新增两条**:
+    上游把 python kernel spawn 的 `windowsHide` 改为 console 探测(`iZt({platform,hostHasInheritableConsole:kD()})`)
+    -> 强制 `windowsHide: true` + 探测函数体改 `return true`
+  - replay:`eZ/_F/#k`(注意本版 usage 字段由 `#n` 改为 `#o`,重放方法调用改为 `this.applyRetryRecovery`);
+    flush 门仍在(`#t/#e` + `#y()/#S()`)
+  - encstale:正则数组 `C$s`/`IOr`,QLt 调用 `FXe/A6r`,Xni `sie(s ? [..s, ..n] : n)`,
+    Mbe `Aie` 内 `input: n?.length ? [..n, ..r] : r`(变量名 n/r);compat schema/T7/QLt items 跨版稳定
+- **SUMS 资产缺失适配**:上游 18.2.1 起不再发布 `SHA256SUMS.txt` -> `fetchSums()` 失败时
+  回退用 releases API 的 `assets[].digest`(`sha256:<hex>`)作为期望值(校验强度不变,
+  只是期望值来源变化).**回退加在 fetchSums 内部**,调用处无需 catch,避免"每版手工预放 exe".
+- **网络**:curl 全程走本地代理 `http://127.0.0.1:7897`(`OMP_NO_PROXY=1` 可关;镜像链保留兜底).
+  211MB 实测 211.7MB/约 40s.
+- **终验**:`tools-verify-1821.js` 28/28 PASS(含 bytecode 失效/零位移不变量/新增两条 window-hide).
+  verify PASS,smoke `omp/18.2.1 helpCJK=1577`,gap 11599(较 18.1.22 的 11380 +219).
+  交付 DEFERRED(staged sha256 与 work 产物一致,看护在位).

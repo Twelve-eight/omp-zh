@@ -31,6 +31,10 @@ const DL_SUMS = T + '/work/SHA256SUMS.txt';
 const LOCAL_EXE = 'G:/omp/omp-zh.exe'; // 检测汉化版自身版本（原读官方版 omp.exe 导致检测与实际使用脱节）
 const DELIVER = 'G:/omp/omp-zh.exe';
 const LAST_VER_FILE = T + '/work/.omp-zh-last-version';
+// 代理加速(2026-09-16):本地 7897 代理实测远快于镜像链;curl 显式 -x.
+// OMP_NO_PROXY=1 关闭(镜像链仍可用).
+const PROXY = process.env.OMP_NO_PROXY ? '' : (process.env.OMP_PROXY || 'http://127.0.0.1:7897');
+const curlProxyArgs = PROXY ? ['-x', PROXY] : [];
 
 const args = process.argv.slice(2);
 const CHECK_ONLY = args.includes('--check-only');
@@ -68,8 +72,7 @@ function latestTag() {
   for (const m of MIRRORS) {
     if (!m) continue; // 直连 api.github.com 已由 gh api 尝试过
     try {
-      const out = sh('curl', ['-fsSL', '--connect-timeout', '15', '--max-time', '30',
-        m + `https://api.github.com/repos/${REPO}/releases/latest`], { timeout: 45000 });
+      const out = sh('curl', ['-fsSL', '--connect-timeout', '15', '--max-time', '30'].concat(curlProxyArgs, [m + `https://api.github.com/repos/${REPO}/releases/latest`]), { timeout: 45000 });
       const t = (out.match(/"tag_name":\s*"[^"]+"/) || [])[0];
       if (t) {
         const tag = t.split('"')[3].replace(/^v/, '');
@@ -90,7 +93,7 @@ function download(tag) {
   const fetchSums = () => {
     // 官方源优先，失败走镜像链（SUMS 走镜像仍安全：篡改会被哈希校验拦截，与 exe 同理）
     try {
-      sh('curl', ['-fsSL', '--connect-timeout', '30', '-o', sumsTagFile, sumsUrl], { timeout: 120000 });
+      sh('curl', ['-fsSL', '--connect-timeout', '30'].concat(curlProxyArgs, ['-o', sumsTagFile, sumsUrl]), { timeout: 120000 });
       if (fs.existsSync(sumsTagFile) && fs.statSync(sumsTagFile).size > 0) return sumsTagFile;
       throw new Error('empty sums');
     } catch { /* fall through to mirrors */ }
@@ -104,10 +107,33 @@ function download(tag) {
     }
     throw new Error('SUMS fetch failed via all mirrors: ' + (lastE && lastE.message));
   };
+  // SUMS 资产缺失回退(2026-09-16,上游 v18.2.1 起不再发布 SHA256SUMS.txt):
+  // 改用 releases API 的 assets[].digest 字段("sha256:<hex>")作为期望值,写成本地清单格式.
+  const fetchDigestFromApi = () => {
+    const apiUrl = `https://api.github.com/repos/${REPO}/releases/tags/v${tag}`;
+    const tryApi = (url) => {
+      const out = sh('curl', ['-fsSL', '--connect-timeout', '20', '--max-time', '40'].concat(curlProxyArgs, [url]), { timeout: 60000 });
+      const j = JSON.parse(out);
+      const a = (j.assets || []).find(x => x.name === ASSET);
+      if (!a || !a.digest) return null;
+      const hex = String(a.digest).replace(/^sha256:/i, '').toLowerCase();
+      if (!/^[0-9a-f]{64}$/.test(hex)) return null;
+      fs.writeFileSync(sumsTagFile, hex + '  ' + ASSET + '\n');
+      log('SUMS asset missing - using API digest for ' + ASSET + ' (' + hex.slice(0, 16) + '..)');
+      return sumsTagFile;
+    };
+    try { const r = tryApi(apiUrl); if (r) return r; } catch (e) { /* try mirrors */ }
+    for (const m of MIRRORS) {
+      if (!m) continue;
+      try { const r = tryApi(m + apiUrl); if (r) return r; } catch (e) { /* next */ }
+    }
+    throw new Error('API digest fallback failed for ' + ASSET);
+  };
   // 本地已有文件：先尝试只用校验文件验证（无校验文件则下载）
   if (fs.existsSync(DL_EXE)) {
     try {
-      const sumsPath = haveSums() || fetchSums();
+      let sumsPath = haveSums();
+      if (!sumsPath) { try { sumsPath = fetchSums(); } catch { sumsPath = fetchDigestFromApi(); } }
       const sums = fs.readFileSync(sumsPath, 'utf8');
       const line = sums.split('\n').find(l => l.includes(ASSET));
       if (line) {
@@ -128,7 +154,7 @@ function download(tag) {
   for (const m of MIRRORS) {
     const url = m + ghUrl;
     try {
-      sh('curl', ['-fL', '--connect-timeout', '30', '--retry', '2', '-o', DL_EXE, url], { timeout: 1800000 });
+      sh('curl', ['-fL', '--connect-timeout', '30', '--retry', '2'].concat(curlProxyArgs, ['-o', DL_EXE, url]), { timeout: 1800000 });
       if (fs.existsSync(DL_EXE) && fs.statSync(DL_EXE).size > 1000000) break; // 基本完整（后续 sha256 兜底）
       throw new Error('file too small (' + (fs.existsSync(DL_EXE) ? fs.statSync(DL_EXE).size : 0) + ' bytes)');
     } catch (e) {
@@ -138,7 +164,9 @@ function download(tag) {
     }
   }
   if (!fs.existsSync(DL_EXE)) throw new Error('all mirrors failed, last error: ' + (lastErr && lastErr.message));
-  const sumsPath = fetchSums(); // 下载完成后强制获取当前版本最新清单再校验
+  let sumsPath;
+  try { sumsPath = fetchSums(); }
+  catch (e) { log('SUMS unavailable (' + e.message.slice(0, 80) + ') - falling back to API digest'); sumsPath = fetchDigestFromApi(); }
   const sums = fs.readFileSync(sumsPath, 'utf8');
   // 校验
   const line = sums.split('\n').find(l => l.includes(ASSET));
@@ -251,8 +279,8 @@ async function main() {
   //   1) --once 跑通(扫描逻辑健康)
   //   2) 心跳新鲜(计划任务在按期执行;判据与语言无关,不解析 schtasks 本地化输出)
   try {
-    sh('node', ['G:/omp works/omp-watchdog/watchdog.js', '--once']);
-    const hbPath = 'G:/omp works/omp-watchdog/watchdog-heartbeat.log';
+    sh('node', ['G:/omp works/Tools/omp-watchdog/watchdog.js', '--once']);
+    const hbPath = 'G:/omp works/Tools/omp-watchdog/watchdog-heartbeat.log';
     let hbAgeMin = null;
     try {
       const lines = fs.readFileSync(hbPath, 'utf8').trim().split('\n');

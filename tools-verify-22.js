@@ -1,5 +1,5 @@
 // 18.1.22 终验:逐项检查补丁在产物中的实际效果
-const { parseExe, readModules } = require('G:/omp works/omp-zh/rebuild.js');
+const { parseExe, readModules } = require('G:/omp works/Tools/omp-zh/rebuild.js');
 const fs = require('fs');
 function load(f) {
   const buf = fs.readFileSync(f);
@@ -9,8 +9,8 @@ function load(f) {
   const O = ds + hdr - 16 - 32;
   return readModules(buf, ds, buf.readUInt32LE(O + 8), buf.readUInt32LE(O + 12));
 }
-const z = load('G:/omp works/omp-zh/work/omp-zh.exe');
-const v = load('G:/omp works/omp-zh/work/omp-dl.exe');
+const z = load('G:/omp works/Tools/omp-zh/work/omp-zh.exe');
+const v = load('G:/omp works/Tools/omp-zh/work/omp-dl.exe');
 const d = z[0].contents.toString('latin1');
 let vt = 0, zt = 0;
 v.forEach(m => vt += m.name.length + m.contents.length);
