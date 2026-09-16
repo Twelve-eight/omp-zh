@@ -33,6 +33,18 @@ docs/             管线文档与排查报告
 DEVLOG.md         开发日志（完整决策与踩坑记录）
 ```
 
+### 校验信任边界
+
+镜像只用于传输 exe 字节,不提供期望摘要.摘要按序取自操作者 `OMP_TRUST_DIGEST=<64hex>`,
+官方 `SHA256SUMS.txt` 资产,官方 Releases API 的 `assets[].digest`;三者都不可用时管线
+失败关闭,不交付.上游自 v18.2.1 起不再发布 `SHA256SUMS.txt`,正常走 API digest.
+官方源不可达时,自行核实发布摘要后重跑:
+
+```
+set OMP_TRUST_DIGEST=<64 hex sha256>
+node update-zh.js
+```
+
 ### 日常更新
 
 ```sh
