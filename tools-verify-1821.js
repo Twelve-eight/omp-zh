@@ -1,6 +1,19 @@
-// 18.2.1 终验:bytecode 失效 + 五组补丁 + 串区/自由区不变量
+// 18.2.1 终验(mode C 不变量)
+//
+// mode C 的做法:清零 mod0 的 bytecode 描述符(rest+8/+12)-> 运行时回退执行表项 contents
+// 指向的 JS 源码;被改模块的新内容追加到**模块表之前**,表随之后移;tailZone/argv/offsets
+// 依次后移.因此旧判据(表零位移/exe 大小不变/内容写入原 bytecode 区)全部不适用.
+//
+// 真实不变量:
+//   1) [0, modOff) 与 vanilla 逐字节相同 -- mode C 安全性的全部依据
+//      (前缀区 66 万处绝对偏移 + 全部 rest 字段天然有效)
+//   2) blob 区字节与 vanilla 相同(从未写入)
+//   3) mod0 rest+8/+12 == 0,且表项 contents off/len 指向追加区
+//   4) 未改模块的表项 off/len 与 vanilla 相同(仅被改模块重定位)
+//   5) 表位置 = vanilla 表位置 + 追加长度(表随内容后移,loader 接受 contents off < 表位置)
 const { parseExe, readModules } = require('G:/omp works/Tools/omp-zh/rebuild.js');
 const fs = require('fs');
+
 function load(f) {
   const buf = fs.readFileSync(f);
   const { bun } = parseExe(buf);
@@ -8,19 +21,43 @@ function load(f) {
   const hdr = Number(BigInt(buf.readUInt32LE(bun.rawPtr)) | (BigInt(buf.readUInt32LE(bun.rawPtr + 4)) << 32n));
   const O = ds + hdr - 16 - 32;
   const modOff = buf.readUInt32LE(O + 8), modLen = buf.readUInt32LE(O + 12);
-  return { buf, ds, modOff, modLen, mods: readModules(buf, ds, modOff, modLen), O, hdr };
+  const argvOff = buf.readUInt32LE(O + 20), argvLen = buf.readUInt32LE(O + 24);
+  return { buf, ds, hdr, O, modOff, modLen, argvOff, argvLen, mods: readModules(buf, ds, modOff, modLen) };
 }
 const Z = load('G:/omp works/Tools/omp-zh/work/omp-zh.exe');
 const V = load('G:/omp works/Tools/omp-zh/work/omp-dl-1821.exe');
 const d = Z.mods[0].contents.toString('latin1');
 const has = (s) => d.includes(s);
+
+// 1) 前缀逐字节相同
+const prefixEqual = Buffer.compare(Z.buf.slice(Z.ds, Z.ds + V.modOff), V.buf.slice(V.ds, V.ds + V.modOff)) === 0;
+// 2) blob 区相同(mod0 bytecode 区)
+const blobOff = V.buf.readUInt32LE(V.ds + V.modOff + 24);
+const blobLen = V.buf.readUInt32LE(V.ds + V.modOff + 28);
+const blobEqual = Buffer.compare(Z.buf.slice(Z.ds + blobOff, Z.ds + blobOff + blobLen), V.buf.slice(V.ds + blobOff, V.ds + blobOff + blobLen)) === 0;
+// 3) mod0 bytecode 描述符清零 + 表项指向追加区
+const zc0 = Z.buf.readUInt32LE(Z.ds + Z.modOff + 8), zl0 = Z.buf.readUInt32LE(Z.ds + Z.modOff + 12);
+const vc0 = V.buf.readUInt32LE(V.ds + V.modOff + 8);
+const mod0Relocated = zc0 !== vc0 && zc0 >= V.modOff;
+// 4) 未改模块表项一致
+let untouchedSame = 0, untouchedDiff = 0;
+for (let i = 1; i < V.mods.length; i++) {
+  const zp = Z.ds + Z.modOff + i * 52, vp = V.ds + V.modOff + i * 52;
+  const same = Z.buf.readUInt32LE(zp + 8) === V.buf.readUInt32LE(vp + 8) && Z.buf.readUInt32LE(zp + 12) === V.buf.readUInt32LE(vp + 12);
+  same ? untouchedSame++ : untouchedDiff++;
+}
+// 5) 表随内容后移
+const tableShifted = Z.modOff >= V.modOff;
+
 const checks = [
-  ['mod0 bytecode pointer stripped', Z.buf.readUInt32LE(Z.ds + Z.modOff + 24) === 0 && Z.buf.readUInt32LE(Z.ds + Z.modOff + 28) === 0],
-  ['vanilla had bytecode', V.buf.readUInt32LE(V.ds + V.modOff + 24) > 0],
-  ['mod0 contents relocated into free region', Z.buf.readUInt32LE(Z.ds + Z.modOff + 8) === V.buf.readUInt32LE(V.ds + V.modOff + 24)],
+  ['prefix [0,modOff) byte-identical to vanilla', prefixEqual],
+  ['shared bytecode blob untouched', blobEqual],
+  ['mod0 bytecode descriptor zeroed', Z.buf.readUInt32LE(Z.ds + Z.modOff + 24) === 0 && Z.buf.readUInt32LE(Z.ds + Z.modOff + 28) === 0],
+  ['vanilla had bytecode descriptor', blobOff > 0 && blobLen > 0],
+  ['mod0 contents relocated into append region', mod0Relocated],
+  ['only translated modules relocated (' + untouchedSame + ' untouched, ' + untouchedDiff + ' relocated)', untouchedDiff > 0 && untouchedDiff <= 8],
+  ['table follows appended content', tableShifted],
   ['module count unchanged', Z.mods.length === V.mods.length],
-  ['table offset unchanged (zero-shift)', Z.modOff === V.modOff && Z.modLen === V.modLen],
-  ['exe size unchanged', Z.buf.length === V.buf.length],
   ['stopcap cluster=1e6', has('eNn = 1000000, oWa = 4000, tNn = 1000000, sNn = 1000000')],
   ['session cap=1e6', has('MNn = 1000000')],
   ['yield ladder=1e6', has('LCt = 1000000')],
@@ -42,7 +79,7 @@ const checks = [
   ['encstale QLt bKe gate', has('!m && process.env.OMP_NO_REPLAY_REASONING !== "1"')],
   ['encstale Mbe prepend filter', has('"1" || e.compat?.replayResponsesReasoning === false ? n.filter')],
   ['encstale Xni prepend filter', has('"1" || t.compat?.replayResponsesReasoning === false ? s.filter')],
-  ['CHANGELOG untouched (no compensation)', Z.mods.some((m, i) => m.name.toString('latin1').includes('CHANGELOG') && m.contents.length === V.mods[i].contents.length)],
+  ['translation present in mod0 (CJK escapes)', (d.match(/\\u[4-9a-fA-F][0-9a-fA-F]{3}/g) || []).length > 1000],
 ];
 let bad = 0;
 for (const [n, ok] of checks) { if (!ok) bad++; console.log((ok ? 'PASS' : 'FAIL') + '  ' + n); }
