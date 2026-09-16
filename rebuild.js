@@ -55,26 +55,29 @@ function rebuild(buf, newContents) {
 
   const mods = readModules(buf, dataStart, modOff, modLen);
 
-  // ---- 18.2.1+ bytecode 布局:表后追加 + 表零位移(mode C,2026-09-16 定稿) ----
-  // 布局: [前缀区(含共享 bytecode blob)][contents][names][table][tailZone][argv][offsets][marker]
+  // ---- 18.2.1+ bytecode 布局:mode C(2026-09-16 定稿) ----
+  // 布局: [前缀区(含共享 bytecode blob)][旧 contents][旧 names][旧 table][tailZone][argv][offsets][marker]
   // 语义(实测):
-  //   - 运行时优先执行 mod0 的 bytecode(mod0 rest+8/+12 描述,位于前缀区内,全包共享;
-  //     全部 320 条记录的 rest+32 指向 blob 内自身偏移,blob 绝不可覆盖)
+  //   - 运行时优先执行 mod0 的 bytecode(由 mod0 rest+8/+12 描述,位于前缀区内);
+  //     全部 320 条记录的 rest+32 指向同一 blob 内自身偏移 -> **blob 是全包共享资源,绝不可写入**
+  //     (清零任一模块 rest+32 即整个运行时失能;把源码写进该区会静默破坏其他模块)
   //   - 清零 rest+8/+12 后,运行时回退执行**表项 contents** 指向的 JS 源码(实测译文生效)
-  //   - 因此: 表项 contents off/len 是权威源码指针,可直接重定位;blob 字节保持原样
-  // 做法:
-  //   1) 清零 mod0 bytecode 描述符(rest+8/+12 = 0) -> 回退源码
-  //   2) 被改模块新内容追加到**模块表之后**(table 位置零位移!)
-  //      -- 前置检查实证: 前缀内有 63 处 u32 指向表区、3 处指向尾区,
-  //         表必须原位不动,这些引用才保持有效
-  //   3) 只更新被改模块表项的 off/len;tailZone/argv/offsets/marker 依次后移(自描述)
-  //   4) [0, modOff+modLen) 逐字节不动(前缀/旧 contents/names/表全部原位)
+  //   - 表项 contents off/len 是权威源码指针,可重定位;blob 字节保持原样
+  // 做法(真实不变量,勿按表零位移理解):
+  //   1) 清零 mod0 bytecode 描述符(rest+8/+12 = 0)-> 回退源码
+  //   2) 被改模块新内容写到**旧表区起点**(appendBase = modOff),即覆盖旧表位置
+  //   3) 表随后移到 modOff + appendLen(contents 偏移必须 < 表位置,loader 要求;
+  //      实测表零位移、内容追加到表之后会崩)
+  //   4) [0, modOff) 逐字节不动 -> 前缀 66 万处绝对偏移与全部 rest 字段天然有效
+  //   5) tailZone/argv/offsets/marker 依次后移(自描述,header u64 重算)
+  // 试错记录:内容写入 blob 区 = 覆盖共享 bytecode(仅 mod0 路径的 --help 看不出,已废);
+  //           内容追加到表之后(表零位移)= 增长版 OOM 崩溃(已废).
   const bcOff0 = mods.length ? buf.readUInt32LE(dataStart + modOff + 24) : 0;
   const bcLen0 = mods.length ? buf.readUInt32LE(dataStart + modOff + 28) : 0;
   if (bcOff0 > 0 && bcLen0 > 0 && !process.env.OMP_LEGACY_REBUILD) {
     const tailZone = buf.slice(dataStart + modOff + modLen, dataStart + argvOff);
     const marker = buf.slice(dataStart + header - 16, dataStart + header);
-    // 追加区起点 = 表末尾(表原位)
+    // 追加区起点 = 旧表起点(覆盖旧表区;表随后移到追加内容之后)
     const appendBase = modOff;
     const appends = [];
     let appendLen = 0;
