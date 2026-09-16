@@ -55,42 +55,73 @@ function rebuild(buf, newContents) {
 
   const mods = readModules(buf, dataStart, modOff, modLen);
 
-  // ---- 18.2.1+ bytecode 布局:零位移外科手术 ----
-  // 布局: [前缀区 Z(=53MB,含 mod0 的 45MB bytecode + 结构数据)][contents][names][table][tailZone][argv][offsets][marker]
-  // 运行时优先执行 mod0 bytecode -> 改源码无效(实测).做法:
-  //   1) 失效 mod0 bytecode 指针(rest+8/+12 置 0) -> 运行时回退 JS 源码
-  //   2) 失效后的 45MB 空间成为自由区;被改模块的新内容写入该区,只改其记录(off/len)
-  //   3) 其余字节(前缀/未改模块/表位置/argv/offsets/marker/文件大小)完全不动 -> 无需重排,
-  //      前缀内指向 contents 的 66 万处指针与 rest 内跨区指针全部保持有效
+  // ---- 18.2.1+ bytecode 布局:表后追加 + 表零位移(mode C,2026-09-16 定稿) ----
+  // 布局: [前缀区(含共享 bytecode blob)][contents][names][table][tailZone][argv][offsets][marker]
+  // 语义(实测):
+  //   - 运行时优先执行 mod0 的 bytecode(mod0 rest+8/+12 描述,位于前缀区内,全包共享;
+  //     全部 320 条记录的 rest+32 指向 blob 内自身偏移,blob 绝不可覆盖)
+  //   - 清零 rest+8/+12 后,运行时回退执行**表项 contents** 指向的 JS 源码(实测译文生效)
+  //   - 因此: 表项 contents off/len 是权威源码指针,可直接重定位;blob 字节保持原样
+  // 做法:
+  //   1) 清零 mod0 bytecode 描述符(rest+8/+12 = 0) -> 回退源码
+  //   2) 被改模块新内容追加到**模块表之后**(table 位置零位移!)
+  //      -- 前置检查实证: 前缀内有 63 处 u32 指向表区、3 处指向尾区,
+  //         表必须原位不动,这些引用才保持有效
+  //   3) 只更新被改模块表项的 off/len;tailZone/argv/offsets/marker 依次后移(自描述)
+  //   4) [0, modOff+modLen) 逐字节不动(前缀/旧 contents/names/表全部原位)
   const bcOff0 = mods.length ? buf.readUInt32LE(dataStart + modOff + 24) : 0;
   const bcLen0 = mods.length ? buf.readUInt32LE(dataStart + modOff + 28) : 0;
   if (bcOff0 > 0 && bcLen0 > 0 && !process.env.OMP_LEGACY_REBUILD) {
-    const out = Buffer.from(buf); // 就地修改副本
-    const freeStart = bcOff0;
-    const freeEnd = bcOff0 + bcLen0;
-    let cursor = freeStart;
-    let placed = 0, unchanged = 0;
+    const tailZone = buf.slice(dataStart + modOff + modLen, dataStart + argvOff);
+    const marker = buf.slice(dataStart + header - 16, dataStart + header);
+    // 追加区起点 = 表末尾(表原位)
+    const appendBase = modOff;
+    const appends = [];
+    let appendLen = 0;
     for (let i = 0; i < mods.length; i++) {
-      if (newContents[i] === undefined) { unchanged++; continue; }
-      const body = newContents[i];
-      if (cursor + body.length + 1 > freeEnd) {
-        throw new Error('rebuild: bytecode free region too small (' + (freeEnd - freeStart) + ' B) for module ' + i + ' (' + body.length + ' B)');
-      }
-      out.write(body.toString('latin1'), dataStart + cursor, 'latin1');
-      out[dataStart + cursor + body.length] = 0; // NUL 终止
-      const p = dataStart + modOff + i * 52;
-      out.writeUInt32LE(cursor, p + 8);
-      out.writeUInt32LE(body.length, p + 12);
-      cursor += body.length + 1;
-      placed++;
+      if (newContents[i] === undefined) continue;
+      const body = Buffer.concat([newContents[i], Buffer.from([0])]);
+      appends.push({ i, off: appendBase + appendLen, len: body.length, body });
+      appendLen += body.length;
     }
-    // 失效 mod0 bytecode(其空间已被复用)
-    out.writeUInt32LE(0, dataStart + modOff + 24);
-    out.writeUInt32LE(0, dataStart + modOff + 28);
+    const tablePos = modOff + appendLen;
+    const tableBytes = Buffer.from(buf.slice(dataStart + modOff, dataStart + modOff + modLen));
+    for (const a of appends) {
+      tableBytes.writeUInt32LE(a.off, a.i * 52 + 8);
+      tableBytes.writeUInt32LE(a.len - 1, a.i * 52 + 12);
+    }
+    tableBytes.writeUInt32LE(0, 24); // mod0 bytecode offset -> 0 (回退源码)
+    tableBytes.writeUInt32LE(0, 28); // mod0 bytecode length -> 0
+    const argvStart = appendBase + appendLen + tailZone.length;
+    const byteCount = argvStart + argv.length + 1;
+    const offsets = Buffer.alloc(32);
+    offsets.writeUInt32LE(byteCount, 0);
+    offsets.writeUInt32LE(0, 4);
+    offsets.writeUInt32LE(tablePos, 8);
+    offsets.writeUInt32LE(modLen, 12);
+    offsets.writeUInt32LE(entryPointId, 16);
+    offsets.writeUInt32LE(argvStart, 20);
+    offsets.writeUInt32LE(argvLen, 24);
+    offsets.writeUInt32LE(flags, 28);
+    const parts = [buf.slice(dataStart, dataStart + modOff)];
+    for (const a of appends) parts.push(a.body);
+    parts.push(tableBytes);
+    parts.push(tailZone, argv, Buffer.from([0]), offsets, marker);
+    const newData = Buffer.concat(parts);
+    if (newData.length > 0xFFFFFFFF - 8) throw new Error('data too big');
+    const newHeader = Buffer.alloc(8);
+    newHeader.writeUInt32LE(newData.length, 0);
+    const newVSize = 8 + newData.length;
+    const newRawSize = Math.ceil(newVSize / fileAlignment) * fileAlignment;
+    const bunSec = (() => { const { secTable } = parseExe(buf); return secTable + bun.index * 40; })();
+    const headBytes = Buffer.from(buf.slice(0, bun.rawPtr));
+    headBytes.writeUInt32LE(newVSize, bunSec + 8);
+    headBytes.writeUInt32LE(newRawSize, bunSec + 16);
+    headBytes.writeUInt32LE(Math.ceil((bun.vaddr + newVSize) / sectionAlignment) * sectionAlignment, sizeOfImageOff);
     if (process.env.OMP_REBUILD_STATS) {
-      console.error('rebuild[modeB]: placed=' + placed + ' unchanged=' + unchanged + ' free=' + (freeEnd - freeStart) + ' used=' + (cursor - freeStart));
+      console.error('rebuild[modeC]: appended=' + appends.length + ' bytes=' + appendLen + ' exe=' + (headBytes.length + 8 + newData.length + (newRawSize - newVSize)));
     }
-    return out;
+    return Buffer.concat([headBytes, newHeader, newData, Buffer.alloc(newRawSize - newVSize)]);
   }
 
   // ---- 18.2.1+: 模块级 bytecode 失效化(源码路径回退) ----

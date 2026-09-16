@@ -587,3 +587,34 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
 - **终验**:`tools-verify-1821.js` 28/28 PASS(含 bytecode 失效/零位移不变量/新增两条 window-hide).
   verify PASS,smoke `omp/18.2.1 helpCJK=1577`,gap 11599(较 18.1.22 的 11380 +219).
   交付 DEFERRED(staged sha256 与 work 产物一致,看护在位).
+
+### 18.2.1 布局适配(定稿):mode C -- 表前追加 + 表后移
+前述 mode B(复用 bytecode 区)经审查**有致命缺陷**:mod0 的 bytecode blob 是全包共享资源
+(全部 320 条记录的 `rest+32` 都指向 blob 内自身偏移;清零任一模块的 rest+32 即整个运行时失能,
+实测 status=3),把新源码写进该区会覆盖其余模块的 bytecode -- 而 `--help`/`--version` 只走
+mod0 路径,看不出 Web UI 等模块已静默损坏.
+
+**语义澄清(实测)**:`rest+8/+12` 是 mod0 bytecode 描述符,`rest+32` 是各模块在 blob 内的偏移;
+**清零 rest+8/+12 后,运行时回退执行表项 contents 指向的 JS 源码**(非 blob 内副本).
+
+**mode C 做法(定稿)**:
+1. 清零 mod0 的 `rest+8/+12` -> 回退源码
+2. 被改模块新内容追加到**模块表之前**(`appendBase = modOff`),表随后移到 `modOff + appendLen`
+3. 只更新被改模块表项的 off/len;tailZone/argv/offsets/marker 依次后移(自描述,header 重算)
+4. blob 字节**一个都不动**
+
+**试错记录(避免重走)**:曾试"追加到表之后(表零位移)"-> 增长版崩(status=3,Commit 12.98GB),
+而等长 roundtrip 正常 => loader 要求 contents 偏移 < 表位置;也试过"内容写进 blob 区"-> 覆盖
+共享 bytecode(见上).两种都不可用,唯 mode C 可用.
+
+**验证**:`tools-verify-1821.js` 30/30 PASS,核心不变量:
+- `[0, modOff)` 与 vanilla **逐字节相同**(mode C 安全性的全部依据:前缀 66 万处绝对偏移 + 全部 rest 有效)
+- 共享 blob 字节未被写入
+- mod0 描述符清零 + 表项指向追加区;仅被翻译的 3 个模块(mod0/74/75)重定位
+- 表随内容后移;模块数不变
+
+**模块级译文落地确认**:mod74/75(web 模板/tool-views)含 CJK 转义,mod0 含 31947 处 --
+说明三模块译文均写入新源码位置;`--export` 走 mod73(HTML 模板),其字典项在 18.2.1 未命中
+(仅有 `&#x2026;` 实体差异),属补译范围,非布局缺陷.
+
+**交付**:staged sha256 `a0933edf..` 与 work 产物一致(241,116,672 B),看护在位,会话退出后自动替换.
