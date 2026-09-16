@@ -1,3 +1,27 @@
+## WS-0916-01: 校验信任锚(2026-09-16)
+
+**问题**:`fetchSums` 在官方源失败后允许 SHA256SUMS 走镜像链,而 exe 也走同一镜像链.
+同一个不可信端能同时控制文件与摘要时,哈希相等只证明二者一致,不证明来自官方.
+旧注释"镜像篡改会被校验拦截"过强.
+
+**修复**(仅 `update-zh.js`):
+- 镜像只传 exe 字节,永不提供期望摘要.
+- 摘要来源按序:操作者 `OMP_TRUST_DIGEST=<64hex>` -> 官方 SHA256SUMS 资产直连 ->
+  官方 Releases API `assets[].digest`(`gh api` 优先,直连 api.github.com 兜底).
+  上游 v18.2.1 起不再发布 SHA256SUMS.txt,实测走 API digest 路径.
+- 三者皆不可用 -> 失败关闭,错误信息给出 `OMP_TRUST_DIGEST` 用法.
+- 缓存摘要需 `work/SHA256SUMS.provenance.json` 记录同 tag 且来源为 operator/official-*;
+  无来源或来源为 mirror 的缓存一律不采信.
+- 摘要与字节不符时同时作废下载文件与缓存 provenance.
+- 摘要在本地复用检查之前只解析一次,信任错误不再被降级成"改走镜像下载".
+
+**验证**:
+- 离线:`G:/tmp/ompzh-ws01/verify-digest-trust.js` 用真实 `download()`(无网络)跑 6 例
+  (仅镜像摘要=失败关闭;操作者摘要 vs 镜像篡改 exe=拒绝;官方摘要+匹配镜像 exe=接受;
+  mirror 来源缓存=不采信;非法摘要=拒绝;官方 API 摘要回退=接受),6/6 PASS.
+- 联网:`node update-zh.js --force --no-deliver` 全程通过;官方 SHA256SUMS 摘要、
+  官方 API 摘要与下载字节三者一致(`fee52652c7b0..`);provenance 记录 source=official-sums.
+
 # omp-zh 17.4.0 大版本更新记录（2026-08-21）
 
 ## 概要

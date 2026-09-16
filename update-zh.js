@@ -28,6 +28,22 @@ const MIRRORS = [
 ];
 const DL_EXE = T + '/work/omp-dl.exe';
 const DL_SUMS = T + '/work/SHA256SUMS.txt';
+// 校验信任锚(WS-0916-01,2026-09-16):摘要只能来自独立可信来源,镜像只允许传 exe 字节.
+// 旧实现允许 SHA256SUMS 走镜像链,同一不可信端可同时控制 exe 与摘要 -> 哈希相等只证明二者一致,
+// 不证明来自官方.现在:
+//   1) OMP_TRUST_DIGEST=<64hex> 由操作者独立核验后提供,优先级最高;
+//   2) 官方直连 https://github.com/<repo>/releases/download/v<tag>/SHA256SUMS.txt;
+//   3) 官方 API releases/tags/v<tag> 的 assets[].digest(gh api 优先,curl 直连 api.github.com 兜底);
+//   三者全部不可用 -> 失败关闭(不交付),并在错误里说明如何提供可信摘要.
+const TRUST_DIGEST = (process.env.OMP_TRUST_DIGEST || '').trim().toLowerCase();
+const SUMS_PROVENANCE = T + '/work/SHA256SUMS.provenance.json';
+// 缓存摘要文件的来源标记:无标记或标记为 mirror 的缓存一律视为不可信,必须重新获取.
+function readSumsProvenance() {
+  try { return JSON.parse(fs.readFileSync(SUMS_PROVENANCE, 'utf8')); } catch { return null; }
+}
+function writeSumsProvenance(tag, source, hex) {
+  try { fs.writeFileSync(SUMS_PROVENANCE, JSON.stringify({ tag, source, hex, at: new Date().toISOString() }, null, 2)); } catch { /* 非致命 */ }
+}
 const LOCAL_EXE = 'G:/omp/omp-zh.exe'; // 检测汉化版自身版本（原读官方版 omp.exe 导致检测与实际使用脱节）
 const DELIVER = 'G:/omp/omp-zh.exe';
 const LAST_VER_FILE = T + '/work/.omp-zh-last-version';
@@ -90,66 +106,99 @@ function download(tag) {
   const sumsUrl = ghUrl.replace(ASSET, 'SHA256SUMS.txt');
   const sumsTagFile = `${DL_SUMS}.${tag}`; // 每版本独立缓存，防止旧版 SUMS 误校验新版文件
   const haveSums = () => { if (fs.existsSync(sumsTagFile) && fs.statSync(sumsTagFile).size > 0) return sumsTagFile; return null; };
-  const fetchSums = () => {
-    // 官方源优先，失败走镜像链（SUMS 走镜像仍安全：篡改会被哈希校验拦截，与 exe 同理）
+  // 可信摘要缓存判定:文件存在,且 provenance 记录的 tag 与 source 都可信(operator/official-*).
+  const haveTrustedSums = (tag) => {
+    if (!haveSums()) return null;
+    const p = readSumsProvenance();
+    if (!p || p.tag !== tag) return null;
+    if (p.source !== 'operator' && p.source !== 'official-sums' && p.source !== 'official-api') return null;
+    return sumsTagFile;
+  };
+  const writeTrustedSums = (tag, source, hex) => {
+    fs.writeFileSync(sumsTagFile, hex + '  ' + ASSET + '\n');
+    writeSumsProvenance(tag, source, hex);
+    return sumsTagFile;
+  };
+  // 从官方 SHA256SUMS 内容里取出本资产的期望摘要,用于 provenance 审计记录.
+  const digestFromSums = (p) => {
     try {
-      sh('curl', ['-fsSL', '--connect-timeout', '30'].concat(curlProxyArgs, ['-o', sumsTagFile, sumsUrl]), { timeout: 120000 });
-      if (fs.existsSync(sumsTagFile) && fs.statSync(sumsTagFile).size > 0) return sumsTagFile;
-      throw new Error('empty sums');
-    } catch { /* fall through to mirrors */ }
-    let lastE = null;
-    for (const m of MIRRORS) {
-      if (!m) continue;
-      try {
-        sh('curl', ['-fsSL', '--connect-timeout', '15', '--max-time', '30', '-o', sumsTagFile, m + sumsUrl], { timeout: 45000 });
-        if (fs.existsSync(sumsTagFile) && fs.statSync(sumsTagFile).size > 0) return sumsTagFile;
-      } catch (e) { lastE = e; }
+      const line = fs.readFileSync(p, 'utf8').split('\n').find(l => l.includes(ASSET));
+      return line ? line.trim().split(/\s+/)[0].toLowerCase() : null;
+    } catch { return null; }
+  };
+  // 唯一允许的摘要来源:操作者显式提供(最高优先级).
+  const fetchOperatorDigest = (tag) => {
+    if (!TRUST_DIGEST) return null;
+    if (!/^[0-9a-f]{64}$/.test(TRUST_DIGEST)) {
+      throw new Error('OMP_TRUST_DIGEST is not a 64-char hex sha256: ' + TRUST_DIGEST.slice(0, 16));
     }
-    throw new Error('SUMS fetch failed via all mirrors: ' + (lastE && lastE.message));
+    log('using operator-provided digest for ' + ASSET + ' (' + TRUST_DIGEST.slice(0, 16) + '..)');
+    return writeTrustedSums(tag, 'operator', TRUST_DIGEST);
+  };
+  // 官方直连摘要(不经镜像):github.com release 资产,或 API 的 assets[].digest.
+  const fetchOfficialSums = () => {
+    sh('curl', ['-fsSL', '--connect-timeout', '30'].concat(curlProxyArgs, ['-o', sumsTagFile, sumsUrl]), { timeout: 120000 });
+    if (fs.existsSync(sumsTagFile) && fs.statSync(sumsTagFile).size > 0) {
+      writeSumsProvenance(tag, 'official-sums', digestFromSums(sumsTagFile));
+      return sumsTagFile;
+    }
+    throw new Error('empty sums from official source');
   };
   // SUMS 资产缺失回退(2026-09-16,上游 v18.2.1 起不再发布 SHA256SUMS.txt):
   // 改用 releases API 的 assets[].digest 字段("sha256:<hex>")作为期望值,写成本地清单格式.
+  // 只走官方端点(gh api,或直连 api.github.com);镜像 API 代理不参与,否则又回到"同一端控制两边".
   const fetchDigestFromApi = () => {
     const apiUrl = `https://api.github.com/repos/${REPO}/releases/tags/v${tag}`;
-    const tryApi = (url) => {
-      const out = sh('curl', ['-fsSL', '--connect-timeout', '20', '--max-time', '40'].concat(curlProxyArgs, [url]), { timeout: 60000 });
+    const parse = (out) => {
       const j = JSON.parse(out);
       const a = (j.assets || []).find(x => x.name === ASSET);
       if (!a || !a.digest) return null;
       const hex = String(a.digest).replace(/^sha256:/i, '').toLowerCase();
       if (!/^[0-9a-f]{64}$/.test(hex)) return null;
-      fs.writeFileSync(sumsTagFile, hex + '  ' + ASSET + '\n');
-      log('SUMS asset missing - using API digest for ' + ASSET + ' (' + hex.slice(0, 16) + '..)');
-      return sumsTagFile;
+      log('SUMS asset missing - using official API digest for ' + ASSET + ' (' + hex.slice(0, 16) + '..)');
+      return writeTrustedSums(tag, 'official-api', hex);
     };
-    try { const r = tryApi(apiUrl); if (r) return r; } catch (e) { /* try mirrors */ }
-    for (const m of MIRRORS) {
-      if (!m) continue;
-      try { const r = tryApi(m + apiUrl); if (r) return r; } catch (e) { /* next */ }
-    }
-    throw new Error('API digest fallback failed for ' + ASSET);
+    try { return parse(sh('gh', ['api', `repos/${REPO}/releases/tags/v${tag}`])); } catch (e) { /* 直连兜底 */ }
+    return parse(sh('curl', ['-fsSL', '--connect-timeout', '20', '--max-time', '40'].concat(curlProxyArgs, [apiUrl]), { timeout: 60000 }));
   };
-  // 本地已有文件：先尝试只用校验文件验证（无校验文件则下载）
+  // 按可信度顺序取摘要;全不可用则失败关闭.注意:这里没有任何镜像回退.
+  const resolveTrustedSums = () => {
+    const cached = haveTrustedSums(tag);
+    if (cached) return cached;
+    const op = fetchOperatorDigest(tag);
+    if (op) return op;
+    try { return fetchOfficialSums(); } catch (e) { log('official SUMS unavailable (' + e.message.slice(0, 80) + ') - trying official API digest'); }
+    try { return fetchDigestFromApi(); } catch (e) { /* fall through to fail-closed */ }
+    throw new Error(
+      'no trusted digest source for v' + tag + ': official SHA256SUMS.txt, official API digest and OMP_TRUST_DIGEST all unavailable. ' +
+      'Refusing to deliver on a mirror-provided digest. Verify the release digest out of band and re-run with OMP_TRUST_DIGEST=<64hex>.'
+    );
+  };
+  // 可信摘要只解析一次,且在任何"可能被吞掉"的分支之前:摘要来源不可用时必须直接失败关闭,
+  // 不能被下面的本地复用 try/catch 降级成"改走镜像下载",那会把信任错误伪装成网络错误.
+  const sumsPath = resolveTrustedSums();
+  const expectedDigest = (() => {
+    const sums = fs.readFileSync(sumsPath, 'utf8');
+    const line = sums.split('\n').find(l => l.includes(ASSET));
+    if (!line) throw new Error('trusted digest list missing entry for ' + ASSET);
+    return line.trim().split(/\s+/)[0].toLowerCase();
+  })();
+  const sha256Of = (p) => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+
+  // 本地已有文件:用已解析的可信摘要直接比对(这里不再解析摘要,失败即下载)
   if (fs.existsSync(DL_EXE)) {
     try {
-      let sumsPath = haveSums();
-      if (!sumsPath) { try { sumsPath = fetchSums(); } catch { sumsPath = fetchDigestFromApi(); } }
-      const sums = fs.readFileSync(sumsPath, 'utf8');
-      const line = sums.split('\n').find(l => l.includes(ASSET));
-      if (line) {
-        const expected = line.trim().split(/\s+/)[0].toLowerCase();
-        const actual = crypto.createHash('sha256').update(fs.readFileSync(DL_EXE)).digest('hex');
-        if (expected === actual) {
-          log('reusing pre-downloaded ' + ASSET + ' (sha256 OK: ' + actual.slice(0, 16) + '…)');
-          return DL_EXE;
-        }
-        log('pre-downloaded file sha256 mismatch — re-downloading');
+      const actual = sha256Of(DL_EXE);
+      if (expectedDigest === actual) {
+        log('reusing pre-downloaded ' + ASSET + ' (sha256 OK: ' + actual.slice(0, 16) + '..)');
+        return DL_EXE;
       }
-    } catch (e) { log('local reuse check failed: ' + e.message + ' — downloading'); }
+      log('pre-downloaded file sha256 mismatch - re-downloading');
+    } catch (e) { log('local reuse check failed: ' + e.message + ' - downloading'); }
   }
   fs.rmSync(DL_EXE, { force: true }); // 禁用断点续传语义：上游替换资产后 -C - 会把新旧字节拼成确定性脏文件
   log('downloading ' + ASSET + ' v' + tag);
-  // 镜像链依序尝试；最后一个条目是直连 GitHub 兜底。任一镜像产物均由下方官方 SUMS 强制校验。
+  // 镜像链依序尝试;最后一个条目是直连 GitHub 兜底.镜像产物只提供字节,期望摘要必须来自可信来源.
   let lastErr = null;
   for (const m of MIRRORS) {
     const url = m + ghUrl;
@@ -164,17 +213,14 @@ function download(tag) {
     }
   }
   if (!fs.existsSync(DL_EXE)) throw new Error('all mirrors failed, last error: ' + (lastErr && lastErr.message));
-  let sumsPath;
-  try { sumsPath = fetchSums(); }
-  catch (e) { log('SUMS unavailable (' + e.message.slice(0, 80) + ') - falling back to API digest'); sumsPath = fetchDigestFromApi(); }
-  const sums = fs.readFileSync(sumsPath, 'utf8');
-  // 校验
-  const line = sums.split('\n').find(l => l.includes(ASSET));
-  if (!line) throw new Error('SHA256SUMS.txt missing entry for ' + ASSET);
-  const expected = line.trim().split(/\s+/)[0].toLowerCase();
-  const actual = crypto.createHash('sha256').update(fs.readFileSync(DL_EXE)).digest('hex');
-  if (expected !== actual) { fs.rmSync(DL_EXE, { force: true }); throw new Error(`sha256 mismatch for ${ASSET}: expected ${expected}, got ${actual}`); }
-  log('sha256 OK: ' + actual.slice(0, 16) + '…');
+  // 镜像只负责传字节;期望摘要已在上方从可信来源解析,这里只做比对.
+  const actual = sha256Of(DL_EXE);
+  if (expectedDigest !== actual) {
+    fs.rmSync(DL_EXE, { force: true });
+    fs.rmSync(SUMS_PROVENANCE, { force: true }); // 摘要与实际字节不符:连带作废缓存摘要,避免下一轮沿用
+    throw new Error(`sha256 mismatch for ${ASSET}: expected ${expectedDigest}, got ${actual}`);
+  }
+  log('sha256 OK: ' + actual.slice(0, 16) + '..');
   return DL_EXE;
 }
 
