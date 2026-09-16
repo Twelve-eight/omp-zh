@@ -599,7 +599,7 @@ mod0 路径,看不出 Web UI 等模块已静默损坏.
 
 **mode C 做法(定稿)**:
 1. 清零 mod0 的 `rest+8/+12` -> 回退源码
-2. 被改模块新内容追加到**模块表之前**(`appendBase = modOff`),表随后移到 `modOff + appendLen`
+2. 被改模块新内容写到**旧表区起点**(`appendBase = modOff`,即覆盖旧表位置),表随后移到 `modOff + appendLen`
 3. 只更新被改模块表项的 off/len;tailZone/argv/offsets/marker 依次后移(自描述,header 重算)
 4. blob 字节**一个都不动**
 
