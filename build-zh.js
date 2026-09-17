@@ -102,12 +102,13 @@ newContents[webIdx.views] = Buffer.from(asciiEscape(web.mods.views.toString('utf
   });
   const delta = newBlobLen - origBlobLen;
   console.log('strings blob: orig=' + origBlobLen + ' new=' + newBlobLen + ' delta=' + (delta > 0 ? '+' : '') + delta);
-  // 18.2.1+ bytecode 布局:模块内容写入 bytecode 自由区,串区总长与加载器无关(rebuild mode B),
-  // 无需补偿 -- 强行裁 CHANGELOG 反而会白白丢内容.
+  // 18.2.1+ bytecode 布局(rebuild mode C):被改模块新内容写到旧表起点、表随后后移,
+  // 共享 bytecode blob 一字未动 -> 模块串区总长与加载器无关,无需补偿
+  // (旧布局的串区总长约束仅存在于交错型;此处强行裁 CHANGELOG 只会白白丢内容).
   const bcOff = mods.length ? srcBuf.readUInt32LE(dataStart + srcBuf.readUInt32LE(O + 8) + 24) : 0;
-  const modeB = bcOff > 0 && !process.env.OMP_LEGACY_REBUILD;
-  if (modeB) {
-    console.log('blob compensation skipped (bytecode layout: growth absorbed by free region)');
+  const hasBytecodeLayout = bcOff > 0 && !process.env.OMP_LEGACY_REBUILD;
+  if (hasBytecodeLayout) {
+    console.log('blob compensation skipped (bytecode layout: mode C relocates contents, blob untouched)');
   } else if (delta > 0) {
     let ci = -1;
     mods.forEach((m, i) => { if (m.name.toString('latin1').includes('CHANGELOG')) ci = i; });
