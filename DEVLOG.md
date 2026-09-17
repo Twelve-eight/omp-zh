@@ -592,8 +592,8 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   3) 前缀/未改模块/表位置/argv/offsets/marker/文件大小**全部不动** -> 前缀内 66 万处
      指针与 rest 跨区指针天然保持有效(这是重排方案必崩、而本方案可行的根本原因).
   实测:mod0 +1MB 增长正常启动;exe 大小与原版完全一致(211,734,016 B).
-- **build-zh 补偿逻辑自适应**:mode B 下串区总长与加载器无关(增长由自由区吸收),
-  CHANGELOG 补偿跳过(否则白白丢内容);旧布局仍走原补偿路径.
+- **build-zh 补偿逻辑自适应**:bytecode 布局下串区总长与加载器无关(mode C 把内容写到旧表起点, blob 未动),
+  CHANGELOG 补偿跳过(否则白白丢内容);交错型旧布局仍走原补偿路径.(同段上文 mode B 描述为当时的错误方案,已由后文"布局适配(定稿)"纠正为 mode C.)
 - **18.2.1 锚点**(五组 16 条,全部命中,`ok=19 warn=0`):
   - stopcap:`eNn/oWa/tNn/sNn/nWa` 簇,续跑 `MNn = 8`(与 FWa/zIs/qWa 同 var 组),yield `mwa/LCt`
   - leak:tunnel/uploader-sh `V7()`,ssh `jOt.homedir()`,chrome launch;另**新增两条**:
