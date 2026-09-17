@@ -642,3 +642,24 @@ mod0 路径,看不出 Web UI 等模块已静默损坏.
 (仅有 `&#x2026;` 实体差异),属补译范围,非布局缺陷.
 
 **交付**:staged sha256 `a0933edf..` 与 work 产物一致(241,116,672 B),看护在位,会话退出后自动替换.
+
+## 2026-09-18:18.2.4 构建 -- 布局未变(mode C 直接适用),锚点全量迁移
+- **上游**:18.2.1 -> 18.2.4(跳三版;18.2.1 staged 未交付,看护 24h 超时退出,目标仍 18.1.22).
+- **布局检查(技能准则第一步)**:零改动 roundtrip **PASS** + mod0 +4KB 增长 **PASS**
+  => 18.2.4 沿用 18.2.1 的 bytecode 布局,mode C 直接适用,无需改 rebuild.
+  结构:323 模块(modLen 16796 = 323*52 整除),mod0 bytecode [120, 45,706,264),CHANGELOG 在 mod98.
+- **下载**:走 7897 代理,212MB / **8.8s**;官方 digest(API assets[].digest)
+  `2ca8f2e1..` 与下载 sha256 一致(上游仍不发 SHA256SUMS.txt,回退路径生效).
+- **18.2.4 锚点**(五组 16 条,`ok=24 warn=0`):
+  - stopcap:`kLn/KGa/bLn/SLn/VGa` 簇,续跑 `XLn = 8`(同组 b3a/w_s/S3a),yield `Vba/Hwt`
+  - leak:tunnel/uploader-sh `p6()`,ssh `t0t.homedir()`,chrome launch;python kernel 的
+    console 探测函数 `iZt -> vJt`(仍为 `windowsHide: vJt({platform,hostHasInheritableConsole:kD()})`,
+    强制恒真 + 探测体改 `return true`)
+  - replay:`MZ/LF/#k`;flush 门仍在(`#t/#e` + `#y()/#S()`)
+  - encstale:正则数组 `uQs`/`J0r`,QLt 调用 `IQe/i8r`,Xni `Iie(s ? [..s, ..n] : n)`,
+    Mbe `nae` 内 `input: n?.length ? [..n, ..r] : r`;compat schema/T7/QLt items 跨版稳定
+- **终验**:`tools-verify-1824.js`(由 1821 版克隆,版本相关断言已换)30/30 PASS,
+  核心不变量同 mode C:`[0, modOff)` 与 vanilla 逐字节相同 / 共享 blob 未写入 /
+  仅被翻译模块重定位 / 表随内容后移.
+- **结果**:verify PASS,smoke `omp/18.2.4 helpCJK=1577`,gap 11638(+39).
+  交付 DEFERRED(staged sha256 `8db67482..` 与 work 产物一致,241,455,104 B,看护在位).
