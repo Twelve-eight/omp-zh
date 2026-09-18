@@ -87,7 +87,7 @@ const checks = [
     if (cut < 0) return false;
     try {
       const re = new RegExp(body.slice(1, cut), 'i');
-      return re.test('The encrypted content gAAA..U04= could not be verified.');
+      return re.test('400 OpenAI Responses bad request: The encrypted content gAAA..U04= could not be verified. Reason: Encrypted content could not be decrypted or parsed.');
     } catch (e) { return false; }
   })()],
   ['translation present in mod0 (CJK escapes)', (d.match(/\\u[4-9a-fA-F][0-9a-fA-F]{3}/g) || []).length > 1000],
