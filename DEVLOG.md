@@ -710,3 +710,14 @@ mod0 路径,看不出 Web UI 等模块已静默损坏.
    OMP_* env 名.依据:find 是补丁锚点,repl 是锚点上的最小改写,任何 find 之外的新压缩符号
    都意味着"改成了别的版本的名字".
 验证:干净规则 0 假阳性;注入本轮真实 bug(ssh repl 用 `t0t`)-> 立即报 RULE-BUG 且 exit 1.
+
+### RULE-BUG 改为管线级硬中止(2026-09-19,advisor 第三轮指出)
+上一轮只把校验计入 patch-zh 的 `warn`(使其 exit 1),但 `update-zh.js:254` 对非零码**只记
+WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:patch 输出含 `patch RULE-BUG`
+即 `process.exitCode=1; return;`(位于 build 之前),并实测双向:
+- 注入 ssh `t0t` -> pipeline exit=1,日志 `FAILED: patch rule self-check found bugs ... aborting before build`,未进入 build
+- 干净规则 -> exit=0,正常构建交付
+另按 advisor 建议收紧判据(去假阳性):提取 repl 标识符前先剥离正则字面量(消除 `\bencrypted`
+的 b)与引号串,并跳过 `.x`/`?.x` 属性访问(消除 `replayResponsesReasoning` 等新增属性名);
+裸压缩标识符仍严格.四类真实 bug 注入测试全部捕获(ssh t0t / probe vJt / QLt IQe / encstale uQs,
+各 RULE-BUG=1, exit=1),干净规则 0 假阳性.

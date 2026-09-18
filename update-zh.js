@@ -252,6 +252,14 @@ async function main() {
   log('applying zh patches');
   const patchRes = spawnSync('node', [T + '/patch-zh.js', cliNew], { encoding: 'utf8', timeout: 60000 });
   if (patchRes.stdout) log(patchRes.stdout.trim().split('\n').map(l => '  ' + l).join('\n'));
+  // 规则自检命中(补丁规则 repl 引用了 find 之外的压缩符号)-> 规则本身有 bug,打上去会改名
+  // 活符号 -> 运行时 ReferenceError 或静默失效,而 verify 的字面量统计查不出(2026-09-19).
+  // 必须硬中止:不得进入 build/交付.
+  if ((patchRes.stdout || '').includes('patch RULE-BUG')) {
+    log('FAILED: patch rule self-check found bugs (see patch RULE-BUG above) - aborting before build');
+    process.exitCode = 1;
+    return;
+  }
   if (patchRes.status !== 0) log('WARN: patch-zh exited ' + patchRes.status + ' — some fixes may be missing');
 
   // 差异发现(新增英文文本)

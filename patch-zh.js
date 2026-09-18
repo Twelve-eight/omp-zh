@@ -247,27 +247,34 @@ const _newestVer = (() => {
 // 关键字,两者都拦不住).校验:repl 中出现的标识符集合必须 ⊆ find ∪ 字面量,否则视为规则错误.
 // 只对"本版规则"(名称含最新版本号)启用,历史规则天然含旧名.
 const validateRules = (arr, grp, currentVer, srcText) => {
-  // 抓"批量改写新版本规则时 repl 残留上一版标识符"这一类错误(实证 18.2.6 轮 5 处).
+  // 抓"批量改写新版本规则时 repl 残留上一版压缩标识符"(实证 18.2.6 轮 5 处:
+  // ssh t0t / probe vJt / QLt IQe,i8r / Xni Iie / encstale uQs,J0r).
   //
-  // 关键认识:"符号是否存在于 bundle"是**无效判据** -- 旧版压缩名(t0t/vJt/uQs/J0r/Iie)
-  // 在 vanilla 里也真实存在(是别的模块的符号),因此必须用**白名单**判据:
-  // repl 中出现的压缩标识符,必须能在**该规则的 find 文本**里找到,或属于允许的新增符号
-  // (windowsHide / OMP_* env / 属性名)。find 是补丁锚点,repl 是在其基础上的最小改写,
-  // 任何 find 之外的新压缩符号都意味着"改了别的版本的名字".
-  const ALLOW = new Set(['windowsHide', 'Z']); // Z: repl 新增的箭头函数参数(encstale 过滤用)
+  // 判据(白名单):repl 中的**裸压缩标识符**必须能在该规则的 find 里找到.
+  // 提取前的清理(否则假阳性):
+  //   - 去掉正则字面量 /../flags(含转义) -> 消除 \bencrypted 里的 b
+  //   - 去掉引号字符串 -> 消除文案里的词
+  //   - 跳过紧跟在 . 或 ?. 之后的标识符(属性访问)-> 消除 replayResponsesReasoning 等新增属性名
+  // 豁免:windowsHide(新选项),Z(repl 新增箭头参数),OMP_*(env,由下划线大写形态天然排除)
+  const ALLOW = new Set(['windowsHide', 'Z']);
   let bad = 0;
   for (const p of arr) {
     if (!p.name || p.name.indexOf('(' + currentVer + ')') < 0) continue;
     const findTxt = p.find || '';
     const replTxt = p.repl || '';
-    const clean = (t) => t.replace(/\\[A-Za-z]/g, ' ').replace(/\/[^/\n]*\/[gimsuy]*/g, ' ');
-    const ids = Array.from(new Set((clean(replTxt).match(/[A-Za-z_$][A-Za-z0-9_$]*/g) || [])));
-    const findIds = new Set((clean(findTxt).match(/[A-Za-z_$][A-Za-z0-9_$]*/g) || []));
-    // 压缩符号:短(<=4)且含大写/数字/$;长名(如 replayResponsesReasoning)与纯大写 env 名豁免
+    const strip = (t) => t
+      .replace(/\/[^/\n]*\/[gimsuy]*/g, ' ')   // 正则字面量
+      .replace(/'[^'\n]*'/g, ' ')               // 单引号串
+      .replace(/"[^"\n]*"/g, ' ');              // 双引号串
+    const ids = Array.from(new Set((strip(replTxt).match(/[A-Za-z_$][A-Za-z0-9_$]*/g) || [])));
+    const findIds = new Set((strip(findTxt).match(/[A-Za-z_$][A-Za-z0-9_$]*/g) || []));
     const isCompressed = (x) => x.length <= 4 && /[A-Z0-9$]/.test(x) && !/^[A-Z_]{2,}$/.test(x);
     for (const x of ids) {
       if (findIds.has(x) || ALLOW.has(x)) continue;
       if (!isCompressed(x)) continue;
+      // 属性访问(.x / ?.x)豁免
+      const asProp = new RegExp('[.?]' + x.replace(/[$]/g, '\\$') + '\\b');
+      if (asProp.test(strip(replTxt))) continue;
       console.log('patch RULE-BUG: [' + grp + '] ' + p.name + ' repl 引入了 find 之外的压缩标识符: ' + x + ' (疑似上一版残留)');
       bad++;
     }
