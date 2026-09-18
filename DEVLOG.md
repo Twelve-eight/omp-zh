@@ -663,3 +663,34 @@ mod0 路径,看不出 Web UI 等模块已静默损坏.
   仅被翻译模块重定位 / 表随内容后移.
 - **结果**:verify PASS,smoke `omp/18.2.4 helpCJK=1577`,gap 11638(+39).
   交付 DEFERRED(staged sha256 `8db67482..` 与 work 产物一致,241,455,104 B,看护在位).
+
+## 2026-09-19:18.2.6 构建 -- 布局未变;上游原生实现补丁 4A;三条规则符号错位(已修+加防线)
+- **上游**:18.2.4 -> 18.2.6.布局检查:零改动 roundtrip + 4KB 增长均 **PASS**,mode C 直接适用.
+  结构:323 模块,mod0 bytecode [120, 46,022,432),CHANGELOG 在 mod145.
+  下载走 7897 代理(212MB/32s);**API 撞限流**(代理出口 IP),改用 `gh api` 取官方 digest
+  `1fbff31d..` 校验一致(SUMS 缺失回退路径仍有效,注意 api.github.com 未认证限流).
+- **上游原生实现补丁 4A(重要)**:18.2.6 新增 `wW(e)` 渲染判定(读 `message.retryRecovery`
+  输出 `compact-recovered` 徽标)+ transcript 重建时按 `retryRecovery || GP(message)` 过滤,
+  即"恢复重放"已由上游完成;我的 4A 注入点(构造函数逐字段 setter)也随重构消失
+  (改为 `attachUsage(..)`).实证:18.2.4 无 `wW` 定义,18.2.6 有 -> 4A 规则标 `legacy: true` 保留,
+  不再需要迁移.
+- **三条规则符号错位(本轮真 bug,已修)**:18.2.6 规则由 18.2.4 规则批量改写生成,导致
+  `repl` 残留上一版标识符:
+  - ssh 规则 repl 用 `t0t.homedir()`(应为 `NIt.homedir()`)
+  - QLt 规则 repl 用 `IQe/i8r`(应为 `GXe/Jni`)
+  - Xni 规则 repl 用 `Iie`(应为 `Uie`)
+  - 两条 encstale 规则 repl 用 `uQs`/`J0r`(应为 `nso`/`Z1r`)-- 会把活变量改名,分类器
+    `nso[0].test` 变 undefined -> encstale 自愈路径 TypeError
+  危险性:此类错误 `done` 命中会报 SKIP、verify 只 grep 译文关键字,**两道闸都拦不住**.
+  另:probe 规则 repl 误用 `vJt`(18.2.4 名)导致函数名与注册表 `Zts` 不匹配.
+- **新增规则自检(持久防线)**:`patch-zh.js` 加 `validateRules()`:对本版规则的 `repl` 中每个
+  标识符,要求它要么出现在 `find` 中,要么存在于原 bundle 文本中,否则报
+  `patch RULE-BUG: ... repl 使用了原 bundle 中不存在的标识符`.已用注入测试验证
+  (干净规则 0 告警;注入 `ZzQ9x` 立即捕获).调用点须在四个数组声明之后(否则 TDZ).
+- **encstale 主分支正则修正(实证)**:`[^.'"]{0,200}?` 无法匹配真实报错文本
+  `The encrypted content gAAA..U04= could not be verified.`(base64 段含 `.` 与 `=`).
+  改为 `[^'"]{0,200}?` 后实测通过.并在 `tools-verify-1826.js` 加**真实文本断言**
+  (直接构造正则测该文本),避免今后"看起来对但匹配不上"的静默失效.
+- **终验**:`tools-verify-1826.js` **31/31 PASS**(新增:retryRecovery 上游原生 wW 断言、
+  encstale 正则真实文本断言).verify PASS,smoke `omp/18.2.6 helpCJK=1577`,gap 11677(+39).
+  交付 DEFERRED(staged sha256 `9eb54464..` 与 work 产物一致,看护在位).
