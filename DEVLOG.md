@@ -694,3 +694,19 @@ mod0 路径,看不出 Web UI 等模块已静默损坏.
 - **终验**:`tools-verify-1826.js` **31/31 PASS**(新增:retryRecovery 上游原生 wW 断言、
   encstale 正则真实文本断言).verify PASS,smoke `omp/18.2.6 helpCJK=1577`,gap 11677(+39).
   交付 DEFERRED(staged sha256 `9eb54464..` 与 work 产物一致,看护在位).
+
+### 规则自检升级为**阻断门**(2026-09-19,advisor 连续两轮指出)
+初版 `validateRules()` 只打印不计入 `warn` -> patch-zh 仍 exit 0,管线照常构建交付,
+等于"看起来有防线、实际不拦"(与本轮 bug 同一失效模式).已改为:
+- 返回值 `warn += validateRules(..)` -> patch-zh exit 1 -> update-zh 中止(不构建/不交付)
+- 传入 `pristine`(未打补丁的原文)而非已被前面规则改过的 `s`,避免判定失真
+
+**判据本身也迭代了三版**(实证驱动的修正):
+1. v1 "标识符不存在于 bundle" -> **无效**:旧版压缩名(t0t/vJt/uQs/J0r/Iie)在 vanilla 里
+   真实存在(属别的模块),注入真实 bug 测不出
+2. v2 "repl 符号必须存在于 bundle" -> 同上失效,且有假阳性(\\bencrypted 的 b、env 名)
+3. v3/v4 **白名单判据(现行)**:repl 中出现的**压缩标识符**(长度<=4 且含大写/数字/$)
+   必须能在该规则的 `find` 文本中找到;豁免 `windowsHide`、箭头参数 `Z`、长属性名与
+   OMP_* env 名.依据:find 是补丁锚点,repl 是锚点上的最小改写,任何 find 之外的新压缩符号
+   都意味着"改成了别的版本的名字".
+验证:干净规则 0 假阳性;注入本轮真实 bug(ssh repl 用 `t0t`)-> 立即报 RULE-BUG 且 exit 1.
