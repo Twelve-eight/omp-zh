@@ -11,6 +11,7 @@ const fs = require('fs');
 const file = process.argv[2];
 if (!file) { console.error('usage: node patch-zh.js <cli.js>'); process.exit(2); }
 let s = fs.readFileSync(file, 'utf8');
+const pristine = s; // 规则自检用:未打任何补丁的原始 bundle
 
 let ok = 0, warn = 0;
 
@@ -246,20 +247,29 @@ const _newestVer = (() => {
 // 关键字,两者都拦不住).校验:repl 中出现的标识符集合必须 ⊆ find ∪ 字面量,否则视为规则错误.
 // 只对"本版规则"(名称含最新版本号)启用,历史规则天然含旧名.
 const validateRules = (arr, grp, currentVer, srcText) => {
-  const IDENT = /[A-Za-z_$][A-Za-z0-9_$]*/g;
+  // 抓"批量改写新版本规则时 repl 残留上一版标识符"这一类错误(实证 18.2.6 轮 5 处).
+  //
+  // 关键认识:"符号是否存在于 bundle"是**无效判据** -- 旧版压缩名(t0t/vJt/uQs/J0r/Iie)
+  // 在 vanilla 里也真实存在(是别的模块的符号),因此必须用**白名单**判据:
+  // repl 中出现的压缩标识符,必须能在**该规则的 find 文本**里找到,或属于允许的新增符号
+  // (windowsHide / OMP_* env / 属性名)。find 是补丁锚点,repl 是在其基础上的最小改写,
+  // 任何 find 之外的新压缩符号都意味着"改了别的版本的名字".
+  const ALLOW = new Set(['windowsHide', 'Z']); // Z: repl 新增的箭头函数参数(encstale 过滤用)
   let bad = 0;
   for (const p of arr) {
     if (!p.name || p.name.indexOf('(' + currentVer + ')') < 0) continue;
-    const replTxt = p.repl || '';
     const findTxt = p.find || '';
-    const ids = Array.from(new Set((replTxt.match(IDENT) || [])));
+    const replTxt = p.repl || '';
+    const clean = (t) => t.replace(/\\[A-Za-z]/g, ' ').replace(/\/[^/\n]*\/[gimsuy]*/g, ' ');
+    const ids = Array.from(new Set((clean(replTxt).match(/[A-Za-z_$][A-Za-z0-9_$]*/g) || [])));
+    const findIds = new Set((clean(findTxt).match(/[A-Za-z_$][A-Za-z0-9_$]*/g) || []));
+    // 压缩符号:短(<=4)且含大写/数字/$;长名(如 replayResponsesReasoning)与纯大写 env 名豁免
+    const isCompressed = (x) => x.length <= 4 && /[A-Z0-9$]/.test(x) && !/^[A-Z_]{2,}$/.test(x);
     for (const x of ids) {
-      if (findTxt.indexOf(x) >= 0) continue;
-      // 标识符既不在 find 中,也不在原 bundle 中 -> 必是错误符号(旧版名/笔误)
-      if (srcText.indexOf(x) < 0) {
-        console.log('patch RULE-BUG: [' + grp + '] ' + p.name + ' repl 使用了原 bundle 中不存在的标识符: ' + x);
-        bad++;
-      }
+      if (findIds.has(x) || ALLOW.has(x)) continue;
+      if (!isCompressed(x)) continue;
+      console.log('patch RULE-BUG: [' + grp + '] ' + p.name + ' repl 引入了 find 之外的压缩标识符: ' + x + ' (疑似上一版残留)');
+      bad++;
     }
   }
   return bad;
@@ -699,10 +709,13 @@ const ENCSTALE_PATCHES = [
   },
 ];
 // 规则自检(所有数组已声明后执行)
-validateRules(LEAK_PATCHES, 'leak', _newestVer, s);
-validateRules(STOPCAP_PATCHES, 'stopcap', _newestVer, s);
-validateRules(REPLAY_PATCHES, 'replay', _newestVer, s);
-validateRules(ENCSTALE_PATCHES, 'encstale', _newestVer, s);
+// 规则自检必须**阻断交付**:返回的规则错误数计入 warn(patch-zh 以 warn>0 退出 1,
+// update-zh 见非零码即中止,不会构建/交付).用 pristine(未打补丁的原文)做标识符是否存在判定,
+// 否则 s 已被前面几组规则改过,会漏报.
+warn += validateRules(LEAK_PATCHES, 'leak', _newestVer, pristine);
+warn += validateRules(STOPCAP_PATCHES, 'stopcap', _newestVer, pristine);
+warn += validateRules(REPLAY_PATCHES, 'replay', _newestVer, pristine);
+warn += validateRules(ENCSTALE_PATCHES, 'encstale', _newestVer, pristine);
 
 for (const p of ENCSTALE_PATCHES) {
   if (p.restore && s.includes(p.restore)) {
