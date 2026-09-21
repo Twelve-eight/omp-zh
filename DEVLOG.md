@@ -721,3 +721,28 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
 的 b)与引号串,并跳过 `.x`/`?.x` 属性访问(消除 `replayResponsesReasoning` 等新增属性名);
 裸压缩标识符仍严格.四类真实 bug 注入测试全部捕获(ssh t0t / probe vJt / QLt IQe / encstale uQs,
 各 RULE-BUG=1, exit=1),干净规则 0 假阳性.
+
+## 2026-09-22:18.2.8 构建 -- catalog compat 改为计算式(补丁 1 重写)
+- **上游**:18.2.6 -> 18.2.8(18.2.6 已交付).布局检查:零改动 roundtrip + 4KB 增长 **PASS**,
+  mode C 直接适用.结构:329 模块(modLen 17068 = 329*52),mod0 bytecode [120, 38,280,528),
+  CHANGELOG 在 mod147.下载 218.7MB/8.3s(7897 代理);官方 digest `b95431cb..` 一致.
+- **补丁 1 结构性重写(本轮核心)**:`supportsForcedToolChoice` 从 catalog 条目的**静态字段**
+  改为 **LBr 生成器里的运行时计算式**:
+  \`!t.requiresEnabledThinking && !(t.isOpenCodeHost && t.isDeepseekReasoning) && !(t.isClinePass && A)\`
+  静态追踪:对用户场景(agentrouter/anyrouter.top 承载 deepseek-v4-flash|pro,非直连
+  api.deepseek.com)-> requiresEnabledThinking=false(kimi only),isOpenCodeHost=false,
+  isClinePass=false -> **表达式求值为 true**,原补丁动机(thinking 模式下强制 tool_choice 400)不变.
+  故补法改为:该项整体替换为 \`false\`.旧规则(按模型名窗口扫 catalog)在 18.2.8 已失效
+  (条目内字段被移除,只剩 1 处 true 在别处),故重写并保留历史语义.
+- **18.2.8 锚点**(五组 15 条,`ok=28 warn=0`):
+  - stopcap:`u_o/sqa/p_o/c_o/nqa` 簇,续跑 `D_o = 8`,yield `r_a/Xbt`
+  - leak:tunnel/uploader-sh `hV()`,ssh `V0t.homedir()`,chrome;python kernel 探测
+    \`Eos\` + \`LW()\`(较 18.2.6 的 Zts/IW 又改名)
+  - replay:flush 门仍在(`#t/#e` + `#R()/#x()`)-- 4A 仍由上游原生实现(MW 渲染判定)
+  - encstale:正则数组 `ern`/`mGr`,QLt `FJe/Vci`,Xni `jae`,Mbe `ett` 内 `[..o, ..r]`(变量名回到 o/r)
+- **新增规则自检已生效**:插入后即跑 guard,本轮 0 误报;另有 \`validateRules\` 白名单判据
+  (repl 压缩标识符必须在 find 中)防批量改写残留.
+- **终验**:`tools-verify-1828.js` **31/31 PASS**(两条断言随上游改名更新:
+  retryRecovery 渲染判定 `wW`->`MW`,Mbe 变量 `n.filter`->`o.filter`).
+  verify PASS,smoke `omp/18.2.8 helpCJK=1577`,gap 10303.
+  交付 DEFERRED(staged 与 work 产物 sha256 一致,看护在位).

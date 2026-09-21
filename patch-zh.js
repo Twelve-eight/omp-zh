@@ -15,34 +15,28 @@ const pristine = s; // 规则自检用:未打任何补丁的原始 bundle
 
 let ok = 0, warn = 0;
 
-// ---- 补丁 1: catalog compat（仅 deepseek-v4-flash / v4-pro 条目内 supportsForcedToolChoice → false） ----
-// 注意幂等检查必须限定在这两个条目窗口内：全文件有大量其他模型的 supportsForcedToolChoice:false
-const MODELS = ['"deepseek-v4-flash"', '"deepseek-v4-pro"'];
-// 18.1.2 起 catalog 扁平化：条目带 provider: 字段，同一模型出现在多个目录表。
-// 语义：把这两个模型在【所有 provider 条目】里的 supportsForcedToolChoice 改 false
-//（历史动机：thinking 模式强制 tool_choice 400；扩到全部 provider 保持行为一致）。
-for (const name of MODELS) {
-  let i = -1, patched = 0, distinct = [];
-  while ((i = s.indexOf(name, i + 1)) !== -1) {
-    const win = s.slice(i, i + 2500);
-    if (win.includes('supportsForcedToolChoice: true')) distinct.push(i);
-  }
-  // 同一条目内 name 出现多次（id/name 行），按 200 字符去重
-  const dd = distinct.filter((x, k) => k === 0 || x - distinct[k - 1] > 200);
-  // 从后往前替换，避免偏移失效
-  for (let k = dd.length - 1; k >= 0; k--) {
-    const win = s.slice(dd[k], dd[k] + 2500);
-    s = s.slice(0, dd[k]) + win.replace('supportsForcedToolChoice: true', 'supportsForcedToolChoice: false') + s.slice(dd[k] + win.length);
-    patched++;
-  }
-  if (patched > 0) {
+// ---- 补丁 1: deepseek-v4 的 supportsForcedToolChoice(18.2.8 起改为计算式) ----
+// 历史:该字段原在 catalog 条目内静态声明,上游 18.2.8 改为运行时按 provider/模型条件计算
+// (LBr 生成器)。计算式:
+//   supportsForcedToolChoice: !t.requiresEnabledThinking && !(t.isOpenCodeHost && t.isDeepseekReasoning) && !(t.isClinePass && A)
+// 对用户场景(agentrouter/anyrouter.top 承载 deepseek-v4-flash|pro,非直连 DeepSeek API):
+//   requiresEnabledThinking = u && t.is("kimi") && t.family("k2.7-code") -> false
+//   isOpenCodeHost = false(非 opencode-go/zen)
+//   -> 表达式求值为 true,thinking 模式下强制 tool_choice 仍会 400(补丁动机不变)。
+// 补法:把该项整体改为 false(与历史补丁语义一致:这两个模型不支持强制工具选择)。
+{
+  const find = 'supportsForcedToolChoice: !t.requiresEnabledThinking && !(t.isOpenCodeHost && t.isDeepseekReasoning) && !(t.isClinePass && A),';
+  const repl = 'supportsForcedToolChoice: false,';
+  const c = s.split(find).length - 1;
+  if (c === 1) {
+    s = s.split(find).join(repl);
     ok++;
-    console.log('patch OK: ' + name + ' supportsForcedToolChoice → false (' + patched + ' entries)');
-  } else if (s.includes(name) && s.slice(s.indexOf(name), s.indexOf(name) + 2500).includes('supportsForcedToolChoice: false')) {
+    console.log('patch OK: deepseek compat branch supportsForcedToolChoice -> false (computed form)');
+  } else if (c === 0 && s.includes('supportsForcedToolChoice: false,')) {
     ok++;
-    console.log('patch SKIP: ' + name + ' compat already patched');
+    console.log('patch SKIP: deepseek compat already patched');
   } else {
-    console.log('patch WARN: ' + name + ' has no supportsForcedToolChoice field (upstream changed?)');
+    console.log('patch WARN: deepseek compat computed site not found (found=' + c + ', upstream changed?)');
     warn++;
   }
 }
@@ -56,6 +50,13 @@ for (const name of MODELS) {
 // 例外：eval kernel 三处不动——上游 #1960：CREATE_NO_WINDOW 致 NumPy 等 native 扩展
 //       LoadLibraryExW 死锁；且 kernel 自身输出本就被管道捕获。
 const LEAK_PATCHES = [
+  // 18.2.8 锚点(u_o/D_o/r_a;hV/V0t/Eos/LW;ern/mGr/FJe/Vci/jae)
+  {"name":"blob-broker tunnel (18.2.8)","expect":1,"find":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: hV() })","repl":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: hV(), windowsHide: true })","done":"cwd: hV(), windowsHide: true })"},
+  {"name":"blob-broker ssh tunnel (18.2.8)","expect":1,"find":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: V0t.homedir() })","repl":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: V0t.homedir(), windowsHide: true })","done":"cwd: V0t.homedir(), windowsHide: true })"},
+  {"name":"uploader self-hosted (18.2.8)","expect":1,"find":"Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: hV()\n        })","repl":"Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: hV(),\n          windowsHide: true\n        })","done":"cwd: hV(),\n          windowsHide: true"},
+  {"name":"browser chrome launch (18.2.8)","expect":1,"find":"const d = Bun.spawn([s, ...c], {\n      cwd: t.cwd,\n      stdout: \"ignore\",\n      stderr: \"ignore\",\n      stdin: \"ignore\"\n    })","repl":"const d = Bun.spawn([s, ...c], {\n      cwd: t.cwd,\n      stdout: \"ignore\",\n      stderr: \"ignore\",\n      stdin: \"ignore\",\n      windowsHide: true\n    })","done":"stdin: \"ignore\",\n      windowsHide: true\n    })"},
+  {"name":"python kernel windowsHide force-true (18.2.8)","expect":1,"find":"windowsHide: Eos({\n          platform: \"win32\",\n          hostHasInheritableConsole: LW()\n        })","repl":"windowsHide: true","done":"windowsHide: true\n      });"},
+  {"name":"python kernel console probe force-true (18.2.8)","expect":1,"find":"function Eos(e) {\n  if (e.platform !== \"win32\")\n    return false;\n  return !e.hostHasInheritableConsole;\n}","repl":"function Eos(e) {\n  if (e.platform !== \"win32\")\n    return false;\n  return true;\n}","done":"return true;\n}"},
   // 18.2.6 锚点(iIn/qIn/XIa;Q6/NIt/Zts;nso/Z1r/GXe/Jni/Uie)
   {"name":"blob-broker tunnel (18.2.6)","expect":1,"find":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: n, stderr: n, cwd: Q6() })","repl":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: n, stderr: n, cwd: Q6(), windowsHide: true })","done":"cwd: Q6(), windowsHide: true })"},
   {"name":"blob-broker ssh tunnel (18.2.6)","expect":1,"find":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: NIt.homedir() })","repl":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: NIt.homedir(), windowsHide: true })","done":"cwd: NIt.homedir(), windowsHide: true })"},
@@ -308,6 +309,10 @@ for (const p of LEAK_PATCHES) {
 // 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
 // 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
 const STOPCAP_PATCHES = [
+  // 18.2.8 锚点(u_o/D_o/r_a;hV/V0t/Eos/LW;ern/mGr/FJe/Vci/jae)
+  {"name":"empty/unexpected/malformed stop retries (18.2.8)","expect":1,"find":"u_o = 3, sqa = 4000, p_o = 3, c_o = 3, nqa = 1000,","repl":"u_o = 1000000, sqa = 4000, p_o = 1000000, c_o = 1000000, nqa = 1000,","done":"u_o = 1000000, sqa = 4000, p_o = 1000000, c_o = 1000000"},
+  {"name":"session-stop continuation cap (18.2.8)","expect":1,"find":"D_o = 8, Fqa = 3, cIs = 5000, qqa = 3,","repl":"D_o = 1000000, Fqa = 3, cIs = 5000, qqa = 3,","done":"D_o = 1000000"},
+  {"name":"subagent yield ladder (18.2.8)","expect":1,"find":"r_a = 6, Xbt = 3;","repl":"r_a = 6, Xbt = 1000000;","done":"Xbt = 1000000"},
   // 18.2.6 锚点(iIn/qIn/XIa;Q6/NIt/Zts;nso/Z1r/GXe/Jni/Uie)
   {"name":"empty/unexpected/malformed stop retries (18.2.6)","expect":1,"find":"iIn = 3, uqa = 4000, aIn = 3, lIn = 3, pqa = 1000,","repl":"iIn = 1000000, uqa = 4000, aIn = 1000000, lIn = 1000000, pqa = 1000,","done":"iIn = 1000000, uqa = 4000, aIn = 1000000, lIn = 1000000"},
   {"name":"session-stop continuation cap (18.2.6)","expect":1,"find":"qIn = 8, Gqa = 3, qMs = 5000, zqa = 3,","repl":"qIn = 1000000, Gqa = 3, qMs = 5000, zqa = 3,","done":"qIn = 1000000"},
@@ -487,6 +492,8 @@ for (const p of STOPCAP_PATCHES) {
 // A) 上游仅实时路径应用 retryRecovery，历史重建不画 → "error; retried" 恢复后消失；
 //    在 assistant 追加函数尾部对主组件补调 applyRetryRecovery。
 const REPLAY_PATCHES = [
+  // 18.2.8 锚点(u_o/D_o/r_a;hV/V0t/Eos/LW;ern/mGr/FJe/Vci/jae)
+  {"name":"tail usage flush (18.2.8)","expect":2,"find":"if (this.#t.size === 0 && this.#e.size === 0)\n      this.#x();","repl":"this.#x();","done":"for (const t of e)\n      this.#R(t);\n    this.#x();"},
   // 18.2.6 锚点(#R/#x;4A 已由上游原生实现: wW(e) 渲染判定 + transcript 过滤)
   {"name":"tail usage flush (18.2.6)","expect":2,"find":"if (this.#t.size === 0 && this.#e.size === 0)\n      this.#x();","repl":"this.#x();","done":"for (const t of e)\n      this.#R(t);\n    this.#x();"},
   // 18.2.4 锚点(kLn/XLn/Vba;p6/t0t/vJt;MZ/LF/#k;uQs/J0r/IQe/i8r/Iie)
@@ -633,6 +640,12 @@ for (const p of REPLAY_PATCHES) {
 //       2026-09-12 00:50 实测:QLt/T7 门后 Resumed session(remote compaction v2)仍 400
 //       -> 补 g/h;大上下文恢复同样安全.
 const ENCSTALE_PATCHES = [
+  // 18.2.8 锚点(u_o/D_o/r_a;hV/V0t/Eos/LW;ern/mGr/FJe/Vci/jae)
+  {"name":"ern[0] += encrypted-content-verify (18.2.8)","expect":1,"find":"ern = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"ern = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
+  {"name":"mGr += encrypted-content-decrypt (18.2.8)","expect":1,"find":"mGr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"mGr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
+  {"name":"QLt bKe replay gate (18.2.8)","expect":1,"find":"const g = FJe(e.supportsComputerUse === true ? c : Vci(c), e, i, l, !m, a, false, true, undefined, u);","restore":"const g = FJe(e.supportsComputerUse === true ? c : Vci(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","repl":"const g = FJe(e.supportsComputerUse === true ? c : Vci(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== \"1\" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","done":"!m && process.env.OMP_NO_REPLAY_REASONING !== \"1\""},
+  {"name":"Xni replacement-history prepend filter (18.2.8)","expect":1,"find":"return jae(s ? [...s, ...o] : o);","restore":"return jae(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","repl":"return jae(s ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","done":"\"1\" || t.compat?.replayResponsesReasoning === false ? s.filter"},
+  {"name":"Mbe stored-items prepend filter (18.2.8)","expect":1,"find":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? [...o, ...r] : r,\n    stream: true,\n    prompt_cache_key: n\n  };","restore":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };","repl":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };","done":"\"1\" || e.compat?.replayResponsesReasoning === false ? o.filter"},
   // 18.2.6 锚点(iIn/qIn/XIa;Q6/NIt/Zts;nso/Z1r/GXe/Jni/Uie)
   {"name":"nso[0] += encrypted-content-verify (18.2.6)","expect":1,"find":"nso = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"nso = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
   {"name":"Z1r += encrypted-content-decrypt (18.2.6)","expect":1,"find":"Z1r = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"Z1r = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
