@@ -5,14 +5,14 @@
 ## 管线组成
 
 ```
-update-zh.js      ← 主控（检测→下载→提取→补丁→差异→构建→验证→交付）
+update-zh.js      <- 主控(检测->下载->提取->补丁门->差异->隔离构建->验证->冒烟->交付)
 extract-cli.js    提取 exe 的 .bun 模块 0（cli.js）+ Web UI 资产模块（mod2..N → work/mod*）
 patch-zh.js       对官方 cli.js 应用确定性汉化补丁（幂等；17.4.0 起仅 catalog compat）
 web-translate.js  Web UI 模块汉化（mod3/4 HTML 属性/文本节点模式；mod5 字面量级）
 scan-gaps.js      新英文文本发现器（未命中清单+死条目）     [node scan-gaps.js <cli.js> dict*.json...]
 deep-scan.js      深度扫描（work/ 内）：UI 键位 + showStatus 调用点 + Web 模块文本
-build-zh.js       合并字典→翻译 cli+Web→重建 exe→交付      [参数化: --src/--cli/--dst/--deliver 或 OMP_* 环境变量]
-verify-zh.js      翻译产物验证（字面量一致/未闭合/括号/CJK）[node verify-zh.js <orig> <zh>]
+build-zh.js       合并字典->翻译 cli+Web->重建 exe(**只构建,不交付**)  [参数化: --src/--cli/--dst 或 OMP_SRC/OMP_CLI/OMP_DST]
+deliver-zh.js     唯一交付入口(sha256 复核 + 原子 rename + 落位后回读)   [--src <built> --target <install> --version <ver> --expect-sha256 <64hex>]
 rebuild.js        模块图重建（newContents 数组按索引替换任意模块）
 translate.js      翻译引擎 v6（未改动）
 dict-*.json       9 个字典（17.4.0 补译已并入，共 333+ 条新增）
@@ -29,7 +29,7 @@ node update-zh.js --check-only
 ```
 node update-zh.js
 ```
-流程：GitHub latest tag vs 本地 `omp.exe --version` → 相同则退出；不同则下载 `omp-windows-x64.exe`（curl，断点续传）→ SHA256SUMS 校验 → 提取 → patch → 差异扫描 → build → verify → 冒烟（--version 含新版本号、--help 含 CJK）→ 交付 `G:\omp\omp-zh.exe`。
+流程:GitHub latest tag vs 本地汉化版 `--version` -> 相同则退出;不同则下载 `omp-windows-x64.exe`(curl)-> 官方摘要校验 -> 提取 -> **补丁门**(warn>0 即中止,不写回 cli)-> 差异扫描 -> **隔离构建**(只写 work/omp-zh.exe)-> **verify** -> **冒烟** -> **交付**(deliver-zh.js 复核 sha256 后替换 `G:\omp\omp-zh.exe`).任一门失败都不碰正式目标,不写成功版本标记.
 
 ### 手动下载复用（网络慢时）
 把新版本 exe 放到 `~\AppData\Local\Temp\omp-dl.exe`，管线检测到且 SHA256 匹配即跳过下载。SHA256SUMS.txt 可放同目录（否则管线只下载这个小文件）。
@@ -51,26 +51,39 @@ node update-zh.js --no-deliver   # 只构建到 Temp\omp-zh.exe，不替换 G:\o
 
 ## 汉化补丁（patch-zh.js 固化，上游更新后自动重放）
 
-| 补丁 | 内容 | 失效后果（patch WARN 时） |
+| 补丁 | 内容 | 失效后果(patch WARN 时) |
 |---|---|---|
-| catalog max | opencode-go/deepseek-v4-flash efforts 加 "max" | 设置里开不到 max |
-| catalog compat | 同模型 `supportsForcedToolChoice:false` | 计划模式 tool_choice 400 回退 |
-| focus | showTreeSelector finally 恢复 editor 焦点 | /tree 切换偶发焦点丢失 |
+| catalog compat | v4-flash/v4-pro `supportsForcedToolChoice:false`(18.2.8 起为计算式整体替换) | 计划模式 tool_choice 400 回退 |
+| leak(6 处) | 基础设施 spawn 强制 `windowsHide:true` | 子进程日志绘进 TUI("时空图") |
+| stopcap(3 处) | 空/意外/畸形停止重试与续跑、yield 阶梯抬到 1e6 | 未到用户要求即停止 |
+| replay(1 处) | 尾条 usage 无条件 flush(上游反复横跳,每版必查) | 恢复后 "error; retried" 消失 |
+| encstale(14 条规则 / 2 类) | 账号池网关 encrypted-content 错误分类(正则扩展,不动 reasoning) | 跨轮 400,会话无法恢复 |
 
-补丁基于精确文本锚点；上游改了结构会 WARN（管线继续，但需人工检查补丁是否仍适用）。补丁幂等：每次从官方 exe 重新提取再打，不重复累积。
+补丁基于精确文本锚点,分五组。**现役规则**(名字不带版本号,或带本文件最新版本号)一旦 miss:
+`patch-zh.js` 报 WARN,`warn>0` 时**不写回 cli** 并以非零码退出,`update-zh.js` 把它当硬门
+直接中止(不构建/不交付).老版锚点带旧版本号 -> 报 LEGACY,不计 warn(见 DEVLOG 2026-09-22
+与 2026-09-19).补丁幂等:每次从官方 exe 重新提取再打,不重复累积.
 
 ## 验证体系（管线内置，防坏 JS）
 
-1. `verify-zh.js`：字面量数一致性（翻译破坏了引号配对会 MISMATCH）、未闭合字符串/模板检测、括号平衡、CJK 增量统计
-2. 冒烟：`omp-zh.exe --version` 含新版本号 + `--help` 含 ≥20 个 CJK 字符
-3. sha256 校验下载文件（SHA256SUMS.txt 对照）
+0. **门序(硬)**:补丁门 -> 隔离构建 -> `verify-zh.js` -> 冒烟 -> 交付.前四门全部作用于
+   `work/omp-zh.exe`,正式目标在门 5 之前一次都没被碰过.
+1. `verify-zh.js`:字面量数一致性(翻译破坏了引号配对会 MISMATCH),未闭合字符串/模板检测,括号平衡,CJK 增量统计
+2. 冒烟:`work/omp-zh.exe --version` 含新版本号 + `--help` 含 >=20 个 CJK 字符
+3. 交付前:产物 sha256 与自报版本复核;落位后回读目标 sha256
+4. 下载:sha256 校验下载文件(官方摘要,见"校验信任边界")
 
 ## 维护注意点
 
-- **交付被占用**：build-zh.js 的 copy 失败仅打日志（G:\omp\omp-zh.exe 被运行中会话占用时）；此时重启汉化版后再跑一次即可
-- **版本记录**：`.omp-zh-last-version` 文件记录上次处理版本（供追溯）
+- **交付被占用**:目标 `G:\omp\omp-zh.exe` 被运行中会话占用时,`deliver-zh.js` 报
+  `deliver DEFERRED`,已验证候选 staged 为 `<target>.new`,看护(`deliver-pending.js`)在占用
+  会话退出后按同一 sha256 补交付.此路径**不写** `.omp-zh-last-version`,下次运行会重新核对.
+  若想立即落位:退出全部汉化版会话后重跑 `node update-zh.js --force`.
+- **版本记录**:`.omp-zh-last-version` 只在产物真的落位(或显式 `--no-deliver`)时写;
+  `.omp-zh-last-delivery.json` 记录最近一次交付的目标/sha256/模式(审计用).
 - **字典版本漂移**：dict 生成脚本（gen-*.js）输入仍指向 v17.2.11 的 cli.js——新增文本用 scan-gaps 发现即可，旧生成脚本仅作候选辅助
-- **源码构建路线（可选，未纳入管线）**：上游 can1357/oh-my-pi 支持 Windows 本地源码构建（bun≥1.3.14 + npm 预编译 addon leaf `@oh-my-pi/pi-natives-win32-x64@<ver>` → `bun run ci:release:build-binaries --targets win32-x64`）。若未来要"源码级汉化"（翻译提示词等 exe 级翻不到的文本）再启用；当前 exe 级管线已覆盖字典目标面（命中率 99.5%）
+- **交付顺序回归**:`node tools-verify-order.js`(隔离 fixture 跑真实更新器,不碰 `G:/omp`);
+  需要 ~0.6GB/场景空闲空间,不足会直接拒绝开跑.单场景:`--scenario miss|patchfail|patchtimeout|verifyfail|ok|locked`
 
 ## 端到端验证记录（2026-08-10）
 

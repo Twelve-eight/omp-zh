@@ -73,12 +73,6 @@ const checks = [
   ['catalog v4 forced-choice true=0', (d.match(/"deepseek-v4-(flash|pro)"[\s\S]{0,2500}?supportsForcedToolChoice: true/g) || []).length === 0],
   ['encstale regex extended (nso)', has('encrypted content')],
   ['encstale regex extended (Z1r)', has('encrypted content could not be decrypted')],
-  ['encstale compat schema', has('"replayResponsesReasoning?": "boolean"')],
-  ['encstale T7 gate', has('"1" || e.model?.compat?.replayResponsesReasoning === false ? false')],
-  ['encstale QLt items gate', has('"1" || e.compat?.replayResponsesReasoning === false ? undefined')],
-  ['encstale QLt bKe gate', has('!m && process.env.OMP_NO_REPLAY_REASONING !== "1"')],
-  ['encstale Mbe prepend filter', has('"1" || e.compat?.replayResponsesReasoning === false ? n.filter')],
-  ['encstale Xni prepend filter', has('"1" || t.compat?.replayResponsesReasoning === false ? s.filter')],
   ['encstale regex matches real 400 text', (() => {
     const idx = d.indexOf('nso = [');
     if (idx < 0) return false;

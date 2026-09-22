@@ -21,11 +21,12 @@
 ## 构建管线（本仓库内容）
 
 ```
-update-zh.js      主控：检测新版本 → 下载校验 → 提取 → 补丁 → 构建 → 验证 → 交付
+update-zh.js      主控:检测新版本 -> 下载校验 -> 提取 -> 补丁门 -> 构建 -> 验证 -> 冒烟 -> 交付
 extract-cli.js    从 Bun standalone exe 提取入口 JS 与 Web 资产模块
-patch-zh.js       确定性模型兼容补丁
-scan-gaps.js      新增英文文本发现器（差距清单 + 死条目）
-build-zh.js       字典合并 → 翻译 → ASCII 转义预补偿 → 重建 exe → 交付
+patch-zh.js       确定性模型兼容补丁(warn>0 不写回,直接中止管线)
+scan-gaps.js      新增英文文本发现器(差距清单 + 死条目)
+build-zh.js       字典合并 -> 翻译 -> ASCII 转义预补偿 -> 重建 exe(只构建,不交付)
+deliver-zh.js     唯一交付入口(复核 sha256/版本 -> 原子 rename -> 落位后回读)
 verify-zh.js      产物验证（字面量一致/字符串闭合/括号/CJK 注入）
 translate.js      翻译引擎（full/sub 双模式字典命中）
 dict-*.json       9 个领域字典，2400+ 条目
@@ -51,6 +52,13 @@ node update-zh.js
 node update-zh.js            # 上游发新版后一键重建
 node update-zh.js --check-only   # 只检测
 ```
+
+### 交付顺序
+
+顺序是硬的:**补丁门 -> 隔离构建 -> verify -> 冒烟 -> 交付**.前四步只作用于 `work\omp-zh.exe`,
+正式安装目标在最后一步之前不会被替换;任一步失败都不碰目标,不留可自动交付的候选,
+不写成功版本标记.交付只搬"刚通过验证的那一份字节"(sha256 复核).
+目标被运行中的会话锁定时报 `deliver DEFERRED`:已验证候选 staged,占用退出后自动补交付.
 
 ## License
 
