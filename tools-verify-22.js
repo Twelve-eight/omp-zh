@@ -34,12 +34,6 @@ const checks = [
   ['catalog v4 true=0', (d.match(catPat) || []).length === 0],
   ['encstale V5s regex extended', v5.includes('encrypted content')],
   ['encstale jSr regex extended', has('retention|encrypted content could not be decrypted')],
-  ['encstale compat schema', has('"replayResponsesReasoning?": "boolean"')],
-  ['encstale T7 gate', has('"1" || e.model?.compat?.replayResponsesReasoning === false ? false')],
-  ['encstale QLt items gate', has('"1" || e.compat?.replayResponsesReasoning === false ? undefined')],
-  ['encstale QLt bKe gate', has('!m && process.env.OMP_NO_REPLAY_REASONING !== "1"')],
-  ['encstale Mbe prepend filter', has('"1" || e.compat?.replayResponsesReasoning === false ? o.filter')],
-  ['encstale Xni prepend filter', has('"1" || t.compat?.replayResponsesReasoning === false ? s.filter')],
   ['strings region <= vanilla (' + zt + ' / ' + vt + ')', zt <= vt],
 ];
 let bad = 0;

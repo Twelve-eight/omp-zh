@@ -1,5 +1,62 @@
-## WS-0916-01: 校验信任锚(2026-09-16)
+## 2026-09-22:交付顺序修复 -- 先验证后交付(R15-01)
 
+**问题**(复核裁决 `ASTRA-ADVICE-RECHECK.md` 第 5.1 节保留):管线是"先交付后验证".
+`update-zh.js` 调 `build-zh.js --deliver` 直接替换正式目标(或拉起看护准备替换),
+**之后**才跑 verify;verify 失败不撤销已经落位的替换,也不撤销已 armed 的看护.
+同一条链上还有两处静默降级:
+- `patch-zh.js` 在 `warn>0`(现役规则 miss)时**先写回文件再 exit 1**;
+  `update-zh.js` 只记一行 `WARN: patch-zh exited N`,继续 build/verify/交付并写
+  `work/.omp-zh-last-version` -> 产物可静默缺少 windowsHide/停止恢复/重放门等补丁.
+- `patch-zh.js` 的 ENCSTALE 循环用 `s.includes(p.done)` 而无 `done ? ... : repl` 判空:
+  `done:null` 时 `s.includes(null)` 被强制成 `s.includes("null")`,在 bundle 里恒真 ->
+  任何 `done:null` 的 encstale 规则 miss 都会被报成 `SKIP (already patched)` 而不是 WARN.
+  (三处数组都有判空,只有这一处没有.本轮由 fixture 注入规则实测暴露.)
+
+**修复**(五道门,顺序固定为 补丁完整性 -> 隔离构建 -> verify -> 冒烟 -> 交付):
+1. `patch-zh.js`:warn>0 时**不写回**(原文件保持未打补丁),exit 1;写回改为
+   `.patched.tmp` + rename 原子替换.`encstale` 循环补判空,与其余三处一致.
+2. `build-zh.js`:**删除交付能力**.`--deliver`/`OMP_DELIVER` 一旦出现即 exit 2 并打印
+   正确用法;脚本只写 `--dst`.构建脚本不再拥有替换正式安装目标的权力.
+3. `deliver-zh.js`(**新文件**):唯一交付入口.交付前三道复核:src 的 sha256 必须等于
+   调用方给定的 `--expect-sha256`(证明交付的就是刚验证过的那一份字节)、产物自报
+   `--version` 一致、staged 副本字节与 src 一致;落位后再回读目标 sha256 核对.
+   任一不过 -> 删候选、不碰目标、exit 1.目标被运行中 exe 锁定时拉起看护(deferred).
+4. `deliver-pending.js`:看护改为"只搬验证过的字节" -- 交付前核 staged 的 sha256,
+   与期望不符即删候选放弃;rename 后再核目标字节,不符 exit 1.
+5. `update-zh.js`:门 1 把 patch 的非零退出/`ETIMEDOUT`/`ENOENT`/信号 全部当硬失败
+   (原先只拦 `patch RULE-BUG`);门 2-4 全部作用于 `work/omp-zh.exe`,**此时正式目标
+   一次都没被碰过**;门 5 才调 `deliver-zh.js`,并回读目标字节.成功版本标记
+   `work/.omp-zh-last-version` 只在真的落位(或显式 `--no-deliver`)时写,deferred 不写.
+
+**验证**(`tools-verify-order.js`,新文件,真实更新器 + 隔离 fixture):
+fixture 是脚本/dict/work/目标的独立副本,源 exe 用硬链接(0 字节),全程离线
+(复用官方摘要缓存 + `OMP_NO_PROXY=1`),`OMP_ZH_*` 覆盖路径,不写 `G:/omp`,不碰 Steam.
+六场景共 **39 项断言全 PASS**(逐场景:miss 10/10、patchfail 6/6、patchtimeout 6/6、
+verifyfail 7/7、ok 10/10、locked 见下),原始输出在
+`G:/omp works/.tmp/report-fixes-20260922/verification/a4-logs/`:
+- miss:注入一条现役(无版本号)永不匹配的 encstale 规则 -> `patch WARN found=0`,
+  `NOT written | ok=28 warn=1`,pipeline exit 1,**未构建**;目标字节不变、无 `.new` 候选、
+  无 `work/omp-zh.exe`、无 last-version;`work/cli-18_2_8.js` 与重新提取的 cli 逐字节相同.
+- patchfail:patch-zh 换成 exit 3 的桩 -> `FAILED: patch-zh exited 3`,未构建,目标不变.
+- patchtimeout:`OMP_ZH_PATCH_TIMEOUT_MS=1` -> `FAILED: patch-zh timed out after 1ms`.
+- verifyfail:注入一条 `to` 含未转义引号的 full 译文 -> 构建成功、`VERIFY FAILED`、
+  **从未进入交付**,目标字节不变、无候选、无 last-version.
+- ok:`verify@14785 < deliver@14954`(日志序),`smoke@14811 < deliver@14954`;
+  交付目标 sha256 `9e13942f003d93ae..` == work 产物;无遗留候选;last-version 已写;
+  交付后的 exe `--version` = `omp/18.2.8`.
+
+**未验证边界**:deferred(目标被占用)场景的断言尚未跑完 -- G: 盘被并行工作流占满
+(<0.6GB 可用),fixture 需要 ~0.55GB/场景,harness 已内置空间前置检查直接拒绝开跑.
+缺的是"看护在锁释放后搬动同一 sha256"这一条;锁语义本身已单独实测
+(PowerShell `FileShare.None` 句柄 -> `renameSync` 报 `EPERM`,释放后 rename 成功).
+真实 `G:/omp/omp-zh.exe` 本轮**未交付**(目标被 5 个运行中的 omp-zh 会话占用),
+18.2.8 的正式交付仍待用户退出会话后按新顺序重跑.
+
+**顺带**:`update-zh.js` 增加 `OMP_ZH_LOCAL_EXE` / `OMP_ZH_DELIVER` / `OMP_ZH_LATEST_TAG`
+/ `OMP_ZH_PATCH_TIMEOUT_MS` / `OMP_ZH_DELIVER_{RETRIES,INTERVAL_MS}` 覆盖(默认不设时
+与修复前逐字节同行为),唯一用途是让隔离回归能跑真实更新器.
+
+## WS-0916-01: 校验信任锚(2026-09-16)
 **问题**:`fetchSums` 在官方源失败后允许 SHA256SUMS 走镜像链,而 exe 也走同一镜像链.
 同一个不可信端能同时控制文件与摘要时,哈希相等只证明二者一致,不证明来自官方.
 旧注释"镜像篡改会被校验拦截"过强.
@@ -746,3 +803,39 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
   retryRecovery 渲染判定 `wW`->`MW`,Mbe 变量 `n.filter`->`o.filter`).
   verify PASS,smoke `omp/18.2.8 helpCJK=1577`,gap 10303.
   交付 DEFERRED(staged 与 work 产物 sha256 一致,看护在位).
+
+## 2026-09-22:全面移除 reasoning 回放门(OMP_NO_REPLAY_REASONING 总闸撤销)
+- **起因(用户裁决)**:补丁 5 在 ENCSTALE_PATCHES 里加的一组"关闭 reasoning 回放"门(含环境变量总闸
+  `OMP_NO_REPLAY_REASONING=1`)对**所有** provider 生效.DeepSeek 思考模式因缺 reasoning 回放被上游拒:
+  `400 code 11155` "the reasoning content from the previous turn must be passed back in thinking mode",
+  wb2api 表现为 503(2026-09-22 出现约 800 行 503 风暴).astra 账号池问题已消失,故全面移除.
+  用户级环境变量 `OMP_NO_REPLAY_REASONING` 已由主会话删除;本轮删源码,避免重建时又被打回.
+- **patch-zh.js**:删除 ENCSTALE_PATCHES 中全部回放门控条目 22 条
+  (compat schema/T7/QLt items/QLt bKe/Mbe/Xni,覆盖 18.2.8/18.2.6/18.2.4/18.2.1/18.1.22/18.1.19/18.1.18 共 7 版),
+  保留错误分类条目 14 条(encrypted-content-verify 与 encrypted-content-decrypt,各 7 版).
+  顶部注释块重写:删 c..h 门控说明,补 2026-09-22 移除原因(11155 / wb2api 503 风暴),保留 a/b 分类说明.
+- **同步清理门控断言(避免留下过时检查)**:tools-mk-1824.js(3 条)、tools-mk-1826.js(3 条)、
+  tools-verify-1821/1824/1826/1828.js(各 6 条)、tools-verify-22.js(6 条).
+- **vanilla 核对**:重新提取 `work/omp-dl-1828.exe` 得 `G:/tmp/ompzh-replaycheck/vanilla-1828.js`,
+  `OMP_NO_REPLAY_REASONING` 与 `replayResponsesReasoning` 命中数均为 0,证明这些标识全部由补丁注入,
+  删除后不会残留上游引用.
+- **重建与交付**:`update-zh.js --check-only` / `--force --no-deliver`(补丁门 warn=0、verify PASS、
+  冒烟 version/helpCJK),再 `deliver-zh.js` 交付 `G:/omp/omp-zh.exe`;`findstr` 对交付产物检查
+  `OMP_NO_REPLAY_REASONING` 无命中(退出码 1).具体输出见本轮报告.
+- 硬约束遵守:未改 `models.yml`/`config.yml`,未动其它仓库,未重启服务,未 git commit/push(主会话统一提交).
+- **门计数与产物(命令原始输出摘要)**:
+  - `node update-zh.js --check-only` -> local 18.2.8 = latest 18.2.8, exit 0.
+  - `node update-zh.js --force --no-deliver` -> 补丁门 `patched: work/cli-18_2_8.js | ok=28 warn=0`,
+    `patch gate PASS (warn=0, all live rules applied)`; `verify-zh PASS`;
+    `smoke OK (isolated): version=omp/18.2.8 helpCJK=1577`; gap 10303; exit 0.
+  - 隔离产物 `work/omp-zh.exe` 248824320 bytes, sha256
+    `5739AAF19DABF5F79584FB9604D5D4142AA8484E93D6AB5D01F3A5E17AA48665`.
+  - `findstr /m /c:"OMP_NO_REPLAY_REASONING"` 对 work 产物与交付产物均无输出(退出码 1);
+    `findstr /m /c:"replayResponsesReasoning"` 同样无输出(退出码 1).
+  - 交付:`node deliver-zh.js --src work/omp-zh.exe --target G:/omp/omp-zh.exe --version 18.2.8
+    --expect-sha256 5739aaf1..` -> `src version OK` + `delivered (sha256 verified on target)`.
+    交付后 `G:/omp/omp-zh.exe` sha256 `5739AAF1..A48665` (与 work 产物逐字节一致),
+    `--version` = omp/18.2.8. 交付前旧产物 sha256 为 `68655909625E1538AB46A799016812B0C982E28A25FA186349D5EB084CFA20B8`.
+  - 完整增量报告:`G:/omp works/.tmp/omp-zh-replaygate-removal-report.md`.
+- 端到端真实 provider 调用(DeepSeek 思考模式多轮)本轮**未做**:需交互式 omp 会话,按硬约束禁止启动;
+  本次结论基于补丁规则/产物字节证据,上游 11155 是否复现需用户在真实会话中确认.

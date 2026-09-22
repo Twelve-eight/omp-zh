@@ -1,6 +1,7 @@
-// OMP 汉化构建脚本:合并字典 -> 翻译 cli.js -> 重建 exe -> 交付
-// 用法: node build-zh.js [--src <omp.exe>] [--cli <cli.js>] [--dst <out.exe>] [--deliver <path>]
-//       不传 --deliver(且无 OMP_DELIVER)则只构建不交付.
+// OMP 汉化构建脚本:合并字典 -> 翻译 cli.js -> 重建 exe(**只构建,不交付**)
+// 用法: node build-zh.js [--src <omp.exe>] [--cli <cli.js>] [--dst <out.exe>]
+//       交付是独立步骤:产物先经 verify + 冒烟,再由 deliver-zh.js 交付同一份字节(R15-01).
+// 环境变量等价: OMP_SRC / OMP_CLI / OMP_DST(命令行参数优先)
 // 环境变量等价: OMP_SRC / OMP_CLI / OMP_DST / OMP_DELIVER(命令行参数优先)
 const fs = require('fs');
 const path = require('path');
@@ -19,8 +20,15 @@ function arg(name, envName, def) {
 const SRC = arg('src', 'OMP_SRC', 'G:/omp/omp.exe');
 const CLI = arg('cli', 'OMP_CLI', T + '/work/cli.js');
 const DST = arg('dst', 'OMP_DST', T + '/work/omp-zh.exe');
-const DELIVER = arg('deliver', 'OMP_DELIVER', ''); // 空 = 不交付(--no-deliver 语义;默认必须显式 --deliver
-
+// 交付参数已移除(2026-09-22 R15-01):构建脚本不再拥有替换正式安装目标的权力,
+// 否则"先交付后验证"的顺序会被重新引入.交付一律走 deliver-zh.js.
+for (const flag of ['--deliver', 'OMP_DELIVER']) {
+  if (process.argv.includes(flag) || (flag === 'OMP_DELIVER' && process.env[flag])) {
+    console.error('build-zh.js no longer delivers (--deliver/OMP_DELIVER removed).');
+    console.error('Build to --dst, run verify-zh.js + smoke, then: node deliver-zh.js --src <dst> --target <install> --version <ver>');
+    process.exit(2);
+  }
+}
 // ---- 字典合并（保持原有相对顺序：help → help-extra → inline → tui → settings-a/b → tools → slash → plan） ----
 // 17.4.0 起追加 work/out-*.json 补译 staging（存在则并入）
 const dictFiles = [
@@ -123,60 +131,5 @@ newContents[webIdx.views] = Buffer.from(asciiEscape(web.mods.views.toString('utf
 const out = rebuild(srcBuf, newContents);
 fs.writeFileSync(DST, out);
 
-// ---- 交付(占用规避 + 完成核验 + 锁死时延迟补交付;失败使脚本以非零码退出) ----
-// 2026-09-09 前教训:copy 失败仅 console.log,update-zh.js 无感知,EBUSY 延迟交付
-// 完全依赖人工记得补跑(08-22 坏版本滞留,09-06/07 两轮无人核验).现三层:
-//   1) rename(<new> -> target) 覆盖交付(避开"直接写目标"的锁);失败重试等待;
-//   2) 目标被运行中 exe 映像锁死(EPERM/EBUSY 且 rename/copyFile 均不可用)时,
-//      拉起 detached deliver-pending.js 看护:锁释放(占用会话退出)后自动补交付
-//      并核验版本(AGENTS.md Sec 11:编译照常,部署延迟到进程退出后自动补做);
-//   3) 成功交付后回读目标 --version 与 work 产物核验,不符 -> exit 1.
-// 注意:场景 2 不算失败--已staged且看护在位,build 以 0 退出,主控继续 verify/smoke
-// (smoke 测 work 产物),日志明示"交付延迟,看护中".
-if (DELIVER) {
-  const deliveredVersion = (p) => {
-    const r = spawnSync(p, ['--version'], { encoding: 'utf8', timeout: 30000 });
-    return r.status === 0 && r.stdout ? (r.stdout.match(/omp\/([\d.]+)/) || [])[1] || null : null;
-  };
-  const wantVer = deliveredVersion(DST);
-  if (!wantVer) {
-    console.log('deliver FAILED: cannot get version from work product ' + DST);
-    process.exitCode = 1;
-  } else {
-    const tmp = DELIVER + '.new';
-    fs.rmSync(tmp, { force: true });
-    try {
-      fs.copyFileSync(DST, tmp);
-      let done = false;
-      for (let i = 0; i < 10 && !done; i++) {
-        try { fs.renameSync(tmp, DELIVER); done = true; }
-        catch (e) {
-          spawnSync('node', ['-e', 'setTimeout(()=>{},3000)']); // 等待 3s 再试
-        }
-      }
-      if (!done) {
-        // 目标被运行中的 exe 映像锁定(rename 与 copyFile 均不可用,2026-09-09 实测)
-        // -> 拉起 detached 看护,占用会话退出后自动补交付 + 核验.此路径非失败:
-        // staged 文件在位,看护进程常驻,交付只是延迟.
-        const { spawn } = require('child_process');
-        const child = spawn(process.execPath, [T + '/deliver-pending.js', tmp, DELIVER], {
-          detached: true, stdio: 'ignore', windowsHide: true,
-        });
-        child.unref();
-        console.log('deliver DEFERRED: ' + DELIVER + ' locked by a running session.');
-        console.log('staged: ' + tmp + ' - watcher pid ' + child.pid + ' will deliver on release (logs: work/.deliver-pending.log)');
-      } else {
-        fs.rmSync(tmp, { force: true });
-        const gotVer = deliveredVersion(DELIVER);
-        if (gotVer !== wantVer) {
-          throw new Error('delivery verification failed: work=' + wantVer + ' delivered=' + gotVer);
-        }
-        console.log('delivered:', DELIVER, '(verified omp/' + gotVer + ')');
-      }
-    } catch (e) {
-      console.log('deliver FAILED:', e.message);
-      console.log('=> G:/omp/omp-zh.exe NOT updated; re-run after the running session exits.');
-      process.exitCode = 1;
-    }
-  }
-}
+// 构建结束:不交付,不改正式目标.调用方负责 verify -> 冒烟 -> deliver-zh.js.
+console.log('built: ' + DST + ' (delivery is a separate step: deliver-zh.js)');

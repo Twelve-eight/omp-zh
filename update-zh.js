@@ -44,9 +44,18 @@ function readSumsProvenance() {
 function writeSumsProvenance(tag, source, hex) {
   try { fs.writeFileSync(SUMS_PROVENANCE, JSON.stringify({ tag, source, hex, at: new Date().toISOString() }, null, 2)); } catch { /* 非致命 */ }
 }
-const LOCAL_EXE = 'G:/omp/omp-zh.exe'; // 检测汉化版自身版本（原读官方版 omp.exe 导致检测与实际使用脱节）
-const DELIVER = 'G:/omp/omp-zh.exe';
-const LAST_VER_FILE = T + '/work/.omp-zh-last-version';
+// ---- 路径(默认=生产;OMP_ZH_* 覆盖仅供隔离回归测试,见 tools-verify-order.js) ----
+// 覆盖存在的唯一理由:让端到端回归能在 fixture 里跑真实更新器,而不碰 G:/omp 的正式安装.
+// 未设置时行为与覆盖前逐字节相同.
+const LOCAL_EXE = process.env.OMP_ZH_LOCAL_EXE || 'G:/omp/omp-zh.exe'; // 检测汉化版自身版本(原读官方版 omp.exe 导致检测与实际使用脱节)
+const DELIVER = process.env.OMP_ZH_DELIVER || 'G:/omp/omp-zh.exe';
+const LAST_VER_FILE = process.env.OMP_ZH_LAST_VER_FILE || T + '/work/.omp-zh-last-version';
+const WORK_DIR = T + '/work';
+const LATEST_TAG_OVERRIDE = (process.env.OMP_ZH_LATEST_TAG || '').trim().replace(/^v/, '');
+// 隔离回归用的旋钮(tools-verify-order.js).生产不设置 -> 与硬编码默认完全一致.
+const PATCH_TIMEOUT_MS = Number(process.env.OMP_ZH_PATCH_TIMEOUT_MS || 120000);
+const DELIVER_RETRIES = process.env.OMP_ZH_DELIVER_RETRIES || '';
+const DELIVER_INTERVAL_MS = process.env.OMP_ZH_DELIVER_INTERVAL_MS || '';
 // 代理加速(2026-09-16):本地 7897 代理实测远快于镜像链;curl 显式 -x.
 // OMP_NO_PROXY=1 关闭(镜像链仍可用).
 const PROXY = process.env.OMP_NO_PROXY ? '' : (process.env.OMP_PROXY || 'http://127.0.0.1:7897');
@@ -77,6 +86,7 @@ function localVersion() {
 
 // ---- 2. 最新 release tag（gh api 优先，失败走镜像代理 API） ----
 function latestTag() {
+  if (LATEST_TAG_OVERRIDE) { log('latest tag forced by OMP_ZH_LATEST_TAG: ' + LATEST_TAG_OVERRIDE); return LATEST_TAG_OVERRIDE; }
   try {
     const out = sh('gh', ['api', `repos/${REPO}/releases/latest`, '--jq', '.tag_name']);
     return out.trim().replace(/^v/, '');
@@ -248,19 +258,38 @@ async function main() {
   log('extracting cli.js');
   sh('node', [T + '/extract-cli.js', exePath, cliNew]);
 
-  // 应用汉化补丁（catalog max/compat + focus；失败仅警告）
+  // ---- 门 1:补丁完整性(必须在构建之前) ----
+  // patch-zh.js 只在 warn=0 时原子替换 cli 输入;warn>0 / 非零退出 / 超时 / 子进程失败
+  // 都保留原文件并以非零码退出.这里把它当硬门:不过门就不构建,更不交付(R15-01).
   log('applying zh patches');
-  const patchRes = spawnSync('node', [T + '/patch-zh.js', cliNew], { encoding: 'utf8', timeout: 60000 });
-  if (patchRes.stdout) log(patchRes.stdout.trim().split('\n').map(l => '  ' + l).join('\n'));
+  const patchRes = spawnSync('node', [T + '/patch-zh.js', cliNew], { encoding: 'utf8', timeout: PATCH_TIMEOUT_MS });
+  const patchOut = (patchRes.stdout || '') + (patchRes.stderr || '');
+  if (patchOut) log(patchOut.trim().split('\n').map(l => '  ' + l).join('\n'));
   // 规则自检命中(补丁规则 repl 引用了 find 之外的压缩符号)-> 规则本身有 bug,打上去会改名
   // 活符号 -> 运行时 ReferenceError 或静默失效,而 verify 的字面量统计查不出(2026-09-19).
-  // 必须硬中止:不得进入 build/交付.
-  if ((patchRes.stdout || '').includes('patch RULE-BUG')) {
+  if (patchOut.includes('patch RULE-BUG')) {
     log('FAILED: patch rule self-check found bugs (see patch RULE-BUG above) - aborting before build');
     process.exitCode = 1;
     return;
   }
-  if (patchRes.status !== 0) log('WARN: patch-zh exited ' + patchRes.status + ' — some fixes may be missing');
+  if (patchRes.error) {
+    const code = patchRes.error.code || patchRes.error.message;
+    const kind = code === 'ETIMEDOUT' ? 'timed out after ' + PATCH_TIMEOUT_MS + 'ms' : 'could not run (' + code + ')';
+    log('FAILED: patch-zh ' + kind + ' - aborting before build');
+    process.exitCode = 1;
+    return;
+  }
+  if (patchRes.signal) {
+    log('FAILED: patch-zh killed by ' + patchRes.signal + ' - aborting before build');
+    process.exitCode = 1;
+    return;
+  }
+  if (patchRes.status !== 0) {
+    log('FAILED: patch-zh exited ' + patchRes.status + ' - rule miss or self-check failure; cli input left unpatched, nothing built or delivered');
+    process.exitCode = 1;
+    return;
+  }
+  log('patch gate PASS (warn=0, all live rules applied)');
 
   // 差异发现(新增英文文本)
   log('scanning translation gaps');
@@ -282,47 +311,73 @@ async function main() {
   try { covHist = JSON.parse(fs.readFileSync(covFile, 'utf8')); } catch { covHist = []; }
   const prevCov = covHist.length ? covHist[covHist.length - 1] : null;
 
-  // 构建汉化版(Temp 输出;交付按 flag)
-  log('building zh exe');
-  const buildArgs = ['--src', exePath, '--cli', cliNew, '--dst', T + '/work/omp-zh.exe'];
-  if (!NO_DELIVER) buildArgs.push('--deliver', DELIVER);
-  sh('node', [T + '/build-zh.js'].concat(buildArgs)); // 交付失败 -> build-zh exit 1 -> sh 抛错中止(不写 last-version)
+  // ---- 门 2:隔离构建(不交付;交付是后面的独立步骤) ----
+  const WORK_EXE = T + '/work/omp-zh.exe';
+  log('building zh exe (isolated; no delivery)');
+  try {
+    sh('node', [T + '/build-zh.js', '--src', exePath, '--cli', cliNew, '--dst', WORK_EXE]);
+  } catch (e) {
+    log('FAILED: build-zh - ' + e.message + ' (target untouched, nothing staged)');
+    process.exitCode = 1;
+    return;
+  }
+  const builtSha = crypto.createHash('sha256').update(fs.readFileSync(WORK_EXE)).digest('hex');
+  log('built sha256=' + builtSha.slice(0, 16) + '.. (' + fs.statSync(WORK_EXE).size + ' bytes)');
 
-  // 验证
+  // ---- 门 3:verify(对隔离产物) ----
   log('verifying');
   try {
     sh('node', [T + '/verify-zh.js', cliNew, T + '/work/cli-zh.js']);
     log('verify-zh PASS');
   } catch (e) {
-    log('VERIFY FAILED: ' + e.message);
+    log('VERIFY FAILED: ' + e.message + ' (target untouched, nothing staged)');
     process.exitCode = 1;
     return;
   }
 
-  // 冒烟三态判定:
-  //   a) 交付目标已是新版本 -> smoke DELIVERED(常规交付成功);
-  //   b) 交付目标仍旧版本 且 staged .new 在位(交付延迟,看护在跑)-> smoke DEFERRED
-  //      (测 work 产物;看护会在占用会话退出后补交付并核验版本);
-  //   c) 都不是 -> FAIL(交付真失败:build-zh exit 1 或无 staged 无新版本).
+  // ---- 门 4:冒烟(对隔离产物;此刻正式目标尚未被触碰) ----
   // 2026-09-09 前盲区:smoke 只测 work 产物,交付失败照样绿灯 + 写 last-version,
   // 用户手里还是旧版(08-22 坏版本滞留,09-06/07 两轮无人核验均为此形态).
-  const staged = DELIVER + '.new';
-  const targetIsNew = (() => {
-    try { return execFileSync(DELIVER, ['--version'], { encoding: 'utf8', timeout: 60000 }).includes('omp/' + latest); }
-    catch { return false; }
-  })();
-  const deferred = !NO_DELIVER && !targetIsNew && fs.existsSync(staged);
-  const smokeTarget = NO_DELIVER || deferred ? T + '/work/omp-zh.exe' : DELIVER;
-  const smoke = execFileSync(smokeTarget, ['--version'], { encoding: 'utf8', timeout: 60000 });
-  if (!smoke.includes('omp/' + latest)) { log('SMOKE FAIL: ' + smokeTarget + ' --version = ' + smoke.trim()); process.exitCode = 1; return; }
-  const help = execFileSync(smokeTarget, ['--help'], { encoding: 'utf8', timeout: 120000 });
+  // 现在的顺序反过来:先验产物,再交付;交付后另行核对目标字节.
+  const smoke = execFileSync(WORK_EXE, ['--version'], { encoding: 'utf8', timeout: 60000 });
+  if (!smoke.includes('omp/' + latest)) { log('SMOKE FAIL: ' + WORK_EXE + ' --version = ' + smoke.trim()); process.exitCode = 1; return; }
+  const help = execFileSync(WORK_EXE, ['--help'], { encoding: 'utf8', timeout: 120000 });
   const cjk = (help.match(/[\u4e00-\u9fff]/g) || []).length;
   if (cjk < 20) { log('SMOKE FAIL: --help CJK chars = ' + cjk); process.exitCode = 1; return; }
-  if (!NO_DELIVER && !targetIsNew && !deferred) {
-    log('SMOKE FAIL: delivery not confirmed - target old, no staged file. Check build-zh output.');
-    process.exitCode = 1; return;
+  log('smoke OK (isolated): version=' + smoke.trim() + ' helpCJK=' + cjk);
+
+  // ---- 门 5:交付(只交付刚刚通过门 1-4 的那一份字节) ----
+  let delivery = 'skipped';
+  if (NO_DELIVER) {
+    log('(no-deliver mode: ' + DELIVER + ' NOT replaced)');
+  } else {
+    const deliverArgs = [T + '/deliver-zh.js', '--src', WORK_EXE, '--target', DELIVER,
+      '--version', latest, '--expect-sha256', builtSha];
+    if (DELIVER_RETRIES) deliverArgs.push('--retries', DELIVER_RETRIES);
+    if (DELIVER_INTERVAL_MS) deliverArgs.push('--interval-ms', DELIVER_INTERVAL_MS);
+    const dres = spawnSync('node', deliverArgs, { encoding: 'utf8', timeout: 300000 });
+    const dout = (dres.stdout || '') + (dres.stderr || '');
+    if (dout) log(dout.trim().split('\n').map(l => '  ' + l).join('\n'));
+    if (dres.error || dres.signal || dres.status !== 0) {
+      log('FAILED: deliver-zh exited ' + (dres.status !== null ? dres.status : (dres.signal || dres.error.code)) + ' - target NOT updated, no candidate left behind');
+      process.exitCode = 1;
+      return;
+    }
+    delivery = /deliver DEFERRED/.test(dout) ? 'deferred' : 'delivered';
   }
-  log('smoke OK: ' + (deferred ? 'DEFERRED (staged, watcher armed)' : NO_DELIVER ? 'work' : 'DELIVERED') + ' version=' + smoke.trim() + ' helpCJK=' + cjk);
+
+  // 交付后核对目标(immediate 路径):字节必须与已验证产物一致.
+  if (delivery === 'delivered') {
+    const gotSha = crypto.createHash('sha256').update(fs.readFileSync(DELIVER)).digest('hex');
+    if (gotSha !== builtSha) {
+      log('FAILED: delivered target sha256 ' + gotSha.slice(0, 16) + '.. != verified ' + builtSha.slice(0, 16) + '..');
+      process.exitCode = 1;
+      return;
+    }
+    log('delivery confirmed: ' + DELIVER + ' sha256=' + gotSha.slice(0, 16) + '.. (same bytes as verified build)');
+  } else if (delivery === 'deferred') {
+    log('delivery deferred: target locked by a running session; the verified candidate (sha256 ' + builtSha.slice(0, 16) + '..) is staged with a watcher, delivery happens on release');
+  }
 
   // ---- omp-watchdog 构建时检验(2026-09-11 起规范;部署形态 09-14 改为计划任务) ----
   // watchdog 是"模型出错静默中断"告警链的载体.部署形态演进:长驻进程(hub PTY 与 detached)
@@ -361,9 +416,15 @@ async function main() {
   covHist.push({ version: latest, helpCJK: cjk, gap: untranslated, at: new Date().toISOString() });
   fs.writeFileSync(covFile, JSON.stringify(covHist, null, 2));
 
-  fs.writeFileSync(LAST_VER_FILE, latest);
-  log('done. version ' + latest + ' processed');
-  if (NO_DELIVER) log('(no-deliver mode: G:/omp/omp-zh.exe NOT replaced)');
+  // 成功版本标记只在"产物真的落位"或调用方显式要求不交付时写.
+  // deferred(目标被占用,看护待交付)不写:下一次运行仍应看到版本差并重跑交付核对.
+  if (delivery === 'deferred') {
+    log('NOT writing ' + LAST_VER_FILE + ' - delivery still pending (watcher armed)');
+    log('done. version ' + latest + ' verified, delivery deferred');
+  } else {
+    fs.writeFileSync(LAST_VER_FILE, latest);
+    log('done. version ' + latest + ' processed (delivery=' + delivery + ')');
+  }
 }
 
 main().catch(e => { console.error('FAILED:', e.message); process.exitCode = 1; });

@@ -255,7 +255,7 @@ const validateRules = (arr, grp, currentVer, srcText) => {
   // 提取前的清理(否则假阳性):
   //   - 去掉正则字面量 /../flags(含转义) -> 消除 \bencrypted 里的 b
   //   - 去掉引号字符串 -> 消除文案里的词
-  //   - 跳过紧跟在 . 或 ?. 之后的标识符(属性访问)-> 消除 replayResponsesReasoning 等新增属性名
+  //   - 跳过紧跟在 . 或 ?. 之后的标识符(属性访问)-> 消除 compat 新增的长属性名
   // 豁免:windowsHide(新选项),Z(repl 新增箭头参数),OMP_*(env,由下划线大写形态天然排除)
   const ALLOW = new Set(['windowsHide', 'Z']);
   let bad = 0;
@@ -609,71 +609,40 @@ for (const p of REPLAY_PATCHES) {
 // 背景:agentrouter 等第三方 Responses 网关背后是上游账号池,encrypted_content(gAAA.. Fernet)
 //       只能由产出它的同一上游账号解密.下次请求落到别的池成员时回放密文 -> 400
 //       "The encrypted content .. could not be verified. Reason: Encrypted content could not
-//        be decrypted or parsed."(agentrouter astra 实测为 Azure OpenAI 资源池:
-//       密文绑定创建它的 Azure 资源,回放落别的资源报 different Azure OpenAI resource;
-//       strip 密文回放也报 Item with id .. not found -- 回放 reasoning item 完全不可行)
+//        be decrypted or parsed."
 // 上游 omp 已有 StaleResponsesItem 自愈路径(错误分类 -> resetCurrentResponsesProviderSession
 //       -> nativeHistoryReplayWarmed=false -> 重试不再回放加密推理),但分类条件 oRr(e) =
 //       Xzs[0].test(e) || Xzs[1].test(e) && PCr.test(e) 中,agentrouter 文案既不命中
 //       Xzs[0](Item with id .. not found)也不命中 Xzs[1](previous response),PCr 也不匹配.
-// 另外主请求路径 Mbe()->QLt() 有两个回放点绕过 T7 gate:1) 历史 providerPayload 原始
-//       items(u7 非空时整包回放,含 reasoning);2) bKe 从 thinkingSignature 重建 --
-//       重置仅清 providerSessionState,历史消息的 thinkingSignature 仍在,下一轮仍 400.
-//       对账号池型网关必须完全关闭 reasoning item 回放.
-// 修复(共八处,单锚点各一):
-//   a) Xzs[0] 增加分支 `|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)`
+// 修复(共两处,单锚点各一;只做错误分类,不丢弃 reasoning):
+//   a) Xzs[0] 增加分支 `|\bencrypted content\b[^.'"]{0,200}?could not be (?:verified|decrypted|parsed)`
 //      (密文 base64 夹在中间,不能写死相邻文案)
 //   b) PCr 增加 |encrypted content could not be decrypted(双保险,覆盖 Xzs[1] 路径)
-//   c) compat schema 增加 `replayResponsesReasoning?`: boolean(用户可在 models.yml 模型级
-//      compat 里设 false,关闭该模型的 Responses reasoning item 回放)
-//   d) T7 的 gate 钳制:`const c = ..` 前判 `e.model?.compat?.replayResponsesReasoning === false`
-//      -> c = false -> bKe 跳过 thinking 回放(compaction/Xni 及旧调用点)
-//   e) QLt items 分支钳制:compat 关闭时 f=undefined,不整包回放历史 reasoning items
-//   f) QLt bKe 调用钳制:!m && compat 未关闭,不回放 thinkingSignature(主 turn 路径)
-//   g) Mbe stored-items prepend 过滤:remote compaction v2 的 W(远端压缩存储历史 items)
-//      直接 [...o, ...r] 进 input,绕过 QLt/T7 -- compat 关闭时过滤 reasoning items
-//       (Resumed session 恢复大上下文时仍 400 的根因)
-//   h) Xni replacement-history prepend 过滤:compaction 的 s 参数同样直通,一并过滤
-// 效果:该 400 归为 stale-responses-item 零延迟重试(g=0)+ 会话自动恢复;对账号池型网关
-//       配置 replayResponsesReasoning: false 后彻底不再回放 reasoning item(主路径+compaction),
-//       不再 400,agent 循环功能完好(代价:跨轮推理记忆丢失).
-//       2026-09-12 00:50 实测:QLt/T7 门后 Resumed session(remote compaction v2)仍 400
-//       -> 补 g/h;大上下文恢复同样安全.
+// 效果:该 400 归为 stale-responses-item 零延迟重试(g=0)+ 会话自动恢复,reasoning 回放保持不变.
+// 2026-09-22 移除回放门与 OMP_NO_REPLAY_REASONING 总闸(实证):该总闸对**所有** provider 生效,
+//       DeepSeek 思考模式因缺 reasoning 回放被上游拒:400 code 11155 "the reasoning content from
+//       the previous turn must be passed back in thinking mode",wb2api 表现为 503(当日约 800 行
+//       503 风暴).astra 账号池问题已消失,故删除 c..h 全部门控(compat schema/T7/QLt items/QLt bKe/
+//       Mbe/Xni),只保留 a/b 错误分类:不再有任何 provider 级 reasoning 回放开关.
 const ENCSTALE_PATCHES = [
   // 18.2.8 锚点(u_o/D_o/r_a;hV/V0t/Eos/LW;ern/mGr/FJe/Vci/jae)
   {"name":"ern[0] += encrypted-content-verify (18.2.8)","expect":1,"find":"ern = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"ern = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
   {"name":"mGr += encrypted-content-decrypt (18.2.8)","expect":1,"find":"mGr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"mGr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
-  {"name":"QLt bKe replay gate (18.2.8)","expect":1,"find":"const g = FJe(e.supportsComputerUse === true ? c : Vci(c), e, i, l, !m, a, false, true, undefined, u);","restore":"const g = FJe(e.supportsComputerUse === true ? c : Vci(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","repl":"const g = FJe(e.supportsComputerUse === true ? c : Vci(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== \"1\" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","done":"!m && process.env.OMP_NO_REPLAY_REASONING !== \"1\""},
-  {"name":"Xni replacement-history prepend filter (18.2.8)","expect":1,"find":"return jae(s ? [...s, ...o] : o);","restore":"return jae(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","repl":"return jae(s ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","done":"\"1\" || t.compat?.replayResponsesReasoning === false ? s.filter"},
-  {"name":"Mbe stored-items prepend filter (18.2.8)","expect":1,"find":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? [...o, ...r] : r,\n    stream: true,\n    prompt_cache_key: n\n  };","restore":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };","repl":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };","done":"\"1\" || e.compat?.replayResponsesReasoning === false ? o.filter"},
   // 18.2.6 锚点(iIn/qIn/XIa;Q6/NIt/Zts;nso/Z1r/GXe/Jni/Uie)
   {"name":"nso[0] += encrypted-content-verify (18.2.6)","expect":1,"find":"nso = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"nso = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
   {"name":"Z1r += encrypted-content-decrypt (18.2.6)","expect":1,"find":"Z1r = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"Z1r = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
-  {"name":"QLt bKe replay gate (18.2.6)","expect":1,"find":"const g = GXe(e.supportsComputerUse === true ? c : Jni(c), e, i, l, !m, a, false, true, undefined, u);","restore":"const g = GXe(e.supportsComputerUse === true ? c : Jni(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","repl":"const g = GXe(e.supportsComputerUse === true ? c : Jni(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== \"1\" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","done":"!m && process.env.OMP_NO_REPLAY_REASONING !== \"1\""},
-  {"name":"Xni replacement-history prepend filter (18.2.6)","expect":1,"find":"return Uie(s ? [...s, ...n] : n);","restore":"return Iie(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(n) : n);","repl":"return Uie(s ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(n) : n);","done":"\"1\" || t.compat?.replayResponsesReasoning === false ? s.filter"},
-  {"name":"Mbe stored-items prepend filter (18.2.6)","expect":1,"find":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: n?.length ? [...n, ...r] : r,\n    stream: true,\n    prompt_cache_key: o\n  };","restore":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: n?.length ? (e.compat?.replayResponsesReasoning === false ? n.filter((Z) => Z?.type !== \"reasoning\") : n).concat(r) : r,\n    stream: true,\n    prompt_cache_key: o\n  };","repl":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: n?.length ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || e.compat?.replayResponsesReasoning === false ? n.filter((Z) => Z?.type !== \"reasoning\") : n).concat(r) : r,\n    stream: true,\n    prompt_cache_key: o\n  };","done":"\"1\" || e.compat?.replayResponsesReasoning === false ? n.filter"},
   // 18.2.4 锚点(kLn/XLn/Vba;p6/t0t/vJt;MZ/LF/#k;uQs/J0r/IQe/i8r/Iie)
   {"name":"uQs[0] += encrypted-content-verify (18.2.4)","expect":1,"find":"uQs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"uQs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
   {"name":"J0r += encrypted-content-decrypt (18.2.4)","expect":1,"find":"J0r = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"J0r = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
-  {"name":"QLt bKe replay gate (18.2.4)","expect":1,"find":"const g = IQe(e.supportsComputerUse === true ? c : i8r(c), e, i, l, !m, a, false, true, undefined, u);","restore":"const g = IQe(e.supportsComputerUse === true ? c : i8r(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","repl":"const g = IQe(e.supportsComputerUse === true ? c : i8r(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== \"1\" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","done":"!m && process.env.OMP_NO_REPLAY_REASONING !== \"1\""},
-  {"name":"Xni replacement-history prepend filter (18.2.4)","expect":1,"find":"return Iie(s ? [...s, ...n] : n);","restore":"return Iie(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(n) : n);","repl":"return Iie(s ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(n) : n);","done":"\"1\" || t.compat?.replayResponsesReasoning === false ? s.filter"},
-  {"name":"Mbe stored-items prepend filter (18.2.4)","expect":1,"find":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: n?.length ? [...n, ...r] : r,\n    stream: true,\n    prompt_cache_key: o\n  };","restore":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: n?.length ? (e.compat?.replayResponsesReasoning === false ? n.filter((Z) => Z?.type !== \"reasoning\") : n).concat(r) : r,\n    stream: true,\n    prompt_cache_key: o\n  };","repl":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: n?.length ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || e.compat?.replayResponsesReasoning === false ? n.filter((Z) => Z?.type !== \"reasoning\") : n).concat(r) : r,\n    stream: true,\n    prompt_cache_key: o\n  };","done":"\"1\" || e.compat?.replayResponsesReasoning === false ? n.filter"},
   // 18.2.1 锚点(eNn/MNn/mwa;V7/jOt;eZ/_F/#k; C$s/IOr/FXe/A6r/sie)
   {"name":"C$s[0] += encrypted-content-verify (18.2.1)","expect":1,"find":"C$s = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"C$s = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
   {"name":"IOr += encrypted-content-decrypt (18.2.1)","expect":1,"find":"IOr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"IOr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
-  {"name":"QLt bKe replay gate (18.2.1)","expect":1,"find":"const g = FXe(e.supportsComputerUse === true ? c : A6r(c), e, i, l, !m, a, false, true, undefined, u);","restore":"const g = FXe(e.supportsComputerUse === true ? c : A6r(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","repl":"const g = FXe(e.supportsComputerUse === true ? c : A6r(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== \"1\" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","done":"!m && process.env.OMP_NO_REPLAY_REASONING !== \"1\""},
-  {"name":"Xni replacement-history prepend filter (18.2.1)","expect":1,"find":"return sie(s ? [...s, ...n] : n);","restore":"return sie(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(n) : n);","repl":"return sie(s ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(n) : n);","done":"\"1\" || t.compat?.replayResponsesReasoning === false ? s.filter"},
-  {"name":"Mbe stored-items prepend filter (18.2.1)","expect":1,"find":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: n?.length ? [...n, ...r] : r,\n    stream: true,\n    prompt_cache_key: o\n  };","restore":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: n?.length ? (e.compat?.replayResponsesReasoning === false ? n.filter((Z) => Z?.type !== \"reasoning\") : n).concat(r) : r,\n    stream: true,\n    prompt_cache_key: o\n  };","repl":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: n?.length ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || e.compat?.replayResponsesReasoning === false ? n.filter((Z) => Z?.type !== \"reasoning\") : n).concat(r) : r,\n    stream: true,\n    prompt_cache_key: o\n  };","done":"\"1\" || e.compat?.replayResponsesReasoning === false ? n.filter"},
   // 18.1.22 锚点(V5s/jSr/D7e/o4r/one;qK/gxt;DY/pP/#S)
   {"name":"V5s[0] += encrypted-content-verify (18.1.22)","expect":1,"find":"V5s = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"V5s = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
   {"name":"jSr += encrypted-content-decrypt (18.1.22)","expect":1,"find":"jSr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"jSr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
-  {"name":"QLt bKe replay gate (18.1.22)","expect":1,"find":"const g = D7e(e.supportsComputerUse === true ? c : o4r(c), e, i, l, !m, a, false, true, undefined, u);","restore":"const g = D7e(e.supportsComputerUse === true ? c : o4r(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","repl":"const g = D7e(e.supportsComputerUse === true ? c : o4r(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== \"1\" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","done":"!m && process.env.OMP_NO_REPLAY_REASONING !== \"1\""},
-  {"name":"Xni replacement-history prepend filter (18.1.22)","expect":1,"find":"return one(s ? [...s, ...o] : o);","restore":"return one(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","repl":"return one(s ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","done":"\"1\" || t.compat?.replayResponsesReasoning === false ? s.filter"},
   // 18.1.19 锚点(minifier 全改名;encstale: Xzs->YBs, PCr->Jbr, bKe->d7e, q5r->c6r, $te->Hse)
   {"name":"YBs[0] += encrypted-content-verify (18.1.19)","expect":1,"find":"YBs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"YBs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^.'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
   {"name":"Jbr += encrypted-content-decrypt (18.1.19)","expect":1,"find":"Jbr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"Jbr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
-  {"name":"QLt bKe replay gate (18.1.19)","expect":1,"find":"const g = d7e(e.supportsComputerUse === true ? c : c6r(c), e, i, l, !m, a, false, true, undefined, u);","restore":"const g = d7e(e.supportsComputerUse === true ? c : c6r(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","repl":"const g = d7e(e.supportsComputerUse === true ? c : c6r(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== \"1\" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","done":"!m && process.env.OMP_NO_REPLAY_REASONING !== \"1\""},
-  {"name":"Xni replacement-history prepend filter (18.1.19)","expect":1,"find":"return Hse(s ? [...s, ...o] : o);","restore":"return Hse(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","repl":"return Hse(s ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","done":"\"1\" || t.compat?.replayResponsesReasoning === false ? s.filter"},
   {
     name: 'Xzs[0] += encrypted-content-verify (18.1.17)',
     find: "Xzs = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];",
@@ -685,47 +654,6 @@ const ENCSTALE_PATCHES = [
     find: 'PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;',
     repl: 'PCr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;',
     done: 'encrypted content could not be decrypted',
-  },
-  {
-    name: 'compat schema += replayResponsesReasoning',
-    find: '"requiresToolResultId?": "boolean",\n      "replayUnsignedThinking?": "boolean"\n    };',
-    repl: '"requiresToolResultId?": "boolean",\n      "replayUnsignedThinking?": "boolean",\n      "replayResponsesReasoning?": "boolean"\n    };',
-    done: 'replayResponsesReasoning?',
-  },
-{
-    name: 'T7 gate honors replayResponsesReasoning=false',
-    find: 'const c = e.includeThinkingSignatures ?? e.nativeHistory?.replay ?? true;',
-    restore: 'const c = e.model?.compat?.replayResponsesReasoning === false ? false : e.includeThinkingSignatures ?? e.nativeHistory?.replay ?? true;',
-    repl: 'const c = process.env.OMP_NO_REPLAY_REASONING === "1" || e.model?.compat?.replayResponsesReasoning === false ? false : e.includeThinkingSignatures ?? e.nativeHistory?.replay ?? true;',
-    done: '"1" || e.model?.compat?.replayResponsesReasoning === false ? false',
-  },
-  {
-    name: 'QLt items replay gate (main turn path)',
-    find: 'const f = d?.items;',
-    restore: 'const f = e.compat?.replayResponsesReasoning === false ? undefined : d?.items;',
-    repl: 'const f = process.env.OMP_NO_REPLAY_REASONING === "1" || e.compat?.replayResponsesReasoning === false ? undefined : d?.items;',
-    done: '"1" || e.compat?.replayResponsesReasoning === false ? undefined',
-  },
-  {
-    name: 'QLt bKe replay gate (18.1.18)',
-    find: 'const g = bKe(e.supportsComputerUse === true ? c : q5r(c), e, i, l, !m, a, false, true, undefined, u);',
-    restore: 'const g = bKe(e.supportsComputerUse === true ? c : q5r(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);',
-    repl: 'const g = bKe(e.supportsComputerUse === true ? c : q5r(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== "1" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);',
-    done: '!m && process.env.OMP_NO_REPLAY_REASONING !== "1"',
-  },
-  {
-    name: 'Mbe stored-items prepend filter (18.1.18)',
-    find: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? [...o, ...r] : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
-    restore: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
-    repl: "  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };",
-    done: '"1" || e.compat?.replayResponsesReasoning === false ? o.filter',
-  },
-  {
-    name: 'Xni replacement-history prepend filter (18.1.18)',
-    find: 'return $te(s ? [..s, ..o] : o);',
-    restore: 'return $te(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== "reasoning") : s).concat(o) : o);',
-    repl: 'return $te(s ? (process.env.OMP_NO_REPLAY_REASONING === "1" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== "reasoning") : s).concat(o) : o);',
-    done: '"1" || t.compat?.replayResponsesReasoning === false ? s.filter',
   },
 ];
 // 规则自检(所有数组已声明后执行)
@@ -746,7 +674,7 @@ for (const p of ENCSTALE_PATCHES) {
   if (c === 1) {
     s = s.split(p.find).join(p.repl);
     console.log('patch OK: [encstale] ' + p.name);
-  } else if (c === 0 && s.includes(p.done)) {
+  } else if (c === 0 && (p.done ? s.includes(p.done) : s.includes(p.repl))) {
     console.log('patch SKIP: [encstale] ' + p.name + ' (already patched)');
   } else if (isLegacy(p)) {
     console.log('patch LEGACY: [encstale] ' + p.name + ' (anchor for an older bundle)');
@@ -757,6 +685,18 @@ for (const p of ENCSTALE_PATCHES) {
 }
 
 
-fs.writeFileSync(file, s);
+// 写回策略(R15-01,2026-09-22):warn>0 时**不写回**.
+// 旧行为是"先写回、再以 warn>0 退出 1",调用方若只记一行 WARN 就继续,产物里就会静默缺少
+// 补丁(windowsHide/停止恢复/重放门等).现在:有 warn -> 原文件保持未打补丁状态并以非零码退出,
+// 让上游看到的是"补丁没打上"而不是"打了一半的产物".原子替换避免半写文件.
+if (warn > 0) {
+  console.error('patched: ' + file + ' NOT written | ok=' + ok + ' warn=' + warn + ' (rule miss; input left unchanged)');
+  process.exit(1);
+}
+{
+  const tmp = file + '.patched.tmp';
+  fs.writeFileSync(tmp, s);
+  fs.renameSync(tmp, file); // 原子替换;失败则原文件不受影响
+}
 console.log('patched:', file, '| ok=' + ok + ' warn=' + warn);
-process.exit(warn > 0 ? 1 : 0);
+process.exit(0);

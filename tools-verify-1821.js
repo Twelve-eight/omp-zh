@@ -73,12 +73,6 @@ const checks = [
   ['catalog v4 forced-choice true=0', (d.match(/"deepseek-v4-(flash|pro)"[\s\S]{0,2500}?supportsForcedToolChoice: true/g) || []).length === 0],
   ['encstale regex extended (C$s)', has('encrypted content')],
   ['encstale regex extended (IOr)', has('encrypted content could not be decrypted')],
-  ['encstale compat schema', has('"replayResponsesReasoning?": "boolean"')],
-  ['encstale T7 gate', has('"1" || e.model?.compat?.replayResponsesReasoning === false ? false')],
-  ['encstale QLt items gate', has('"1" || e.compat?.replayResponsesReasoning === false ? undefined')],
-  ['encstale QLt bKe gate', has('!m && process.env.OMP_NO_REPLAY_REASONING !== "1"')],
-  ['encstale Mbe prepend filter', has('"1" || e.compat?.replayResponsesReasoning === false ? n.filter')],
-  ['encstale Xni prepend filter', has('"1" || t.compat?.replayResponsesReasoning === false ? s.filter')],
   ['translation present in mod0 (CJK escapes)', (d.match(/\\u[4-9a-fA-F][0-9a-fA-F]{3}/g) || []).length > 1000],
 ];
 let bad = 0;
