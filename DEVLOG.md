@@ -839,3 +839,34 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
   - 完整增量报告:`G:/omp works/.tmp/omp-zh-replaygate-removal-report.md`.
 - 端到端真实 provider 调用(DeepSeek 思考模式多轮)本轮**未做**:需交互式 omp 会话,按硬约束禁止启动;
   本次结论基于补丁规则/产物字节证据,上游 11155 是否复现需用户在真实会话中确认.
+
+## 2026-10-08:18.8.1 构建 -- 大跳版(18.2.8->18.8.1);encstale 门控迁移到新机制
+- **上游**:18.2.8 -> 18.8.1(跳 6 个次级版本).布局检查:零改动 roundtrip + 4KB 增长 **PASS**,
+  mode C 直接适用.结构:392 模块(modLen 20384 = 392*52),mod0 bytecode [120, 44,434,760),
+  CHANGELOG 在 mod184.用户手供 exe(I:\Downloads,226MB),官方 digest 链校验通过
+  (sha256 `3def31ab..` -> 交付态 `b4d193b9..`,两轮构建).
+- **stopcap 新增第 4 个上限**:上游加入 `xWr = 3`("Stream kept stalling after committed text
+  past retry cap")-> 补丁簇从 3 常量扩到 4(CWr/RWr/kWr/xWr 全部 1e6).
+- **encstale 门控机制变更(本轮关键)**:
+  - 旧:compat 字段 `replayResponsesReasoning`(catalog schema 内声明 + 运行时读)
+  - 新:18.8.1 **移除**该字段,schema 无此项;改为 catalog wire 的 `filterReasoningHistory`
+    驱动 `nativeHistory.filterReasoning`,渲染侧用 `includeThinkingSignatures`
+  - 判定:补丁动机(Azure 池型网关 reasoning 回放 400 自愈)仍成立 -- vanilla 无
+    "encrypted content" 识别正则.故保留补丁,门控改为
+    `process.env.OMP_NO_REPLAY_REASONING === "1" || X.nativeHistory?.filterReasoning === true
+     || X.compat?.replayResponsesReasoning === false`
+    (env 逃生门保留;新机制优先;旧字段保留兼容历史 bundle).
+- **18.8.1 锚点**(五组 15 条,`ok=29 warn=0`):stopcap 四常量簇 + `lUr` + `cJl/j$t`;
+  leak `lte()/cos.homedir()/xJe/X5`;encstale `C4n/EJi/hMt/vSa/Kbe`;
+  replay flush 门仍在(`#t/#e` + `#w()/#x()`).
+- **踩坑记录**:改门控时连续 4 次用 node -e 做正则替换全部失败(转义层数爆炸:
+  `$1` 被当字面量、`(((`/`)))` 全局替换污染其他规则) -> 改用 `read` + `edit` 手改两行,
+  一次成功.**教训:结构化文本(JSON 单行规则)改动一律 read+edit,不做正则批量替换.**
+  期间 `git checkout patch-zh.js` 回滚抹掉了未提交的 18.8.1 规则,已从 `work/rules-1881.json`
+  重插入 -> 教训:先提交再改.
+- **终验**:`tools-verify-1881.js` **25/25 PASS**(断言更新:retryRecovery 渲染 `MW`->`SW`;
+  compat schema 断言改为门控机制断言).verify PASS,smoke `omp/18.8.1 helpCJK=1520`,
+  gap 11894.
+- **环比 WARN(已知,待补译)**:helpCJK 1577->1520(上游文案变动导致部分译文失配),
+  gap 10303->11894(上游新增文本).均记档,下轮补译处理.
+- **交付**:已交付 `G:/omp/omp-zh.exe`(sha256 `b4d193b9..`,交付后复核一致).

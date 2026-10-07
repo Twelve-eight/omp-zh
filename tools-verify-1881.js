@@ -61,7 +61,7 @@ const checks = [
   ['stopcap cluster=1e6', has('CWr = 1000000, Ysu = 4000, RWr = 1000000, kWr = 1000000, xWr = 1000000')],
   ['session cap=1e6', has('lUr = 1000000')],
   ['yield ladder=1e6', has('j$t = 1000000')],
-  ['retryRecovery natively rendered (MW)', has('function MW(e, t = 0)') && has('compact-recovered')],
+  ['retryRecovery natively rendered (SW)', has('function SW(e, t = 0)') && has('compact-recovered')],
   ['flush gate removed', !has('if (this.#t.size === 0 && this.#e.size === 0)')],
   ['flush x2 unconditional', (d.match(/for \(const t of e\)\n      this\.#w\(t\);\n    this\.#x\(\);/g) || []).length === 2],
   ['leak tunnel cwd+hide', has('cwd: lte(), windowsHide: true })')],
