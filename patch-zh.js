@@ -50,6 +50,12 @@ let ok = 0, warn = 0;
 // 例外：eval kernel 三处不动——上游 #1960：CREATE_NO_WINDOW 致 NumPy 等 native 扩展
 //       LoadLibraryExW 死锁；且 kernel 自身输出本就被管道捕获。
 const LEAK_PATCHES = [
+  // 18.8.1 锚点(CWr/RWr/kWr/xWr 四常量簇 + lUr + cJl/j$t;lte/cos/xJe/X5;C4n/EJi/hMt/vSa/Kbe)
+  {"name":"blob-broker tunnel (18.8.1)","expect":1,"find":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: lte() })","repl":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: lte(), windowsHide: true })","done":"cwd: lte(), windowsHide: true })"},
+  {"name":"blob-broker ssh tunnel (18.8.1)","expect":1,"find":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: cos.homedir() })","repl":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: cos.homedir(), windowsHide: true })","done":"cwd: cos.homedir(), windowsHide: true })"},
+  {"name":"uploader self-hosted (18.8.1)","expect":1,"find":"Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: lte()\n        })","repl":"Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: lte(),\n          windowsHide: true\n        })","done":"cwd: lte(),\n          windowsHide: true"},
+  {"name":"python kernel windowsHide force-true (18.8.1)","expect":1,"find":"windowsHide: xJe({\n          platform: \"win32\",\n          hostHasInheritableConsole: X5()\n        })","repl":"windowsHide: true","done":"windowsHide: true\n      });"},
+  {"name":"python kernel console probe force-true (18.8.1)","expect":1,"find":"function xJe(e) {\n  if (e.platform !== \"win32\")\n    return false;\n  return !e.hostHasInheritableConsole;\n}","repl":"function xJe(e) {\n  if (e.platform !== \"win32\")\n    return false;\n  return true;\n}","done":"return true;\n}"},
   // 18.2.8 锚点(u_o/D_o/r_a;hV/V0t/Eos/LW;ern/mGr/FJe/Vci/jae)
   {"name":"blob-broker tunnel (18.2.8)","expect":1,"find":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: hV() })","repl":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: hV(), windowsHide: true })","done":"cwd: hV(), windowsHide: true })"},
   {"name":"blob-broker ssh tunnel (18.2.8)","expect":1,"find":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: V0t.homedir() })","repl":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: V0t.homedir(), windowsHide: true })","done":"cwd: V0t.homedir(), windowsHide: true })"},
@@ -309,6 +315,10 @@ for (const p of LEAK_PATCHES) {
 // 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
 // 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
 const STOPCAP_PATCHES = [
+  // 18.8.1 锚点(CWr/RWr/kWr/xWr 四常量簇 + lUr + cJl/j$t;lte/cos/xJe/X5;C4n/EJi/hMt/vSa/Kbe)
+  {"name":"empty/unexpected/malformed stop retries (18.8.1)","expect":1,"find":"CWr = 3, Ysu = 4000, RWr = 3, kWr = 3, xWr = 3, Xsu = 1000,","repl":"CWr = 1000000, Ysu = 4000, RWr = 1000000, kWr = 1000000, xWr = 1000000, Xsu = 1000,","done":"CWr = 1000000, Ysu = 4000, RWr = 1000000, kWr = 1000000, xWr = 1000000"},
+  {"name":"session-stop continuation cap (18.8.1)","expect":1,"find":"var lUr = 8, Gnu = 40, Bnu = 30000, znu = 15000, Hnu, jnu, Knu = 3, Kdn = 5000, Vnu = 3,","repl":"var lUr = 1000000, Gnu = 40, Bnu = 30000, znu = 15000, Hnu, jnu, Knu = 3, Kdn = 5000, Vnu = 3,","done":"var lUr = 1000000"},
+  {"name":"subagent yield ladder (18.8.1)","expect":1,"find":"V$t, cJl = 6, j$t = 3,","repl":"V$t, cJl = 6, j$t = 1000000,","done":"j$t = 1000000"},
   // 18.2.8 锚点(u_o/D_o/r_a;hV/V0t/Eos/LW;ern/mGr/FJe/Vci/jae)
   {"name":"empty/unexpected/malformed stop retries (18.2.8)","expect":1,"find":"u_o = 3, sqa = 4000, p_o = 3, c_o = 3, nqa = 1000,","repl":"u_o = 1000000, sqa = 4000, p_o = 1000000, c_o = 1000000, nqa = 1000,","done":"u_o = 1000000, sqa = 4000, p_o = 1000000, c_o = 1000000"},
   {"name":"session-stop continuation cap (18.2.8)","expect":1,"find":"D_o = 8, Fqa = 3, cIs = 5000, qqa = 3,","repl":"D_o = 1000000, Fqa = 3, cIs = 5000, qqa = 3,","done":"D_o = 1000000"},
@@ -492,6 +502,8 @@ for (const p of STOPCAP_PATCHES) {
 // A) 上游仅实时路径应用 retryRecovery，历史重建不画 → "error; retried" 恢复后消失；
 //    在 assistant 追加函数尾部对主组件补调 applyRetryRecovery。
 const REPLAY_PATCHES = [
+  // 18.8.1 锚点(CWr/RWr/kWr/xWr 四常量簇 + lUr + cJl/j$t;lte/cos/xJe/X5;C4n/EJi/hMt/vSa/Kbe)
+  {"name":"tail usage flush (18.8.1)","expect":2,"find":"if (this.#t.size === 0 && this.#e.size === 0)\n      this.#x();","repl":"this.#x();","done":"for (const t of e)\n      this.#w(t);\n    this.#x();"},
   // 18.2.8 锚点(u_o/D_o/r_a;hV/V0t/Eos/LW;ern/mGr/FJe/Vci/jae)
   {"name":"tail usage flush (18.2.8)","expect":2,"find":"if (this.#t.size === 0 && this.#e.size === 0)\n      this.#x();","repl":"this.#x();","done":"for (const t of e)\n      this.#R(t);\n    this.#x();"},
   // 18.2.6 锚点(#R/#x;4A 已由上游原生实现: wW(e) 渲染判定 + transcript 过滤)
@@ -625,6 +637,12 @@ for (const p of REPLAY_PATCHES) {
 //       503 风暴).astra 账号池问题已消失,故删除 c..h 全部门控(compat schema/T7/QLt items/QLt bKe/
 //       Mbe/Xni),只保留 a/b 错误分类:不再有任何 provider 级 reasoning 回放开关.
 const ENCSTALE_PATCHES = [
+  // 18.8.1 锚点(CWr/RWr/kWr/xWr 四常量簇 + lUr + cJl/j$t;lte/cos/xJe/X5;C4n/EJi/hMt/vSa/Kbe)
+  {"name":"C4n[0] += encrypted-content-verify (18.8.1)","expect":1,"find":"C4n = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"C4n = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
+  {"name":"EJi += encrypted-content-decrypt (18.8.1)","expect":1,"find":"EJi = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"EJi = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
+  {"name":"QLt bKe replay gate (18.8.1)","expect":1,"find":"const g = hMt(e.supportsComputerUse === true ? c : vSa(c), e, i, l, !m, a, false, true, undefined, u);","restore":"const g = hMt(e.supportsComputerUse === true ? c : vSa(c), e, i, l, !m && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","repl":"const g = hMt(e.supportsComputerUse === true ? c : vSa(c), e, i, l, !m && process.env.OMP_NO_REPLAY_REASONING !== \"1\" && e.compat?.replayResponsesReasoning !== false, a, false, true, undefined, u);","done":"!m && process.env.OMP_NO_REPLAY_REASONING !== \"1\""},
+  {"name":"Xni replacement-history prepend filter (18.8.1)","expect":1,"find":"return Kbe(s ? [...s, ...o] : o);","restore":"return Kbe(s ? (t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","repl":"return Kbe(s ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || t.compat?.replayResponsesReasoning === false ? s.filter((Z) => Z?.type !== \"reasoning\") : s).concat(o) : o);","done":"\"1\" || t.compat?.replayResponsesReasoning === false ? s.filter"},
+  {"name":"Mbe stored-items prepend filter (18.8.1)","expect":1,"find":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? [...o, ...r] : r,\n    stream: true,\n    prompt_cache_key: n\n  };","restore":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };","repl":"  const i = {\n    model: e.requestModelId ?? e.id,\n    input: o?.length ? (process.env.OMP_NO_REPLAY_REASONING === \"1\" || e.compat?.replayResponsesReasoning === false ? o.filter((Z) => Z?.type !== \"reasoning\") : o).concat(r) : r,\n    stream: true,\n    prompt_cache_key: n\n  };","done":"\"1\" || e.compat?.replayResponsesReasoning === false ? o.filter"},
   // 18.2.8 锚点(u_o/D_o/r_a;hV/V0t/Eos/LW;ern/mGr/FJe/Vci/jae)
   {"name":"ern[0] += encrypted-content-verify (18.2.8)","expect":1,"find":"ern = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"ern = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
   {"name":"mGr += encrypted-content-decrypt (18.2.8)","expect":1,"find":"mGr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"mGr = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
