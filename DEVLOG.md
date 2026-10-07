@@ -870,3 +870,39 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
 - **环比 WARN(已知,待补译)**:helpCJK 1577->1520(上游文案变动导致部分译文失配),
   gap 10303->11894(上游新增文本).均记档,下轮补译处理.
 - **交付**:已交付 `G:/omp/omp-zh.exe`(sha256 `b4d193b9..`,交付后复核一致).
+
+### 更正:18.8.1 轮把已裁决下线的 reasoning-replay 门控装回(2026-10-08,advisor 质证)
+**问题**:我在 18.8.1 轮"迁移门控到 nativeHistory.filterReasoning",实为**复活已被用户裁决
+删除的有害补丁**.证据链:
+- `models.yml:139-142`(2026-09-22 用户裁决):"compat.replayResponsesReasoning: false 已移除.
+  astra 密文回放问题已消失,而该门会连带关闭其他模型 reasoning 回放 -> 上游 400 code 11155
+  (reasoning_content_missing) -> wb2api 表现为 503.**同步下线:omp-zh 补丁 5 的 c..h 门控
+  与 OMP_NO_REPLAY_REASONING 总闸**"
+- 提交 `0c6fc53 "fix(patch): drop the reasoning-replay gate"`(2026-09-22)已删除 22 条门控
+  (compat schema / T7 / QLt items / 18.1.18..18.2.8 各版 bKe/Mbe/Xni),只保留 14 条
+  **纯错误分类**条目(仅扩宽 stale-responses 正则,从不丢弃 reasoning).当日 1030 次 400 风暴
+  即该门导致.
+- 我 18.8.1 轮**没有读 0c6fc53 与 models.yml 注释**,按 18.2.8 旧规则"迁移",把 4 条门控装回.
+
+**advisor 三条质证全部成立**:
+1. `nativeHistory` 可达性:**我错了**.取证 -- Xni 所在 `fMo(e,t,s)` 里 nativeHistory 只是传给
+   `Noe({...})` 的**字面量选项**,`t.nativeHistory` 为 undefined;Mbe 所在 `m7e` 连该名字都无.
+   故我新增的两个 nativeHistory 分支是**死代码**,实际生效的只有 env 门.
+2. restore 非 vanilla 形态 -> 幂等性不成立(同上,已随门控一并删除).
+3. helpCJK 下降归因缺证据:已补 diff.
+
+**处置**:
+- 删除 4 条门控规则(QLt bKe / Xni / Mbe 18.8.1 + EJi 经查为纯分类条目,**保留**)
+- 重建产物:`OMP_NO_REPLAY_REASONING` / `replayResponsesReasoning` / `nativeHistory?.filterReasoning
+  === true` 计数全 **0**;`encrypted content` 分类正则保留(2 处)
+- `tools-verify-1881.js` 增**回归断言**:`reasoning-replay gates absent`(26/26 PASS),
+  防未来轮次再装回
+
+**helpCJK 1577->1520 的 diff 证据**(advisor 第 3 条):
+- 命中数实际**上升**:full 3076->3123(+47),sub 41->42,命中字面量 3162->3203
+- 总字面量暴增:158,987 -> **186,908**(+27,921)
+- 字典失配:**113 条**(18.2.8 有、18.8.1 无),如 "Press Alt+A to show all, Alt+D for default"、
+  "Run Oh My Pi as an ACP (Agent Client Protocol) server over stdio" 等 -> 上游改文案
+- gap 新增 **2312 条**(18.8.1 独有),净增 1720
+=> 结论修正:helpCJK 下降**不是**"译文变差",而是**上游文案量 +27.9k 且新增部分未译**,
+   已译命中数反升 41.补译方向明确(113 条失配需按新文案更新 from,2312 条新文案待译).

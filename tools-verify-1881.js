@@ -84,6 +84,7 @@ const checks = [
       return re.test('400 OpenAI Responses bad request: The encrypted content gAAA..U04= could not be verified. Reason: Encrypted content could not be decrypted or parsed.');
     } catch (e) { return false; }
   })()],
+  ['reasoning-replay gates absent (2026-09-22 ruling)', !has('OMP_NO_REPLAY_REASONING') && !has('replayResponsesReasoning') && !has('nativeHistory?.filterReasoning === true')],
   ['translation present in mod0 (CJK escapes)', (d.match(/\\u[4-9a-fA-F][0-9a-fA-F]{3}/g) || []).length > 1000],
 ];
 let bad = 0;
