@@ -87,7 +87,7 @@ function killExistingWatchers() {
   try {
     const out = spawnSync('powershell', ['-NoProfile', '-Command',
       "Get-CimInstance Win32_Process -Filter \"Name='node.exe'\" | Where-Object { $_.CommandLine -like '*deliver-pending*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force; $_.ProcessId }"],
-      { encoding: 'utf8', timeout: 30000 });
+      { encoding: 'utf8', timeout: 30000, windowsHide: true });
     const killed = (out.stdout || '').trim();
     if (killed) log('stopped stale watcher(s): ' + killed.replace(/\s+/g, ' '));
   } catch (e) { /* best effort: 若 PowerShell 不可用,后续 rename 仍是原子的 */ }
