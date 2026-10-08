@@ -75,13 +75,42 @@ if (VERSION) {
   log('src sha256=' + srcSha.slice(0, 16) + '.. (no --version given, version not re-checked)');
 }
 
-// ---- 3) staged 候选:先删旧候选,再复制,再核对副本字节 ----
+// ---- 3) staged 候选:先停旧看护,再用临时名写入 + 原子改名 ----
+// 竞态(2026-10-08 实证):既有看护每 3s 对 .new 做 rename,而本步骤"删旧候选->复制"
+// 之间非原子;若复制中途被搬走,目标会拿到半份文件,且看护只在 rename 之后才核 sha
+// (核到 MISMATCH 时坏文件已就位).故:(a) 先杀掉所有 deliver-pending 进程;
+// (b) 新产物先写成 .new.tmp-<pid>,核对字节后再 rename 成 .new(rename 原子,看护永远
+// 只会看到完整文件).
 const tmp = TARGET + '.new';
-try { fs.rmSync(tmp, { force: true }); } catch { /* ignore */ }
+const tmpStage = tmp + '.tmp-' + process.pid;
+function killExistingWatchers() {
+  try {
+    const out = spawnSync('powershell', ['-NoProfile', '-Command',
+      "Get-CimInstance Win32_Process -Filter \"Name='node.exe'\" | Where-Object { $_.CommandLine -like '*deliver-pending*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force; $_.ProcessId }"],
+      { encoding: 'utf8', timeout: 30000 });
+    const killed = (out.stdout || '').trim();
+    if (killed) log('stopped stale watcher(s): ' + killed.replace(/\s+/g, ' '));
+  } catch (e) { /* best effort: 若 PowerShell 不可用,后续 rename 仍是原子的 */ }
+}
+killExistingWatchers();
+try { fs.rmSync(tmpStage, { force: true }); } catch { /* ignore */ }
 try {
-  fs.copyFileSync(SRC, tmp);
+  fs.copyFileSync(SRC, tmpStage);
 } catch (e) {
-  console.error('deliver FAILED: cannot stage ' + tmp + ': ' + e.message);
+  console.error('deliver FAILED: cannot stage ' + tmpStage + ': ' + e.message);
+  process.exit(1);
+}
+{
+  const stageSha = sha256(tmpStage);
+  if (stageSha !== srcSha) {
+    fs.rmSync(tmpStage, { force: true });
+    console.error('deliver FAILED: staged copy sha256 ' + stageSha + ' != src ' + srcSha + ' - removed candidate');
+    process.exit(1);
+  }
+}
+try { fs.renameSync(tmpStage, tmp); } catch (e) {
+  try { fs.rmSync(tmpStage, { force: true }); } catch { /* ignore */ }
+  console.error('deliver FAILED: cannot publish staged candidate: ' + e.message);
   process.exit(1);
 }
 const tmpSha = sha256(tmp);
