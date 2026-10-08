@@ -913,8 +913,8 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
   leak `lte()/hos.homedir()/EJe/Q5`(python kernel 的 windowsHide 有**两处**,缩进不同,
   规则拆 A/B 两条);encstale `M4n/$Ji`.
 - **help 失配补译(本轮实质收益)**:18.8.1 的 helpCJK 1520 vs 18.2.8 的 1577(-57)已定位到
-  **5 条上游改写的 help 文案**(`--models`/`acp`/`auth-gateway`/`tiny-models`/`bench`),
-  dict 的 `from` 匹配不上 -> 那几行退回英文.已按新文案更新/新增 dict 条目:
+   **4 条上游改写的 help 文案**(`--models`/`acp`/`auth-gateway`/`tiny-models`);
+   `bench` 两版均为 0 个中文字,不属此 -57,归入 gap 补译债.
   - `acp`/`auth-gateway`/`tiny-models`/`bench` x2:新增 full 条目
   - `--models`:上游改为模板 `` `...for ${Ne("ctrl+p")} cycling` ``,用 **sub 片段**翻译
     (插值只能保留一份;段1 译文**不含 Ctrl+P**,否则与插值渲染重复 -- 第一版即踩此坑)
@@ -948,5 +948,27 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
   但测试与手工操作必须先确认/暂停真看护.
 - 本轮产物:`work/omp-zh.exe` = `d3dae3c6..`(用**已提交的正确字典**重建,修复了
   aed3d5dd 用旧字典构建导致 `--models` 行中文重复的问题).helpCJK **1650**,
-  `--models` 行渲染正确:`Ctrl+P 循环切换的模型模式（逗号分隔）/Comma-separated model patterns for Ctrl+P cycling`.
+   `--models` 行渲染实测:`用于循环切换的模型模式（逗号分隔）/Comma-separated model patterns for Ctrl+P cycling`(不含重复的 Ctrl+P).
   交付 DEFERRED(staged `d3dae3c6..`,看护 pid 20216 在位,target 仍 `b4d193b9..` 未被换坏).
+
+### 两起流程事故补记(2026-10-08,advisor 质证后核实)
+1. **真看护被测试误杀**(pid 19540):首版 `tools-test-deliver-race.js` 无守卫,而
+   `killExistingWatchers()` 按**进程名模糊匹配**(`*deliver-pending*`)清理 -- 测试运行时
+   bg_4 刚起的真看护被一并杀掉,且测试当时**误报 PASS**(只 grep 日志行存在,未核对 pid).
+   修正:测试加守卫(检测到真看护在跑即 ABORT exit 2);断言改为"被杀的 pid == decoy pid";
+   按名匹配的清理逻辑,其测试必须在隔离环境执行且断言 pid 对应关系.
+2. **产物与字典不一致**:staged `aed3d5dd..` 是 `fix_ctrlp3` **之前**的字典构建的,
+   渲染出 `Ctrl+P 循环切换的...`(与已提交字典的 `用于循环切换的...` 不符,且 Ctrl+P 重复).
+   已用正确字典重建为 `d3dae3c6..` 并实测该行渲染正确.
+   教训:**改完 dict 必须重建并实测渲染**,不能以"字典已改"当作"产物已生效".
+
+### 验证收口(2026-10-08)
+- 加固后的 `tools-test-deliver-race.js` 在**无真看护**条件下实跑:**5/5 PASS**
+  (decoy pid 12844 被精确匹配杀掉,非日志文本断言).
+- `--help` 实测 `--models` 行:`用于循环切换的模型模式（逗号分隔）/Comma-separated model
+  patterns for Ctrl+P cycling`(不含重复 Ctrl+P) -> 与已提交字典一致,产物 sha `d3dae3c6..`.
+- 清理:G:/tmp 下 decoy-probe-*/dbg-race-*/deliver-race-* 已无残留;无遗留诱饵进程;
+  worktree /tmp/wt-1828 已 remove.
+- **当前交付状态**:target `G:/omp/omp-zh.exe` = `b4d193b9..`(带已废 gate 的旧版,**未被换坏**);
+  staged `G:/omp/omp-zh.exe.new` = `d3dae3c6..`;看护 pid **7576**(expect `d3dae3c6..`)在位.
+  用户退出当前会话后自动补交付,重启 omp 生效.
