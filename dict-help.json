@@ -145,11 +145,6 @@
   "mode": "full"
  },
  {
-  "from": "Comma-separated model patterns for Ctrl+P cycling",
-  "to": "Ctrl+P 循环切换的模型模式（逗号分隔）/Comma-separated model patterns for Ctrl+P cycling",
-  "mode": "full"
- },
- {
   "from": "Disable all built-in tools",
   "to": "禁用所有内置工具/Disable all built-in tools",
   "mode": "full"
@@ -413,5 +408,35 @@
   "from": "Wafer Serverless (pay-as-you-go)",
   "to": "Wafer Serverless（按量付费）/Wafer Serverless (pay-as-you-go)",
   "mode": "full"
+ },
+ {
+  "from": "Run omp as an ACP (Agent Client Protocol) server over stdio",
+  "to": "以 ACP（代理客户端协议）服务器方式通过 stdio 运行 omp/Run omp as an ACP (Agent Client Protocol) server over stdio",
+  "mode": "full"
+ },
+ {
+  "from": "Run an auth-gateway: an HTTP forward proxy backed by the configured broker, or JSON lines on stdio with your own credentials",
+  "to": "运行 auth-gateway:由已配置 broker 支撑的 HTTP 正向代理,或在 stdio 上用自有凭据走 JSON lines/Run an auth-gateway: an HTTP forward proxy backed by the configured broker, or JSON lines on stdio with your own credentials",
+  "mode": "full"
+ },
+ {
+  "from": "Download tiny local models (session titles, memory, word completion)",
+  "to": "下载小型本地模型（会话标题、记忆、单词补全）/Download tiny local models (session titles, memory, word completion)",
+  "mode": "full"
+ },
+ {
+  "from": "Benchmark models: TTFT/prefill vs decode throughput with p50/p95, across chat, prefill, generation, and prompt-cache workloads, or single-user vs parallel load (--detailed)",
+  "to": "基准测试:TTFT/预填充 vs 解码吞吐(p50/p95),覆盖 chat、prefill、generation、prompt-cache 工作负载,或单用户 vs 并行负载(--detailed)/Benchmark models: TTFT/prefill vs decode throughput with p50/p95, across chat, prefill, generation, and prompt-cache workloads, or single-user vs parallel load (--detailed)",
+  "mode": "full"
+ },
+ {
+  "from": "Benchmark instruction following and working memory: one cached thread of glyph array actions with a moving cat-sound directive",
+  "to": "基准测试指令遵循与工作记忆:单缓存线程的字符数组操作,含移动的猫叫指令/Benchmark instruction following and working memory: one cached thread of glyph array actions with a moving cat-sound directive",
+  "mode": "full"
+ },
+ {
+  "from": "Comma-separated model patterns for ",
+  "to": "用于循环切换的模型模式（逗号分隔）/Comma-separated model patterns for ",
+  "mode": "sub"
  }
 ]
