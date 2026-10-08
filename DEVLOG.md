@@ -906,3 +906,29 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
 - gap 新增 **2312 条**(18.8.1 独有),净增 1720
 => 结论修正:helpCJK 下降**不是**"译文变差",而是**上游文案量 +27.9k 且新增部分未译**,
    已译命中数反升 41.补译方向明确(113 条失配需按新文案更新 from,2312 条新文案待译).
+
+## 2026-10-08(二):18.8.4 构建 + help 失配补译 + 交付竞态根因修复
+- **上游**:18.8.1 -> 18.8.4(构建过程中上游又发版,管线自动跟随).布局兼容(mode C).
+  锚点 12 条全命中(`ok=34 warn=0`):stopcap `IWr/Rnu/PWr/FWr/NWr` 簇 + `wUr` + `cSe/g7a`;
+  leak `lte()/hos.homedir()/EJe/Q5`(python kernel 的 windowsHide 有**两处**,缩进不同,
+  规则拆 A/B 两条);encstale `M4n/$Ji`.
+- **help 失配补译(本轮实质收益)**:18.8.1 的 helpCJK 1520 vs 18.2.8 的 1577(-57)已定位到
+  **5 条上游改写的 help 文案**(`--models`/`acp`/`auth-gateway`/`tiny-models`/`bench`),
+  dict 的 `from` 匹配不上 -> 那几行退回英文.已按新文案更新/新增 dict 条目:
+  - `acp`/`auth-gateway`/`tiny-models`/`bench` x2:新增 full 条目
+  - `--models`:上游改为模板 `` `...for ${Ne("ctrl+p")} cycling` ``,用 **sub 片段**翻译
+    (插值只能保留一份;段1 译文**不含 Ctrl+P**,否则与插值渲染重复 -- 第一版即踩此坑)
+  - 结果:**helpCJK 1520 -> 1648**(超过 18.2.8 的 1577),`--help` 逐行核对无误
+- **交付竞态根因修复(advisor 连续三轮指出,已在代码层解决)**:
+  旧流程 `rmSync(.new)` -> `copyFileSync(.new)`,而既有看护每 3s 对 `.new` 做 rename,
+  且**只在 rename 之后才核 sha** -> 复制中途被搬走时,目标会拿到半份文件且 MISMATCH 报在事后.
+  修复(`deliver-zh.js`):
+  1) stage 前 `killExistingWatchers()` 杀掉所有 deliver-pending 进程
+  2) 新产物先写 `.new.tmp-<pid>`,**核对字节后 rename 成 `.new`**(rename 原子,看护永远只看到完整文件)
+  本轮实测:每次构建后核对三项(目标 sha 未变 / 日志无 MISMATCH 无新 delivered /
+  看护仅 1 个且 expect-sha == 新产物)全部通过.
+- **终验**:`tools-verify-1884.js` **26/26 PASS**(含 `reasoning-replay gates absent` 回归断言).
+  verify PASS,smoke `omp/18.8.4 helpCJK=1648`.gap 11897.
+- **交付**:DEFERRED -- `G:/omp/omp-zh.exe` 仍为 `b4d193b9..`(**带已废 gate 的旧版**),
+  新产物 `aed3d5dd..` 已 staged,看护 pid 32516(expect-sha `aed3d5dd..`)在位,
+  **用户退出当前会话后自动补交付,需重启 omp 才生效**.
