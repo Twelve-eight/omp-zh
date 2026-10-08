@@ -932,3 +932,21 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
 - **交付**:DEFERRED -- `G:/omp/omp-zh.exe` 仍为 `b4d193b9..`(**带已废 gate 的旧版**),
   新产物 `aed3d5dd..` 已 staged,看护 pid 32516(expect-sha `aed3d5dd..`)在位,
   **用户退出当前会话后自动补交付,需重启 omp 才生效**.
+
+### 交付竞态修复的隔离回归测试(2026-10-08,R15-02)
+- `killExistingWatchers()` 的 powershell spawn 补 `windowsHide: true`(否则无控制台上下文
+  调用时会弹窗,违反"不弹可见窗口"约束).
+- 新增 `tools-test-deliver-race.js`:隔离目录内起**假看护**(脚本名含 `deliver-pending`,
+  持续 rename `.new` -> target) -> 跑 deliver-zh -> 断言五项:
+  1) 假看护启动 2) deliver-zh 报告杀掉旧看护 3) **被杀的 pid == 假看护 pid**(不只看日志文本)
+  4) 目标是完整验证字节而非半成品 5) 无 `.tmp-*` 残留.实测 **5/5 PASS**.
+- 测试自身带守卫:**检测到真看护在跑即 ABORT**(exit 2).首版测试无守卫,曾按名匹配
+  误杀 bg_4 新起的真看护(pid 19540) -> 已修正,并据此确立:凡按进程名匹配的清理逻辑,
+  其测试必须在隔离环境执行且断言 pid 对应关系.
+- 教训:`deliver-zh.js` 的 killExistingWatchers 是**按名模糊匹配**的,任何在真看护运行时
+  执行它的路径都会杀掉真看护 -- 这是设计取舍(清理旧看护的收益大于误杀风险),
+  但测试与手工操作必须先确认/暂停真看护.
+- 本轮产物:`work/omp-zh.exe` = `d3dae3c6..`(用**已提交的正确字典**重建,修复了
+  aed3d5dd 用旧字典构建导致 `--models` 行中文重复的问题).helpCJK **1650**,
+  `--models` 行渲染正确:`Ctrl+P 循环切换的模型模式（逗号分隔）/Comma-separated model patterns for Ctrl+P cycling`.
+  交付 DEFERRED(staged `d3dae3c6..`,看护 pid 20216 在位,target 仍 `b4d193b9..` 未被换坏).
