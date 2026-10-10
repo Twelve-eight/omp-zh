@@ -949,7 +949,7 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
 - 本轮产物:`work/omp-zh.exe` = `d3dae3c6..`(用**已提交的正确字典**重建,修复了
   aed3d5dd 用旧字典构建导致 `--models` 行中文重复的问题).helpCJK **1650**,
    `--models` 行渲染实测:`用于循环切换的模型模式（逗号分隔）/Comma-separated model patterns for Ctrl+P cycling`(不含重复的 Ctrl+P).
-  交付 DEFERRED(staged `d3dae3c6..`,看护 pid 20216 在位,target 仍 `b4d193b9..` 未被换坏).
+  交付 DEFERRED(staged `d3dae3c6..`,看护在位(见下方当前交付状态),target 仍 `b4d193b9..` 未被换坏).
 
 ### 两起流程事故补记(2026-10-08,advisor 质证后核实)
 1. **真看护被测试误杀**(pid 19540):首版 `tools-test-deliver-race.js` 无守卫,而
