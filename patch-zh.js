@@ -25,7 +25,7 @@ let ok = 0, warn = 0;
 //   -> 表达式求值为 true,thinking 模式下强制 tool_choice 仍会 400(补丁动机不变)。
 // 补法:把该项整体改为 false(与历史补丁语义一致:这两个模型不支持强制工具选择)。
 {
-  const find = 'supportsForcedToolChoice: !t.requiresEnabledThinking && !(t.isOpenCodeHost && t.isDeepseekReasoning) && !(t.isClinePass && A),';
+  const find = 'supportsForcedToolChoice: !t.requiresEnabledThinking && !(t.isOpenCodeHost && t.isDeepseekReasoning) && !(t.isClinePass && M),';
   const repl = 'supportsForcedToolChoice: false,';
   const c = s.split(find).length - 1;
   if (c === 1) {
@@ -50,6 +50,14 @@ let ok = 0, warn = 0;
 // 例外：eval kernel 三处不动——上游 #1960：CREATE_NO_WINDOW 致 NumPy 等 native 扩展
 //       LoadLibraryExW 死锁；且 kernel 自身输出本就被管道捕获。
 const LEAK_PATCHES = [
+  // 18.8.9 锚点(H4r/B4r/W4r/G4r 四常量簇 + M5r + uEe/pJa;Hse/nls/rst/Y$ 两处/chrome;DXn/Tua)
+  {"name":"blob-broker tunnel (18.8.9)","expect":1,"find":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: Hse() })","repl":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: Hse(), windowsHide: true })","done":"cwd: Hse(), windowsHide: true })"},
+  {"name":"blob-broker ssh tunnel (18.8.9)","expect":1,"find":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: nls.homedir() })","repl":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: nls.homedir(), windowsHide: true })","done":"cwd: nls.homedir(), windowsHide: true })"},
+  {"name":"uploader self-hosted (18.8.9)","expect":1,"find":"Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: Hse()\n        })","repl":"Bun.spawn(d, {\n          stdin: u.bytes,\n          stdout: \"ignore\",\n          stderr: \"pipe\",\n          cwd: Hse(),\n          windowsHide: true\n        })","done":"cwd: Hse(),\n          windowsHide: true"},
+  {"name":"browser chrome launch (18.8.9)","expect":1,"find":"const d = Bun.spawn([s, ...c], {\n      cwd: t.cwd,\n      stdout: \"ignore\",\n      stderr: \"ignore\",\n      stdin: \"ignore\"\n    })","repl":"const d = Bun.spawn([s, ...c], {\n      cwd: t.cwd,\n      stdout: \"ignore\",\n      stderr: \"ignore\",\n      stdin: \"ignore\",\n      windowsHide: true\n    })","done":"stdin: \"ignore\",\n      windowsHide: true\n    })"},
+  {"name":"python kernel windowsHide force-true A (18.8.9)","expect":1,"find":"windowsHide: rst({\n          platform: \"win32\",\n          hostHasInheritableConsole: Y$()\n        })","repl":"windowsHide: true","done":"windowsHide: true\n        })"},
+  {"name":"python kernel windowsHide force-true B (18.8.9)","expect":1,"find":"windowsHide: rst({\n        platform: \"win32\",\n        hostHasInheritableConsole: Y$()\n      })","repl":"windowsHide: true","done":"windowsHide: true\n      })"},
+  {"name":"python kernel console probe force-true (18.8.9)","expect":1,"find":"function rst(e) {\n  if (e.platform !== \"win32\")\n    return false;\n  return !e.hostHasInheritableConsole;\n}","repl":"function rst(e) {\n  if (e.platform !== \"win32\")\n    return false;\n  return true;\n}","done":"return true;\n}"},
   // 18.8.4 锚点(IWr/PWr/FWr/NWr 四常量簇 + wUr + cSe/g7a;lte/hos/EJe/Q5 两处;M4n/$Ji)
   {"name":"blob-broker tunnel (18.8.4)","expect":1,"find":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: lte() })","repl":"Bun.spawn(e, { env: process.env, stdin: \"ignore\", stdout: o, stderr: o, cwd: lte(), windowsHide: true })","done":"cwd: lte(), windowsHide: true })"},
   {"name":"blob-broker ssh tunnel (18.8.4)","expect":1,"find":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: hos.homedir() })","repl":"], { env: process.env, stdin: \"ignore\", stdout: \"ignore\", stderr: \"ignore\", cwd: hos.homedir(), windowsHide: true })","done":"cwd: hos.homedir(), windowsHide: true })"},
@@ -322,6 +330,10 @@ for (const p of LEAK_PATCHES) {
 // 终端错误跳过提醒、loopGuard/用户中断始终优先。锚点含压缩变量名，跨版本会漂移——
 // 漂移时按 DEVLOG「模块横幅注释定位法」重新抓取字节。
 const STOPCAP_PATCHES = [
+  // 18.8.9 锚点(H4r/B4r/W4r/G4r 四常量簇 + M5r + uEe/pJa;Hse/nls/rst/Y$ 两处/chrome;DXn/Tua)
+  {"name":"empty/unexpected/malformed stop retries (18.8.9)","expect":1,"find":"H4r = 3, Xfu = 4000, B4r = 3, W4r = 3, G4r = 3, Jfu = 1000,","repl":"H4r = 1000000, Xfu = 4000, B4r = 1000000, W4r = 1000000, G4r = 1000000, Jfu = 1000,","done":"H4r = 1000000, Xfu = 4000, B4r = 1000000, W4r = 1000000, G4r = 1000000"},
+  {"name":"session-stop continuation cap (18.8.9)","expect":1,"find":"var M5r = 8, $mu = 40, jmu = 15000,","repl":"var M5r = 1000000, $mu = 40, jmu = 15000,","done":"var M5r = 1000000"},
+  {"name":"subagent yield ladder (18.8.9)","expect":1,"find":"uEe = 4, pJa = 3,","repl":"uEe = 4, pJa = 1000000,","done":"pJa = 1000000"},
   // 18.8.4 锚点(IWr/PWr/FWr/NWr 四常量簇 + wUr + cSe/g7a;lte/hos/EJe/Q5 两处;M4n/$Ji)
   {"name":"empty/unexpected/malformed stop retries (18.8.4)","expect":1,"find":"IWr = 3, Rnu = 4000, PWr = 3, FWr = 3, NWr = 3, Cnu = 1000,","repl":"IWr = 1000000, Rnu = 4000, PWr = 1000000, FWr = 1000000, NWr = 1000000, Cnu = 1000,","done":"IWr = 1000000, Rnu = 4000, PWr = 1000000, FWr = 1000000, NWr = 1000000"},
   {"name":"session-stop continuation cap (18.8.4)","expect":1,"find":"var wUr = 8, fou = 40, mou = 30000, gou = 15000,","repl":"var wUr = 1000000, fou = 40, mou = 30000, gou = 15000,","done":"var wUr = 1000000"},
@@ -513,6 +525,8 @@ for (const p of STOPCAP_PATCHES) {
 // A) 上游仅实时路径应用 retryRecovery，历史重建不画 → "error; retried" 恢复后消失；
 //    在 assistant 追加函数尾部对主组件补调 applyRetryRecovery。
 const REPLAY_PATCHES = [
+  // 18.8.9 锚点(H4r/B4r/W4r/G4r 四常量簇 + M5r + uEe/pJa;Hse/nls/rst/Y$ 两处/chrome;DXn/Tua)
+  {"name":"tail usage flush (18.8.9)","expect":2,"find":"if (this.#t.size === 0 && this.#e.size === 0)\n      this.#k();","repl":"this.#k();","done":"for (const t of e)\n      this.#T(t);\n    this.#k();"},
   // 18.8.4 锚点(IWr/PWr/FWr/NWr 四常量簇 + wUr + cSe/g7a;lte/hos/EJe/Q5 两处;M4n/$Ji)
   {"name":"tail usage flush (18.8.4)","expect":2,"find":"if (this.#t.size === 0 && this.#e.size === 0)\n      this.#x();","repl":"this.#x();","done":"for (const t of e)\n      this.#T(t);\n    this.#x();"},
   // 18.8.1 锚点(CWr/RWr/kWr/xWr 四常量簇 + lUr + cJl/j$t;lte/cos/xJe/X5;C4n/EJi/hMt/vSa/Kbe)
@@ -650,6 +664,9 @@ for (const p of REPLAY_PATCHES) {
 //       503 风暴).astra 账号池问题已消失,故删除 c..h 全部门控(compat schema/T7/QLt items/QLt bKe/
 //       Mbe/Xni),只保留 a/b 错误分类:不再有任何 provider 级 reasoning 回放开关.
 const ENCSTALE_PATCHES = [
+  // 18.8.9 锚点(H4r/B4r/W4r/G4r 四常量簇 + M5r + uEe/pJa;Hse/nls/rst/Y$ 两处/chrome;DXn/Tua)
+  {"name":"DXn[0] += encrypted-content-verify (18.8.9)","expect":1,"find":"DXn = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"DXn = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
+  {"name":"Tua += encrypted-content-decrypt (18.8.9)","expect":1,"find":"Tua = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"Tua = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},
   // 18.8.4 锚点(IWr/PWr/FWr/NWr 四常量簇 + wUr + cSe/g7a;lte/hos/EJe/Q5 两处;M4n/$Ji)
   {"name":"M4n[0] += encrypted-content-verify (18.8.4)","expect":1,"find":"M4n = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?/i, /previous[ _]?response/i];","repl":"M4n = [/\\bItem with id ['\"][^'\"]+['\"] not found\\.?|\\bencrypted content\\b[^'\"]{0,200}?could not be (?:verified|decrypted|parsed)/i, /previous[ _]?response/i];","done":"encrypted content"},
   {"name":"$Ji += encrypted-content-decrypt (18.8.4)","expect":1,"find":"$Ji = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention/i;","repl":"$Ji = /not[ _]?found|invalid|expired|stale|zero[ _-]?data[ _-]?retention|encrypted content could not be decrypted/i;","done":"encrypted content could not be decrypted"},

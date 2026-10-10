@@ -972,3 +972,24 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
 - **当前交付状态**:target `G:/omp/omp-zh.exe` = `b4d193b9..`(带已废 gate 的旧版,**未被换坏**);
   staged `G:/omp/omp-zh.exe.new` = `d3dae3c6..`;看护 pid **7576**(expect `d3dae3c6..`)在位.
   用户退出当前会话后自动补交付,重启 omp 生效.
+
+## 2026-10-11:18.8.9 构建 -- 布局兼容,锚点全迁移
+- **上游**:18.8.1 -> 18.8.9(跳 8 个次级版本).布局检查:零改动 roundtrip + 4KB 增长 **PASS**,
+  mode C 直接适用.结构:394 模块(modLen 20488 = 394*52),mod0 bytecode [120, 41,411,664),
+  CHANGELOG 在 mod184.下载 232.9MB/10s(7897 代理);官方 digest `545fd519..` 一致.
+- **18.8.9 锚点**(五组 13 条,全部命中,最终 `ok=36 warn=0`):
+  - stopcap:`H4r/Xfu/B4r/W4r/G4r/Jfu` 五常量簇(A/C/D/E 四项抬 1e6),续跑 `M5r`,
+    yield `uEe/pJa`(注意 `uEe = 4`,首个常量上游已改为 4)
+  - leak:tunnel/uploader-sh `Hse()`,ssh `nls.homedir()`,chrome launch,
+    python kernel `rst`/`Y$`(**两处** windowsHide 调用点,缩进不同 -> 规则拆 A/B)
+  - replay:flush 门仍在(`#t/#e` + `#T()/#k()`)
+  - encstale:`DXn`/`Tua`(纯错误分类条目;门控按 2026-09-22 裁决保持移除)
+- **补丁 1 锚点更新**:deepseek compat 计算式末位变量名 `A` -> `M`(其余表达式不变).
+  该补丁自 18.2.8 起针对**计算式**而非 catalog 字段,本版仅需跟变量名.
+- **终验**:`tools-verify-1889.js` **26/26 PASS**(含 `reasoning-replay gates absent` 回归断言).
+  verify PASS,smoke `omp/18.8.9 helpCJK=1650`,gap 12079.
+- **交付**:DEFERRED -- target 仍 `b4d193b9..`(带已废 gate 的 18.8.1),
+  staged `8e048437..`(18.8.9),看护 pid 15216(expect `8e048437..`)在位.
+  退出会话后自动补交付,重启 omp 生效.
+- **竞态修复首次实战生效**:日志 `stopped stale watcher(s): 16884` -- 旧看护被正确清理后
+  再 stage,无 MISMATCH(三项核对全通过).
