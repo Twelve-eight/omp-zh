@@ -93,9 +93,11 @@ function rebuild(buf, newContents) {
       tableBytes.writeUInt32LE(a.off, a.i * 52 + 8);
       tableBytes.writeUInt32LE(a.len - 1, a.i * 52 + 12);
     }
-    tableBytes.writeUInt32LE(0, 24); // mod0 bytecode offset -> 0 (回退源码)
-    tableBytes.writeUInt32LE(0, 28); // mod0 bytecode length -> 0
-    const argvStart = appendBase + appendLen + tailZone.length;
+    for (const a of appends) {
+      tableBytes.writeUInt32LE(0, a.i * 52 + 24); // bytecode offset -> 0 (回退源码)
+      tableBytes.writeUInt32LE(0, a.i * 52 + 28); // bytecode length -> 0
+    }
+    const argvStart = tablePos + modLen + tailZone.length;
     const byteCount = argvStart + argv.length + 1;
     const offsets = Buffer.alloc(32);
     offsets.writeUInt32LE(byteCount, 0);
