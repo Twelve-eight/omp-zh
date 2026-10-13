@@ -993,3 +993,30 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
   退出会话后自动补交付,重启 omp 生效.
 - **竞态修复首次实战生效**:日志 `stopped stale watcher(s): 16884` -- 旧看护被正确清理后
   再 stage,无 MISMATCH(三项核对全通过).
+
+## 2026-10-14: 18.10.4 构建与代码分块 (Code Splitting) 架构升级
+- **上游版本升级**: 18.8.9 -> 18.10.4 (源码 tag `v18.10.4` 已拉取对齐)。
+- **上游打包重大变更 (commit 23b7799003)**: 上游在 `compile-binary.ts` 开启了 `splitting: true` 代码分块打包！
+  - 模块总数从 18.8.9 的 394 个剧增至 **2,917 个** (含 921 个独立拆分的 `chunks/cli-*.js`)。
+  - 过去所有逻辑集中于 mod0 的前提彻底颠覆：CLI 逻辑打散分布于不同 chunk，entryPoint 迁移至 mod 7 (`omp-windows-x64`)。
+- **底层加载与管线升级 (全 chunk 遍历与按需重构)**:
+  - 发现与实测：Bun standalone 优先执行每个模块各自的 precompiled bytecode (若存在)；对被修改的 chunk，仅需清零该 chunk 表项中的 bytecode 指针与长度，Bun 即无缝回退执行其修改后的 JS 源码！
+  - 重定位并验证全部 8 类核心补丁锚点 (全部测试通过):
+    1. `compat`: mod 40 (`supportsForcedToolChoice` 计算式末尾变量适配)
+    2. `stopcap`: mod 597 (意外停止重试簇 `X, J, z, Y` 全部抬至 1,000,000)
+    3. `session stop` & `yield ladder`: mod 686 (续跑 `l1=8` -> 1e6，阶梯 `fy=3` -> 1e6)
+    4. `leak` (隧道/SSH/Uploader): mod 34 (`Bun.spawn` 强制注入 `windowsHide: true`)
+    5. `leak` (Chrome launch): mod 323 (浏览器启动注入 `windowsHide: true`)
+    6. `leak` (Python kernel): mod 17 (`shouldHideKernelWindow` 强行返回 true 规避黑框)
+    7. `encstale`: mod 38 (`ce` 正则扩展支持 encrypted content 错误分类)
+    8. `replay flush`: mod 173 (彻底移除 `#t.size === 0 && #e.size === 0` 门控，无条件刷新)
+- **管线修复 (解决评审指出的历史隐患)**:
+  - `rebuild.js`: 彻底修复 `argvStart` 漏算 `modLen` 的严重偏移缺陷；清零逻辑升级为遍历所有追加模块按需清零对应 bytecode。
+  - 全量多 chunk 汉化遍历：扫描全部 2,917 个模块，自动为其中命中的 188 个 JS 模块进行字典匹配与 `asciiEscape` 编码转义。
+- **终验与冒烟验证**:
+  - `tools-verify-18104.js`: 18/18 项终验全绿 PASS (含 argv 偏移准确度、各 chunk 补丁存在性验证)。
+  - 冒烟实测: `omp/18.10.4`, `helpCJK=1650`，`--models` 行双语排版完美。
+- **交付状态**:
+  - 产物 SHA-256: `660feff011484fc04c7ea5fd908c53e62dca156614a7f1657b47699f24bf4de6` (259,727,360 字节)。
+  - 状态: **DEFERRED** (正式目标 `G:/omp/omp-zh.exe` 被当前活跃会话占用锁定)。
+  - 看护进程: pid **21700** 在位监听 (expect `660feff011484fc0..`)，暂存候选 `.new` 已就绪。会话退出后看护自动完成原子替换。
