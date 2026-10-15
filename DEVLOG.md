@@ -1020,3 +1020,32 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
   - 产物 SHA-256: `660feff011484fc04c7ea5fd908c53e62dca156614a7f1657b47699f24bf4de6` (259,727,360 字节)。
   - 状态: **DEFERRED** (正式目标 `G:/omp/omp-zh.exe` 被当前活跃会话占用锁定)。
   - 看护进程: pid **21700** 在位监听 (expect `660feff011484fc0..`)，暂存候选 `.new` 已就绪。会话退出后看护自动完成原子替换。
+
+## 2026-10-16: 18.11.1 构建 -- 分块架构锚点全量重定位
+- **上游版本**: 18.10.4 -> 18.11.1 (源码 tag `v18.11.1` 已对齐，commit `7cc912940b`)
+- **模块结构变化**: 模块数 2917 -> 3389 (modLen 176228 = 3389 * 52)，新增 ~472 个 chunk
+- **锚点重定位结果**:
+  - compat: mod 29 (`cli-mtan38r4.js`) `supportsForcedToolChoice` 计算式
+  - stopcap: mod 640 (`cli-0qjte7md.js`) `X, J, z, Y` 常量簇 (fe=15000 保留)
+  - sessionStop + yieldLadder: mod 777 (`cli-kanx0gmk.js`) `x$=8` / `uS=3` (同 mod 还有 M$, $G, BD 等)
+  - tunnel + ssh + uploader: mod 84 (`cli-7qqrn34w.js`) 三处 `Bun.spawn` 注入 `windowsHide`
+  - chrome: mod 352 (`cli-bd70svdq.js`) 浏览器启动注入 `windowsHide`
+  - pythonKernel: mod 72 (`cli-nzaw9se1.js`) `function FJ` 返回 `true`
+  - pythonKernelCall: mod 361 + mod 799 两处 `windowsHide: FJ({...})` -> `windowsHide: true`
+  - encstale: mod 24 (`cli-pe7pfx69.js`) `ce`/`bt` 正则扩展 encrypted content
+  - flush: mod 169 (`cli-mth7ewzy.js`) 移除 `#t.size === 0 && #e.size === 0` 门控
+- **构建与验证**:
+  - `tools-build-18111.js`: 10 个补丁 + 3030 条翻译，产物 `work/omp-zh-18111.exe` (236,856,320 字节)
+  - `tools-verify-18111.js`: 18/18 PASS (argv 偏移、补丁存在性、运行时冒烟)
+  - 冒烟: `omp/18.11.1`, `--help` CJK 字符数正常
+- **交付状态**: DEFERRED
+  - 产物 SHA-256: `8e9de7543b41dbdc7d933569f6f8afe1fb887dd288746f366bad88dcd8fa251a`
+  - 暂存: `G:/omp/omp-zh.exe.new`
+  - 看护: pid **29756** 监听 (expect `8e9de7543b41dbdc..`)
+
+### 锚点修正 (AnchorLocator 协作)
+- **sessionStop**: `x$` -> `BD` (mod 777, `#Fn >= BD` 比较确认)
+- **yieldLadder**: `uS` -> `P6` (mod 777, `T6=4` 保留不抬)
+- **encstaleCe**: `ce` 数组在 mod 24 (与 `bt` 同文件，18.10.4 mod 38 -> 24)
+- **flush**: mod 169 (`#t`/`#e`/`#w` 门控，occurrences=2)
+- **pythonKernelCall**: mod 361 + 799 (上游 4 处调用点，扫描命中 2 处)
