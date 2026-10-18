@@ -1046,6 +1046,7 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
 ### 锚点修正 (AnchorLocator 协作)
 - **sessionStop**: `x$` -> `BD` (mod 777, `#Fn >= BD` 比较确认)
 - **yieldLadder**: `uS` -> `P6` (mod 777, `T6=4` 保留不抬)
+  ⚠️ **该锚点判定已于 18.12.1 推翻**：P6 是 `Math.max(P6, Math.min(f, p - T6))` 的时长下限，真值为 `ih`；(4,3) 相邻对不是可靠判据。
 - **encstaleCe**: `ce` 数组在 mod 24 (与 `bt` 同文件，18.10.4 mod 38 -> 24)
 - **flush**: mod 169 (`#t`/`#e`/`#w` 门控，occurrences=2)
 - **pythonKernelCall**: mod 361 + 799 (上游 4 处调用点，扫描命中 2 处)
