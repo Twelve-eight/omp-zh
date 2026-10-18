@@ -17,9 +17,10 @@ function arg(name, envName, def) {
   if (i >= 0 && process.argv[i + 1]) return process.argv[i + 1];
   return process.env[envName] || def;
 }
-const SRC = arg('src', 'OMP_SRC', 'G:/omp/omp.exe');
+const SRC = arg('src', 'OMP_SRC', '');
 const CLI = arg('cli', 'OMP_CLI', T + '/work/cli.js');
 const DST = arg('dst', 'OMP_DST', T + '/work/omp-zh.exe');
+if (!SRC) { console.error('--src or OMP_SRC required (path to upstream omp.exe)'); process.exit(2); }
 // 交付参数已移除(2026-09-22 R15-01):构建脚本不再拥有替换正式安装目标的权力,
 // 否则"先交付后验证"的顺序会被重新引入.交付一律走 deliver-zh.js.
 for (const flag of ['--deliver', 'OMP_DELIVER']) {

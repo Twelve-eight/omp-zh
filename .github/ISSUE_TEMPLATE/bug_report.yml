@@ -1,0 +1,48 @@
+name: Bug Report
+description: Report a bug in omp-zh
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug in omp-zh!
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: omp-zh version (e.g., 18.12.1)
+      placeholder: "18.12.1"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened? What did you expect?
+      placeholder: "Describe the bug..."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this?
+      placeholder: "1. Run 'omp-zh --version' ..."
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs
+      description: Paste any relevant log output
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I have verified this issue is not present in the official oh-my-pi build
+          required: true
+        - label: I have checked existing issues for duplicates
+          required: true

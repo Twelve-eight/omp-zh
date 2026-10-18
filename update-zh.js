@@ -47,8 +47,10 @@ function writeSumsProvenance(tag, source, hex) {
 // ---- 路径(默认=生产;OMP_ZH_* 覆盖仅供隔离回归测试,见 tools-verify-order.js) ----
 // 覆盖存在的唯一理由:让端到端回归能在 fixture 里跑真实更新器,而不碰 G:/omp 的正式安装.
 // 未设置时行为与覆盖前逐字节相同.
-const LOCAL_EXE = process.env.OMP_ZH_LOCAL_EXE || 'G:/omp/omp-zh.exe'; // 检测汉化版自身版本(原读官方版 omp.exe 导致检测与实际使用脱节)
-const DELIVER = process.env.OMP_ZH_DELIVER || 'G:/omp/omp-zh.exe';
+const LOCAL_EXE = process.env.OMP_ZH_LOCAL_EXE || '';
+const DELIVER = process.env.OMP_ZH_DELIVER || '';
+if (!LOCAL_EXE) { console.error('OMP_ZH_LOCAL_EXE required (path to your omp-zh.exe)'); process.exit(2); }
+if (!DELIVER && !args.includes('--no-deliver')) { console.error('OMP_ZH_DELIVER required (or use --no-deliver)'); process.exit(2); }
 const LAST_VER_FILE = process.env.OMP_ZH_LAST_VER_FILE || T + '/work/.omp-zh-last-version';
 const WORK_DIR = T + '/work';
 const LATEST_TAG_OVERRIDE = (process.env.OMP_ZH_LATEST_TAG || '').trim().replace(/^v/, '');

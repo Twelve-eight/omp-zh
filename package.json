@@ -1,0 +1,27 @@
+{
+  "name": "omp-zh",
+  "version": "18.12.1",
+  "description": "Chinese localization build of can1357/oh-my-pi",
+  "main": "update-zh.js",
+  "scripts": {
+    "build": "node tools-build-18121.js",
+    "verify": "node tools-verify-18121.js",
+    "update": "node update-zh.js",
+    "scan": "node scan-gaps.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Twelve-eight/omp-zh.git"
+  },
+  "keywords": [
+    "oh-my-pi",
+    "localization",
+    "chinese",
+    "cli",
+    "tui"
+  ]
+}

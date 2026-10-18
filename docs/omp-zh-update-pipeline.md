@@ -75,14 +75,14 @@ node update-zh.js --no-deliver   # 只构建到 Temp\omp-zh.exe，不替换 G:\o
 
 ## 维护注意点
 
-- **交付被占用**:目标 `G:\omp\omp-zh.exe` 被运行中会话占用时,`deliver-zh.js` 报
+- **交付被占用**:目标（由 `OMP_ZH_DELIVER` 指定）被运行中会话占用时,`deliver-zh.js` 报
   `deliver DEFERRED`,已验证候选 staged 为 `<target>.new`,看护(`deliver-pending.js`)在占用
   会话退出后按同一 sha256 补交付.此路径**不写** `.omp-zh-last-version`,下次运行会重新核对.
   若想立即落位:退出全部汉化版会话后重跑 `node update-zh.js --force`.
 - **版本记录**:`.omp-zh-last-version` 只在产物真的落位(或显式 `--no-deliver`)时写;
   `.omp-zh-last-delivery.json` 记录最近一次交付的目标/sha256/模式(审计用).
 - **字典版本漂移**：dict 生成脚本（gen-*.js）输入仍指向 v17.2.11 的 cli.js——新增文本用 scan-gaps 发现即可，旧生成脚本仅作候选辅助
-- **交付顺序回归**:`node tools-verify-order.js`(隔离 fixture 跑真实更新器,不碰 `G:/omp`);
+- **交付顺序回归**:`node tools-verify-order.js`(隔离 fixture 跑真实更新器,不碰正式安装);
   需要 ~0.6GB/场景空闲空间,不足会直接拒绝开跑.单场景:`--scenario miss|patchfail|patchtimeout|verifyfail|ok|locked`
 
 ## 端到端验证记录（2026-08-10）

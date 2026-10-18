@@ -36,7 +36,7 @@ Verification: `G:/tmp/ompzh-ws01/verify-digest-trust.js` drives the real `downlo
 
 ## Verify-before-deliver ordering (R15-01, 2026-09-22)
 
-The installer target `G:/omp/omp-zh.exe` is a single-writer slot. Before this change the pipeline
+The installer target is configured via `OMP_ZH_LOCAL_EXE` / `OMP_ZH_DELIVER` environment variables (see `update-zh.js`). Before this change the pipeline
 replaced it (or armed a watcher to replace it) *before* running verify, and a patch rule miss only
 logged a warning - so an unverified or partially patched binary could reach the target while the run
 still reported success and wrote its version marker.
@@ -71,6 +71,6 @@ document. Download trust, translation policy and digest handling are unchanged.
 
 Verification: `tools-verify-order.js` drives the real updater end to end inside an isolated fixture
 (copies of the scripts, dictionaries, `work/` and the target; the 218 MB source exe is hard-linked, so
-each scenario costs ~0.55 GB) with `OMP_ZH_*` path overrides, no network, and no write to `G:/omp`.
-Scenarios and results are recorded in `DEVLOG.md` (2026-09-22 entry) and the raw logs are under
-`G:/omp works/.tmp/report-fixes-20260922/verification/a4-logs/`.
+each scenario costs ~0.55 GB) with `OMP_ZH_*` path overrides, no network, and no write to the install
+target. Scenarios and results are recorded in `DEVLOG.md` (2026-09-22 entry) and raw logs are under
+the verification workspace.
