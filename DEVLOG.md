@@ -241,10 +241,10 @@ full 模式是整字面量替换，但同一大写词可能既有 label 用途�
   交付延迟（G:\omp\omp-zh.exe 被运行中会话占用）：退出后跑 `node update-zh.js --force` 补交付。
   行为级验证状态：bundle 级已证伪全部危险模式；TUI 实机观察待下次会话确认。
 - **本仓库敏感信息清理**：自写 G:\omp works\.tooling\git-history-filter.js（fast-export|过滤|
-  fast-import，机器无 Python 故弃 filter-repo）。全史 redact：REDACTED_USER→REDACTED_USER、
+  fast-import，机器无 Python 故弃 filter-repo）。全史 redact：Windows 用户名→REDACTED_USER、
   retry.maxRetries 数值与"无限重试"表述（正文+commit message）。强推完成 HEAD=85c4622，
   tag v18.0.0 重指；`git log --all -p` 三模式零命中。原始流留档 G:\omp works\omp-zh.export.raw。
-- **其它仓库**：voxy-net-lod / sts2-spire1 扫描亦见 REDACTED_USER 与 sigdump bin/obj 构建产物入库，
+- **其它仓库**：voxy-net-lod / sts2-spire1 扫描亦见 Windows 用户名 与 sigdump bin/obj 构建产物入库，
   按用户指示未动，留档待决。凭据类模式（token/key/URL 凭据/私钥）三仓库及全工作区均零命中。
 - **归因与上游反馈（同日）**：对官方原版资产字节级核验——v18.0.1 含全部不安全模式
   （daemon `windowsHide:!…Console`×1、MCP 三元式×1、kernel×3），v17.2.12 同类存在；
