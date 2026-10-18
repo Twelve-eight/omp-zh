@@ -7,31 +7,48 @@
 
 ## 当前版本
 
-**18.0.0**（对应上游 v18.0.0）
+**18.12.1**（对应上游 v18.12.1）
 
 - 界面全量汉化：CLI 帮助、TUI、设置界面（含全部 settings schema 标签与描述）、Web 导出页
-- 3006+ 处翻译、双语对照格式（`中文/English`）
-- 附带三个行为补丁：deepseek-v4-flash/pro 模型 `supportsForcedToolChoice` 兼容修复
-- 已适配 Bun 1.4.0 standalone latin1 解码缺陷（翻译文本 `\u` 转义预补偿）
+- 3034+ 处翻译、双语对照格式（`中文/English`）
+- 8 类行为补丁：模型兼容、重试上限、窗口隐藏、错误分类、转录刷新等
+- 已适配 Bun 1.4.x standalone 多 chunk 分块架构与 latin1 解码缺陷（`\u` 转义预补偿）
 
 ## 使用
 
-从 [Releases](../../releases) 下载 `omp-zh.exe`（或带版本号的副本），替换/运行即可。配置、会话、技能与官方版完全兼容（共用 `~/.omp`）。
+从 [Releases](../../releases) 下载 `omp-zh-*.exe`，替换/运行即可。配置、会话、技能与官方版完全兼容（共用 `~/.omp`）。
 
 ## 构建管线（本仓库内容）
 
 ```
 update-zh.js      主控:检测新版本 -> 下载校验 -> 提取 -> 补丁门 -> 构建 -> 验证 -> 冒烟 -> 交付
+tools-build-*.js  版本化构建脚本（含锚点定义）
+tools-verify-*.js 版本化验证脚本
+rebuild.js        Bun standalone exe 模块表重建（支持分块架构）
 extract-cli.js    从 Bun standalone exe 提取入口 JS 与 Web 资产模块
 patch-zh.js       确定性模型兼容补丁(warn>0 不写回,直接中止管线)
 scan-gaps.js      新增英文文本发现器(差距清单 + 死条目)
-build-zh.js       字典合并 -> 翻译 -> ASCII 转义预补偿 -> 重建 exe(只构建,不交付)
 deliver-zh.js     唯一交付入口(复核 sha256/版本 -> 原子 rename -> 落位后回读)
-verify-zh.js      产物验证（字面量一致/字符串闭合/括号/CJK 注入）
 translate.js      翻译引擎（full/sub 双模式字典命中）
 dict-*.json       9 个领域字典，2400+ 条目
 docs/             管线文档与排查报告
 DEVLOG.md         开发日志（完整决策与踩坑记录）
+```
+
+### 发布流程
+
+每次发布到 GitHub Releases：
+
+```sh
+# 1. 构建并验证
+node tools-build-<version>.js
+node tools-verify-<version>.js
+
+# 2. 生成校验和
+sha256sum work/omp-zh-<version>.exe > work/SHA256SUMS.txt
+
+# 3. 创建 Release 并上传
+gh release create v<version>-zh --title "omp-zh v<version>" --notes "<release notes>" work/omp-zh-<version>.exe work/SHA256SUMS.txt
 ```
 
 ### 校验信任边界
