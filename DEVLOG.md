@@ -1067,3 +1067,32 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
 - **补译**: dict-help.json 新增 `--no-prewalk` 新文案条目，CJK 恢复至 1650
 - **验证**: 16/16 PASS，冒烟 `omp/18.12.1`
 - **交付**: DEFERRED，看护 pid 12872 (expect `c3f866ee0fbdb90a..`)
+
+## 2026-10-18 (2): 设置页补译 + 比较上下文硬门
+
+### 根因
+- `tools-build-18121.js` 只读根目录 `dict-*.json`，**漏掉 `work/out-*.json` 补译 staging**（约 350 条），
+  与 `build-zh.js`/`update-zh.js` 的合并顺序不一致。已修复：staging 按名排序并入。
+- 设置页/模型角色页的模板字符串含 `${}` 插值，`full` 模式无法命中；新增 `sub` 模式条目覆盖。
+
+### 新增字典条目（dict-tui.json，共 +33）
+- 模型角色页快捷键栏：`rows/pick/providers/fallback/clear/cycle/new/reorder/type to search`
+- 状态行：`Session-only model: `、` or /model for roles.`
+- 设置页 597 条候选由 4 个 dsv4.1f 分片翻译，落盘 `work/out-settings-shard{1,2,4}.json`（shard3 未产出）
+
+### 关键教训：比较上下文污染（禁译清单回归）
+`translate()` 对所有字面量无差别应用 sub/full，**UI 标签与代码枚举值共用同一字符串**时会破坏逻辑：
+- 实测案例：`"removed"` → `"移除d"`（`d.type === "removed"`）、`"Stop reason"` → `"第 reason"`
+- 历史回归：`dict-settings-b.json` 的 `None`/`Default`/`Strict`/`Auto` 与 `dict-plan.json` 的
+  `Approve and execute`/`Approve and compact context`/`Refine plan`、`Task`/`Provider`/`Slash`
+  均在代码中作为比较值使用，18.12.1 之前的构建已静默破坏这些分支。
+
+### 硬门（tools-build-18121.js）
+单次扫描 bundle 提取全部比较/枚举字面量（`===/!==/case/values:`），与字典 `from` 求交集；
+命中即 `exit 3` 拒绝构建。实测耗时 ~2s，当前 4927 个比较字面量、0 冲突。
+
+### 结果
+- 翻译处数 3892 → 3893（+staging 350 条并入后）
+- 产物 sha256 `a7a0ad7d32f9823514e701185619a0520c17e6743a185dd2750798f7ecf90c95`
+- 16/16 验证 PASS，helpCJK 1650
+- 交付 DEFERRED（看护 pid 18876），Release 资产已替换

@@ -28,8 +28,10 @@ const mods = readModules(buf, ds, modOff, modLen);
 
 console.log('Module count:', mods.length);
 
-// Load dictionaries
+// Load dictionaries: root dict-*.json first, then work/out-*.json staging (same order as build-zh.js)
 const dictFiles = fs.readdirSync('.').filter(f => f.startsWith('dict-') && f.endsWith('.json'));
+const staging = fs.readdirSync('./work').filter(f => /^out-.+\.json$/.test(f)).sort();
+staging.forEach(f => dictFiles.push('work/' + f));
 let allEntries = [];
 dictFiles.forEach(f => {
   const d = JSON.parse(fs.readFileSync(f, 'utf8'));
@@ -41,7 +43,7 @@ allEntries.forEach(e => {
   if (!seen.has(k)) seen.set(k, e);
 });
 const dedup = [...seen.values()];
-console.log('Deduped dict entries:', dedup.length);
+console.log('Deduped dict entries:', dedup.length, '| staging files:', staging.length);
 
 // Patch map for 18.12.1
 const patchMap = {
@@ -136,6 +138,41 @@ mods.forEach((m, idx) => {
 });
 
 console.log(`Applied ${patchedCount} patches, translated ${transCount} literals.`);
+
+// ---- HARD GATE: comparison-context audit (single-pass extraction, then set intersection) ----
+// A dict entry whose `from` is also compared/cased in code corrupts logic (e.g. "removed" -> "移除d").
+// Extract every compared/cased literal once, then intersect with dict `from` values.
+{
+  const compared = new Set();
+  const pats = [
+    /(?:===|!==|==|!=)\s*["']([^"'\n]{1,120})["']/g,
+    /case\s+["']([^"'\n]{1,120})["']/g,
+    /\b(?:act|type|kind|op|purpose|mode|status|action)\s*===\s*["']([^"'\n]{1,120})["']/g,
+    /values:\s*\[([^\]]{1,400})\]/g,
+  ];
+  for (const m of mods) {
+    const s = m.contents.toString('utf8');
+    for (const re of pats) {
+      re.lastIndex = 0;
+      let x;
+      while ((x = re.exec(s)) !== null) {
+        if (re === pats[3]) {
+          for (const q of x[1].matchAll(/["']([^"'\n]{1,120})["']/g)) compared.add(q[1]);
+        } else {
+          compared.add(x[1]);
+        }
+      }
+    }
+  }
+  const offenders = dedup.filter(e => compared.has(e.from)).map(e => e.from);
+  if (offenders.length) {
+    console.error('GATE FAIL: ' + offenders.length + ' dict entries collide with code comparisons:');
+    offenders.slice(0, 40).forEach(o => console.error('  ! ' + JSON.stringify(o)));
+    console.error('Remove or narrow these entries before building.');
+    process.exit(3);
+  }
+  console.log('Gate OK: no dict entry collides with ' + compared.size + ' compared/cased literals.');
+}
 
 const out = rebuild(buf, newContents);
 const DST = './work/omp-zh-18121.exe';
