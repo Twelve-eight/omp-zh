@@ -39,6 +39,11 @@
   "to": "即使设置了 prewalk.enabled 也禁用 prewalk/Disable prewalk even if prewalk.enabled is set",
   "mode": "full"
  },
+{
+  "from": "Disable prewalk, including prewalk.auto, even if prewalk.enabled is set",
+  "to": "禁用 prewalk（含 prewalk.auto），即使已设置 prewalk.enabled/Disable prewalk, including prewalk.auto, even if prewalk.enabled is set",
+  "mode": "full"
+},
  {
   "from": "Target model for prewalk (default the \"smol\" role)",
   "to": "prewalk 的目标模型（默认为 smol 角色）/Target model for prewalk (default the \"smol\" role)",

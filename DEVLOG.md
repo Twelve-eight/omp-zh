@@ -1049,3 +1049,20 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
 - **encstaleCe**: `ce` 数组在 mod 24 (与 `bt` 同文件，18.10.4 mod 38 -> 24)
 - **flush**: mod 169 (`#t`/`#e`/`#w` 门控，occurrences=2)
 - **pythonKernelCall**: mod 361 + 799 (上游 4 处调用点，扫描命中 2 处)
+
+## 2026-10-18: 18.12.1 构建 -- 锚点修正与补译
+- **上游版本**: 18.11.1 -> 18.12.1 (commit `291e055836`)
+- **模块结构**: 模块数 3389 -> 3418
+- **锚点修正**:
+  - compat: mod 28 (公式简化，无 `isClinePass` 尾部)
+  - stopcap: mod 646 (同 18.11.1 模式)
+  - sessionStop: mod 783 `rD = 8` (非 `oF`，`#Vn >= rD` 确认)
+  - yieldLadder: mod 783 `bh = 3` (非 `G6`，`while (!p.yieldCalled() && de < bh)` 确认)
+  - tunnel/ssh/uploader: mod 75 (`GU()` cwd helper)
+  - chrome: mod 355 (`[s, ...w]`)
+  - pythonKernel: mod 63 (`function SQ`)
+  - encstale: mod 25 (`de`/`Mt` 变量名变更)
+  - flush: mod 167 (`#v()` 而非 `#w()`)
+- **补译**: dict-help.json 新增 `--no-prewalk` 新文案条目，CJK 恢复至 1650
+- **验证**: 16/16 PASS，冒烟 `omp/18.12.1`
+- **交付**: DEFERRED，看护 pid 12872 (expect `c3f866ee0fbdb90a..`)
