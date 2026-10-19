@@ -16,7 +16,7 @@
 
 ## 使用
 
-从 [Releases](../../releases) 下载 `omp-zh-*.exe`，替换/运行即可。配置、会话、技能与官方版完全兼容（共用 `~/.omp`）。
+从 [Releases](https://github.com/Twelve-eight/omp-zh/releases) 下载 `omp-zh-*.exe`，替换/运行即可。配置、会话、技能与官方版完全兼容（共用 `~/.omp`）。
 
 ## 构建管线（本仓库内容）
 
