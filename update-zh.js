@@ -299,9 +299,19 @@ async function main() {
 
   // 差异发现(新增英文文本)
   log('scanning translation gaps');
+  // staging 与 build-zh 同源(2026-09-10 修正:gap 指标须含 staging,否则环比虚报)
+  // 2026-10-20: staging 已迁入受控路径 dict/staging/, 这里必须同步,否则 1054 条 staging 被误报为未译.
+  const stagingDicts = [];
+  for (const dir of ['dict/staging', 'work']) {
+    const abs = T + '/' + dir;
+    if (!fs.existsSync(abs)) continue; // work/ 可能不存在, 不能裸 readdirSync
+    for (const x of fs.readdirSync(abs).filter((n) => /^out-.+\.json$/.test(n)).sort()) {
+      stagingDicts.push(abs + '/' + x);
+    }
+  }
   const dicts = ['dict-help.json','dict-help-extra.json','dict-inline.json','dict-tui.json','dict-settings-a.json','dict-settings-b.json','dict-tools.json','dict-slash.json','dict-plan.json']
     .map(f => T + '/' + f)
-    .concat(fs.readdirSync(T + '/work').filter((x) => /^out-.+\.json$/.test(x)).map((x) => T + '/work/' + x)); // staging 与 build-zh 同源(2026-09-10 修正:gap 指标须含 staging,否则环比虚报)
+    .concat(stagingDicts);
   let gaps = '';
   try { gaps = sh('node', [T + '/scan-gaps.js', cliNew].concat(dicts)); } catch (e) { gaps = 'scan-gaps failed: ' + e.message; }
   const gapMatch = gaps.match(/UNTRANSLATED_COUNT:\s*(\d+)/);

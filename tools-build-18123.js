@@ -30,12 +30,19 @@ const mods = readModules(buf, ds, modOff, modLen);
 
 console.log('Module count:', mods.length);
 
-// Load dictionaries: root dict-*.json first, then work/out-*.json staging (same order as build-zh.js)
+// Load dictionaries: root dict-*.json first, then staging (dict/staging is the tracked source of
+// truth; work/ is still scanned for local scratch, but a same-named file there is SHADOWED).
 const dictFiles = fs.readdirSync('.').filter(f => f.startsWith('dict-') && f.endsWith('.json'));
 const staging = [];
+const seenNames = new Map();
 for (const dir of ['dict/staging', 'work']) {
   if (!fs.existsSync('./' + dir)) continue;
   for (const f of fs.readdirSync('./' + dir).filter(x => /^out-.+\.json$/.test(x)).sort()) {
+    if (seenNames.has(f)) {
+      console.warn(`WARN: ${dir}/${f} is shadowed by ${seenNames.get(f)} (first wins) - edits there have NO effect`);
+      continue;
+    }
+    seenNames.set(f, dir + '/' + f);
     staging.push(dir + '/' + f);
   }
 }

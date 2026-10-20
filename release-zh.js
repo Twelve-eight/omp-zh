@@ -125,8 +125,11 @@ if (!DRY) {
   let exists = false;
   try { sh('gh', ['release', 'view', TAG, '--json', 'tagName']); exists = true; } catch { exists = false; }
   if (exists) {
+    // 更新路径必须同时刷新 body：只 --clobber 上传资产会让 notes 里的旧 sha256 与资产不符，
+    // 按 notes 校验的人会看到假的不匹配（2026-10-20 实测发生）。
+    sh('gh', ['release', 'edit', TAG, '--notes', notes]);
     sh('gh', ['release', 'upload', TAG, EXE, sumsPath, '--clobber']);
-    log(`Release ${TAG} 资产已更新`);
+    log(`Release ${TAG} 资产与说明已更新`);
   } else {
     sh('gh', ['release', 'create', TAG, '--title', `omp-zh v${version}`, '--notes', notes, EXE, sumsPath]);
     log(`Release ${TAG} 已创建`);

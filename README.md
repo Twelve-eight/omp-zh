@@ -10,7 +10,7 @@
 最新版本见 [Releases](https://github.com/Twelve-eight/omp-zh/releases/latest)（标签格式 `v<上游版本>-zh`）。
 
 - 界面全量汉化：CLI 帮助、TUI、设置界面（含全部 settings schema 标签与描述）、Web 导出页
-- 双语对照格式（`中文/English`），约 3900 处替换
+- 双语对照格式（`中文/English`），覆盖 CLI 帮助、TUI、设置项、Web 导出页
 - 10 类行为补丁：模型兼容、重试上限、窗口隐藏、错误分类、转录刷新等
 - 已适配 Bun 1.4.x standalone 多 chunk 分块架构与 latin1 解码缺陷（`\u` 转义预补偿）
 
