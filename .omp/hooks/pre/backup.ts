@@ -50,21 +50,10 @@ export default function backupHook(pi: HookAPI): void {
       for (const repo of repos) {
         const status = await pi.exec("git", ["-C", repo, "status", "--porcelain"]);
         if (status.code !== 0 || !status.stdout.trim()) continue;
-        // Scope the snapshot to the paths this tool actually touched, not `-A`.
-        // `add -A` swept every unrelated modification (and every untracked file the
-        // .gitignore happened not to cover) into the commit; the hook cannot tell a
-        // secret that a sibling process just dropped from a real edit.
-        const repoPaths: string[] = [];
-        for (const p of candidates) {
-          const abs = isAbsolute(p) ? p : join(cwd, p);
-          if (findGitRoot(abs) !== repo) continue;
-          const rel = abs.slice(repo.length).replace(/^[\\/]+/, "");
-          if (rel) repoPaths.push(rel);
-        }
-        const addArgs = repoPaths.length > 0
-          ? ["-C", repo, "add", "--", ...repoPaths]
-          : ["-C", repo, "add", "-u"];
-        const added = await pi.exec("git", addArgs);
+        // AGENTS.md §7 requires `git add -A` here, so the snapshot covers the whole
+        // tree. Only the exit-code checks below are new: a failing add/commit used to
+        // be dropped, leaving the tree dirty with no record anywhere.
+        const added = await pi.exec("git", ["-C", repo, "add", "-A"]);
         if (added.code !== 0) {
           pi.logger?.error?.(`[backup hook] git add failed in ${repo}: ${added.stderr || added.stdout}`);
           continue;
@@ -76,9 +65,6 @@ export default function backupHook(pi: HookAPI): void {
           "-m",
           `snapshot after ${event.toolName} (${new Date().toISOString()})`,
         ]);
-        // A failing commit used to be silent: the exec result was dropped, so a
-        // missing user.email / a failing pre-commit hook / a stale index.lock left
-        // the tree dirty with no record anywhere.
         if (committed.code !== 0) {
           pi.logger?.error?.(`[backup hook] git commit failed in ${repo}: ${committed.stderr || committed.stdout}`);
         }

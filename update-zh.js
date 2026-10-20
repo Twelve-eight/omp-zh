@@ -49,6 +49,11 @@ function writeSumsProvenance(tag, source, hex) {
 // 未设置时行为与覆盖前逐字节相同.
 const LOCAL_EXE = process.env.OMP_ZH_LOCAL_EXE || '';
 const DELIVER = process.env.OMP_ZH_DELIVER || '';
+// argv 必须在下面的 --no-deliver 检查之前读取:const 声明存在 TDZ,
+// 原来在 :53 用 args 而 :66 才 const args,未设 OMP_ZH_DELIVER 时必抛 ReferenceError,
+// 文档里的 `--no-deliver` 路径从未真正可用(tools-verify-order.js 总是设置
+// OMP_ZH_DELIVER 短路了这条分支,所以回归覆盖不到)。
+const args = process.argv.slice(2);
 if (!LOCAL_EXE) { console.error('OMP_ZH_LOCAL_EXE required (path to your omp-zh.exe)'); process.exit(2); }
 if (!DELIVER && !args.includes('--no-deliver')) { console.error('OMP_ZH_DELIVER required (or use --no-deliver)'); process.exit(2); }
 const LAST_VER_FILE = process.env.OMP_ZH_LAST_VER_FILE || T + '/work/.omp-zh-last-version';
@@ -63,7 +68,6 @@ const DELIVER_INTERVAL_MS = process.env.OMP_ZH_DELIVER_INTERVAL_MS || '';
 const PROXY = process.env.OMP_NO_PROXY ? '' : (process.env.OMP_PROXY || 'http://127.0.0.1:7897');
 const curlProxyArgs = PROXY ? ['-x', PROXY] : [];
 
-const args = process.argv.slice(2);
 const CHECK_ONLY = args.includes('--check-only');
 const NO_DELIVER = args.includes('--no-deliver');
 const FORCE = args.includes('--force');

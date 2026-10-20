@@ -1096,3 +1096,32 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
 - 产物 sha256 `a7a0ad7d32f9823514e701185619a0520c17e6743a185dd2750798f7ecf90c95`
 - 16/16 验证 PASS，helpCJK 1650
 - 交付 DEFERRED（看护 pid 18876），Release 资产已替换
+
+## 2026-10-20: 18.12.3 构建
+
+- **上游**: v18.12.3 (commit 53a0377db6)，模块数 3438（+20），`--user-agent=omp/18.12.3`
+- **二进制校验**: 官方 SHA256SUMS 与下载件一致 `5e22e9ff5d93bde5...`
+
+### 锚点迁移（相对 18.12.1）
+| 补丁 | 18.12.1 | 18.12.3 | 备注 |
+|---|---|---|---|
+| compat | 28 | 28 | 公式不变 |
+| stopcap | 640 | **333** | `oe/ae/le/ce` 四常量簇（原 `X/J/z/Y`）|
+| sessionStop | 783 (`rD`) | **788 (`FD`)** | `this.#Yn >= FD` |
+| yieldLadder | 783 (`bh`) | **788 (`fh`)** | use-site 三处确认：`while he < fh`、`he >= fh`、`maxRetries: fh` |
+| tunnel/ssh/uploader | 75 | 75 | cwd helper `GU()` -> `c3()` |
+| chrome | 355 | **362** | |
+| pythonKernel | 63 (`SQ`) | **63 (`AZ`)** | 调用点 370/809 |
+| encstale | 25 (`de`/`Mt`) | 25 | 完全一致 |
+| flush | 167 | 167 | 完全一致 |
+
+### 补译
+- 上游新增 17 个子命令（anonymize/auth/browser-relay/clip/collab/find/gallery/git/login/play/predict/render/session/skill/stream/toks/worktree）及 5 个选项说明
+- 新增 `work/out-help-18123.json`（22 条），**helpCJK 1643 -> 2037**（+394）
+- 说明：1643 的缺口不是失配，而是上游新增了大量命令
+
+### 验证与交付
+- `tools-verify-18123.js`: **20/20 PASS**（含 stopcap 四常量、sessionStop/yieldLadder use-site、无污染检查）
+- 比较上下文硬门：4947 个比较字面量，0 冲突
+- 产物 sha256 `f8310684bee9b677f866c930f4aa75d0d5542746b3251541320a6a5d9bf2c5f2`（240,181,760 字节）
+- 交付 DEFERRED（看护 pid 18440），Release `v18.12.3-zh` 已发布并附 SHA256SUMS

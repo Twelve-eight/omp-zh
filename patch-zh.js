@@ -13,7 +13,7 @@ if (!file) { console.error('usage: node patch-zh.js <cli.js>'); process.exit(2);
 let s = fs.readFileSync(file, 'utf8');
 const pristine = s; // 规则自检用:未打任何补丁的原始 bundle
 
-let ok = 0, warn = 0;
+let ok = 0, warn = 0, legacy = 0; let applied = 0;
 
 // ---- 补丁 1: deepseek-v4 的 supportsForcedToolChoice(18.2.8 起改为计算式) ----
 // 历史:该字段原在 catalog 条目内静态声明,上游 18.2.8 改为运行时按 provider/模型条件计算
@@ -30,6 +30,7 @@ let ok = 0, warn = 0;
   const c = s.split(find).length - 1;
   if (c === 1) {
     s = s.split(find).join(repl);
+    applied++;
     ok++;
     console.log('patch OK: deepseek compat branch supportsForcedToolChoice -> false (computed form)');
   } else if (c === 0 && s.includes('supportsForcedToolChoice: false,')) {
@@ -312,6 +313,7 @@ for (const p of LEAK_PATCHES) {
   const c = s.split(p.find).length - 1;
   if (c === p.expect) {
     s = s.split(p.find).join(p.repl);
+    applied++ // 只有真正替换才算命中; ok 还会被 SKIP 分支加, 不能用来判定
     ok++;
     console.log('patch OK: [leak] ' + p.name);
   } else if (c === 0 && (p.done ? s.includes(p.done) : s.includes(p.repl))) {
@@ -319,6 +321,7 @@ for (const p of LEAK_PATCHES) {
     console.log('patch SKIP: [leak] ' + p.name + ' (already patched)');
   } else if (isLegacy(p)) {
     console.log('patch LEGACY: [leak] ' + p.name + ' (anchor for an older bundle)');
+    legacy++;
   } else {
     console.log('patch WARN: [leak] ' + p.name + ' found=' + c + ' expected=' + p.expect + ' (upstream changed?)');
     warn++;
@@ -510,12 +513,14 @@ for (const p of STOPCAP_PATCHES) {
   const c = s.split(p.find).length - 1;
   if (c === p.expect) {
     s = s.split(p.find).join(p.repl);
+    applied++;
     ok++;
   } else if (c === 0 && (p.done ? s.includes(p.done) : s.includes(p.repl))) {
     ok++;
     console.log('patch SKIP: [stopcap] ' + p.name + ' (already patched)');
   } else if (isLegacy(p)) {
     console.log('patch LEGACY: [stopcap] ' + p.name + ' (anchor for an older bundle)');
+    legacy++;
   } else {
     console.log('patch WARN: [stopcap] ' + p.name + ' found=' + c + ' expected=' + p.expect + ' (upstream changed?)');
     warn++;
@@ -631,6 +636,7 @@ for (const p of REPLAY_PATCHES) {
   const c = s.split(p.find).length - 1;
   if (c === p.expect) {
     s = s.split(p.find).join(p.repl);
+    applied++;
     ok++;
     console.log('patch OK: [replay] ' + p.name);
   } else if (c === 0 && (p.done ? s.includes(p.done) : s.includes(p.repl))) {
@@ -638,6 +644,7 @@ for (const p of REPLAY_PATCHES) {
     console.log('patch SKIP: [replay] ' + p.name + ' (already patched)');
   } else if (isLegacy(p)) {
     console.log('patch LEGACY: [replay] ' + p.name + ' (anchor for an older bundle)');
+    legacy++;
   } else {
     console.log('patch WARN: [replay] ' + p.name + ' found=' + c + ' expected=' + p.expect + ' (upstream changed?)');
     warn++;
@@ -721,6 +728,7 @@ for (const p of ENCSTALE_PATCHES) {
   const c = s.split(p.find).length - 1;
   if (c === 1) {
     s = s.split(p.find).join(p.repl);
+    applied++;
     console.log('patch OK: [encstale] ' + p.name);
   } else if (c === 0 && (p.done ? s.includes(p.done) : s.includes(p.repl))) {
     console.log('patch SKIP: [encstale] ' + p.name + ' (already patched)');
@@ -732,6 +740,33 @@ for (const p of ENCSTALE_PATCHES) {
   }
 }
 
+
+// 架构换代守卫(2026-10-19,2026-10-19 修正):18.11 起上游改成"分块"bundle(模块 2917->3389),
+// 补丁改由 tools-build-<ver>.js 的 mod-index patchMap 施加, 本文件的文本锚点对 18.11+
+// **全部失效**. 所有规则落进 LEGACY 分支(不计 warn), 脚本会以 exit 0 "成功"退出而产物零补丁.
+//
+// 判定依据(实测校准,2026-10-19 第三版):
+//   - ok       = 真正替换 + SKIP 的总和。SKIP 在 `c === 0 && s.includes(p.done)` 时加一,
+//                而多条 done 是 `return true;\n}` 这类极常见片段,所以 ok >= 1 不能证明打过补丁。
+//   - applied  = 只在真正 s.split(p.find).join(p.repl) 之后加一。
+//   - legacy   = 规则锚点属于更老 bundle。
+//   - warn     = 现役规则 miss。
+// 三个版本实测:
+//   18.11.1 分块 cli : applied=0  ok=0   warn=18  legacy=170  -> 架构换代(必须拦)
+//   18.1.11 单体 cli : applied>0  ok=50  warn=9   legacy=129  -> 正常打补丁,只是部分规则换代
+//   18.8.9  单体 cli : applied>0  ok=36  warn=0   legacy=0    -> 完全匹配
+//   幂等重跑        : applied=0  ok>0   warn=0   legacy=0    -> 成功,不能拦
+// 因此"架构换代"的充分特征是:**一次替换都没有,而且连一次 SKIP 都没有**(ok==0)。
+// 这正是 applied==0 && ok==0 —— 幂等重跑因 ok>0 而被正确放行。
+if (applied === 0 && ok === 0) {
+  console.error(
+    'patch-zh: 0 rules applied and 0 skipped (applied=0, ok=0, warn=' + warn + ', legacy=' + legacy + '). '
+    + 'This script targets the pre-18.11 monolithic bundle where every anchor is present verbatim; '
+    + 'on 18.11+ the text anchors no longer exist and the patches moved to tools-build-<version>.js '
+    + '(mod-index patchMap). Refusing to report success. file=' + file
+  );
+  process.exit(3);
+}
 
 // 写回策略(R15-01,2026-09-22):warn>0 时**不写回**.
 // 旧行为是"先写回、再以 warn>0 退出 1",调用方若只记一行 WARN 就继续,产物里就会静默缺少

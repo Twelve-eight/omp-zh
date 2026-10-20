@@ -46,6 +46,51 @@ for (const e of dict) { const k = e.from + '|' + e.mode; if (!seen.has(k)) seen.
 const dedup = [...seen.values()];
 
 const cli = fs.readFileSync(CLI, 'utf8');
+
+// ---- HARD GATE: comparison-context audit ----
+// A dict entry whose `from` is also compared/cased in code corrupts logic
+// (e.g. "removed" -> "移除d"). tools-build-18121.js has had this gate since the 18.12.1
+// builder; the production update-zh.js -> build-zh.js path had none, so the same class of
+// corruption was unguarded here. Ported verbatim, operating on the single cli bundle.
+{
+  const compared = new Set();
+  const pats = [
+    /(?:===|!==|==|!=)\s*["']([^"'\n]{1,120})["']/g,
+    /case\s+["']([^"'\n]{1,120})["']/g,
+    /\b(?:act|type|kind|op|purpose|mode|status|action)\s*===\s*["']([^"'\n]{1,120})["']/g,
+    /values:\s*\[([^\]]{1,400})\]/g,
+  ];
+  for (const re of pats) {
+    re.lastIndex = 0;
+    let x;
+    while ((x = re.exec(cli)) !== null) {
+      if (re === pats[3]) {
+        for (const q of x[1].matchAll(/["']([^"'\n]{1,120})["']/g)) compared.add(q[1]);
+      } else {
+        compared.add(x[1]);
+      }
+    }
+  }
+  // 豁免名单:每条必须给出"为什么这个比较不会因翻译而失效"的理由。
+  // 空名单表示不允许任何冲突 —— 加条目时请先确认该字面量在代码里**不是**被判等的值,
+  // 例如它只出现在展示层(如表格列的表头字符串)而非 `===` 的另一侧。
+  const ALLOW = new Map([
+    ['Name', 'cli-18.8.9: o.k === "Name" 用于给 Name 列上强调色(纯展示)。翻译后该列失去强调色, ' +
+             '但不会产生错误结果;上游 18.12 已把这段改成按索引取列, 属于可接受的降级。'],
+  ]);
+
+  const offenders = dedup
+    .filter((e) => compared.has(e.from))
+    .filter((e) => !ALLOW.has(e.from));
+  if (offenders.length) {
+    console.error('GATE FAIL: ' + offenders.length + ' dict entries collide with code comparisons:');
+    offenders.slice(0, 40).forEach((o) => console.error('  ! ' + JSON.stringify(o)));
+    console.error('Remove or narrow these entries before building.');
+    process.exit(3);
+  }
+  console.log('Gate OK: no dict entry collides with ' + compared.size + ' compared/cased literals.');
+}
+
 const { code, count } = translate(cli, dedup);
 // 【18.0.0 修复】Bun 1.4.0 standalone loader 把模块源码按 latin1 解码，非 ASCII 字面量全部 mojibake。
 // 预补偿：把所有非 ASCII 字符转成 \uXXXX 转义（纯 ASCII 源码在任何解码下语义不变）。
