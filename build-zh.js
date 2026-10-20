@@ -31,13 +31,18 @@ for (const flag of ['--deliver', 'OMP_DELIVER']) {
   }
 }
 // ---- 字典合并（保持原有相对顺序：help → help-extra → inline → tui → settings-a/b → tools → slash → plan） ----
-// 17.4.0 起追加 work/out-*.json 补译 staging（存在则并入）
+// 17.4.0 起追加补译 staging；18.12.3 起 staging 移入受版本控制的 dict/staging/（work/ 被 .gitignore 忽略，
+// 放在那里会导致干净克隆无法复现发布产物）。同时仍兼容 work/out-*.json 本地暂存。
 const dictFiles = [
   'dict-help.json', 'dict-help-extra.json', 'dict-inline.json', 'dict-tui.json',
   'dict-settings-a.json', 'dict-settings-b.json', 'dict-tools.json', 'dict-slash.json', 'dict-plan.json',
 ];
-for (const f of fs.readdirSync(T + '/work').filter((x) => /^out-.+\.json$/.test(x)).sort()) {
-  dictFiles.push('work/' + f);
+for (const dir of ['dict/staging', 'work']) {
+  const abs = T + '/' + dir;
+  if (!fs.existsSync(abs)) continue;
+  for (const f of fs.readdirSync(abs).filter((x) => /^out-.+\.json$/.test(x)).sort()) {
+    dictFiles.push(dir + '/' + f);
+  }
 }
 const dict = dictFiles.map((f) => JSON.parse(fs.readFileSync(T + '/' + f, 'utf8'))).flat();
 

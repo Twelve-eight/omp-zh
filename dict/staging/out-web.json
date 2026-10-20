@@ -1,0 +1,22 @@
+[
+ {
+  "from": "Cost:",
+  "to": "成本：/Cost:",
+  "mode": "full"
+ },
+ {
+  "from": "Light",
+  "to": "浅色/Light",
+  "mode": "full"
+ },
+ {
+  "from": "Messages:",
+  "to": "消息：/Messages:",
+  "mode": "full"
+ },
+ {
+  "from": "Tokens:",
+  "to": "Token：/Tokens:",
+  "mode": "full"
+ }
+]

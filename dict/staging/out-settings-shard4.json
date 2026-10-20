@@ -1,0 +1,637 @@
+[
+ {
+  "from": "Advisor model",
+  "to": "Advisor 模型/Advisor model",
+  "mode": "full"
+ },
+ {
+  "from": "Advisor",
+  "to": "Advisor/Advisor",
+  "mode": "full"
+ },
+  {
+    "from": "Clear search",
+    "to": "清除搜索/Clear search",
+    "mode": "full"
+  },
+  {
+    "from": "+ Add advisor",
+    "to": "+ 添加 advisor/+ Add advisor",
+    "mode": "full"
+  },
+  {
+    "from": "Thinking level",
+    "to": "思考层级/Thinking level",
+    "mode": "full"
+  },
+  {
+    "from": "Model default",
+    "to": "模型默认/Model default",
+    "mode": "full"
+  },
+  {
+    "from": "Pause main agent until advisor backlog falls below threshold. Numeric values cap wait at 30 seconds; strict waits for all scheduled reviews without a wall-clock cap. Off disables catch-up delays. Abort, failure, and disposal release waits.",
+    "to": "暂停主代理，直到 advisor 积压低于阈值。数值会把等待上限设为 30 秒；strict 会等待所有已排期的审查，没有墙钟上限。Off 禁用追赶延迟。中止、失败和释放都会解除等待。/Pause main agent until advisor backlog falls below threshold. Numeric values cap wait at 30 seconds; strict waits for all scheduled reviews without a wall-clock cap. Off disables catch-up delays. Abort, failure, and disposal release waits.",
+    "mode": "full"
+  },
+  {
+    "from": "After an advisor concern or blocker interrupts, route further concerns as non-interrupting asides for this many primary turns. Blockers are exempt from the cooldown.",
+    "to": "在 advisor 的疑虑或阻塞造成中断后，在接下来的这么多主轮次中把后续疑虑以非中断旁注方式路由。阻塞不受冷却限制。/After an advisor concern or blocker interrupts, route further concerns as non-interrupting asides for this many primary turns. Blockers are exempt from the cooldown.",
+    "mode": "full"
+  },
+  {
+    "from": "0 steps",
+    "to": "0 步/0 steps",
+    "mode": "full"
+  },
+  {
+    "from": "No cooldown.",
+    "to": "无冷却。/No cooldown.",
+    "mode": "full"
+  },
+  {
+    "from": "1 step",
+    "to": "1 步/1 step",
+    "mode": "full"
+  },
+  {
+    "from": "2 steps",
+    "to": "2 步/2 steps",
+    "mode": "full"
+  },
+  {
+    "from": "3 steps",
+    "to": "3 步/3 steps",
+    "mode": "full"
+  },
+  {
+    "from": "Default.",
+    "to": "默认。/Default.",
+    "mode": "full"
+  },
+  {
+    "from": "4 steps",
+    "to": "4 步/4 steps",
+    "mode": "full"
+  },
+  {
+    "from": "5 steps",
+    "to": "5 步/5 steps",
+    "mode": "full"
+  },
+  {
+    "from": "Advisor Continue Severity",
+    "to": "Advisor 继续运行严重级别/Advisor Continue Severity",
+    "mode": "full"
+  },
+  {
+    "from": "Minimum severity of an advisor note that wakes the agent after it finished with a final answer. Lower-severity notes stay as a card at the end of the transcript and reach the agent with your next message.",
+    "to": "代理给出最终回答后，能唤醒它的 advisor 备注的最低严重级别。严重级别更低的备注会作为卡片留在记录末尾，并随你的下一条消息传达给代理。/Minimum severity of an advisor note that wakes the agent after it finished with a final answer. Lower-severity notes stay as a card at the end of the transcript and reach the agent with your next message.",
+    "mode": "full"
+  },
+  {
+    "from": "Every note continues the run.",
+    "to": "每条备注都会继续运行。/Every note continues the run.",
+    "mode": "full"
+  },
+  {
+    "from": "Concerns and blockers continue the run. Default.",
+    "to": "疑虑和阻塞会继续运行。默认。/Concerns and blockers continue the run. Default.",
+    "mode": "full"
+  },
+  {
+    "from": "Only blockers continue the run.",
+    "to": "仅阻塞会继续运行。/Only blockers continue the run.",
+    "mode": "full"
+  },
+  {
+    "from": "Advisor Review Mode",
+    "to": "Advisor 审查模式/Advisor Review Mode",
+    "mode": "full"
+  },
+  {
+    "from": "Default advisor cadence when no WATCHDOG.yml roster is present. turn reviews every primary turn; agent-end reviews only final yields.",
+    "to": "没有 WATCHDOG.yml 名册时的默认 advisor 节奏。turn 审查每个主轮次；agent-end 仅审查最终产出。/Default advisor cadence when no WATCHDOG.yml roster is present. turn reviews every primary turn; agent-end reviews only final yields.",
+    "mode": "full"
+  },
+  {
+    "from": "Every turn",
+    "to": "每轮/Every turn",
+    "mode": "full"
+  },
+  {
+    "from": "Review every primary update (tool-call round).",
+    "to": "审查每次主更新（工具调用轮次）。/Review every primary update (tool-call round).",
+    "mode": "full"
+  },
+  {
+    "from": "Agent end",
+    "to": "代理结束/Agent end",
+    "mode": "full"
+  },
+  {
+    "from": "Review only at final yields (once per run).",
+    "to": "仅在最终产出时审查（每次运行一次）。/Review only at final yields (once per run).",
+    "mode": "full"
+  },
+  {
+    "from": "Advisor Review Interval",
+    "to": "Advisor 审查间隔/Advisor Review Interval",
+    "mode": "full"
+  },
+  {
+    "from": "Default advisor cadence when no WATCHDOG.yml roster is present: review every Nth eligible primary update. 1 = every update. Skipped updates are sent with the next scheduled review.",
+    "to": "没有 WATCHDOG.yml 名册时的默认 advisor 节奏：每第 N 次符合条件的更新审查一次。1 = 每次更新。被跳过的更新会随下一次排期审查一起发送。/Default advisor cadence when no WATCHDOG.yml roster is present: review every Nth eligible primary update. 1 = every update. Skipped updates are sent with the next scheduled review.",
+    "mode": "full"
+  },
+  {
+    "from": "Every eligible update",
+    "to": "每次符合条件的更新/Every eligible update",
+    "mode": "full"
+  },
+  {
+    "from": "Every 2nd",
+    "to": "每 2 次/Every 2nd",
+    "mode": "full"
+  },
+  {
+    "from": "Every 3rd",
+    "to": "每 3 次/Every 3rd",
+    "mode": "full"
+  },
+  {
+    "from": "Every 5th",
+    "to": "每 5 次/Every 5th",
+    "mode": "full"
+  },
+  {
+    "from": "Every 10th",
+    "to": "每 10 次/Every 10th",
+    "mode": "full"
+  },
+  {
+    "from": "Advisor Max Notes Per Update",
+    "to": "Advisor 每次更新最大备注数/Advisor Max Notes Per Update",
+    "mode": "full"
+  },
+  {
+    "from": "Maximum non-blocker advice notes accepted per advisor prompt update (1\\u201332; UI offers 1\\u20135 quick picks). Blockers are exempt.",
+    "to": "每次 advisor 提示更新接受的非阻塞建议备注上限（1–32；UI 提供 1–5 个快捷选项）。阻塞不受限制。/Maximum non-blocker advice notes accepted per advisor prompt update (1\\u201332; UI offers 1\\u20135 quick picks). Blockers are exempt.",
+    "mode": "full"
+  },
+  {
+    "from": "1 note",
+    "to": "1 条备注/1 note",
+    "mode": "full"
+  },
+  {
+    "from": "Anti-flood (strict).",
+    "to": "防刷屏（严格）。/Anti-flood (strict).",
+    "mode": "full"
+  },
+  {
+    "from": "2 notes",
+    "to": "2 条备注/2 notes",
+    "mode": "full"
+  },
+  {
+    "from": "3 notes",
+    "to": "3 条备注/3 notes",
+    "mode": "full"
+  },
+  {
+    "from": "4 notes",
+    "to": "4 条备注/4 notes",
+    "mode": "full"
+  },
+  {
+    "from": "Frontier reasoning models. Default.",
+    "to": "前沿推理模型。默认。/Frontier reasoning models. Default.",
+    "mode": "full"
+  },
+  {
+    "from": "5 notes",
+    "to": "5 条备注/5 notes",
+    "mode": "full"
+  },
+  {
+    "from": "Advisor Evict Stale Results",
+    "to": "Advisor 逐出陈旧结果/Advisor Evict Stale Results",
+    "mode": "full"
+  },
+  {
+    "from": "Before each review, replace the advisor's read/grep/glob output from older reviews with a short placeholder. The latest review is kept.",
+    "to": "每次审查前，把 advisor 较早审查产生的 read/grep/glob 输出替换为简短占位符。最新一次审查会保留。/Before each review, replace the advisor's read/grep/glob output from older reviews with a short placeholder. The latest review is kept.",
+    "mode": "full"
+  },
+  {
+    "from": "Off, local summary pipeline, Mnemopi SQLite, Hindsight remote memory, or Sharpshooter",
+    "to": "关闭、本地摘要流水线、Mnemopi SQLite、Hindsight 远程记忆或 Sharpshooter/Off, local summary pipeline, Mnemopi SQLite, Hindsight remote memory, or Sharpshooter",
+    "mode": "full"
+  },
+  {
+    "from": "Friction-gated project decision files (architecture/product/style), consolidated in the background",
+    "to": "受摩擦门控的项目决策文件（架构/产品/风格），在后台整合/Friction-gated project decision files (architecture/product/style), consolidated in the background",
+    "mode": "full"
+  },
+  {
+    "from": "Sharpshooter Model",
+    "to": "Sharpshooter 模型/Sharpshooter Model",
+    "mode": "full"
+  },
+  {
+    "from": "Model selector for extraction/consolidation, empty = smol role",
+    "to": "用于抽取/整合的模型选择器，留空 = smol 角色/Model selector for extraction/consolidation, empty = smol role",
+    "mode": "full"
+  },
+  {
+    "from": "Per project",
+    "to": "按项目/Per project",
+    "mode": "full"
+  },
+  {
+    "from": "Per project (tagged)",
+    "to": "按项目（带标签）/Per project (tagged)",
+    "mode": "full"
+  },
+  {
+    "from": "English (bge-base-en-v1.5)",
+    "to": "英语（bge-base-en-v1.5）/English (bge-base-en-v1.5)",
+    "mode": "full"
+  },
+  {
+    "from": "Multilingual (multilingual-e5-large)",
+    "to": "多语言（multilingual-e5-large）/Multilingual (multilingual-e5-large)",
+    "mode": "full"
+  },
+  {
+    "from": "Fuse recall with graph, fact, vector and temporal voices so linked memories surface without a keyword match",
+    "to": "将图、事实、向量和时间四路信号融合进召回，让关联记忆无需关键词匹配也能浮现/Fuse recall with graph, fact, vector and temporal voices so linked memories surface without a keyword match",
+    "mode": "full"
+  },
+  {
+    "from": "Cache recall results for repeated and similar queries with identical options; any memory write clears it",
+    "to": "为选项相同的重复和相似查询缓存召回结果；任何记忆写入都会清除缓存/Cache recall results for repeated and similar queries with identical options; any memory write clears it",
+    "mode": "full"
+  },
+  {
+    "from": "Online (tiny)",
+    "to": "在线（微型）/Online (tiny)",
+    "mode": "full"
+  },
+  {
+    "from": "Full session",
+    "to": "完整会话/Full session",
+    "mode": "full"
+  },
+  {
+    "from": "Last turn",
+    "to": "最近一轮/Last turn",
+    "mode": "full"
+  },
+  {
+    "from": "Rules (TTSR)",
+    "to": "规则（TTSR）/Rules (TTSR)",
+    "mode": "full"
+  },
+  {
+    "from": "Judged Rules",
+    "to": "判定规则/Judged Rules",
+    "mode": "full"
+  },
+  {
+    "from": "Ask the judge model role each `question` rule about completed replies, reasoning, and tool calls; a yes injects the rule as a warning",
+    "to": "就已完成的回复、推理和工具调用，向 judge 模型角色逐条询问每个 `question` 规则；回答为是时将该规则作为警告注入/Ask the judge model role each `question` rule about completed replies, reasoning, and tool calls; a yes injects the rule as a warning",
+    "mode": "full"
+  },
+  {
+    "from": "Judge only when the judge role resolves to a native TypeSafe jev model",
+    "to": "仅当 judge 角色解析为原生 TypeSafe jev 模型时才判定/Judge only when the judge role resolves to a native TypeSafe jev model",
+    "mode": "full"
+  },
+  {
+    "from": "Always judge, whichever model the judge role resolves to",
+    "to": "始终判定，无论 judge 角色解析为何种模型/Always judge, whichever model the judge role resolves to",
+    "mode": "full"
+  },
+  {
+    "from": "Never judge; question rules stay inactive",
+    "to": "从不判定；question 规则保持不生效/Never judge; question rules stay inactive",
+    "mode": "full"
+  },
+  {
+    "from": "5 messages",
+    "to": "5 条消息/5 messages",
+    "mode": "full"
+  },
+  {
+    "from": "10 messages",
+    "to": "10 条消息/10 messages",
+    "mode": "full"
+  },
+  {
+    "from": "15 messages",
+    "to": "15 条消息/15 messages",
+    "mode": "full"
+  },
+  {
+    "from": "20 messages",
+    "to": "20 条消息/20 messages",
+    "mode": "full"
+  },
+  {
+    "from": "30 messages",
+    "to": "30 条消息/30 messages",
+    "mode": "full"
+  },
+  {
+    "from": "Editing",
+    "to": "编辑/Editing",
+    "mode": "full"
+  },
+  {
+    "from": "Recover Inline Edit Payloads",
+    "to": "恢复内联编辑负载/Recover Inline Edit Payloads",
+    "mode": "full"
+  },
+  {
+    "from": "Execute edit payloads the model emits as plain text by converting them into edit tool calls",
+    "to": "把模型以纯文本形式发出的编辑负载转换为编辑工具调用并执行/Execute edit payloads the model emits as plain text by converting them into edit tool calls",
+    "mode": "full"
+  },
+  {
+    "from": "Record Parse Regressions",
+    "to": "记录解析回归/Record Parse Regressions",
+    "mode": "full"
+  },
+  {
+    "from": "Append full before/after source when an edit introduces an AST parse failure",
+    "to": "当编辑引入 AST 解析失败时，附加完整的修改前后源码/Append full before/after source when an edit introduces an AST parse failure",
+    "mode": "full"
+  },
+  {
+    "from": "Auto-Repair Parse Regressions",
+    "to": "自动修复解析回归/Auto-Repair Parse Regressions",
+    "mode": "full"
+  },
+  {
+    "from": "When an edit breaks a file's AST parse, ask the smol model to fix the broken region (validated by re-parse; falls back to a warning)",
+    "to": "当编辑破坏文件的 AST 解析时，请 smol 模型修复损坏区域（通过重新解析验证；失败则回退为警告）/When an edit breaks a file's AST parse, ask the smol model to fix the broken region (validated by re-parse; falls back to a warning)",
+    "mode": "full"
+  },
+  {
+    "from": "Modes",
+    "to": "模式/Modes",
+    "mode": "full"
+  },
+  {
+    "from": "Autosave Plans",
+    "to": "自动保存计划/Autosave Plans",
+    "mode": "full"
+  },
+  {
+    "from": "Automatically save approved plans to disk when plan mode completes",
+    "to": "计划模式完成时自动把已批准的计划保存到磁盘/Automatically save approved plans to disk when plan mode completes",
+    "mode": "full"
+  },
+  {
+    "from": "Autosave Directory",
+    "to": "自动保存目录/Autosave Directory",
+    "mode": "full"
+  },
+  {
+    "from": "Directory for autosaved plans. Supports ~, absolute, and cwd-relative paths. Empty uses <project>/.omp/plans/.",
+    "to": "自动保存计划的目录。支持 ~、绝对路径和相对 cwd 的路径。留空则使用 <project>/.omp/plans/。/Directory for autosaved plans. Supports ~, absolute, and cwd-relative paths. Empty uses <project>/.omp/plans/.",
+    "mode": "full"
+  },
+  {
+    "from": "Title Icons",
+    "to": "标题图标/Title Icons",
+    "mode": "full"
+  },
+  {
+    "from": "Icon and short code that head new generated or /rename session titles",
+    "to": "置于新生成或 /rename 会话标题之前的图标和短代号/Icon and short code that head new generated or /rename session titles",
+    "mode": "full"
+  },
+  {
+    "from": "Nerd Font + Emoji",
+    "to": "Nerd Font + 表情符号/Nerd Font + Emoji",
+    "mode": "full"
+  },
+  {
+    "from": "Nerd Font glyph where the Nerd Font symbol preset renders it, else the emoji (default)",
+    "to": "Nerd Font 符号预设可渲染时使用 Nerd Font 字形，否则使用表情符号（默认）/Nerd Font glyph where the Nerd Font symbol preset renders it, else the emoji (default)",
+    "mode": "full"
+  },
+  {
+    "from": "Emoji",
+    "to": "表情符号/Emoji",
+    "mode": "full"
+  },
+  {
+    "from": "Always the emoji",
+    "to": "始终使用表情符号/Always the emoji",
+    "mode": "full"
+  },
+  {
+    "from": "Boring",
+    "to": "朴素/Boring",
+    "mode": "full"
+  },
+  {
+    "from": "Plain title: no icon or code",
+    "to": "纯标题：无图标或代号/Plain title: no icon or code",
+    "mode": "full"
+  },
+  {
+    "from": "Title Generator",
+    "to": "标题生成器/Title Generator",
+    "mode": "full"
+  },
+  {
+    "from": "What names an untitled session from the user's messages",
+    "to": "根据用户消息为未命名会话命名的依据/What names an untitled session from the user's messages",
+    "mode": "full"
+  },
+  {
+    "from": "Fork",
+    "to": "分叉/Fork",
+    "mode": "full"
+  },
+  {
+    "from": "A side turn of the reply on the session's model: reads its prompt cache, adds the card icon (default)",
+    "to": "在会话模型上对回复做一次旁支轮次：读取其提示缓存，并添加卡片图标（默认）/A side turn of the reply on the session's model: reads its prompt cache, adds the card icon (default)",
+    "mode": "full"
+  },
+  {
+    "from": "Tiny",
+    "to": "微型/Tiny",
+    "mode": "full"
+  },
+  {
+    "from": "The title model role only; plain titles without a card",
+    "to": "仅使用标题模型角色；纯标题，无卡片/The title model role only; plain titles without a card",
+    "mode": "full"
+  },
+  {
+    "from": "MCP Startup Window",
+    "to": "MCP 启动窗口/MCP Startup Window",
+    "mode": "full"
+  },
+  {
+    "from": "Wait this many milliseconds for initial MCP tool discovery; 0 waits until connections settle",
+    "to": "初始 MCP 工具发现等待这么多毫秒；0 表示等到连接稳定/Wait this many milliseconds for initial MCP tool discovery; 0 waits until connections settle",
+    "mode": "full"
+  },
+  {
+    "from": "Privacy",
+    "to": "隐私/Privacy",
+    "mode": "full"
+  },
+  {
+    "from": "Local TTS Speed",
+    "to": "本地 TTS 语速/Local TTS Speed",
+    "mode": "full"
+  },
+  {
+    "from": "Speaking rate of the local TTS backend (tts tool, omp say). 1 = normal; clamped to 0.5\\u20132.5",
+    "to": "本地 TTS 后端（tts 工具、omp say）的语速。1 = 正常；限制在 0.5–2.5/Speaking rate of the local TTS backend (tts tool, omp say). 1 = normal; clamped to 0.5\\u20132.5",
+    "mode": "full"
+  },
+  {
+    "from": "All (messages + thinking)",
+    "to": "全部（消息 + 思考）/All (messages + thinking)",
+    "mode": "full"
+  },
+  {
+    "from": "Assistant messages",
+    "to": "助手消息/Assistant messages",
+    "mode": "full"
+  },
+  {
+    "from": "Final message only",
+    "to": "仅最终消息/Final message only",
+    "mode": "full"
+  },
+  {
+    "from": "Speech Vocalization Speed",
+    "to": "语音朗读速度/Speech Vocalization Speed",
+    "mode": "full"
+  },
+  {
+    "from": "Speaking rate when reading the assistant's output aloud. 1 = normal; clamped to 0.5\\u20132.5",
+    "to": "朗读助手输出时的语速。1 = 正常；限制在 0.5–2.5/Speaking rate when reading the assistant's output aloud. 1 = normal; clamped to 0.5\\u20132.5",
+    "mode": "full"
+  },
+  {
+    "from": "Speech",
+    "to": "语音/Speech",
+    "mode": "full"
+  },
+  {
+    "from": "Collab",
+    "to": "协作/Collab",
+    "mode": "full"
+  },
+  {
+    "from": "Auto Start",
+    "to": "自动启动/Auto Start",
+    "mode": "full"
+  },
+  {
+    "from": "Host every interactive session via collab.relayUrl as it starts and publish it to the local registry (omp collab list); rooms rotate on session switch",
+    "to": "每个交互式会话启动时即通过 collab.relayUrl 托管，并发布到本地注册表（omp collab list）；切换会话时房间轮换/Host every interactive session via collab.relayUrl as it starts and publish it to the local registry (omp collab list); rooms rotate on session switch",
+    "mode": "full"
+  },
+  {
+    "from": "Share only when /collab is run",
+    "to": "仅在运行 /collab 时共享/Share only when /collab is run",
+    "mode": "full"
+  },
+  {
+    "from": "View",
+    "to": "查看/View",
+    "mode": "full"
+  },
+  {
+    "from": "Auto-host; the registry hands out view-only links (omp collab link --view)",
+    "to": "自动托管；注册表分发只读链接（omp collab link --view）/Auto-host; the registry hands out view-only links (omp collab link --view)",
+    "mode": "full"
+  },
+  {
+    "from": "Auto-host; the registry hands out control links that can prompt the session",
+    "to": "自动托管；注册表分发可向会话发送提示的控制链接/Auto-host; the registry hands out control links that can prompt the session",
+    "mode": "full"
+  },
+  {
+    "from": "Encrypted Blob",
+    "to": "加密 Blob/Encrypted Blob",
+    "mode": "full"
+  },
+  {
+    "from": "Upload to the share server (no GitHub account needed; avoids gist API rate limits)",
+    "to": "上传到共享服务器（无需 GitHub 账户；可避开 gist API 速率限制）/Upload to the share server (no GitHub account needed; avoids gist API rate limits)",
+    "mode": "full"
+  },
+  {
+    "from": "Push to a secret gist (needs authenticated gh), falling back to the share server",
+    "to": "推送到私有 gist（需要已认证的 gh），失败时回退到共享服务器/Push to a secret gist (needs authenticated gh), falling back to the share server",
+    "mode": "full"
+  },
+  {
+    "from": "Stream",
+    "to": "直播/Stream",
+    "mode": "full"
+  },
+  {
+    "from": "Stream Server",
+    "to": "直播服务器/Stream Server",
+    "mode": "full"
+  },
+  {
+    "from": "Live stream server used by `omp stream` (https://host[:port]); viewers watch at <base>/<your Stencil username>",
+    "to": "`omp stream` 使用的直播服务器（https://host[:port]）；观看者在 <base>/<你的 Stencil 用户名> 处观看/Live stream server used by `omp stream` (https://host[:port]); viewers watch at <base>/<your Stencil username>",
+    "mode": "full"
+  },
+  {
+    "from": "Extra Redaction Patterns",
+    "to": "额外脱敏模式/Extra Redaction Patterns",
+    "mode": "full"
+  },
+  {
+    "from": "Additional regular expressions redacted from every streamed row, on top of env/secrets.yml values and built-in credential shapes",
+    "to": "在 env/secrets.yml 值和内置凭据形态之外，额外从每条直播数据行中脱敏的正则表达式/Additional regular expressions redacted from every streamed row, on top of env/secrets.yml values and built-in credential shapes",
+    "mode": "full"
+  },
+  {
+    "from": "OTLP Telemetry Export",
+    "to": "OTLP 遥测导出/OTLP Telemetry Export",
+    "mode": "full"
+  },
+  {
+    "from": "Allow OMP to export traces, logs, and metrics using OTEL_* endpoints. Changes take effect on the next launch.",
+    "to": "允许 OMP 使用 OTEL_* 端点导出追踪、日志和指标。更改在下次启动时生效。/Allow OMP to export traces, logs, and metrics using OTEL_* endpoints. Changes take effect on the next launch.",
+    "mode": "full"
+  },
+  {
+    "from": "Main Session",
+    "to": "主会话/Main Session",
+    "mode": "full"
+  },
+  {
+    "from": "on disk",
+    "to": "在磁盘上/on disk",
+    "mode": "full"
+  },
+  {
+    "from": "Project memory summary",
+    "to": "项目记忆摘要/Project memory summary",
+    "mode": "full"
+  },
+  {
+    "from": "Full mnemopi memory by id (from recall)",
+    "to": "按 id 的完整 mnemopi 记忆（来自召回）/Full mnemopi memory by id (from recall)",
+    "mode": "full"
+  }
+]

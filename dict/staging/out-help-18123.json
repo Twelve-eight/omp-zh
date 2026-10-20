@@ -1,0 +1,112 @@
+[
+  {
+    "from": "Write a shareable copy of a session and its subagents: turn contents redacted, metadata kept, paths and literals replaced by consistent mock tokens",
+    "to": "写出会话及其子代理的可分享副本：轮次内容脱敏，元数据保留，路径与字面量替换为一致的模拟标记/Write a shareable copy of a session and its subagents: turn contents redacted, metadata kept, paths and literals replaced by consistent mock tokens",
+    "mode": "full"
+  },
+  {
+    "from": "Export or import stored provider credentials (API keys and OAuth logins) as JSON",
+    "to": "以 JSON 导出或导入已存储的服务商凭据（API 密钥与 OAuth 登录）/Export or import stored provider credentials (API keys and OAuth logins) as JSON",
+    "mode": "full"
+  },
+  {
+    "from": "Run the local CDP relay that lets the browser prelude drive your own Chrome tabs",
+    "to": "运行本地 CDP 中继，让浏览器预置脚本驱动你自己的 Chrome 标签页/Run the local CDP relay that lets the browser prelude drive your own Chrome tabs",
+    "mode": "full"
+  },
+  {
+    "from": "List active local Collab host metadata without URLs; use collab link <instanceId|pid> to retrieve a control link (--view for view-only)",
+    "to": "列出活跃的本地 Collab 主机元数据（不含 URL）；用 collab link <instanceId|pid> 获取控制链接（--view 为仅查看）/List active local Collab host metadata without URLs; use collab link <instanceId|pid> to retrieve a control link (--view for view-only)",
+    "mode": "full"
+  },
+  {
+    "from": "Upload a /record recording to live.omp.sh as a public clip and print its URL",
+    "to": "把 /record 录像上传到 live.omp.sh 作为公开片段并打印其 URL/Upload a /record recording to live.omp.sh as a public clip and print its URL",
+    "mode": "full"
+  },
+  {
+    "from": "Preview tool, composer, and status-line renderers in a deterministic visual gallery",
+    "to": "在确定性的可视化画廊中预览工具、输入区与状态行渲染器/Preview tool, composer, and status-line renderers in a deterministic visual gallery",
+    "mode": "full"
+  },
+  {
+    "from": "Interactive fullscreen git UI: split diff viewer, staging sidebar, and commit composer",
+    "to": "交互式全屏 git 界面：分栏差异查看器、暂存侧栏与提交编辑器/Interactive fullscreen git UI: split diff viewer, staging sidebar, and commit composer",
+    "mode": "full"
+  },
+  {
+    "from": "Semantic search: describe a behavior, get the files and line ranges that implement it",
+    "to": "语义搜索：描述一种行为，得到实现它的文件与行范围/Semantic search: describe a behavior, get the files and line ranges that implement it",
+    "mode": "full"
+  },
+  {
+    "from": "Log in to a model provider (terminal counterpart of /login)",
+    "to": "登录模型服务商（/login 的终端版）/Log in to a model provider (terminal counterpart of /login)",
+    "mode": "full"
+  },
+  {
+    "from": "Replay a /record session recording in the terminal (space pauses, q quits)",
+    "to": "在终端重放 /record 会话录像（空格暂停，q 退出）/Replay a /record session recording in the terminal (space pauses, q quits)",
+    "mode": "full"
+  },
+  {
+    "from": "Type a prompt and compare every word-completion engine's ghost text live",
+    "to": "输入提示词，实时对比每个补全引擎的幽灵文本/Type a prompt and compare every word-completion engine's ghost text live",
+    "mode": "full"
+  },
+  {
+    "from": "Draw a session's entire thread through the production transcript pipeline (with repaint timing)",
+    "to": "通过生产转录管线绘制会话的完整线程（含重绘计时）/Draw a session's entire thread through the production transcript pipeline (with repaint timing)",
+    "mode": "full"
+  },
+  {
+    "from": "Hand a session to another machine: pack it, unpack it, or mark the local copy moved",
+    "to": "把会话移交到另一台机器：打包、解包或标记本地副本已移走/Hand a session to another machine: pack it, unpack it, or mark the local copy moved",
+    "mode": "full"
+  },
+  {
+    "from": "Install, search, publish, and manage skills on the Skillshare registry (skills.omp.sh)",
+    "to": "在 Skillshare 注册表（skills.omp.sh）安装、搜索、发布与管理技能/Install, search, publish, and manage skills on the Skillshare registry (skills.omp.sh)",
+    "mode": "full"
+  },
+  {
+    "from": "Broadcast local omp session screens and chat to your public live channel",
+    "to": "把本地 omp 会话画面与聊天广播到你的公开直播频道/Broadcast local omp session screens and chat to your public live channel",
+    "mode": "full"
+  },
+  {
+    "from": "Count a file or text with every embedded offline tokenizer (OpenAI, Claude, Qwen, \\u2026)",
+    "to": "用每个内置离线分词器统计文件或文本的 token 数（OpenAI、Claude、Qwen 等）/Count a file or text with every embedded offline tokenizer (OpenAI, Claude, Qwen, \\u2026)",
+    "mode": "full"
+  },
+  {
+    "from": "Add, list, or clear git worktrees (clone-first when enabled)",
+    "to": "添加、列出或清理 git 工作树（启用时优先克隆）/Add, list, or clear git worktrees (clone-first when enabled)",
+    "mode": "full"
+  },
+  {
+    "from": "Start fresh in goal mode (interactive only; bypasses autoResume; no positional prompt, startup plan mode, or explicit reset)",
+    "to": "以目标模式全新开始（仅交互式；绕过 autoResume；不接受位置提示词、启动计划模式或显式重置）/Start fresh in goal mode (interactive only; bypasses autoResume; no positional prompt, startup plan mode, or explicit reset)",
+    "mode": "full"
+  },
+  {
+    "from": "Handlebars system prompt template (mutually exclusive with --system-prompt)",
+    "to": "Handlebars 系统提示模板（与 --system-prompt 互斥）/Handlebars system prompt template (mutually exclusive with --system-prompt)",
+    "mode": "full"
+  },
+  {
+    "from": "Resume a session as --resume does, then go on with what its last process left unfinished (the interrupted turn and the rest of its plan)",
+    "to": "像 --resume 那样恢复会话，然后继续其上一个进程未完成的部分（被中断的轮次及剩余计划）/Resume a session as --resume does, then go on with what its last process left unfinished (the interrupted turn and the rest of its plan)",
+    "mode": "full"
+  },
+  {
+    "from": "With --mode rpc or rpc-ui: run extensions headless (rpc-ui tool UI remains enabled)",
+    "to": "配合 --mode rpc 或 rpc-ui：无头运行扩展（rpc-ui 工具界面仍启用）/With --mode rpc or rpc-ui: run extensions headless (rpc-ui tool UI remains enabled)",
+    "mode": "full"
+  },
+  {
+    "from": "Override tools.approvalMode for this session (always-ask|always-ask-cached|write|yolo)",
+    "to": "覆盖本会话的 tools.approvalMode（always-ask|always-ask-cached|write|yolo）/Override tools.approvalMode for this session (always-ask|always-ask-cached|write|yolo)",
+    "mode": "full"
+  }
+]

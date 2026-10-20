@@ -1,0 +1,82 @@
+[
+ {
+  "mode": "full",
+  "from": "Checking for existing Cloud Code Assist project...",
+  "to": "检查现有的 Cloud Code Assist 项目.."
+ },
+ {
+  "mode": "full",
+  "from": "Checking for Perplexity desktop app...",
+  "to": "检查 Perplexity 桌面应用.."
+ },
+ {
+  "mode": "full",
+  "from": "Waiting for device authorization...",
+  "to": "等待设备授权.."
+ },
+ {
+  "mode": "full",
+  "from": "Verifying authenticator code...",
+  "to": "正在验证身份验证器代码.."
+ },
+ {
+  "mode": "full",
+  "from": "Verifying login code...",
+  "to": "正在验证登录代码.."
+ },
+ {
+  "mode": "full",
+  "from": "Waiting failed: Frame detached",
+  "to": "等待失败: Frame 已分离"
+ },
+ {
+  "mode": "full",
+  "from": "Checking saved rate-limit resets\\u2026",
+  "to": "检查已保存的限额重置.."
+ },
+ {
+  "mode": "full",
+  "from": "Loading transcript from host\\u2026",
+  "to": "正在从主机加载会话记录.."
+ },
+ {
+  "mode": "full",
+  "from": "Loading provider accounts\\u2026",
+  "to": "正在加载提供商账户.."
+ },
+ {
+  "mode": "full",
+  "from": "Loading usage history\\u2026",
+  "to": "正在加载用量历史.."
+ },
+ {
+  "mode": "full",
+  "from": "Loading saved agents\\u2026",
+  "to": "正在加载已保存的代理.."
+ },
+ {
+  "mode": "full",
+  "from": "Checking availability\\u2026",
+  "to": "正在检查可用性.."
+ },
+ {
+  "mode": "full",
+  "from": "Loading themes\\u2026",
+  "to": "正在加载主题.."
+ },
+ {
+  "mode": "full",
+  "from": "Loading diff\\u2026",
+  "to": "正在加载差异.."
+ },
+ {
+  "mode": "full",
+  "from": "Downloading Chromium for puppeteer (first browser use)",
+  "to": "为 puppeteer 下载 Chromium(首次使用浏览器时)"
+ },
+ {
+  "mode": "full",
+  "from": "Fetching PDF for full content...",
+  "to": "获取 PDF 以读取完整内容.."
+ }
+]

@@ -32,8 +32,14 @@ console.log('Module count:', mods.length);
 
 // Load dictionaries: root dict-*.json first, then work/out-*.json staging (same order as build-zh.js)
 const dictFiles = fs.readdirSync('.').filter(f => f.startsWith('dict-') && f.endsWith('.json'));
-const staging = fs.readdirSync('./work').filter(f => /^out-.+\.json$/.test(f)).sort();
-staging.forEach(f => dictFiles.push('work/' + f));
+const staging = [];
+for (const dir of ['dict/staging', 'work']) {
+  if (!fs.existsSync('./' + dir)) continue;
+  for (const f of fs.readdirSync('./' + dir).filter(x => /^out-.+\.json$/.test(x)).sort()) {
+    staging.push(dir + '/' + f);
+  }
+}
+staging.forEach(f => dictFiles.push(f));
 let allEntries = [];
 dictFiles.forEach(f => {
   const d = JSON.parse(fs.readFileSync(f, 'utf8'));

@@ -1,0 +1,647 @@
+[
+ {
+  "from": "Config",
+  "to": "配置/Config",
+  "mode": "full"
+ },
+ {
+  "from": "Process",
+  "to": "进程/Process",
+  "mode": "full"
+ },
+ {
+  "from": "Custom system prompt files (SYSTEM.md, SYSTEM_TEMPLATE.md) that modify agent behavior",
+  "to": "修改代理行为的自定义系统提示词文件（SYSTEM.md、SYSTEM_TEMPLATE.md）/Custom system prompt files (SYSTEM.md, SYSTEM_TEMPLATE.md) that modify agent behavior",
+  "mode": "full"
+ },
+ {
+  "from": "Standalone CLAUDE.md files (Claude Code style)",
+  "to": "独立的 CLAUDE.md 文件（Claude Code 风格）/Standalone CLAUDE.md files (Claude Code style)",
+  "mode": "full"
+ },
+ {
+  "from": "Server compaction",
+  "to": "服务器压缩/Server compaction",
+  "mode": "full"
+ },
+ {
+  "from": "Use provider-native server compaction (OpenAI Responses compact, Anthropic compaction beta) when the active route supports it",
+  "to": "当活动路由支持时，使用提供商原生的服务器压缩（OpenAI Responses compact、Anthropic compaction beta）/Use provider-native server compaction (OpenAI Responses compact, Anthropic compaction beta) when the active route supports it",
+  "mode": "full"
+ },
+ {
+  "from": "Snapcompact",
+  "to": "快照压缩/Snapcompact",
+  "mode": "full"
+ },
+ {
+  "from": "Shake",
+  "to": "抖落/Shake",
+  "mode": "full"
+ },
+ {
+  "from": "General",
+  "to": "通用/General",
+  "mode": "full"
+ },
+ {
+  "from": "Extra Context Files",
+  "to": "额外上下文文件/Extra Context Files",
+  "mode": "full"
+ },
+ {
+  "from": "Promote to the model's contextPromotionTarget on context overflow instead of compacting. Retry fallback switches are controlled by Retry Model Fallback",
+  "to": "上下文溢出时提升到模型的 contextPromotionTarget，而不是压缩。重试回退切换由 Retry Model Fallback 控制/Promote to the model's contextPromotionTarget on context overflow instead of compacting. Retry fallback switches are controlled by Retry Model Fallback",
+  "mode": "full"
+ },
+ {
+  "from": "Compaction",
+  "to": "压缩/Compaction",
+  "mode": "full"
+ },
+ {
+  "from": "Notes-backed context windows (experimental)",
+  "to": "基于笔记的上下文窗口（实验性）/Notes-backed context windows (experimental)",
+  "mode": "full"
+ },
+ {
+  "from": "Keep persistent notes and searchable raw history across context windows.",
+  "to": "跨上下文窗口保留持久笔记和可搜索的原始历史。/Keep persistent notes and searchable raw history across context windows.",
+  "mode": "full"
+ },
+ {
+  "from": "Check thresholds at safe mid-turn tool-loop boundaries before the next provider request; subagents always check, since their whole assignment is one turn",
+  "to": "在下一个提供商请求之前，于安全的轮中工具循环边界检查阈值；子代理总是检查，因为它们的整个任务只有一轮/Check thresholds at safe mid-turn tool-loop boundaries before the next provider request; subagents always check, since their whole assignment is one turn",
+  "mode": "full"
+ },
+ {
+  "from": "Use percentage-based threshold",
+  "to": "使用基于百分比的阈值/Use percentage-based threshold",
+  "mode": "full"
+ },
+ {
+  "from": "1/8 of a 200K window",
+  "to": "200K 窗口的八分之一/1/8 of a 200K window",
+  "mode": "full"
+ },
+ {
+  "from": "1/4 of a 200K window",
+  "to": "200K 窗口的四分之一/1/4 of a 200K window",
+  "mode": "full"
+ },
+ {
+  "from": "1/2 of a 200K window",
+  "to": "200K 窗口的二分之一/1/2 of a 200K window",
+  "mode": "full"
+ },
+ {
+  "from": "3/4 of a 200K window",
+  "to": "200K 窗口的四分之三/3/4 of a 200K window",
+  "mode": "full"
+ },
+ {
+  "from": "Experimental",
+  "to": "实验性/Experimental",
+  "mode": "full"
+ },
+ {
+  "from": "Experimental: render large tool results, the newest one included, as dense PNG image(s) instead of text (vision models only). Saves tokens on accumulated search and command output; read results stay text unless the model is known to edit exactly from images.",
+  "to": "实验性：将大型工具结果（包括最新的一个）渲染为高密度 PNG 图像而非文本（仅限视觉模型）。在累积的搜索和命令输出上节省 token；read 结果保持文本，除非已知模型能精确依据图像进行编辑。/Experimental: render large tool results, the newest one included, as dense PNG image(s) instead of text (vision models only). Saves tokens on accumulated search and command output; read results stay text unless the model is known to edit exactly from images.",
+  "mode": "full"
+ },
+ {
+  "from": "Controls how tools are exposed to the model. Auto uses provider-native tool calls unless the selected model is marked as not supporting them, then falls back to the GLM owned dialect. Native forces provider-native tools; the other values force the named owned dialect.",
+  "to": "控制工具如何暴露给模型。Auto 使用提供商原生工具调用，除非所选模型被标记为不支持，此时回退到 GLM 自有方言。Native 强制使用提供商原生工具；其他值强制使用指定的自有方言。/Controls how tools are exposed to the model. Auto uses provider-native tool calls unless the selected model is marked as not supporting them, then falls back to the GLM owned dialect. Native forces provider-native tools; the other values force the named owned dialect.",
+  "mode": "full"
+ },
+ {
+  "from": "Extra context filenames from contextFiles.extra (additive; does not replace AGENTS.md)",
+  "to": "来自 contextFiles.extra 的额外上下文文件名（叠加；不替换 AGENTS.md）/Extra context filenames from contextFiles.extra (additive; does not replace AGENTS.md)",
+  "mode": "full"
+ },
+ {
+  "from": "Load custom tools from .claude/tools/",
+  "to": "从 .claude/tools/ 加载自定义工具/Load custom tools from .claude/tools/",
+  "mode": "full"
+ },
+ {
+  "from": "Load rules from marketplace plugin rules directories",
+  "to": "从市场插件的规则目录加载规则/Load rules from marketplace plugin rules directories",
+  "mode": "full"
+ },
+ {
+  "from": "Load skills from .agent/skills and .agents/skills (project walk-up + user home)",
+  "to": "从 .agent/skills 和 .agents/skills 加载技能（项目向上查找 + 用户主目录）/Load skills from .agent/skills and .agents/skills (project walk-up + user home)",
+  "mode": "full"
+ },
+ {
+  "from": "Load rules from .agent/rules and .agents/rules (project walk-up + user home)",
+  "to": "从 .agent/rules 和 .agents/rules 加载规则（项目向上查找 + 用户主目录）/Load rules from .agent/rules and .agents/rules (project walk-up + user home)",
+  "mode": "full"
+ },
+ {
+  "from": "Load prompts from .agent/prompts and .agents/prompts (project walk-up + user home)",
+  "to": "从 .agent/prompts 和 .agents/prompts 加载提示词（项目向上查找 + 用户主目录）/Load prompts from .agent/prompts and .agents/prompts (project walk-up + user home)",
+  "mode": "full"
+ },
+ {
+  "from": "Load commands from .agent/commands and .agents/commands (project walk-up + user home)",
+  "to": "从 .agent/commands 和 .agents/commands 加载命令（项目向上查找 + 用户主目录）/Load commands from .agent/commands and .agents/commands (project walk-up + user home)",
+  "mode": "full"
+ },
+ {
+  "from": "Load AGENTS.md from .agent and .agents (project walk-up + user home)",
+  "to": "从 .agent 和 .agents 加载 AGENTS.md（项目向上查找 + 用户主目录）/Load AGENTS.md from .agent and .agents (project walk-up + user home)",
+  "mode": "full"
+ },
+ {
+  "from": "Load SYSTEM.md and SYSTEM_TEMPLATE.md from .agent and .agents (project walk-up + user home)",
+  "to": "从 .agent 和 .agents 加载 SYSTEM.md 和 SYSTEM_TEMPLATE.md（项目向上查找 + 用户主目录）/Load SYSTEM.md and SYSTEM_TEMPLATE.md from .agent and .agents (project walk-up + user home)",
+  "mode": "full"
+ },
+ {
+  "from": "Load SYSTEM.md and SYSTEM_TEMPLATE.md from .codex (project cwd + user home)",
+  "to": "从 .codex 加载 SYSTEM.md 和 SYSTEM_TEMPLATE.md（项目 cwd + 用户主目录）/Load SYSTEM.md and SYSTEM_TEMPLATE.md from .codex (project cwd + user home)",
+  "mode": "full"
+ },
+ {
+  "from": "Load *.prompt.md from .github/prompts/ (VS Code Copilot prompt files)",
+  "to": "从 .github/prompts/ 加载 *.prompt.md（VS Code Copilot 提示词文件）/Load *.prompt.md from .github/prompts/ (VS Code Copilot prompt files)",
+  "mode": "full"
+ },
+ {
+  "from": "Registry skills installed with `omp skill install` (skills.lock.json)",
+  "to": "用 `omp skill install` 安装的注册表技能（skills.lock.json）/Registry skills installed with `omp skill install` (skills.lock.json)",
+  "mode": "full"
+ },
+ {
+  "from": "Load MCP servers from Windsurf config (mcp_config.json)",
+  "to": "从 Windsurf 配置加载 MCP 服务器（mcp_config.json）/Load MCP servers from Windsurf config (mcp_config.json)",
+  "mode": "full"
+ },
+ {
+  "from": "Auto-Learn",
+  "to": "自动学习/Auto-Learn",
+  "mode": "full"
+ },
+ {
+  "from": "Allow Compound Commands",
+  "to": "允许复合命令/Allow Compound Commands",
+  "mode": "full"
+ },
+ {
+  "from": "Evaluate literal && chains per command; unmatched commands use normal bash approval policy and mode",
+  "to": "按命令拆分字面 && 链分别求值；未匹配的命令使用常规 bash 批准策略和模式/Evaluate literal && chains per command; unmatched commands use normal bash approval policy and mode",
+  "mode": "full"
+ },
+ {
+  "from": "Git Guard",
+  "to": "Git 防护/Git Guard",
+  "mode": "full"
+ },
+ {
+  "from": "Refuse git commands that discard or move shared work in the bash tool: stash, reset --hard or to another commit, and checkout/switch/restore outside a merge or rebase conflict",
+  "to": "在 bash 工具中拒绝会丢弃或移动共享工作的 git 命令：stash、reset --hard 或重置到其他提交，以及在合并或变基冲突之外执行 checkout/switch/restore/Refuse git commands that discard or move shared work in the bash tool: stash, reset --hard or to another commit, and checkout/switch/restore outside a merge or rebase conflict",
+  "mode": "full"
+ },
+ {
+  "from": "Eval & Runtimes",
+  "to": "Eval 与运行时/Eval & Runtimes",
+  "mode": "full"
+ },
+ {
+  "from": "Eval Environment Provisioning",
+  "to": "Eval 环境准备/Eval Environment Provisioning",
+  "mode": "full"
+ },
+ {
+  "from": "Automatically create the managed JavaScript eval package environment on first install",
+  "to": "首次安装时自动创建托管的 JavaScript eval 包环境/Automatically create the managed JavaScript eval package environment on first install",
+  "mode": "full"
+ },
+ {
+  "from": "Eval-Defined Tools",
+  "to": "Eval 定义的工具/Eval-Defined Tools",
+  "mode": "full"
+ },
+ {
+  "from": "Let eval cells define tools (@tool in Python, tool(fn) in JS) that task, agent(), and workpool() subagents can call",
+  "to": "允许 eval 单元定义工具（Python 中的 @tool，JS 中的 tool(fn)），供 task、agent() 和 workpool() 子代理调用/Let eval cells define tools (@tool in Python, tool(fn) in JS) that task, agent(), and workpool() subagents can call",
+  "mode": "full"
+ },
+ {
+  "from": "Fresh Workpool Agents",
+  "to": "全新 Workpool 代理/Fresh Workpool Agents",
+  "mode": "full"
+ },
+ {
+  "from": "Spawn a new subagent for every workpool item instead of reusing workers or batching queued items",
+  "to": "为每个 workpool 项生成新的子代理，而不是复用工作进程或批量处理排队项/Spawn a new subagent for every workpool item instead of reusing workers or batching queued items",
+  "mode": "full"
+ },
+ {
+  "from": "Available Tools",
+  "to": "可用工具/Available Tools",
+  "mode": "full"
+ },
+ {
+  "from": "Open executables read with `read` in IDA Pro (idalib) and enable the `ida` tool; inert when no IDA install is found",
+  "to": "在 IDA Pro（idalib）中打开用 `read` 读取的可执行文件，并启用 `ida` 工具；未找到 IDA 安装时不生效/Open executables read with `read` in IDA Pro (idalib) and enable the `ida` tool; inert when no IDA install is found",
+  "mode": "full"
+ },
+ {
+  "from": "Python interpreter that can import ida_domain and idapro; empty auto-detects",
+  "to": "能导入 ida_domain 和 idapro 的 Python 解释器；留空自动检测/Python interpreter that can import ida_domain and idapro; empty auto-detects",
+  "mode": "full"
+ },
+ {
+  "from": "IDA Install Dir",
+  "to": "IDA 安装目录/IDA Install Dir",
+  "mode": "full"
+ },
+ {
+  "from": "Directory containing libidalib, exported as IDADIR; empty auto-detects ($IDADIR, ida-config.json, standard install paths)",
+  "to": "包含 libidalib 的目录，导出为 IDADIR；留空自动检测（$IDADIR、ida-config.json、标准安装路径）/Directory containing libidalib, exported as IDADIR; empty auto-detects ($IDADIR, ida-config.json, standard install paths)",
+  "mode": "full"
+ },
+ {
+  "from": "IDA Max Open Databases",
+  "to": "IDA 最大打开数据库数/IDA Max Open Databases",
+  "mode": "full"
+ },
+ {
+  "from": "IDA Idle Close Timeout",
+  "to": "IDA 空闲关闭超时/IDA Idle Close Timeout",
+  "mode": "full"
+ },
+ {
+  "from": "Start language servers through the per-project daemon broker. Each connection gets its own server. While another omp instance in the project is running, a released server stays warm and the next connection reuses it instead of cold-starting (falls back to private servers when unavailable)",
+  "to": "通过按项目的守护进程代理启动语言服务器。每个连接获得自己的服务器。当项目中另一个 omp 实例正在运行时，已释放的服务器保持热态，下一个连接复用它而不是冷启动（不可用时回退到私有服务器）/Start language servers through the per-project daemon broker. Each connection gets its own server. While another omp instance in the project is running, a released server stays warm and the next connection reuses it instead of cold-starting (falls back to private servers when unavailable)",
+  "mode": "full"
+ },
+ {
+  "from": "Request Timeout",
+  "to": "请求超时/Request Timeout",
+  "mode": "full"
+ },
+ {
+  "from": "Seconds to wait for a language server's diagnostics, hover and other answers when the agent sets no timeout; late post-edit diagnostics wait at least this long. Raise it for servers that are slow on a cold start. The lsp tool's timeout argument can still raise or lower it per call",
+  "to": "代理未设置超时时，等待语言服务器诊断、悬停和其他回答的秒数；编辑后的迟到诊断至少等待这么久。对冷启动较慢的服务器可调高。lsp 工具的 timeout 参数仍可在每次调用时提高或降低它/Seconds to wait for a language server's diagnostics, hover and other answers when the agent sets no timeout; late post-edit diagnostics wait at least this long. Raise it for servers that are slow on a cold start. The lsp tool's timeout argument can still raise or lower it per call",
+  "mode": "full"
+ },
+ {
+  "from": "Isolation",
+  "to": "隔离/Isolation",
+  "mode": "full"
+ },
+ {
+  "from": "Allow Isolated Subagents",
+  "to": "允许隔离子代理/Allow Isolated Subagents",
+  "mode": "full"
+ },
+ {
+  "from": "Allow per-task isolation with `isolated: true`; tasks without it run in the shared checkout",
+  "to": "允许用 `isolated: true` 进行按任务隔离；未设置的任务在共享检出中运行/Allow per-task isolation with `isolated: true`; tasks without it run in the shared checkout",
+  "mode": "full"
+ },
+ {
+  "from": "Isolation Backend",
+  "to": "隔离后端/Isolation Backend",
+  "mode": "full"
+ },
+ {
+  "from": "Backend used for subagent isolation and worktree cloning",
+  "to": "用于子代理隔离和工作树克隆的后端/Backend used for subagent isolation and worktree cloning",
+  "mode": "full"
+ },
+ {
+  "from": "ZFS snapshot + clone",
+  "to": "ZFS 快照 + 克隆/ZFS snapshot + clone",
+  "mode": "full"
+ },
+ {
+  "from": "macOS clonefile reflink (APFS)",
+  "to": "macOS clonefile reflink（APFS）/macOS clonefile reflink (APFS)",
+  "mode": "full"
+ },
+ {
+  "from": "Windows FSCTL_DUPLICATE_EXTENTS_TO_FILE (NTFS/ReFS)",
+  "to": "Windows FSCTL_DUPLICATE_EXTENTS_TO_FILE（NTFS/ReFS）/Windows FSCTL_DUPLICATE_EXTENTS_TO_FILE (NTFS/ReFS)",
+  "mode": "full"
+ },
+ {
+  "from": "Block clone",
+  "to": "块克隆/Block clone",
+  "mode": "full"
+ },
+ {
+  "from": "Recursive copy",
+  "to": "递归复制/Recursive copy",
+  "mode": "full"
+ },
+ {
+  "from": "Clone Checkout into Worktrees",
+  "to": "将检出克隆到工作树/Clone Checkout into Worktrees",
+  "mode": "full"
+ },
+ {
+  "from": "New worktrees from `github pr_checkout` and `git worktree add` in bash start as a copy-on-write clone of the current checkout so ignored build artifacts (node_modules, target) carry over; falls back to a plain checkout when the filesystem cannot clone",
+  "to": "来自 `github pr_checkout` 和 bash 中 `git worktree add` 的新工作树以当前检出的写时复制克隆开始，使被忽略的构建产物（node_modules、target）得以保留；文件系统无法克隆时回退到普通检出/New worktrees from `github pr_checkout` and `git worktree add` in bash start as a copy-on-write clone of the current checkout so ignored build artifacts (node_modules, target) carry over; falls back to a plain checkout when the filesystem cannot clone",
+  "mode": "full"
+ },
+ {
+  "from": "Clean Source Checkout on /wt",
+  "to": "清理 /wt 的源检出/Clean Source Checkout on /wt",
+  "mode": "full"
+ },
+ {
+  "from": "Worktree on Start",
+  "to": "启动时工作树/Worktree on Start",
+  "mode": "full"
+ },
+ {
+  "from": "Whether fresh interactive sessions start in a new linked worktree",
+  "to": "新的交互式会话是否在新建的链接工作树中启动/Whether fresh interactive sessions start in a new linked worktree",
+  "mode": "full"
+ },
+ {
+  "from": "Start in the current checkout",
+  "to": "在当前检出中启动/Start in the current checkout",
+  "mode": "full"
+ },
+ {
+  "from": "Ask at session start",
+  "to": "会话启动时询问/Ask at session start",
+  "mode": "full"
+ },
+ {
+  "from": "Create",
+  "to": "创建/Create",
+  "mode": "full"
+ },
+ {
+  "from": "Always start in a new worktree on a `wt/*` branch",
+  "to": "始终在 `wt/*` 分支上的新工作树中启动/Always start in a new worktree on a `wt/*` branch",
+  "mode": "full"
+ },
+ {
+  "from": "Worktree on Exit",
+  "to": "退出时工作树/Worktree on Exit",
+  "mode": "full"
+ },
+ {
+  "from": "What to do on exit with worktrees created since omp started (on start or with `/wt`)",
+  "to": "退出时如何处理自 omp 启动以来创建的工作树（启动时或通过 `/wt` 创建）/What to do on exit with worktrees created since omp started (on start or with `/wt`)",
+  "mode": "full"
+ },
+ {
+  "from": "Keep",
+  "to": "保留/Keep",
+  "mode": "full"
+ },
+ {
+  "from": "Leave worktrees in place",
+  "to": "保留工作树原地不动/Leave worktrees in place",
+  "mode": "full"
+ },
+ {
+  "from": "Ask on exit",
+  "to": "退出时询问/Ask on exit",
+  "mode": "full"
+ },
+ {
+  "from": "Remove",
+  "to": "移除/Remove",
+  "mode": "full"
+ },
+ {
+  "from": "Remove clean worktrees; ask when they have uncommitted changes or new commits. Gitignored files (e.g. `.env`) are deleted too",
+  "to": "移除干净的工作树；有未提交更改或新提交时询问。被 Git 忽略的文件（如 `.env`）也会被删除/Remove clean worktrees; ask when they have uncommitted changes or new commits. Gitignored files (e.g. `.env`) are deleted too",
+  "mode": "full"
+ },
+ {
+  "from": "Combine diffs and git apply",
+  "to": "合并 diff 并用 git apply 应用/Combine diffs and git apply",
+  "mode": "full"
+ },
+ {
+  "from": "Commit per task, merge with --no-ff",
+  "to": "每个任务各自提交，用 --no-ff 合并/Commit per task, merge with --no-ff",
+  "mode": "full"
+ },
+ {
+  "from": "Static commit message",
+  "to": "静态提交信息/Static commit message",
+  "mode": "full"
+ },
+ {
+  "from": "Subagents",
+  "to": "子代理/Subagents",
+  "mode": "full"
+ },
+ {
+  "from": "Uses the selected model's policy; some models require an explicit delegation request",
+  "to": "使用所选模型的策略；某些模型需要显式的委派请求/Uses the selected model's policy; some models require an explicit delegation request",
+  "mode": "full"
+ },
+ {
+  "from": "Preferred",
+  "to": "首选/Preferred",
+  "mode": "full"
+ },
+ {
+  "from": "Structured Task Results",
+  "to": "结构化任务结果/Structured Task Results",
+  "mode": "full"
+ },
+ {
+  "from": "Speculative Task Launch",
+  "to": "推测性任务启动/Speculative Task Launch",
+  "mode": "full"
+ },
+ {
+  "from": "1 task",
+  "to": "1 个任务/1 task",
+  "mode": "full"
+ },
+ {
+  "from": "2 tasks",
+  "to": "2 个任务/2 tasks",
+  "mode": "full"
+ },
+ {
+  "from": "4 tasks",
+  "to": "4 个任务/4 tasks",
+  "mode": "full"
+ },
+ {
+  "from": "8 tasks",
+  "to": "8 个任务/8 tasks",
+  "mode": "full"
+ },
+ {
+  "from": "16 tasks",
+  "to": "16 个任务/16 tasks",
+  "mode": "full"
+ },
+ {
+  "from": "32 tasks",
+  "to": "32 个任务/32 tasks",
+  "mode": "full"
+ },
+ {
+  "from": "64 tasks",
+  "to": "64 个任务/64 tasks",
+  "mode": "full"
+ },
+ {
+  "from": "Subagent Completion Probe",
+  "to": "子代理完成度探测/Subagent Completion Probe",
+  "mode": "full"
+ },
+ {
+  "from": "90 requests",
+  "to": "90 次请求/90 requests",
+  "mode": "full"
+ },
+ {
+  "from": "150 requests",
+  "to": "150 次请求/150 requests",
+  "mode": "full"
+ },
+ {
+  "from": "200 requests",
+  "to": "200 次请求/200 requests",
+  "mode": "full"
+ },
+ {
+  "from": "Display",
+  "to": "显示/Display",
+  "mode": "full"
+ },
+ {
+  "from": "Output Limits",
+  "to": "输出限制/Output Limits",
+  "mode": "full"
+ },
+ {
+  "from": "Default; ~12.5K tokens",
+  "to": "默认；约 12.5K token/Default; ~12.5K tokens",
+  "mode": "full"
+ },
+ {
+  "from": "Default; ~5K tokens",
+  "to": "默认；约 5K token/Default; ~5K tokens",
+  "mode": "full"
+ },
+ {
+  "from": "~12.5K tokens",
+  "to": "约 12.5K token/~12.5K tokens",
+  "mode": "full"
+ },
+ {
+  "from": "Disabled; tail-only truncation",
+  "to": "禁用；仅截断尾部/Disabled; tail-only truncation",
+  "mode": "full"
+ },
+ {
+  "from": "Default; ~2.5K tokens",
+  "to": "默认；约 2.5K token/Default; ~2.5K tokens",
+  "mode": "full"
+ },
+ {
+  "from": "Artifact File Cap (MB)",
+  "to": "产物文件上限（MB）/Artifact File Cap (MB)",
+  "mode": "full"
+ },
+ {
+  "from": "Save the complete output",
+  "to": "保存完整输出/Save the complete output",
+  "mode": "full"
+ },
+ {
+  "from": "Reading",
+  "to": "读取/Reading",
+  "mode": "full"
+ },
+ {
+  "from": "200 lines",
+  "to": "200 行/200 lines",
+  "mode": "full"
+ },
+ {
+  "from": "300 lines",
+  "to": "300 行/300 lines",
+  "mode": "full"
+ },
+ {
+  "from": "Approvals",
+  "to": "批准/Approvals",
+  "mode": "full"
+ },
+ {
+  "from": "Always ask",
+  "to": "总是询问/Always ask",
+  "mode": "full"
+ },
+ {
+  "from": "Yolo",
+  "to": "Yolo（全自动）/Yolo",
+  "mode": "full"
+ },
+ {
+  "from": "1 reminder",
+  "to": "1 次提醒/1 reminder",
+  "mode": "full"
+ },
+ {
+  "from": "2 reminders",
+  "to": "2 次提醒/2 reminders",
+  "mode": "full"
+ },
+ {
+  "from": "3 reminders",
+  "to": "3 次提醒/3 reminders",
+  "mode": "full"
+ },
+ {
+  "from": "5 reminders",
+  "to": "5 次提醒/5 reminders",
+  "mode": "full"
+ },
+ {
+  "from": "Instant",
+  "to": "即时/Instant",
+  "mode": "full"
+ },
+ {
+  "from": "Grep & Browser",
+  "to": "Grep 与浏览器/Grep & Browser",
+  "mode": "full"
+ },
+ {
+  "from": "0 lines",
+  "to": "0 行/0 lines",
+  "mode": "full"
+ },
+ {
+  "from": "1 line",
+  "to": "1 行/1 line",
+  "mode": "full"
+ },
+ {
+  "from": "2 lines",
+  "to": "2 行/2 lines",
+  "mode": "full"
+ },
+ {
+  "from": "3 lines",
+  "to": "3 行/3 lines",
+  "mode": "full"
+ },
+ {
+  "from": "5 lines",
+  "to": "5 行/5 lines",
+  "mode": "full"
+ }
+]

@@ -1,0 +1,677 @@
+[
+  {
+    "from": "10 lines",
+    "to": "10 行/10 lines",
+    "mode": "full"
+  },
+  {
+    "from": "Find (semantic grep)",
+    "to": "查找（语义 grep）/Find (semantic grep)",
+    "mode": "full"
+  },
+  {
+    "from": "Enable the find tool: natural-language search for files and line ranges, judged by the judge model role. Auto enables it only when the judge role resolves to a native TypeSafe jev model",
+    "to": "启用 find 工具：以自然语言搜索文件和行区间，由 judge 模型角色判定。Auto 仅在 judge 角色解析为原生 TypeSafe jev 模型时启用/Enable the find tool: natural-language search for files and line ranges, judged by the judge model role. Auto enables it only when the judge role resolves to a native TypeSafe jev model",
+    "mode": "full"
+  },
+  {
+    "from": "Enable when the judge role resolves to a native TypeSafe jev model",
+    "to": "当 judge 角色解析为原生 TypeSafe jev 模型时启用/Enable when the judge role resolves to a native TypeSafe jev model",
+    "mode": "full"
+  },
+  {
+    "from": "Always enable, whichever model the judge role resolves to",
+    "to": "始终启用，无论 judge 角色解析为哪个模型/Always enable, whichever model the judge role resolves to",
+    "mode": "full"
+  },
+  {
+    "from": "Disable the find tool",
+    "to": "禁用 find 工具/Disable the find tool",
+    "mode": "full"
+  },
+  {
+    "from": "Services",
+    "to": "服务/Services",
+    "mode": "full"
+  },
+  {
+    "from": "Enable named bash services and proc:// supervision for shared long-running project processes",
+    "to": "启用命名 bash 服务与 proc:// 监管，用于共享的长时间运行项目进程/Enable named bash services and proc:// supervision for shared long-running project processes",
+    "mode": "full"
+  },
+  {
+    "from": "Enable the scriptable host-desktop eval prelude (screenshots, input, accessibility)",
+    "to": "启用可脚本化的本机桌面 eval 前置（截图、输入、辅助功能）/Enable the scriptable host-desktop eval prelude (screenshots, input, accessibility)",
+    "mode": "full"
+  },
+  {
+    "from": "Ratchet",
+    "to": "棘轮模式/Ratchet",
+    "mode": "full"
+  },
+  {
+    "from": "Enable the ratchet eval/hillclimb prelude; /ratchet turns it on for the current session",
+    "to": "启用 ratchet 的 eval 与爬山前置；/ratchet 会在当前会话中开启它/Enable the ratchet eval/hillclimb prelude; /ratchet turns it on for the current session",
+    "mode": "full"
+  },
+  {
+    "from": "Archive",
+    "to": "归档/Archive",
+    "mode": "full"
+  },
+  {
+    "from": "Enable the read-only archive eval prelude: prompt history, recent projects, past sessions and recaps",
+    "to": "启用只读的归档 eval 前置：提示历史、最近项目、过往会话与回顾/Enable the read-only archive eval prelude: prompt history, recent projects, past sessions and recaps",
+    "mode": "full"
+  },
+  {
+    "from": "Active window's display (active), all displays (all), or a native display id",
+    "to": "活动窗口所在的显示器（active）、所有显示器（all），或原生显示器 ID/Active window's display (active), all displays (all), or a native display id",
+    "mode": "full"
+  },
+  {
+    "from": "Maximum screenshot width in pixels",
+    "to": "截图最大宽度（像素）/Maximum screenshot width in pixels",
+    "mode": "full"
+  },
+  {
+    "from": "Maximum screenshot height in pixels",
+    "to": "截图最大高度（像素）/Maximum screenshot height in pixels",
+    "mode": "full"
+  },
+  {
+    "from": "Execution",
+    "to": "执行/Execution",
+    "mode": "full"
+  },
+  {
+    "from": "Image Question Timeout",
+    "to": "图像提问超时/Image Question Timeout",
+    "mode": "full"
+  },
+  {
+    "from": "Per-request timeout for the vision-model call behind read's ?q= image questions, in milliseconds. A stalled provider fails fast with a timeout error instead of blocking until manual abort. Set to 0 to disable the timeout.",
+    "to": "read 的 ?q= 图像提问所依赖的视觉模型调用的单请求超时，单位毫秒。提供商卡住时会以超时错误快速失败，而不是阻塞到手动中止。设为 0 可禁用超时/Per-request timeout for the vision-model call behind read's ?q= image questions, in milliseconds. A stalled provider fails fast with a timeout error instead of blocking until manual abort. Set to 0 to disable the timeout.",
+    "mode": "full"
+  },
+  {
+    "from": "Experimental Speculative Execution",
+    "to": "实验性推测执行/Experimental Speculative Execution",
+    "mode": "full"
+  },
+  {
+    "from": "Enable the discard-safe first slice: validated local reads through direct read calls and nested eval. Network requests, provider completions, and live filesystem writes are not part of this baseline.",
+    "to": "启用可安全丢弃的第一阶段：通过直接 read 调用和嵌套 eval 进行的已验证本地读取。网络请求、提供商补全和实时文件系统写入不属于此基线/Enable the discard-safe first slice: validated local reads through direct read calls and nested eval. Network requests, provider completions, and live filesystem writes are not part of this baseline.",
+    "mode": "full"
+  },
+  {
+    "from": "Speculative Execution Concurrency",
+    "to": "推测执行并发数/Speculative Execution Concurrency",
+    "mode": "full"
+  },
+  {
+    "from": "Maximum number of validated local reads allowed to run before normal dispatch.",
+    "to": "正常派发前允许运行的已验证本地读取的最大数量/Maximum number of validated local reads allowed to run before normal dispatch.",
+    "mode": "full"
+  },
+  {
+    "from": "1 operation",
+    "to": "1 项操作/1 operation",
+    "mode": "full"
+  },
+  {
+    "from": "2 operations",
+    "to": "2 项操作/2 operations",
+    "mode": "full"
+  },
+  {
+    "from": "3 operations",
+    "to": "3 项操作/3 operations",
+    "mode": "full"
+  },
+  {
+    "from": "4 operations",
+    "to": "4 项操作/4 operations",
+    "mode": "full"
+  },
+  {
+    "from": "No limit",
+    "to": "无限制/No limit",
+    "mode": "full"
+  },
+  {
+    "from": "Discovery & MCP",
+    "to": "发现与 MCP/Discovery & MCP",
+    "mode": "full"
+  },
+  {
+    "from": "All Devices",
+    "to": "所有设备/All Devices",
+    "mode": "full"
+  },
+  {
+    "from": "Built-ins Only",
+    "to": "仅内置/Built-ins Only",
+    "mode": "full"
+  },
+  {
+    "from": "Catalog Only",
+    "to": "仅目录/Catalog Only",
+    "mode": "full"
+  },
+  {
+    "from": "Developer",
+    "to": "开发者/Developer",
+    "mode": "full"
+  },
+  {
+    "from": "Wait",
+    "to": "等待/Wait",
+    "mode": "full"
+  },
+  {
+    "from": "Agent's own completion estimate",
+    "to": "代理自身的完成预估/Agent's own completion estimate",
+    "mode": "full"
+  },
+  {
+    "from": "Blocker",
+    "to": "阻塞项/Blocker",
+    "mode": "full"
+  },
+  {
+    "from": "Concern",
+    "to": "关注点/Concern",
+    "mode": "full"
+  },
+  {
+    "from": "Nit",
+    "to": "小问题/Nit",
+    "mode": "full"
+  },
+  {
+    "from": "Note",
+    "to": "备注/Note",
+    "mode": "full"
+  },
+  {
+    "from": "Copy answer",
+    "to": "复制回答/Copy answer",
+    "mode": "full"
+  },
+  {
+    "from": "Not sent to the model",
+    "to": "未发送给模型/Not sent to the model",
+    "mode": "full"
+  },
+  {
+    "from": "Late diagnostics",
+    "to": "延迟诊断/Late diagnostics",
+    "mode": "full"
+  },
+  {
+    "from": "Copy message",
+    "to": "复制消息/Copy message",
+    "mode": "full"
+  },
+  {
+    "from": "Rewind the conversation to an earlier message",
+    "to": "将会话回退到较早的消息/Rewind the conversation to an earlier message",
+    "mode": "full"
+  },
+  {
+    "from": "Delivered into the response that was streaming",
+    "to": "已投递到当时正在流式传输的响应中/Delivered into the response that was streaming",
+    "mode": "full"
+  },
+  {
+    "from": "proposed",
+    "to": "已提议/proposed",
+    "mode": "full"
+  },
+  {
+    "from": "Find",
+    "to": "查找/Find",
+    "mode": "full"
+  },
+  {
+    "from": "failed logs",
+    "to": "失败日志/failed logs",
+    "mode": "full"
+  },
+  {
+    "from": "GitHub Run Watch",
+    "to": "GitHub 运行监视/GitHub Run Watch",
+    "mode": "full"
+  },
+  {
+    "from": "Hover",
+    "to": "悬停/Hover",
+    "mode": "full"
+  },
+  {
+    "from": "Diagnostics",
+    "to": "诊断/Diagnostics",
+    "mode": "full"
+  },
+  {
+    "from": "References",
+    "to": "引用/References",
+    "mode": "full"
+  },
+  {
+    "from": "Symbols",
+    "to": "符号/Symbols",
+    "mode": "full"
+  },
+  {
+    "from": "Response",
+    "to": "响应/Response",
+    "mode": "full"
+  },
+  {
+    "from": "Message",
+    "to": "消息/Message",
+    "mode": "full"
+  },
+  {
+    "from": "schema overridden",
+    "to": "schema 已覆盖/schema overridden",
+    "mode": "full"
+  },
+  {
+    "from": "Compaction summary",
+    "to": "压缩摘要/Compaction summary",
+    "mode": "full"
+  },
+  {
+    "from": "Branch summary",
+    "to": "分支摘要/Branch summary",
+    "mode": "full"
+  },
+  {
+    "from": "earlier turns",
+    "to": "较早轮次/earlier turns",
+    "mode": "full"
+  },
+  {
+    "from": "eval code",
+    "to": "eval 代码/eval code",
+    "mode": "full"
+  },
+  {
+    "from": "user message",
+    "to": "用户消息/user message",
+    "mode": "full"
+  },
+  {
+    "from": "assistant message",
+    "to": "助手消息/assistant message",
+    "mode": "full"
+  },
+  {
+    "from": "bash execution",
+    "to": "bash 执行/bash execution",
+    "mode": "full"
+  },
+  {
+    "from": "eval execution",
+    "to": "eval 执行/eval execution",
+    "mode": "full"
+  },
+  {
+    "from": "turn content",
+    "to": "轮次内容/turn content",
+    "mode": "full"
+  },
+  {
+    "from": "No tools",
+    "to": "无工具/No tools",
+    "mode": "full"
+  },
+  {
+    "from": "User only",
+    "to": "仅用户/User only",
+    "mode": "full"
+  },
+  {
+    "from": "Labeled",
+    "to": "已标记/Labeled",
+    "mode": "full"
+  },
+  {
+    "from": "Session tree",
+    "to": "会话树/Session tree",
+    "mode": "full"
+  },
+  {
+    "from": "previous/next turn",
+    "to": "上一轮次或下一轮次/previous/next turn",
+    "mode": "full"
+  },
+  {
+    "from": "first/last",
+    "to": "第一个或最后一个/first/last",
+    "mode": "full"
+  },
+  {
+    "from": "summarize & switch",
+    "to": "总结并切换/summarize & switch",
+    "mode": "full"
+  },
+  {
+    "from": "Move cursor to message end",
+    "to": "光标移至消息末尾/Move cursor to message end",
+    "mode": "full"
+  },
+  {
+    "from": "Move cursor to message start",
+    "to": "光标移至消息开头/Move cursor to message start",
+    "mode": "full"
+  },
+  {
+    "from": "Move cursor to line start",
+    "to": "光标移至行首/Move cursor to line start",
+    "mode": "full"
+  },
+  {
+    "from": "Move cursor to line end",
+    "to": "光标移至行尾/Move cursor to line end",
+    "mode": "full"
+  },
+  {
+    "from": "Startup & Updates",
+    "to": "启动与更新/Startup & Updates",
+    "mode": "full"
+  },
+  {
+    "from": "Theme",
+    "to": "主题/Theme",
+    "mode": "full"
+  },
+  {
+    "from": "Unicode",
+    "to": "Unicode/Unicode",
+    "mode": "full"
+  },
+  {
+    "from": "Nerd Font",
+    "to": "Nerd Font/Nerd Font",
+    "mode": "full"
+  },
+  {
+    "from": "Requires a Nerd Font, or a Glyph Protocol terminal (icons ship in-band)",
+    "to": "需要 Nerd Font，或支持 Glyph Protocol 的终端（图标在带内传输）/Requires a Nerd Font, or a Glyph Protocol terminal (icons ship in-band)",
+    "mode": "full"
+  },
+  {
+    "from": "Composer",
+    "to": "输入框/Composer",
+    "mode": "full"
+  },
+  {
+    "from": "Generation Rate",
+    "to": "生成速率/Generation Rate",
+    "mode": "full"
+  },
+  {
+    "from": "Show a live generation tok/s readout: on the working row next to the session title, or in the native composer bar right after the thinking level, where the last reading stays between turns. Estimated from streamed deltas and corrected by the provider's billed output count as each message completes.",
+    "to": "实时显示生成 tok/s 读数：在工作行中会话标题旁，或在原生输入框栏中紧接思考级别之后，最后一次读数在轮次之间保留。读数由流式增量估算，并在每条消息完成时按提供商计费的输出数量校正/Show a live generation tok/s readout: on the working row next to the session title, or in the native composer bar right after the thinking level, where the last reading stays between turns. Estimated from streamed deltas and corrected by the provider's billed output count as each message completes.",
+    "mode": "full"
+  },
+  {
+    "from": "Status Line",
+    "to": "状态栏/Status Line",
+    "mode": "full"
+  },
+  {
+    "from": "Model, git, cost, context",
+    "to": "模型、git、费用、上下文/Model, git, cost, context",
+    "mode": "full"
+  },
+  {
+    "from": "status line segment",
+    "to": "状态栏分段/status line segment",
+    "mode": "full"
+  },
+  {
+    "from": "Images",
+    "to": "图片/Images",
+    "mode": "full"
+  },
+  {
+    "from": "Maximum width in terminal columns for inline images (default 100). Set to 0 for unlimited (bounded only by terminal width).",
+    "to": "内联图片的最大宽度（终端列，默认 100）。设为 0 表示无限制（仅受终端宽度约束）/Maximum width in terminal columns for inline images (default 100). Set to 0 for unlimited (bounded only by terminal width).",
+    "mode": "full"
+  },
+  {
+    "from": "Maximum height in terminal rows for inline images (default 20). Set to 0 to use only the viewport-based limit (60% of terminal height).",
+    "to": "内联图片的最大高度（终端行，默认 20）。设为 0 则仅使用基于视口的限制（终端高度的 60%）/Maximum height in terminal rows for inline images (default 20). Set to 0 to use only the viewport-based limit (60% of terminal height).",
+    "mode": "full"
+  },
+  {
+    "from": "Resize Scrollback",
+    "to": "调整大小时的回滚处理/Resize Scrollback",
+    "mode": "full"
+  },
+  {
+    "from": "How a settled terminal resize refreshes transcript rows retained in terminal scrollback",
+    "to": "终端尺寸调整稳定后，如何刷新保留在终端回滚缓冲区中的转录行/How a settled terminal resize refreshes transcript rows retained in terminal scrollback",
+    "mode": "full"
+  },
+  {
+    "from": "Append",
+    "to": "追加/Append",
+    "mode": "full"
+  },
+  {
+    "from": "Replay the transcript at the new width below retained history",
+    "to": "在保留的历史下方以新宽度重放转录/Replay the transcript at the new width below retained history",
+    "mode": "full"
+  },
+  {
+    "from": "Rebuild",
+    "to": "重建/Rebuild",
+    "mode": "full"
+  },
+  {
+    "from": "Erase all terminal scrollback, then replay one current-width transcript",
+    "to": "清空全部终端回滚缓冲区，然后按当前宽度重放一份转录/Erase all terminal scrollback, then replay one current-width transcript",
+    "mode": "full"
+  },
+  {
+    "from": "Preserve",
+    "to": "保留/Preserve",
+    "mode": "full"
+  },
+  {
+    "from": "Emit OSC 9;4 indeterminate progress while the agent or context maintenance is running (always on in Tern)",
+    "to": "在代理或上下文维护运行时发出 OSC 9;4 不确定进度（Tern 中始终开启）/Emit OSC 9;4 indeterminate progress while the agent or context maintenance is running (always on in Tern)",
+    "mode": "full"
+  },
+  {
+    "from": "Program Status (OSC 7501)",
+    "to": "程序状态（OSC 7501）/Program Status (OSC 7501)",
+    "mode": "full"
+  },
+  {
+    "from": "Report whether the agent is working, waiting on you, done, or failed over OSC 7501, for terminal tab indicators and agent inboxes",
+    "to": "通过 OSC 7501 报告代理是在工作、等待你、已完成还是失败，供终端标签页指示器和代理收件箱使用/Report whether the agent is working, waiting on you, done, or failed over OSC 7501, for terminal tab indicators and agent inboxes",
+    "mode": "full"
+  },
+  {
+    "from": "Render SVG Figures",
+    "to": "渲染 SVG 图形/Render SVG Figures",
+    "mode": "full"
+  },
+  {
+    "from": "Invite the agent to draw diagrams and charts as SVG, rendered inline as images on terminals that show graphics",
+    "to": "邀请代理以 SVG 绘制示意图和图表，在支持图形的终端中以内联图片渲染/Invite the agent to draw diagrams and charts as SVG, rendered inline as images on terminals that show graphics",
+    "mode": "full"
+  },
+  {
+    "from": "Auto-Graph Tables",
+    "to": "自动为表格绘图/Auto-Graph Tables",
+    "mode": "full"
+  },
+  {
+    "from": "Draw a chart under numeric tables in the agent's answers, in your theme's colors, on terminals that show graphics",
+    "to": "在支持图形的终端中，用你的主题配色在代理回答的数值表格下方绘制图表/Draw a chart under numeric tables in the agent's answers, in your theme's colors, on terminals that show graphics",
+    "mode": "full"
+  },
+  {
+    "from": "The judge model refines each chart: kind, columns, row names and grouping, scales, which way is better, and its title",
+    "to": "由 judge 模型细化每个图表：类型、列、行名与分组、刻度、优劣方向及其标题/The judge model refines each chart: kind, columns, row names and grouping, scales, which way is better, and its title",
+    "mode": "full"
+  },
+  {
+    "from": "Chart every table that reads as numeric, using the built-in best guess",
+    "to": "对所有看起来是数值的表格绘图，使用内置的最佳猜测/Chart every table that reads as numeric, using the built-in best guess",
+    "mode": "full"
+  },
+  {
+    "from": "Leave tables as tables",
+    "to": "表格保持为表格/Leave tables as tables",
+    "mode": "full"
+  },
+  {
+    "from": "Agent Reactions",
+    "to": "代理表情回应/Agent Reactions",
+    "mode": "full"
+  },
+  {
+    "from": "Invite the agent to react to your message with an emoji badge on its bubble",
+    "to": "邀请代理在你的消息上用 emoji 徽章作出回应/Invite the agent to react to your message with an emoji badge on its bubble",
+    "mode": "full"
+  },
+  {
+    "from": "Show the agent run state in the terminal title's separator \\u2014 an animated spinner while working (a static ':' under WSL), '>' when it's your turn, '!' when the agent is waiting on you",
+    "to": "在终端标题的分隔符中显示代理运行状态 — 工作时为动画旋转指示器（WSL 下为静态 ':'），轮到您时显示 '>'，代理等待您时显示 '!'/Show the agent run state in the terminal title's separator \\u2014 an animated spinner while working (a static ':' under WSL), '>' when it's your turn, '!' when the agent is waiting on you",
+    "mode": "full"
+  },
+  {
+    "from": "Terminal Title Spinner",
+    "to": "终端标题旋转指示器/Terminal Title Spinner",
+    "mode": "full"
+  },
+  {
+    "from": "Glyph set for the working-state spinner in the terminal title \\u2014 braille sweep, filling moon, single-dot cycle, or ASCII-safe line",
+    "to": "终端标题中工作状态旋转指示器所用的字形集 — 盲文扫掠、填充月相、单点循环或 ASCII 安全线条/Glyph set for the working-state spinner in the terminal title \\u2014 braille sweep, filling moon, single-dot cycle, or ASCII-safe line",
+    "mode": "full"
+  },
+  {
+    "from": "Braille",
+    "to": "盲文/Braille",
+    "mode": "full"
+  },
+  {
+    "from": "Classic \\u280B\\u2819\\u2839 sweep (default)",
+    "to": "经典 \\u280B\\u2819\\u2839 扫掠（默认）/Classic \\u280B\\u2819\\u2839 sweep (default)",
+    "mode": "full"
+  },
+  {
+    "from": "Pulse",
+    "to": "脉动/Pulse",
+    "mode": "full"
+  },
+  {
+    "from": "Moon filling \\u25CB\\u25D1\\u25CF then emptying",
+    "to": "月相填充 \\u25CB\\u25D1\\u25CF 然后变空/Moon filling \\u25CB\\u25D1\\u25CF then emptying",
+    "mode": "full"
+  },
+  {
+    "from": "Dots",
+    "to": "圆点/Dots",
+    "mode": "full"
+  },
+  {
+    "from": "Single braille dots cycling",
+    "to": "单个盲文点循环/Single braille dots cycling",
+    "mode": "full"
+  },
+  {
+    "from": "Line",
+    "to": "线条/Line",
+    "mode": "full"
+  },
+  {
+    "from": "ASCII - \\\\ | / for fonts without braille coverage",
+    "to": "ASCII - \\\\ | /，用于不含盲文字形的字体/ASCII - \\\\ | / for fonts without braille coverage",
+    "mode": "full"
+  },
+  {
+    "from": "Mouse Click-to-Focus",
+    "to": "鼠标点击聚焦/Mouse Click-to-Focus",
+    "mode": "full"
+  },
+  {
+    "from": "Soft cosine wave sweeping across the text",
+    "to": "柔和余弦波扫过文本/Soft cosine wave sweeping across the text",
+    "mode": "full"
+  },
+  {
+    "from": "Pinned Agents",
+    "to": "固定代理/Pinned Agents",
+    "mode": "full"
+  },
+  {
+    "from": "Pinned live-agent jump list above the editor (off hides it; collapsed shows a few rows with an expander; full lists all)",
+    "to": "编辑器上方的固定活动代理跳转列表（off 隐藏；collapsed 显示几行并带展开器；full 列出全部）/Pinned live-agent jump list above the editor (off hides it; collapsed shows a few rows with an expander; full lists all)",
+    "mode": "full"
+  },
+  {
+    "from": "Hide the pinned jump list",
+    "to": "隐藏固定的跳转列表/Hide the pinned jump list",
+    "mode": "full"
+  },
+  {
+    "from": "Collapsed",
+    "to": "折叠/Collapsed",
+    "mode": "full"
+  },
+  {
+    "from": "Show a few rows with an expander",
+    "to": "显示几行并带展开器/Show a few rows with an expander",
+    "mode": "full"
+  },
+  {
+    "from": "Always list every live agent",
+    "to": "始终列出每个活动代理/Always list every live agent",
+    "mode": "full"
+  },
+  {
+    "from": "Subagent Live Preview",
+    "to": "子代理实时预览/Subagent Live Preview",
+    "mode": "full"
+  },
+  {
+    "from": "Show each pinned subagent's current (or most recent) tool call beneath its row",
+    "to": "在每个固定子代理所在行下方显示其当前（或最近一次）工具调用/Show each pinned subagent's current (or most recent) tool call beneath its row",
+    "mode": "full"
+  },
+  {
+    "from": "Show Turn Time",
+    "to": "显示轮次耗时/Show Turn Time",
+    "mode": "full"
+  },
+  {
+    "from": "Show the total prompt-to-yield time (including tool calls) on assistant message usage rows",
+    "to": "在助手消息的用量行上显示从提示到交出的总耗时（含工具调用）/Show the total prompt-to-yield time (including tool calls) on assistant message usage rows",
+    "mode": "full"
+  },
+  {
+    "from": "Show a divider after an assistant turn whose request lost (missed) the prompt cache",
+    "to": "在请求未命中提示缓存的助手轮次之后显示分隔线/Show a divider after an assistant turn whose request lost (missed) the prompt cache",
+    "mode": "full"
+  },
+  {
+    "from": "Input",
+    "to": "输入/Input",
+    "mode": "full"
+  },
+  {
+    "from": "Vim Editing Mode",
+    "to": "Vim 编辑模式/Vim Editing Mode",
+    "mode": "full"
+  }
+]
