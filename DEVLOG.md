@@ -1125,3 +1125,28 @@ WARN 就继续构建交付** -> 仍拦不住.已在 update-zh.js 补硬中止:pa
 - 比较上下文硬门：4947 个比较字面量，0 冲突
 - 产物 sha256 `f8310684bee9b677f866c930f4aa75d0d5542746b3251541320a6a5d9bf2c5f2`（240,181,760 字节）
 - 交付 DEFERRED（看护 pid 18440），Release `v18.12.3-zh` 已发布并附 SHA256SUMS
+
+### 发版自动化（2026-10-20，回应版本号易漏更新）
+
+**问题**：README 硬编码"当前版本 18.12.1"，每次发版要手改三处（README/package.json/tag），漏改即不一致。
+
+**修复**：
+1. README 不再写死版本号，改为指向 `/releases/latest`；翻译条数改为约数。
+2. 新增 `release-zh.js`：一条命令完成 产物校验 → 验证套件 → 工作区洁净检查 → package.json 同步
+   → SHA256SUMS 生成 → tag 重指并强推 → Release 创建/更新 → 提交推送。
+   版本号唯一真相来源 = 产物自报的 `omp/<version>`，脚本拒绝不一致。
+3. 首次运行即抓出三处历史不一致：tag 指向 `f1d1799`（发版早于提交）、package.json 停在 18.12.1、
+   `npm run build` 仍指向 18121 脚本。均已修正。
+
+**同时修复可复现性缺口**：9 个 `work/out-*.json` staging 字典（895 条）此前只存在于 `.gitignore` 的
+`work/` 目录，干净克隆无法复现发布产物。已迁入受控路径 `dict/staging/`，`build-zh.js` 与
+`tools-build-18121/18123.js` 均改为优先读该目录（并保留 `work/` 兼容）。迁移后重建 sha256 与迁移前
+逐字节一致，证明是纯位置变更。
+
+**18.12.3 补译**：3 个 dsv4.1f 分片共 159 条（设置页新增项：计算机后台回退/接管/拒绝、
+Live Job Widgets、Complete Scrollback、缓存预热、advisors 系列），另有 66 条被分片正确跳过
+（小写枚举值、模型名、域名）。分片自行识别并规避了 `Delete`/`Control`/`Local` 三个会触发
+硬门或破坏路径的条目。
+
+最终产物 sha256 `b8143c6fb1060e0f95e201b8bbbd1ab4e7fbd4d1838caccd7b9274b2f474debb`，
+helpCJK 2037，20/20 PASS，交付 DEFERRED（看护 pid 21400）。
