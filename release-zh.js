@@ -17,6 +17,8 @@ const version = (args.find((a) => /^\d+\.\d+\.\d+$/.test(a)) || '').trim();
 const DRY = args.includes('--dry-run');
 const PROXY = process.env.OMP_NO_PROXY ? '' : (process.env.OMP_PROXY || 'http://127.0.0.1:7897');
 const gitProxy = PROXY ? ['-c', 'http.proxy=' + PROXY, '-c', 'https.proxy=' + PROXY] : [];
+// git 的 -c 必须放在子命令之前: git -c k=v push ...
+const gitPush = (extra) => sh('git', [...gitProxy, 'push', ...extra]);
 
 if (!version) {
   console.error('用法: node release-zh.js <version> [--dry-run]');
@@ -104,7 +106,7 @@ if (tagExists === head) {
   if (!DRY) {
     if (tagExists) sh('git', ['tag', '-f', TAG, head]);
     else sh('git', ['tag', TAG, head]);
-    sh('git', ['push', ...gitProxy, '--force', 'origin', `refs/tags/${TAG}`]);
+    gitPush(['--force', 'origin', `refs/tags/${TAG}`]);
     log('tag 已推送');
   }
 }
@@ -136,7 +138,7 @@ if (!DRY) {
 // ---- 7. 推送提交 ----
 if (!DRY) {
   try {
-    sh('git', ['push', ...gitProxy, 'origin', 'HEAD']);
+    gitPush(['origin', 'HEAD']);
     log('提交已推送');
   } catch (e) {
     console.error('WARN: push 失败（提交已在本地）: ' + String(e.message).slice(0, 200));
