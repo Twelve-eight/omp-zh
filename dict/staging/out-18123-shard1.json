@@ -1,0 +1,257 @@
+[
+  {
+    "from": "Use larger context windows where supported; may incur premium pricing. Off keeps default or standard-pricing windows",
+    "to": "在支持的情况下使用更大的上下文窗口；可能产生溢价计费。关闭则保持默认或标准计费的窗口/Use larger context windows where supported; may incur premium pricing. Off keeps default or standard-pricing windows",
+    "mode": "full"
+  },
+  {
+    "from": "Seconds to wait while idle before compacting; with a 1-hour prompt cache, compaction instead runs just before the cache expires",
+    "to": "压缩前空闲等待的秒数；使用 1 小时提示缓存时，压缩改为在缓存过期前才运行/Seconds to wait while idle before compacting; with a 1-hour prompt cache, compaction instead runs just before the cache expires",
+    "mode": "full"
+  },
+  {
+    "from": "Custom system prompt from SYSTEM.md and SYSTEM_TEMPLATE.md",
+    "to": "来自 SYSTEM.md 和 SYSTEM_TEMPLATE.md 的自定义系统提示词/Custom system prompt from SYSTEM.md and SYSTEM_TEMPLATE.md",
+    "mode": "full"
+  },
+  {
+    "from": "Load skills from .claude/skills/*/SKILL.md",
+    "to": "从 .claude/skills/*/SKILL.md 加载技能/Load skills from .claude/skills/*/SKILL.md",
+    "mode": "full"
+  },
+  {
+    "from": "Most IDA databases (omp.ida.* daemons in omp ps) open at once per project; opening another saves and closes the least recently used idle one",
+    "to": "每个项目同时打开的 IDA 数据库上限（omp ps 中的 omp.ida.* 守护进程）；再打开一个时会保存并关闭最久未使用的空闲数据库/Most IDA databases (omp.ida.* daemons in omp ps) open at once per project; opening another saves and closes the least recently used idle one",
+    "mode": "full"
+  },
+  {
+    "from": "Save and close IDA databases idle longer than this many seconds (0 = never); the exec namespace resets on reopen",
+    "to": "空闲超过这么多秒的 IDA 数据库会被保存并关闭（0 = 永不）；重新打开时 exec 命名空间会重置/Save and close IDA databases idle longer than this many seconds (0 = never); the exec namespace resets on reopen",
+    "mode": "full"
+  },
+  {
+    "from": "When creating a worktree with `/wt`, reset tracked changes and remove untracked files from the original checkout after carrying them over",
+    "to": "使用 `/wt` 创建工作树时，在把改动带过去之后，重置原始检出中的已跟踪改动并删除未跟踪文件/When creating a worktree with `/wt`, reset tracked changes and remove untracked files from the original checkout after carrying them over",
+    "mode": "full"
+  },
+  {
+    "from": "Start each batch subagent as soon as its tasks[] item finishes streaming instead of waiting for the whole task call. Launched agents are aborted if the finished call fails validation, is blocked, or its arguments change. Requires auto-allowed task approval and no extension tool lifecycle handlers.",
+    "to": "tasks[] 中的每一项流式结束就立即启动对应的批量子代理，而不是等整个 task 调用完成。若已完成的调用未通过校验、被阻止或参数发生变化，已启动的代理会被中止。需要 task 批准为自动放行，且没有扩展工具生命周期处理器/Start each batch subagent as soon as its tasks[] item finishes streaming instead of waiting for the whole task call. Launched agents are aborted if the finished call fails validation, is blocked, or its arguments change. Requires auto-allowed task approval and no extension tool lifecycle handlers.",
+    "mode": "full"
+  },
+  {
+    "from": "Maximum size of the artifact file saved for streaming tool output (bash, python, js eval). Larger output keeps its beginning (up to 3 MB) and its most recent remainder, with a truncation notice between them. 0 = unlimited.",
+    "to": "为流式工具输出（bash、python、js eval）保存的产物文件的最大大小。更大的输出会保留其开头（最多 3 MB）和最近的剩余部分，两者之间插入截断提示。0 = 不限。/Maximum size of the artifact file saved for streaming tool output (bash, python, js eval). Larger output keeps its beginning (up to 3 MB) and its most recent remainder, with a truncation notice between them. 0 = unlimited.",
+    "mode": "full"
+  },
+  {
+    "from": "Default approval behavior for tool calls. 'Always ask' auto-approves read-only tools only. 'Ask and remember' also asks before file reads, and can remember a file or folder. 'Write' auto-approves read and workspace-write tools. 'Yolo' auto-approves all tiers; user policy may still prompt or block.",
+    "to": "工具调用的默认批准行为。'Always ask' 仅自动批准只读工具。'Ask and remember' 还会在读取文件前询问，并可记住文件或文件夹。'Write' 自动批准读取和工作区写入工具。'Yolo' 自动批准所有层级；用户策略仍可能提示或阻止/Default approval behavior for tool calls. 'Always ask' auto-approves read-only tools only. 'Ask and remember' also asks before file reads, and can remember a file or folder. 'Write' auto-approves read and workspace-write tools. 'Yolo' auto-approves all tiers; user policy may still prompt or block.",
+    "mode": "full"
+  },
+  {
+    "from": "Ask and remember",
+    "to": "询问并记住/Ask and remember",
+    "mode": "full"
+  },
+  {
+    "from": "Ask before reading or writing a file, with answers that remember the file or its folder for this session or every session; require confirmation for exec tools.",
+    "to": "读取或写入文件前询问，回答可记住该文件或其文件夹（本会话或所有会话）；执行类工具需确认/Ask before reading or writing a file, with answers that remember the file or its folder for this session or every session; require confirmation for exec tools.",
+    "mode": "full"
+  },
+  {
+    "from": "Computer Background Fallback",
+    "to": "计算机后台回退/Computer Background Fallback",
+    "mode": "full"
+  },
+  {
+    "from": "What window input does when its background route is unavailable: rerun it in takeover and return focus to your app (macOS; elsewhere plain takeover), or refuse, which also keeps the agent from taking the foreground or opening macOS menus itself",
+    "to": "窗口输入在其后台路径不可用时怎么做：以接管方式重新执行并把焦点返回你的应用（macOS；其他平台为普通接管），或者拒绝——拒绝还会阻止代理自行占据前台或打开 macOS 菜单/What window input does when its background route is unavailable: rerun it in takeover and return focus to your app (macOS; elsewhere plain takeover), or refuse, which also keeps the agent from taking the foreground or opening macOS menus itself",
+    "mode": "full"
+  },
+  {
+    "from": "Takeover",
+    "to": "接管/Takeover",
+    "mode": "full"
+  },
+  {
+    "from": "Briefly bring the target forward for that one call, then return focus to your app (on macOS even if you kept typing)",
+    "to": "仅在该次调用时短暂把目标带到前台，然后把焦点返回你的应用（在 macOS 上即使你一直在打字）/Briefly bring the target forward for that one call, then return focus to your app (on macOS even if you kept typing)",
+    "mode": "full"
+  },
+  {
+    "from": "Refuse",
+    "to": "拒绝/Refuse",
+    "mode": "full"
+  },
+  {
+    "from": "Fail the call; nothing takes over, and the agent's own takeover, raise, activating open, desktop input and macOS menus (context menus, popup and menu buttons; they take your keyboard while open) are refused too",
+    "to": "让调用失败；不会有任何接管，代理自身的接管、提升窗口、激活式打开、桌面输入和 macOS 菜单（上下文菜单、弹出菜单与菜单按钮；它们打开时会占用你的键盘）也会被拒绝/Fail the call; nothing takes over, and the agent's own takeover, raise, activating open, desktop input and macOS menus (context menus, popup and menu buttons; they take your keyboard while open) are refused too",
+    "mode": "full"
+  },
+  {
+    "from": "Live Job Widgets",
+    "to": "实时作业组件/Live Job Widgets",
+    "mode": "full"
+  },
+  {
+    "from": "Draw a live widget for each running background job (charts, bars, status grids derived from its output) in the wait card, the jobs pill and the jobs sheet. The `widget` model role (default: `smol`) writes one spec per job; updates need no further model calls",
+    "to": "为每个运行中的后台作业绘制实时组件（由其输出生成的图表、条形、状态网格），显示在等待卡片、作业胶囊和作业面板中。`widget` 模型角色（默认：`smol`）为每个作业写一份规格；更新无需再调用模型/Draw a live widget for each running background job (charts, bars, status grids derived from its output) in the wait card, the jobs pill and the jobs sheet. The `widget` model role (default: `smol`) writes one spec per job; updates need no further model calls",
+    "mode": "full"
+  },
+  {
+    "from": "Show the thinking level as a single icon on the model name instead of a separate ` \\xB7 <level>` suffix; in Tern's composer, as the model chip's icon instead of a separate chip (click the icon to cycle it).",
+    "to": "在模型名称上以单个图标显示思考级别，而不是单独的 ` · <level>` 后缀；在 Tern 的输入框中，作为模型芯片的图标而不是单独的芯片（点击图标可循环切换）。/Show the thinking level as a single icon on the model name instead of a separate ` \\xB7 <level>` suffix; in Tern's composer, as the model chip's icon instead of a separate chip (click the icon to cycle it).",
+    "mode": "full"
+  },
+  {
+    "from": "Repaint only the viewport and keep history wrapped at its old width",
+    "to": "仅重绘视口，历史记录保持按旧宽度换行/Repaint only the viewport and keep history wrapped at its old width",
+    "mode": "full"
+  },
+  {
+    "from": "Complete Scrollback",
+    "to": "完整回滚缓冲/Complete Scrollback",
+    "mode": "full"
+  },
+  {
+    "from": "Send transcript rows pushed off screen by a growing HUD or dialog straight to scrollback; when it shrinks, blank rows sit between the transcript and the input until new output fills them",
+    "to": "把被增大的 HUD 或对话框挤出屏幕的记录行直接送入回滚缓冲；当它缩小时，记录与输入框之间会留下空行，直到新的输出填满/Send transcript rows pushed off screen by a growing HUD or dialog straight to scrollback; when it shrinks, blank rows sit between the transcript and the input until new output fills them",
+    "mode": "full"
+  },
+  {
+    "from": "Vim Mode Indicator",
+    "to": "Vim 模式指示器/Vim Mode Indicator",
+    "mode": "full"
+  },
+  {
+    "from": "How the current Vim mode appears in the status line",
+    "to": "当前 Vim 模式在状态栏中的显示方式/How the current Vim mode appears in the status line",
+    "mode": "full"
+  },
+  {
+    "from": "Text",
+    "to": "文本/Text",
+    "mode": "full"
+  },
+  {
+    "from": "Full mode name \\u2014 NORMAL, INSERT, VISUAL, V-LINE, REPLACE",
+    "to": "完整模式名 — NORMAL、INSERT、VISUAL、V-LINE、REPLACE/Full mode name \\u2014 NORMAL, INSERT, VISUAL, V-LINE, REPLACE",
+    "mode": "full"
+  },
+  {
+    "from": "Icon",
+    "to": "图标/Icon",
+    "mode": "full"
+  },
+  {
+    "from": "Single compact glyph per mode",
+    "to": "每种模式一个紧凑字形/Single compact glyph per mode",
+    "mode": "full"
+  },
+  {
+    "from": "Do not show the mode in the status line",
+    "to": "不在状态栏中显示模式/Do not show the mode in the status line",
+    "mode": "full"
+  },
+  {
+    "from": "Loop Condition Timeout (ms)",
+    "to": "循环条件超时（毫秒）/Loop Condition Timeout (ms)",
+    "mode": "full"
+  },
+  {
+    "from": "Max wait for a `/loop --while` / `--until` condition command before treating it as broken and stopping the loop. Set to 0 to wait indefinitely",
+    "to": "`/loop --while` / `--until` 条件命令的最长等待时间，超时即视为失效并停止循环。设为 0 表示无限等待/Max wait for a `/loop --while` / `--until` condition command before treating it as broken and stopping the loop. Set to 0 to wait indefinitely",
+    "mode": "full"
+  },
+  {
+    "from": "Recall Cleared Drafts",
+    "to": "召回已清除的草稿/Recall Cleared Drafts",
+    "mode": "full"
+  },
+  {
+    "from": "Bare Exit on Empty Session",
+    "to": "空会话中裸 exit 退出/Bare Exit on Empty Session",
+    "mode": "full"
+  },
+  {
+    "from": "Submitting exactly `exit`, `quit`, or `q` (any case) before the first message quits instead of prompting the model",
+    "to": "在第一条消息之前恰好提交 `exit`、`quit` 或 `q`（任意大小写）即退出，而不是去提示模型/Submitting exactly `exit`, `quit`, or `q` (any case) before the first message quits instead of prompting the model",
+    "mode": "full"
+  },
+  {
+    "from": "Bare Slash Commands",
+    "to": "裸斜杠命令/Bare Slash Commands",
+    "mode": "full"
+  },
+  {
+    "from": "Submitting exactly a command name without the leading `/` (e.g. `model`, `compact`) runs that slash command; once the session has messages, press Enter twice to confirm",
+    "to": "恰好提交不带前导 `/` 的命令名（例如 `model`、`compact`）会运行该斜杠命令；会话已有消息后，需按两次 Enter 确认/Submitting exactly a command name without the leading `/` (e.g. `model`, `compact`) runs that slash command; once the session has messages, press Enter twice to confirm",
+    "mode": "full"
+  },
+  {
+    "from": "3 items",
+    "to": "3 项/3 items",
+    "mode": "full"
+  },
+  {
+    "from": "5 items",
+    "to": "5 项/5 items",
+    "mode": "full"
+  },
+  {
+    "from": "7 items",
+    "to": "7 项/7 items",
+    "mode": "full"
+  },
+  {
+    "from": "10 items",
+    "to": "10 项/10 items",
+    "mode": "full"
+  },
+  {
+    "from": "15 items",
+    "to": "15 项/15 items",
+    "mode": "full"
+  },
+  {
+    "from": "20 items",
+    "to": "20 项/20 items",
+    "mode": "full"
+  },
+  {
+    "from": "Typo Detection (macOS)",
+    "to": "拼写错误检测（macOS）/Typo Detection (macOS)",
+    "mode": "full"
+  },
+  {
+    "from": "Mark misspelled prompt words with the active macOS dictionaries",
+    "to": "用当前启用的 macOS 词典标记拼写错误的提示词单词/Mark misspelled prompt words with the active macOS dictionaries",
+    "mode": "full"
+  },
+  {
+    "from": "Word Autocomplete",
+    "to": "单词自动补全/Word Autocomplete",
+    "mode": "full"
+  },
+  {
+    "from": "No word completion",
+    "to": "不进行单词补全/No word completion",
+    "mode": "full"
+  },
+  {
+    "from": "N-gram (nothing to download)",
+    "to": "N 元语法（无需下载）/N-gram (nothing to download)",
+    "mode": "full"
+  },
+  {
+    "from": "N-gram",
+    "to": "N 元语法/N-gram",
+    "mode": "full"
+  },
+  {
+    "from": "Learns your vocabulary from prompt history",
+    "to": "从提示词历史中学习你的词汇/Learns your vocabulary from prompt history",
+    "mode": "full"
+  }
+]

@@ -1,0 +1,212 @@
+[
+  {
+    "from": "1h TTL where the provider supports it; pricier writes, only warmed during active runs",
+    "to": "在提供商支持时使用 1h TTL；写入更贵，仅在活动运行期间预热/1h TTL where the provider supports it; pricier writes, only warmed during active runs",
+    "mode": "full"
+  },
+  {
+    "from": "Cache Warming",
+    "to": "缓存预热/Cache Warming",
+    "mode": "full"
+  },
+  {
+    "from": "Re-send the last request with a one-token output budget shortly before its prompt-cache entry expires",
+    "to": "在提示缓存条目过期前不久，用单 token 输出预算重发上一次请求/Re-send the last request with a one-token output budget shortly before its prompt-cache entry expires",
+    "mode": "full"
+  },
+  {
+    "from": "Disable cache warming",
+    "to": "禁用缓存预热/Disable cache warming",
+    "mode": "full"
+  },
+  {
+    "from": "Streaming",
+    "to": "流式/Streaming",
+    "mode": "full"
+  },
+  {
+    "from": "Protect expensive prefixes during long tool executions; stops when the agent settles",
+    "to": "在长时间工具执行期间保护昂贵的提示前缀；代理稳定后停止/Protect expensive prefixes during long tool executions; stops when the agent settles",
+    "mode": "full"
+  },
+  {
+    "from": "Idle",
+    "to": "空闲/Idle",
+    "mode": "full"
+  },
+  {
+    "from": "Also refresh 5-minute entries between runs while the expected savings stay above the cost floor",
+    "to": "在运行之间也刷新 5 分钟条目，只要预期节省仍高于成本下限/Also refresh 5-minute entries between runs while the expected savings stay above the cost floor",
+    "mode": "full"
+  },
+  {
+    "from": "Timeouts",
+    "to": "超时/Timeouts",
+    "mode": "full"
+  },
+  {
+    "from": "No suffix; use OpenRouter's default routing",
+    "to": "无后缀；使用 OpenRouter 的默认路由/No suffix; use OpenRouter's default routing",
+    "mode": "full"
+  },
+  {
+    "from": "Priority: native > trafilatura > lynx > parallel > firecrawl > jina",
+    "to": "优先级：native > trafilatura > lynx > parallel > firecrawl > jina/Priority: native > trafilatura > lynx > parallel > firecrawl > jina",
+    "mode": "full"
+  },
+  {
+    "from": "Requires PARALLEL_API_KEY",
+    "to": "需要 PARALLEL_API_KEY/Requires PARALLEL_API_KEY",
+    "mode": "full"
+  },
+  {
+    "from": "Requires FIRECRAWL_API_KEY",
+    "to": "需要 FIRECRAWL_API_KEY/Requires FIRECRAWL_API_KEY",
+    "mode": "full"
+  },
+  {
+    "from": "Check eligibility, then ask before spending the first saved reset. With no prompt UI, spend only a reset expiring within 5 minutes.",
+    "to": "检查资格，然后在花费第一个已保存重置前询问。没有提示 UI 时，仅花费将在 5 分钟内过期的重置/Check eligibility, then ask before spending the first saved reset. With no prompt UI, spend only a reset expiring within 5 minutes.",
+    "mode": "full"
+  },
+  {
+    "from": "With auto-redeem enabled, spend a saved Codex reset within this many hours of expiry when either chat window has meaningful usage. 0 disables early salvage; credits expiring within 5 minutes are still attempted regardless of usage.",
+    "to": "启用自动兑换后，当任一聊天窗口有有效用量时，在已保存的 Codex 重置距过期还有这么多小时以内花费它。0 禁用提前抢救；将在 5 分钟内过期的额度仍会尝试，无论用量如何/With auto-redeem enabled, spend a saved Codex reset within this many hours of expiry when either chat window has meaningful usage. 0 disables early salvage; credits expiring within 5 minutes are still attempted regardless of usage.",
+    "mode": "full"
+  },
+  {
+    "from": "Claude Auto-Redeem Resets",
+    "to": "Claude 自动兑换重置/Claude Auto-Redeem Resets",
+    "mode": "full"
+  },
+  {
+    "from": "Check live eligibility, then ask before spending the first Claude reset. With no prompt UI, spend only a reset expiring within 5 minutes.",
+    "to": "检查实时资格，然后在花费第一个 Claude 重置前询问。没有提示 UI 时，仅花费将在 5 分钟内过期的重置/Check live eligibility, then ask before spending the first Claude reset. With no prompt UI, spend only a reset expiring within 5 minutes.",
+    "mode": "full"
+  },
+  {
+    "from": "Spend eligible Claude resets without prompting.",
+    "to": "无需提示直接花费符合条件的 Claude 重置/Spend eligible Claude resets without prompting.",
+    "mode": "full"
+  },
+  {
+    "from": "Do not run Claude reset auto-redeem checks.",
+    "to": "不运行 Claude 重置自动兑换检查/Do not run Claude reset auto-redeem checks.",
+    "mode": "full"
+  },
+  {
+    "from": "Claude Auto-Redeem Min Block",
+    "to": "Claude 自动兑换最小区块/Claude Auto-Redeem Min Block",
+    "mode": "full"
+  },
+  {
+    "from": "Only auto-redeem when the natural unblock \\u2014 the latest reset among the exhausted covered windows \\u2014 is at least this many minutes away. A 5-hour-only reset is never used for a weekly or model-scoped block.",
+    "to": "仅当自然解除阻塞 — 耗尽的覆盖窗口中最新的重置 — 至少还有这么多分钟时才自动兑换。仅 5 小时的重置绝不会用于每周或模型范围的阻塞/Only auto-redeem when the natural unblock \\u2014 the latest reset among the exhausted covered windows \\u2014 is at least this many minutes away. A 5-hour-only reset is never used for a weekly or model-scoped block.",
+    "mode": "full"
+  },
+  {
+    "from": "Claude Auto-Redeem Reserve",
+    "to": "Claude 自动兑换储备/Claude Auto-Redeem Reserve",
+    "mode": "full"
+  },
+  {
+    "from": "Keep at least this many Claude resets banked (0 allows the last eligible reset to be spent automatically). The reserve applies to early salvage, but not to eligible resets expiring within 5 minutes.",
+    "to": "至少保留这么多 Claude 重置作为储备（0 允许自动花费最后一个符合条件的重置）。储备适用于提前抢救，但不适用于将在 5 分钟内过期的符合条件重置/Keep at least this many Claude resets banked (0 allows the last eligible reset to be spent automatically). The reserve applies to early salvage, but not to eligible resets expiring within 5 minutes.",
+    "mode": "full"
+  },
+  {
+    "from": "Claude Reset Salvage Horizon",
+    "to": "Claude 重置回收时间窗/Claude Reset Salvage Horizon",
+    "mode": "full"
+  },
+  {
+    "from": "With auto-redeem enabled, use a server-selected Cedar reset within this many hours of expiry when its covered windows have meaningful usage. 0 disables early salvage; eligible Cedar or Juniper resets expiring within 5 minutes are still attempted regardless of usage or reserve. Provider limit requirements still apply.",
+    "to": "启用自动兑换后，当服务器选定的 Cedar 重置所覆盖的窗口有有效用量时，在其距过期还有这么多小时以内使用它。0 禁用提前抢救；将在 5 分钟内过期的符合条件 Cedar 或 Juniper 重置仍会尝试，无论用量或储备如何。提供商限制要求仍然适用/With auto-redeem enabled, use a server-selected Cedar reset within this many hours of expiry when its covered windows have meaningful usage. 0 disables early salvage; eligible Cedar or Juniper resets expiring within 5 minutes are still attempted regardless of usage or reserve. Provider limit requirements still apply.",
+    "mode": "full"
+  },
+  {
+    "from": "Always enable append-only context",
+    "to": "始终启用仅追加上下文/Always enable append-only context",
+    "mode": "full"
+  },
+  {
+    "from": "Disable append-only context",
+    "to": "禁用仅追加上下文/Disable append-only context",
+    "mode": "full"
+  },
+  {
+    "from": "Done applies (empty = no tools; read/grep/glob = default)",
+    "to": "Done 应用所选（留空 = 无工具；read/grep/glob = 默认）/Done applies (empty = no tools; read/grep/glob = default)",
+    "mode": "full"
+  },
+  {
+    "from": "Advisors",
+    "to": "顾问/Advisors",
+    "mode": "full"
+  },
+  {
+    "from": "All advisors",
+    "to": "所有顾问/All advisors",
+    "mode": "full"
+  },
+  {
+    "from": "Dropped while loading",
+    "to": "加载时被丢弃/Dropped while loading",
+    "mode": "full"
+  },
+  {
+    "from": "Save to rewrite",
+    "to": "保存以重写/Save to rewrite",
+    "mode": "full"
+  },
+  {
+    "from": "Review mode",
+    "to": "审查模式/Review mode",
+    "mode": "full"
+  },
+  {
+    "from": "Review interval",
+    "to": "审查间隔/Review interval",
+    "mode": "full"
+  },
+  {
+    "from": "Sync backlog",
+    "to": "同步积压/Sync backlog",
+    "mode": "full"
+  },
+  {
+    "from": "Edit\\u2026",
+    "to": "编辑…/Edit\\u2026",
+    "mode": "full"
+  },
+  {
+    "from": "Save",
+    "to": "保存/Save",
+    "mode": "full"
+  },
+  {
+    "from": "Add advisor",
+    "to": "添加顾问/Add advisor",
+    "mode": "full"
+  },
+  {
+    "from": "Add",
+    "to": "添加/Add",
+    "mode": "full"
+  },
+  {
+    "from": "Scope",
+    "to": "作用域/Scope",
+    "mode": "full"
+  },
+  {
+    "from": "Publish outgoing images through the configured backend chain and send URL-fetching providers short URLs instead of inline base64. Falls back to inline automatically when every backend or a provider fetch fails",
+    "to": "通过已配置的后端链发布外发图片，并向支持 URL 抓取的提供商发送短 URL，而不是内联 base64。当所有后端或某个提供商抓取失败时自动回退到内联/Publish outgoing images through the configured backend chain and send URL-fetching providers short URLs instead of inline base64. Falls back to inline automatically when every backend or a provider fetch fails",
+    "mode": "full"
+  },
+  {
+    "from": "Serving window for locally hosted image URLs, measured from the last time a conversation sent them; resuming a conversation re-arms the window at the same link. 0 keeps links alive while the broker runs",
+    "to": "本地托管图片 URL 的服务窗口，从会话最后一次发送它们时开始计时；恢复会话会在同一链接上重新启动该窗口。0 表示在 broker 运行期间保持链接存活/Serving window for locally hosted image URLs, measured from the last time a conversation sent them; resuming a conversation re-arms the window at the same link. 0 keeps links alive while the broker runs",
+    "mode": "full"
+  }
+]

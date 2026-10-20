@@ -1,0 +1,332 @@
+[
+  {
+    "from": "Small on-device language model blended with N-gram (downloads weights on first use)",
+    "to": "与 N-gram 混合的端侧小型语言模型（首次使用时下载权重）/Small on-device language model blended with N-gram (downloads weights on first use)",
+    "mode": "full"
+  },
+  {
+    "from": "Composer Predictions",
+    "to": "输入框预测/Composer Predictions",
+    "mode": "full"
+  },
+  {
+    "from": "Autocorrect (macOS)",
+    "to": "自动更正（macOS）/Autocorrect (macOS)",
+    "mode": "full"
+  },
+  {
+    "from": "Apply confident macOS spelling corrections after completed words",
+    "to": "在单词输入完成后应用有把握的 macOS 拼写更正/Apply confident macOS spelling corrections after completed words",
+    "mode": "full"
+  },
+  {
+    "from": "Update Channel",
+    "to": "更新通道/Update Channel",
+    "mode": "full"
+  },
+  {
+    "from": "Update channel used by omp update and the startup update check",
+    "to": "omp update 与启动时更新检查使用的更新通道/Update channel used by omp update and the startup update check",
+    "mode": "full"
+  },
+  {
+    "from": "Stable",
+    "to": "稳定/Stable",
+    "mode": "full"
+  },
+  {
+    "from": "Canary",
+    "to": "金丝雀/Canary",
+    "mode": "full"
+  },
+  {
+    "from": "Notifications",
+    "to": "通知/Notifications",
+    "mode": "full"
+  },
+  {
+    "from": "Auto-select the recommended ask option after this many seconds (0 disables). Also bounds cfg:// approval prompts; an unanswered approval denies the write instead of auto-selecting",
+    "to": "在此秒数后自动选择推荐的 ask 选项（0 表示禁用）。同时限制 cfg:// 审批提示的等待；未获答复的审批将拒绝写入而不是自动选择/Auto-select the recommended ask option after this many seconds (0 disables). Also bounds cfg:// approval prompts; an unanswered approval denies the write instead of auto-selecting",
+    "mode": "full"
+  },
+  {
+    "from": "Power",
+    "to": "电源/Power",
+    "mode": "full"
+  },
+  {
+    "from": "Prevent the system sleeping during active sessions. Each level is cumulative \\u2014 it adds the flags of all lower levels.",
+    "to": "在活动会话期间阻止系统睡眠。每一级都是累积的 — 它会叠加所有更低级别的标志/Prevent the system sleeping during active sessions. Each level is cumulative \\u2014 it adds the flags of all lower levels.",
+    "mode": "full"
+  },
+  {
+    "from": "Keep the system awake while a session is open (macOS `caffeinate -i`)",
+    "to": "会话打开期间让系统保持唤醒（macOS `caffeinate -i`）/Keep the system awake while a session is open (macOS `caffeinate -i`)",
+    "mode": "full"
+  },
+  {
+    "from": "Also keep the display from idle-sleeping (macOS `caffeinate -i -d`)",
+    "to": "同时防止显示器空闲休眠（macOS `caffeinate -i -d`）/Also keep the display from idle-sleeping (macOS `caffeinate -i -d`)",
+    "mode": "full"
+  },
+  {
+    "from": "Also block all system sleep on AC and declare the user active (macOS `caffeinate -i -d -s -u`)",
+    "to": "同时在接通电源时阻止所有系统睡眠并声明用户处于活动状态（macOS `caffeinate -i -d -s -u`）/Also block all system sleep on AC and declare the user active (macOS `caffeinate -i -d -s -u`)",
+    "mode": "full"
+  },
+  {
+    "from": "Prewalk",
+    "to": "预检/Prewalk",
+    "mode": "full"
+  },
+  {
+    "from": "Auto Prewalk",
+    "to": "自动预检/Auto Prewalk",
+    "mode": "full"
+  },
+  {
+    "from": "Ask the native judge resolved through the 'judge' role whether each new top-level user task front-loads its hard reasoning. Needs a native judge; without one nothing is classified. Independent of Enable Prewalk.",
+    "to": "让通过 'judge' 角色解析出的原生裁判判断每个新的顶层用户任务是否把其困难推理前置。需要原生裁判；没有则不做任何分类。与启用预检相互独立/Ask the native judge resolved through the 'judge' role whether each new top-level user task front-loads its hard reasoning. Needs a native judge; without one nothing is classified. Independent of Enable Prewalk.",
+    "mode": "full"
+  },
+  {
+    "from": "Never classify prompts for prewalk",
+    "to": "绝不为预检分类提示词/Never classify prompts for prewalk",
+    "mode": "full"
+  },
+  {
+    "from": "Suggest",
+    "to": "建议/Suggest",
+    "mode": "full"
+  },
+  {
+    "from": "Classify each task and report the decision without arming prewalk",
+    "to": "对每个任务进行分类并报告判定结果，但不启用预检/Classify each task and report the decision without arming prewalk",
+    "mode": "full"
+  },
+  {
+    "from": "For confidently front-loaded tasks, arm a handoff from the active model to the auto target; the next task starts back on the planning model",
+    "to": "对于有把握判定为前置型推理的任务，预先安排好从当前活动模型到自动目标的交接；下一个任务将重新从规划模型开始/For confidently front-loaded tasks, arm a handoff from the active model to the auto target; the next task starts back on the planning model",
+    "mode": "full"
+  },
+  {
+    "from": "Auto-prewalk target",
+    "to": "自动预检目标/Auto-prewalk target",
+    "mode": "full"
+  },
+  {
+    "from": "Model or role (default '@smol') auto-prewalk hands off to at the first edit/write.",
+    "to": "在首次编辑/写入时自动预检交接到的模型或角色（默认 '@smol'）/Model or role (default '@smol') auto-prewalk hands off to at the first edit/write.",
+    "mode": "full"
+  },
+  {
+    "from": "Vision",
+    "to": "视觉/Vision",
+    "mode": "full"
+  },
+  {
+    "from": "Thinking",
+    "to": "思考/Thinking",
+    "mode": "full"
+  },
+  {
+    "from": "Expand Thinking Blocks",
+    "to": "展开思考块/Expand Thinking Blocks",
+    "mode": "full"
+  },
+  {
+    "from": "Keep finished thinking blocks expanded instead of collapsing them when the turn ends",
+    "to": "轮次结束时保持已完成的思考块为展开状态，而不是折叠它们/Keep finished thinking blocks expanded instead of collapsing them when the turn ends",
+    "mode": "full"
+  },
+  {
+    "from": "List Skills in Prompt",
+    "to": "在提示词中列出技能/List Skills in Prompt",
+    "mode": "full"
+  },
+  {
+    "from": "List available skills in the system prompt; disable to save context and toggle per-session with /skillful",
+    "to": "在系统提示词中列出可用技能；禁用可节省上下文，并可用 /skillful 按会话切换/List available skills in the system prompt; disable to save context and toggle per-session with /skillful",
+    "mode": "full"
+  },
+  {
+    "from": "Sampling",
+    "to": "采样/Sampling",
+    "mode": "full"
+  },
+  {
+    "from": "Low",
+    "to": "低/Low",
+    "mode": "full"
+  },
+  {
+    "from": "Medium",
+    "to": "中/Medium",
+    "mode": "full"
+  },
+  {
+    "from": "High",
+    "to": "高/High",
+    "mode": "full"
+  },
+  {
+    "from": "Service Tier \\u2014 Anthropic",
+    "to": "服务层级/Service Tier \\u2014 Anthropic",
+    "mode": "full"
+  },
+  {
+    "from": "Retry & Fallback",
+    "to": "重试与回退/Retry & Fallback",
+    "mode": "full"
+  },
+  {
+    "from": "Maximum wait between retries, in ms. When the provider asks us to wait longer than this and no credential or model fallback succeeds, the request fails fast instead of sleeping (e.g. 3-hour Anthropic rate-limit windows). 0 disables the ceiling \\u2014 to let the session auto-resume through provider-stated quota resets.",
+    "to": "重试之间的最大等待时间，单位毫秒。当提供商要求我们等待超过此值时，且没有凭据或模型回退成功，请求会快速失败而不是休眠（例如 Anthropic 的 3 小时速率限制窗口）。0 表示禁用上限 — 让会话按提供商声明的配额重置自动恢复/Maximum wait between retries, in ms. When the provider asks us to wait longer than this and no credential or model fallback succeeds, the request fails fast instead of sleeping (e.g. 3-hour Anthropic rate-limit windows). 0 disables the ceiling \\u2014 to let the session auto-resume through provider-stated quota resets.",
+    "mode": "full"
+  },
+  {
+    "from": "Wait For Usage Reset",
+    "to": "等待用量重置/Wait For Usage Reset",
+    "mode": "full"
+  },
+  {
+    "from": "Allow retry recovery to switch to models in retry.fallbackChains after provider errors. Independent of Auto-Promote Context",
+    "to": "允许重试恢复在提供商错误后切换到 retry.fallbackChains 中的模型。与自动提升上下文相互独立/Allow retry recovery to switch to models in retry.fallbackChains after provider errors. Independent of Auto-Promote Context",
+    "mode": "full"
+  },
+  {
+    "from": "Fallback Trigger",
+    "to": "回退触发条件/Fallback Trigger",
+    "mode": "full"
+  },
+  {
+    "from": "Which failed requests may switch to a configured fallback model",
+    "to": "哪些失败的请求可以切换到已配置的回退模型/Which failed requests may switch to a configured fallback model",
+    "mode": "full"
+  },
+  {
+    "from": "Any error",
+    "to": "任何错误/Any error",
+    "mode": "full"
+  },
+  {
+    "from": "Every provider error may switch models",
+    "to": "任何提供商错误都可以切换模型/Every provider error may switch models",
+    "mode": "full"
+  },
+  {
+    "from": "Usage limits only",
+    "to": "仅用量限制/Usage limits only",
+    "mode": "full"
+  },
+  {
+    "from": "Switch only on a usage limit; retry other errors on the same model, then surface them",
+    "to": "仅在用量限制时切换；其他错误在同一模型上重试，然后暴露出来/Switch only on a usage limit; retry other errors on the same model, then surface them",
+    "mode": "full"
+  },
+  {
+    "from": "All but usage limits",
+    "to": "除用量限制外全部/All but usage limits",
+    "mode": "full"
+  },
+  {
+    "from": "Wait out or surface a usage limit; switch on other errors",
+    "to": "等待用量限制过去或将其暴露；其他错误则切换/Wait out or surface a usage limit; switch on other errors",
+    "mode": "full"
+  },
+  {
+    "from": "When a Claude Fable 5 / Mythos 5 request is blocked by Anthropic's safety classifier, retry it on Claude Opus 5 server-side (Anthropic `server-side-fallback-2026-06-01` beta). Opt-in \\u2014 leaving this off preserves the pre-fallback behavior for every request.",
+    "to": "当 Claude Fable 5 / Mythos 5 请求被 Anthropic 的安全分类器阻止时，在服务端改用 Claude Opus 5 重试（Anthropic `server-side-fallback-2026-06-01` beta）。需主动启用 — 关闭此项会为每个请求保留回退前的行为/When a Claude Fable 5 / Mythos 5 request is blocked by Anthropic's safety classifier, retry it on Claude Opus 5 server-side (Anthropic `server-side-fallback-2026-06-01` beta). Opt-in \\u2014 leaving this off preserves the pre-fallback behavior for every request.",
+    "mode": "full"
+  },
+  {
+    "from": "Production Only",
+    "to": "仅生产/Production Only",
+    "mode": "full"
+  },
+  {
+    "from": "Sandbox Only",
+    "to": "仅沙箱/Sandbox Only",
+    "mode": "full"
+  },
+  {
+    "from": "Fireworks Tier",
+    "to": "Fireworks 层级/Fireworks Tier",
+    "mode": "full"
+  },
+  {
+    "from": "Standard",
+    "to": "标准/Standard",
+    "mode": "full"
+  },
+  {
+    "from": "Inference backend for local tiny models (titles + memory): an ONNX execution provider, or `mlx` to download MLX weights and run them through mlx-lm on Apple silicon. Default uses CPU-only ONNX. The PI_TINY_DEVICE env var overrides this.",
+    "to": "本地微型模型（标题 + 记忆）的推理后端：一个 ONNX 执行提供程序，或 `mlx` 以在 Apple 芯片上下载 MLX 权重并通过 mlx-lm 运行。默认使用仅 CPU 的 ONNX。环境变量 PI_TINY_DEVICE 可覆盖此项/Inference backend for local tiny models (titles + memory): an ONNX execution provider, or `mlx` to download MLX weights and run them through mlx-lm on Apple silicon. Default uses CPU-only ONNX. The PI_TINY_DEVICE env var overrides this.",
+    "mode": "full"
+  },
+  {
+    "from": "ONNX quantization/precision for local tiny models. Default uses each model's shipped dtype (q4); lower precision is faster, higher is more faithful. Ignored by the MLX backend (its repos are pre-quantized 4-bit). The PI_TINY_DTYPE env var overrides this.",
+    "to": "本地微型模型的 ONNX 量化/精度。默认使用每个模型自带的 dtype（q4）；精度越低速度越快，越高则越忠实。MLX 后端会忽略此项（其仓库已预量化为 4 位）。环境变量 PI_TINY_DTYPE 可覆盖此项/ONNX quantization/precision for local tiny models. Default uses each model's shipped dtype (q4); lower precision is faster, higher is more faithful. Ignored by the MLX backend (its repos are pre-quantized 4-bit). The PI_TINY_DTYPE env var overrides this.",
+    "mode": "full"
+  },
+  {
+    "from": "Agent",
+    "to": "代理/Agent",
+    "mode": "full"
+  },
+  {
+    "from": "Unexpected Stops",
+    "to": "意外停止/Unexpected Stops",
+    "mode": "full"
+  },
+  {
+    "from": "Automatically recover when the assistant stops without a visible message. Smart also classifies text-only stops with a small model.",
+    "to": "当助手在没有任何可见消息的情况下停止时自动恢复。Smart 还会用小模型对纯文本停止进行分类/Automatically recover when the assistant stops without a visible message. Smart also classifies text-only stops with a small model.",
+    "mode": "full"
+  },
+  {
+    "from": "Mechanical",
+    "to": "机械式/Mechanical",
+    "mode": "full"
+  },
+  {
+    "from": "Retry stops with no visible assistant message; tool calls are excluded (default)",
+    "to": "重试那些没有可见助手消息的停止；工具调用被排除在外（默认）/Retry stops with no visible assistant message; tool calls are excluded (default)",
+    "mode": "full"
+  },
+  {
+    "from": "Mechanical + small-model classification of text-only stops",
+    "to": "机械式 + 用小模型对纯文本停止进行分类/Mechanical + small-model classification of text-only stops",
+    "mode": "full"
+  },
+  {
+    "from": "OpenAI Live Steering",
+    "to": "OpenAI 实时引导/OpenAI Live Steering",
+    "mode": "full"
+  },
+  {
+    "from": "Deliver messages typed while a GPT-6 response streams into that response over the Codex WebSocket, instead of waiting for the next tool boundary",
+    "to": "在 GPT-6 响应流式输出期间输入的消息，通过 Codex WebSocket 注入该响应，而不是等到下一个工具边界/Deliver messages typed while a GPT-6 response streams into that response over the Codex WebSocket, instead of waiting for the next tool boundary",
+    "mode": "full"
+  },
+  {
+    "from": "Muse Code Stored Responses",
+    "to": "Muse Code 存储响应/Muse Code Stored Responses",
+    "mode": "full"
+  },
+  {
+    "from": "Store Muse Code results on Meta's servers so a turn whose connection drops is recovered instead of re-run. Stored runs keep prompts and outputs on Meta's side.",
+    "to": "将 Muse Code 结果存储在 Meta 的服务器上，使连接中断的轮次可被恢复而不是重新运行。已存储的运行会把提示词与输出保留在 Meta 一侧/Store Muse Code results on Meta's servers so a turn whose connection drops is recovered instead of re-run. Stored runs keep prompts and outputs on Meta's side.",
+    "mode": "full"
+  },
+  {
+    "from": "Provider default \\u2014 Anthropic OAuth subscriber sessions default to 1h, API keys use 5m; PI_CACHE_RETENTION still applies",
+    "to": "提供商默认值 — Anthropic OAuth 订阅者会话默认为 1h，API 密钥使用 5m；PI_CACHE_RETENTION 仍然适用/Provider default \\u2014 Anthropic OAuth subscriber sessions default to 1h, API keys use 5m; PI_CACHE_RETENTION still applies",
+    "mode": "full"
+  },
+  {
+    "from": "Cheapest cache writes; pair with cache warming to keep short entries alive while idle",
+    "to": "最便宜的缓存写入；配合缓存预热可在空闲时让短条目保持存活/Cheapest cache writes; pair with cache warming to keep short entries alive while idle",
+    "mode": "full"
+  }
+]
