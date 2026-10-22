@@ -1150,3 +1150,30 @@ Live Job Widgets、Complete Scrollback、缓存预热、advisors 系列），另
 
 最终产物 sha256 `b8143c6fb1060e0f95e201b8bbbd1ab4e7fbd4d1838caccd7b9274b2f474debb`，
 helpCJK 2037，20/20 PASS，交付 DEFERRED（看护 pid 21400）。
+
+## 2026-10-22: 18.12.6 构建
+
+- **上游**: v18.12.6 (commit 45c35e40c4)，跨 18.12.4/5/6 三版，模块数 3450（+12）
+- **二进制校验**: 官方 SHA256SUMS 一致 `73d73c11dc8821cf...`
+
+### 锚点迁移（相对 18.12.3）
+| 补丁 | 18.12.3 | 18.12.6 |
+|---|---|---|
+| compat | 28 | **30** |
+| stopcap | 333 (`oe/ae/le/ce`) | **329** (`oe/ae/le/de`，`ce` 移出该模块) |
+| sessionStop | 788 (`FD`) | **787 (`jD`)** |
+| yieldLadder | 788 (`fh`) | **787 (`ph`)**，use-site 三处确认 |
+| tunnel/ssh/uploader | 75 (`c3()`) | **23 (`k3()`)** |
+| chrome | 362 | **358** |
+| pythonKernel | 63 (`AZ`) | **101 (`zZ`)**，调用点 366/809 |
+| encstale | 25 | **28** |
+| flush | 167 | **168** |
+
+### 补译
+- 18.12.6 新增设置仅 2 条（server compaction / TTL 描述），写入 `dict/staging/out-18126.json`
+- helpCJK 保持 2037（无新增命令）
+
+### 验证要点
+- 构建后验证套件首轮报 1 FAIL（uploader），实为**验证脚本**的断言串被批量替换成旧 helper 名；
+  产物本身正确（`cwd: k3(), windowsHide: true`）。修正断言后 20/20 PASS。
+  —— 这是"验证失败不等于代码错"的实例，先查产物再改代码。

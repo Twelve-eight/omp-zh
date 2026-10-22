@@ -1,0 +1,12 @@
+[
+  {
+    "from": "Use provider-native server compaction (OpenAI Responses compact, Anthropic compaction beta, including on Bedrock) when the active route supports it",
+    "to": "当前路由支持时使用服务商原生服务端压缩（OpenAI Responses compact、Anthropic compaction beta，含 Bedrock）/Use provider-native server compaction (OpenAI Responses compact, Anthropic compaction beta, including on Bedrock) when the active route supports it",
+    "mode": "full"
+  },
+  {
+    "from": "Longer TTL where supported (Anthropic/Bedrock 1h, OpenAI GPT-5.6+ Responses 12h); pricier writes, only warmed during active runs",
+    "to": "在支持处使用更长 TTL（Anthropic/Bedrock 1 小时，OpenAI GPT-5.6+ Responses 12 小时）；写入更贵，仅在活跃运行期间预热/Longer TTL where supported (Anthropic/Bedrock 1h, OpenAI GPT-5.6+ Responses 12h); pricier writes, only warmed during active runs",
+    "mode": "full"
+  }
+]
