@@ -1177,3 +1177,26 @@ helpCJK 2037，20/20 PASS，交付 DEFERRED（看护 pid 21400）。
 - 构建后验证套件首轮报 1 FAIL（uploader），实为**验证脚本**的断言串被批量替换成旧 helper 名；
   产物本身正确（`cwd: k3(), windowsHide: true`）。修正断言后 20/20 PASS。
   —— 这是"验证失败不等于代码错"的实例，先查产物再改代码。
+
+## 2026-10-25: /stats 崩溃修复 — translate.js 对象键门
+
+### 事故
+另一会话 `/stats` 刷新崩 `TypeError: Invalid header name: 'Cache-Control 头/Cache-Control'`。
+dict-settings-b 有 `{"from":"Cache-Control","to":"Cache-Control 头/Cache-Control"}`，
+translate() 不区分 label(value) 与对象键 `"Cache-Control": v`，16 处 header 键全被翻 →
+Response/SSE handler 收到非法 header 名即崩。
+
+### 修复
+- `translate.js` makeScanner 末尾标注 codeKey：后跟 `:` 的对象键、`[...]` 索引、
+  `get/set/has/append/delete("X")` 实参，translate() 一律跳过。
+- label `key:"cacheControl", label:"Cache-Control"`(mod22 credential 字段)仍是 value → 正常翻译。
+- 字典条目保留(该 label 需要译文)，由 codeKey 门负责隔离。
+
+### 验证
+- `Cache-Control` 污染键 16→0，clean header 键恢复 16。
+- verify 套件加「header keys stay ASCII」回归断言(精确对象键语境，排除 ue("Sending…") 实参误报)。
+- 21/21 PASS，重发同 tag 资产 f54c2a29... 并刷新 notes SHA。
+
+### 教训
+「验证失败 ≠ 代码错」二次印证：首轮 FAIL 实为断言正则误报(ue("Sending…","send") 实参 + 合法 unicode 键)。
+凡字符串词典无位置感知 → 凡能当键/索引/头的 from 都是地雷。全量扫描确认仅 Cache-Control 一类命中。
