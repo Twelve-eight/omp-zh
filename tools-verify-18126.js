@@ -54,6 +54,14 @@ const checks = [
     const r = execSync('work\\\\omp-zh-18126.exe --version', { encoding: 'utf8', timeout: 30000 });
     return r.trim() === 'omp/18.12.6';
   })()]
+  ,
+  ['header keys stay ASCII (object-key gate)', (() => {
+    const all = mods.map(m => m.contents.toString('utf8')).join('\n');
+    // Object-key pollution: a quoted string holding a literal \uXXXX escape used as a
+    // map key — delimited by { or , on the left, ':' on the right.
+    const bad = all.match(/[{,]\s*["'][A-Za-z][A-Za-z -]*\\u[0-9a-fA-F]{4}[^"']*["']\s*:/g) || [];
+    return bad.length === 0 && (all.match(/"Cache-Control"\s*:/g) || []).length === 16;
+  })()]
 ];
 
 let fail = 0;

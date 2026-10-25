@@ -161,6 +161,28 @@ function makeScanner(code) {
     out.push(r);
     prev = r;
   }
+  // Annotate each literal that sits in a code-contract position where
+  // translation corrupts runtime behaviour:
+  //   - object key        { "FROM": ... }   /   { 'FROM': ... }
+  //   - index             x["FROM"]         /   x['FROM']
+  //   - header-ish call   get/set/has/append/delete("FROM")
+  // A label `label: "Cache-Control"` is a VALUE (translate); a header key
+  // `{"Cache-Control": v}` is a KEY (must NOT translate). The dictionary is
+  // position-blind, so the scanner must refuse the code-position literals.
+  const WSE = (j) => { while (j < code.length && /\s/.test(code[j])) j++; return j; };
+  for (const r of out) {
+    let p = WSE(r.end);
+    if (code[p] === ':') { r.codeKey = true; continue; }
+    let q = r.start - 1;
+    while (q >= 0 && /\s/.test(code[q])) q--;
+    if (code[q] === '[') { r.codeKey = true; continue; }
+    if (code[q] === '(') {
+      let e = q - 1;
+      while (e >= 0 && /[\w$.]/.test(code[e])) e--;
+      const fn = code.slice(e + 1, q).split('.').pop();
+      if (['get', 'set', 'has', 'append', 'delete', 'getHeader', 'setHeader'].includes(fn)) r.codeKey = true;
+    }
+  }
   return out;
 }
 
@@ -204,8 +226,9 @@ function translate(src, dict) {
   const repl = new Map();
   let changed = 0;
   for (const l of literals) {
+    if (l.codeKey) continue;
     if (l.isTemplate) {
-      const nested = literals.filter((x) => !x.isTemplate && x.start > l.start && x.end < l.end);
+      const nested = literals.filter((x) => !x.isTemplate && !x.codeKey && x.start > l.start && x.end < l.end);
       let content = l.content;
       let delta = 0;
       let nestedHit = false;
