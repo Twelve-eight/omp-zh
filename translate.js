@@ -163,24 +163,50 @@ function makeScanner(code) {
   }
   // Annotate each literal that sits in a code-contract position where
   // translation corrupts runtime behaviour:
-  //   - object key        { "FROM": ... }   /   { 'FROM': ... }
-  //   - index             x["FROM"]         /   x['FROM']
+  //   - object key        { "FROM": ... }  /  , "FROM": ...   (left delimiter { or ,)
+  //   - index             x["FROM"]  /  f()["FROM"]  /  a[0]["FROM"]
   //   - header-ish call   get/set/has/append/delete("FROM")
   // A label `label: "Cache-Control"` is a VALUE (translate); a header key
   // `{"Cache-Control": v}` is a KEY (must NOT translate). The dictionary is
   // position-blind, so the scanner must refuse the code-position literals.
-  const WSE = (j) => { while (j < code.length && /\s/.test(code[j])) j++; return j; };
+  // NOT keys: ternary branches `c ? "A" : "B"`, `x || "A" : ...`, and array
+  // elements `["Submit", fn]` / `return ["A", ...]` - these are UI values.
+  const KW = new Set(['return', 'typeof', 'case', 'in', 'of', 'yield', 'await', 'void', 'delete', 'new', 'throw', 'else', 'do']);
   for (const r of out) {
-    let p = WSE(r.end);
-    if (code[p] === ':') { r.codeKey = true; continue; }
     let q = r.start - 1;
     while (q >= 0 && /\s/.test(code[q])) q--;
-    if (code[q] === '[') { r.codeKey = true; continue; }
+    let p = r.end;
+    while (p < code.length && /\s/.test(code[p])) p++;
+    if (code[p] === ':' && (code[q] === '{' || code[q] === ',')) { r.codeKey = true; continue; }
+    if (code[q] === '[') {
+      let b = q - 1;
+      while (b >= 0 && /\s/.test(code[b])) b--;
+      if (code[b] === ')' || code[b] === ']') { r.codeKey = true; continue; }
+      let e = b;
+      while (e >= 0 && /[\w$]/.test(code[e])) e--;
+      const word = code.slice(e + 1, b + 1);
+      if (word && !KW.has(word)) { r.codeKey = true; continue; }
+      // Array literal used as a membership set: [ "A", "B" ].includes(x) / .indexOf(x)
+      // compares against runtime strings (DOM text, API values), so translating any
+      // element silently breaks the match. Find the closing ']' and check what follows.
+      let d = 0, k = q;
+      for (; k < code.length; k++) {
+        const ch = code[k];
+        if (ch === '"' || ch === "'" || ch === '`') { const lit = out.find((x) => x.start === k); if (lit) { k = lit.end - 1; continue; } }
+        if (ch === '[') d++;
+        else if (ch === ']' && --d === 0) break;
+      }
+      if (/^\s*\.\s*(includes|indexOf|lastIndexOf)\s*\(/.test(code.slice(k + 1, k + 40))) {
+        for (const x of out) if (x.start > q && x.end <= k) x.codeKey = true;
+      }
+      continue;
+    }
     if (code[q] === '(') {
       let e = q - 1;
       while (e >= 0 && /[\w$.]/.test(code[e])) e--;
       const fn = code.slice(e + 1, q).split('.').pop();
-      if (['get', 'set', 'has', 'append', 'delete', 'getHeader', 'setHeader'].includes(fn)) r.codeKey = true;
+      if (['get', 'set', 'has', 'append', 'delete', 'getHeader', 'setHeader',
+           'startsWith', 'endsWith', 'includes', 'indexOf', 'lastIndexOf'].includes(fn)) r.codeKey = true;
     }
   }
   return out;

@@ -1200,3 +1200,21 @@ Response/SSE handler 收到非法 header 名即崩。
 ### 教训
 「验证失败 ≠ 代码错」二次印证：首轮 FAIL 实为断言正则误报(ue("Sending…","send") 实参 + 合法 unicode 键)。
 凡字符串词典无位置感知 → 凡能当键/索引/头的 from 都是地雷。全量扫描确认仅 Cache-Control 一类命中。
+
+### 2026-10-27 更正(Opus 主会话复核 kimi 版 codeKey 门)
+- 归因更正:`o["Low"]`/`e["Browser"]`/`e["Disabled"]` 等枚举**键**(index 位)与 Cache-Control 同类,是真雷(翻译后 `o["低/Low"]` 静默破坏枚举反查)。f54c2a29 已由门覆盖,并非"本来安全"。
+- 门过宽:kimi 版把"后跟 `:`"一律当对象键、"前为 `[`"一律当索引,在 18.12.6 误拦 65 处 UI 值(三元分支 `c ? "Monthly" : …` 46 处,数组元素 `["Submit", fn]`/`return ["Context", …]` 19 处),f54c2a29 中这些文案退回英文。
+- 收窄:对象键要求左界 `{` 或 `,`;索引要求 `[` 前是标识符(非关键字)、`)` 或 `]`。复测 18.12.6:只拦 16 处 Cache-Control + 8 处枚举键,误拦 0。探针 `G:/tmp/codekey-probe.js`。
+
+## 2026-10-27: 18.13.1 构建 + Opus 交叉审查
+
+- 上游 v18.13.1 (commit 0838d2ab44),3466 模块,官方 SHA256 `9fde2d73...` 一致。
+- 锚点:compat 22 / stopcap 331(`le/de/ue/he`,各有 `#x > K` 与 `maxRetries: K` 用点)/ sessionStop 792 `h0=8`(`#En >= h0`)/ yieldLadder 792 `vh=3`(循环 + `maxRetries: vh`)/ tunnel·ssh·uploader 105(`t4()`)/ chrome 360 / pyKernel `Eee`@93,调用点 368/814(`MT()`)/ encstale 19 / flush 168。mod 99 broker 的 `B()` 与历版一致不打补丁。
+- 补译 15 条(`dict/staging/out-18131.json`),duration 标签按既有规则跳过。
+
+### 交叉审查(kiro-opus,只读;它的会话无法跑 node,探针 `G:/tmp/review18131-probe.js` 由主会话代跑)
+- 采纳:门漏挡 `startsWith("Retry budget exhausted")`(mod706,翻后对上游英文 errorMessage 永不命中)和成员数组 `["References", …].includes(n)`(mod1225,比对 DOM 文本)。修:字符串匹配方法实参并入门;`[...]` 后接 `.includes/.indexOf/.lastIndexOf` 时整组元素入门。重建仅 706/1225 两模块变化。
+- 采纳:verify 弱项。补"原锚点文本已消失"、pyKernel 调用点代入 `true` 的正向断言、Cache-Control 计数改为与上游原版相等,新增 startsWith/成员数组回归。负对照:修前产物恰好挂这一条,上游原版挂 17 条。
+- 未采纳:`throw new Error("…")` / `new TypeError(…)` 41+2 处被翻,属预期汉化(用户可见报错),不是 bug。
+- 未采纳:`replace()` 只替换首处的风险。每个锚点已在探针确认唯一(如 mod105 `homedir()` 仅 1 处);verify 的"原文消失"断言会兜住多处情形。
+- 25/25 PASS。

@@ -1,0 +1,77 @@
+[
+  {
+    "from": "Enable the browser eval prelude for scripted Chromium automation (Puppeteer)",
+    "to": "启用浏览器 eval 预载，用于脚本化 Chromium 自动化（Puppeteer）/Enable the browser eval prelude for scripted Chromium automation (Puppeteer)",
+    "mode": "full"
+  },
+  {
+    "from": "Drive your own Chrome tabs through the omp browser relay. Install the extension once (`omp browser-relay install`); the relay server auto-starts when the browser prelude needs it. Takes precedence over Browser CDP URL; set PI_BROWSER_RELAY=0 or PI_BROWSER_RELAY=1 to override.",
+    "to": "通过 omp 浏览器中继操作你自己的 Chrome 标签页。扩展只需安装一次（`omp browser-relay install`）；浏览器预载需要时中继服务会自动启动。优先于 Browser CDP URL；设置 PI_BROWSER_RELAY=0 或 PI_BROWSER_RELAY=1 可覆盖/Drive your own Chrome tabs through the omp browser relay. Install the extension once (`omp browser-relay install`); the relay server auto-starts when the browser prelude needs it. Takes precedence over Browser CDP URL; set PI_BROWSER_RELAY=0 or PI_BROWSER_RELAY=1 to override.",
+    "mode": "full"
+  },
+  {
+    "from": "Inside a Tern pane, open browser tabs as picture-in-pictures over omp's pane (native web view) instead of headless Chromium; falls back to Chromium when no Tern window can host them. Explicit app options, the relay and Browser CDP URL take precedence; app.tern:false opts one open out. Set PI_BROWSER_TERN=0 or PI_BROWSER_TERN=1 to override.",
+    "to": "在 Tern 窗格内，把浏览器标签页作为画中画浮在 omp 窗格上（原生 web view），而非使用无头 Chromium；没有 Tern 窗口可承载时回退到 Chromium。显式 app 选项、中继和 Browser CDP URL 优先；app.tern:false 可让单次打开退出此模式。设置 PI_BROWSER_TERN=0 或 PI_BROWSER_TERN=1 可覆盖/Inside a Tern pane, open browser tabs as picture-in-pictures over omp's pane (native web view) instead of headless Chromium; falls back to Chromium when no Tern window can host them. Explicit app options, the relay and Browser CDP URL take precedence; app.tern:false opts one open out. Set PI_BROWSER_TERN=0 or PI_BROWSER_TERN=1 to override.",
+    "mode": "full"
+  },
+  {
+    "from": "Freeze OMP-owned headless browser tabs when a turn settles so animated pages stop burning CPU/GPU while idle. Tabs unfreeze automatically on next use; pass persist:true on open to opt a tab out.",
+    "to": "回合结束时冻结 OMP 自有的无头浏览器标签页，避免动画页面在空闲时消耗 CPU/GPU。下次使用时自动解冻；打开时传 persist:true 可让该标签页不受影响/Freeze OMP-owned headless browser tabs when a turn settles so animated pages stop burning CPU/GPU while idle. Tabs unfreeze automatically on next use; pass persist:true on open to opt a tab out.",
+    "mode": "full"
+  },
+  {
+    "from": "Close OMP-owned headless browser tabs and Tern browser picture-in-pictures idle longer than this many seconds (0 = never; session dispose still reaps). Never touches relay/CDP/spawned browsers or other sessions' tabs.",
+    "to": "关闭空闲超过此秒数的 OMP 自有无头浏览器标签页和 Tern 浏览器画中画（0 = 从不；会话销毁时仍会回收）。不会触碰中继/CDP/外部启动的浏览器或其他会话的标签页/Close OMP-owned headless browser tabs and Tern browser picture-in-pictures idle longer than this many seconds (0 = never; session dispose still reaps). Never touches relay/CDP/spawned browsers or other sessions' tabs.",
+    "mode": "full"
+  },
+  {
+    "from": "Skillshare registry used by `omp skill` to install, search, and publish skills (https://host[:port])",
+    "to": "`omp skill` 用于安装、搜索和发布技能的 Skillshare 注册表（https://host[:port]）/Skillshare registry used by `omp skill` to install, search, and publish skills (https://host[:port])",
+    "mode": "full"
+  },
+  {
+    "from": "Expose outputSchema/schemaMode on the task tool and return subagent results through the yield tool, validated against caller or agent output schemas. Off: task subagents have no yield tool and return their final message as plain text, except agents whose definition sets structured: true. Eval agent()/workpool spawns always keep structured results.",
+    "to": "在 task 工具上暴露 outputSchema/schemaMode，并通过 yield 工具返回子代理结果，按调用方或代理的输出 schema 校验。关闭时：task 子代理没有 yield 工具，以纯文本返回最终消息，定义中设置 structured: true 的代理除外。Eval 的 agent()/workpool 派生始终保留结构化结果/Expose outputSchema/schemaMode on the task tool and return subagent results through the yield tool, validated against caller or agent output schemas. Off: task subagents have no yield tool and return their final message as plain text, except agents whose definition sets structured: true. Eval agent()/workpool spawns always keep structured results.",
+    "mode": "full"
+  },
+  {
+    "from": "Ask a working subagent, through a cached side request like /btw, to estimate how complete its task is: after 2, 5, 10 and 30 more minutes, then hourly. The estimate shows next to the subagent in wait and task views. Only subagents spawned by the main agent of an interactive session are asked; print, RPC, ACP and SDK runs never probe.",
+    "to": "通过类似 /btw 的缓存旁路请求，让运行中的子代理估算任务完成度：在之后第 2、5、10、30 分钟各问一次，此后每小时一次。估算显示在 wait 和 task 视图中子代理旁边。只询问交互式会话主代理派生的子代理；print、RPC、ACP 和 SDK 运行从不探询/Ask a working subagent, through a cached side request like /btw, to estimate how complete its task is: after 2, 5, 10 and 30 more minutes, then hourly. The estimate shows next to the subagent in wait and task views. Only subagents spawned by the main agent of an interactive session are asked; print, RPC, ACP and SDK runs never probe.",
+    "mode": "full"
+  },
+  {
+    "from": "Arm prewalk for the bundled generic `task` subagent: it starts on its resolved model, plans and begins the implementation, then hands off to the 'smol' role at its first edit/write. Per-agent overrides (task.agentPrewalk, configured from the /agents hub) and user agent `prewalk` frontmatter apply regardless of this toggle.",
+    "to": "为内置通用 `task` 子代理启用 prewalk：它先用解析出的模型启动，规划并开始实现，在首次 edit/write 时交给 'smol' 角色。按代理的覆盖（task.agentPrewalk，在 /agents 中心配置）和用户代理的 `prewalk` frontmatter 不受此开关影响/Arm prewalk for the bundled generic `task` subagent: it starts on its resolved model, plans and begins the implementation, then hands off to the 'smol' role at its first edit/write. Per-agent overrides (task.agentPrewalk, configured from the /agents hub) and user agent `prewalk` frontmatter apply regardless of this toggle.",
+    "mode": "full"
+  },
+  {
+    "from": "Wake Print Mode on Job Results",
+    "to": "后台任务出结果时唤醒 Print 模式/Wake Print Mode on Job Results",
+    "mode": "full"
+  },
+  {
+    "from": "Mount rarely-used (discoverable) tools under xd:// device URLs driven via read/write instead of shipping their schemas on every request. Sessions whose explicit tool list grants read but omits write mount devices through a device-only write transport (only local:// scratch stays writable besides devices). Disable to expose every enabled tool top-level.",
+    "to": "把不常用（可发现）的工具挂载到 xd:// 设备 URL 下，通过 read/write 驱动，而不是每次请求都附带其 schema。显式工具列表授予 read 但未授予 write 的会话，通过仅限设备的写入通道挂载设备（除设备外只有 local:// 草稿区可写）。关闭则所有已启用工具都直接暴露在顶层/Mount rarely-used (discoverable) tools under xd:// device URLs driven via read/write instead of shipping their schemas on every request. Sessions whose explicit tool list grants read but omits write mount devices through a device-only write transport (only local:// scratch stays writable besides devices). Disable to expose every enabled tool top-level.",
+    "mode": "full"
+  },
+  {
+    "from": "Prevent the system sleeping while the agent is running a turn; an idle session, including one waiting on background jobs, does not hold it. Each level is cumulative \\u2014 it adds the flags of all lower levels.",
+    "to": "代理运行回合期间阻止系统睡眠；空闲会话（包括等待后台任务的会话）不会保持唤醒。各级别逐级累加，包含所有较低级别的标志/Prevent the system sleeping while the agent is running a turn; an idle session, including one waiting on background jobs, does not hold it. Each level is cumulative \\u2014 it adds the flags of all lower levels.",
+    "mode": "full"
+  },
+  {
+    "from": "Keep the system awake while the agent is running a turn (macOS `caffeinate -i`)",
+    "to": "代理运行回合期间保持系统唤醒（macOS `caffeinate -i`）/Keep the system awake while the agent is running a turn (macOS `caffeinate -i`)",
+    "mode": "full"
+  },
+  {
+    "from": "Spend saved Codex rate-limit resets automatically: restore an account blocked by an exhausted 5h or weekly window when a turn is stuck and no other account can take over, and salvage credits that are about to expire. unset asks before the first spend (with no prompt UI, it spends only a reset expiring within 5 minutes), yes spends without prompting, and no disables both checks.",
+    "to": "自动使用已存的 Codex 限速重置：当回合卡住且没有其他账号可接手时，恢复因 5 小时或每周额度耗尽而被封的账号，并抢救即将过期的额度。unset 在首次使用前询问（无提示界面时，只使用 5 分钟内过期的重置），yes 不询问直接使用，no 关闭这两项检查/Spend saved Codex rate-limit resets automatically: restore an account blocked by an exhausted 5h or weekly window when a turn is stuck and no other account can take over, and salvage credits that are about to expire. unset asks before the first spend (with no prompt UI, it spends only a reset expiring within 5 minutes), yes spends without prompting, and no disables both checks.",
+    "mode": "full"
+  },
+  {
+    "from": "Spend eligible Claude Cedar or Juniper resets automatically. Cedar is spent only for covered limits; Juniper can only recover a sole 5-hour block. unset asks before the first spend (with no prompt UI, it spends only a reset expiring within 5 minutes), yes spends without prompting, and no disables blocked recovery and expiry salvage.",
+    "to": "自动使用符合条件的 Claude Cedar 或 Juniper 重置。Cedar 只用于其覆盖的限额；Juniper 只能解除单独的 5 小时封锁。unset 在首次使用前询问（无提示界面时，只使用 5 分钟内过期的重置），yes 不询问直接使用，no 关闭封锁恢复和过期抢救/Spend eligible Claude Cedar or Juniper resets automatically. Cedar is spent only for covered limits; Juniper can only recover a sole 5-hour block. unset asks before the first spend (with no prompt UI, it spends only a reset expiring within 5 minutes), yes spends without prompting, and no disables blocked recovery and expiry salvage.",
+    "mode": "full"
+  }
+]
