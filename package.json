@@ -1,11 +1,11 @@
 {
   "name": "omp-zh",
-  "version": "18.12.6",
+  "version": "18.13.1",
   "description": "Chinese localization build of can1357/oh-my-pi",
   "main": "update-zh.js",
   "scripts": {
-    "build": "node tools-build-18126.js",
-    "verify": "node tools-verify-18126.js",
+    "build": "node tools-build-18131.js",
+    "verify": "node tools-verify-18131.js",
     "update": "node update-zh.js",
     "scan": "node scan-gaps.js"
   },
