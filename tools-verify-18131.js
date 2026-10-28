@@ -58,7 +58,7 @@ const checks = [
   })()],
   ['model-visible text: tool results stay English; summer entries never land in tool/agent/ai sources', (() => {
     const all = mods.map(m => dec(m.contents.toString('utf8'))).join('\n');
-    if (!all.includes('l.push("Remaining items: none.")') || all.includes('剩余条目：无。')) return false;
+    if (!all.includes('.push("Remaining items: none.")') || all.includes('剩余条目：无。')) return false;
     if (!all.includes('"Todo list is empty." : "Todo list cleared."')) return false;
     const summer = JSON.parse(fs.readFileSync('./dict/staging/out-summer-18131.json', 'utf8'));
     // Bundle chunks keep `// packages/<pkg>/src/<path>` section headers; split on them.

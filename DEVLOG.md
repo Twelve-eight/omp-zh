@@ -1236,3 +1236,7 @@ Response/SSE handler 收到非法 header 名即崩。
 - **更正（同日）**：首发 `d084067e…` 把 todo 工具结果 `Remaining items: none.`（模型可见协议文本）译了。交付前拦下：按 pid 停 watcher 16836、删 `.new`，已装版本保持 `12a3a48f`。
   剔除所有在上游 agent/ai/tools/commit/prompts/lsp/task/hub/advisor/session/mcp/acp/extensibility 等模型可见源码与 md/txt 模板中出现的条目（376 条），保留 855。
   verify 新增第 26 条：todo 结果原文仍在、按 `// packages/...` 分节确认 summer 译文不出现在模型可见源码段。坏版负对照恰好挂这一条。
+- **ConPTY 实机取证（同日）**：Bun.Terminal 起真实 ConPTY（100x24），汉化版与上游原版各跑同一任务（3 次 bash + 60 行正文），抓 `PI_TUI_WRITE_LOG` 与 ConPTY 输出流，回放进 headless VT（脚本 `G:/tmp/conpty/zz-conpty-*.ts`）。
+  - 两版行为一致：定稿后 60 行正文全在、无内容截断；流式中前 59 行暂不可达（上方挂着未结束块的路径）。
+  - ConPTY 输出流回放比 TUI 意图多出相邻重复行（zh 9 / up 13 处：Update Available、分隔线、用户消息行），状态行 emoji（🙈/👁）宽度两边不一致导致 `─╮╮` 折行。两版都有，属上游/ConPTY，不是汉化引入。
+  - 用户描述的"定稿后永久缺字"本次未复现，根因未定；需用户在自己的会话里设 `PI_TUI_WRITE_LOG` 抓一次出问题的现场。
