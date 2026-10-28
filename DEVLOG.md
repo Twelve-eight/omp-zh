@@ -1233,3 +1233,6 @@ Response/SSE handler 收到非法 header 名即崩。
 - summer-omp-cn（基于 18.4.4，源码级 t()）：en/zh 按键 join 5475 对，0 乱码；在 18.13.1 中原样存在 4072，我们缺 1893。
 - 只取 ≥3 词长句，剔除 advisor/computer use 译法（我们保留英文）20 条，门碰撞 5 条 → `dict/staging/out-summer-18131.json` 1231 条，生效 1133。1200 条冲突保留我方译法；单词级短词不收。
 - 构建：translated 4159→5583，Gate OK，verify 25/25，--version omp/18.13.1，helpCJK 2037。
+- **更正（同日）**：首发 `d084067e…` 把 todo 工具结果 `Remaining items: none.`（模型可见协议文本）译了。交付前拦下：按 pid 停 watcher 16836、删 `.new`，已装版本保持 `12a3a48f`。
+  剔除所有在上游 agent/ai/tools/commit/prompts/lsp/task/hub/advisor/session/mcp/acp/extensibility 等模型可见源码与 md/txt 模板中出现的条目（376 条），保留 855。
+  verify 新增第 26 条：todo 结果原文仍在、按 `// packages/...` 分节确认 summer 译文不出现在模型可见源码段。坏版负对照恰好挂这一条。

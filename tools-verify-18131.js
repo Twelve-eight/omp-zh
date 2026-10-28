@@ -56,6 +56,17 @@ const checks = [
   ['gate: string-match args and membership arrays stay English', (() => {
     return txt(706).includes('startsWith("Retry budget exhausted")') && txt(1225).includes('["References", "External links", "See also"');
   })()],
+  ['model-visible text: tool results stay English; summer entries never land in tool/agent/ai sources', (() => {
+    const all = mods.map(m => dec(m.contents.toString('utf8'))).join('\n');
+    if (!all.includes('l.push("Remaining items: none.")') || all.includes('剩余条目：无。')) return false;
+    if (!all.includes('"Todo list is empty." : "Todo list cleared."')) return false;
+    const summer = JSON.parse(fs.readFileSync('./dict/staging/out-summer-18131.json', 'utf8'));
+    // Bundle chunks keep `// packages/<pkg>/src/<path>` section headers; split on them.
+    const model = /^\/\/ packages\/(agent|ai)\/src\/|^\/\/ packages\/coding-agent\/src\/(tools|commit|prompts|lsp|task|hub|advisor|session|mcp)\//;
+    const sections = all.split(/\n(?=\/\/ packages\/)/).filter(s => model.test(s.slice(0, 160)));
+    if (sections.length < 500) return false;
+    return sections.every(sec => summer.every(e => !sec.includes(e.to)));
+  })()],
   ['translation: help has CJK >= 2000', (() => {
     const r = execSync('work\\\\omp-zh-18131.exe --help', { encoding: 'utf8', timeout: 60000 });
     return (r.match(/[\u4e00-\u9fff]/g) || []).length >= 2000;
