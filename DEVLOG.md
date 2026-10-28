@@ -1218,3 +1218,18 @@ Response/SSE handler 收到非法 header 名即崩。
 - 未采纳:`throw new Error("…")` / `new TypeError(…)` 41+2 处被翻,属预期汉化(用户可见报错),不是 bug。
 - 未采纳:`replace()` 只替换首处的风险。每个锚点已在探针确认唯一(如 mod105 `homedir()` 仅 1 处);verify 的"原文消失"断言会兜住多处情形。
 - 25/25 PASS。
+
+## 2026-10-29：TUI 截断调查 + summer-omp-cn 词条吸收
+
+### 截断（上游 bug，与汉化无关；mod158 与上游逐字一致）
+- 复现（上游 VirtualTerminal，24 行；脚本留存 `G:/tmp/repro/zz-repro-*.test.ts`）：
+  - 运行中 below-transcript chrome 比空闲 floor 高（working loader `statusContainer` 运行中≥1 行且算持久 chrome；todo/subagent/progress HUD 为 selfClearing）→ 被 `composer.ts:464` drop 裁掉的已完成行既不在屏也不在回滚区（chrome +5 → 缺 4 行，+10 → 缺 8 行），定稿后补回。= 用户"上方一定行数处衔接断"。
+  - 回复上方有未定稿工具卡 → `#peekBatch` 在首个未定稿块停下，整段回复只留最后一屏（80 段丢 70）。kimi/bedrock `streamRevision: possible` 同（丢 69）。= #10072（OPEN）。
+  - 表格/sixel/思考块隐藏/中文 markdown：0 丢失；cache/served marker 只在 message_end 设置，流式中不触发。
+- 缓解：`tui.completeScrollback: true` 实测消除 chrome 路径（4/8 → 0）。未定稿块路径无安全的配置解。
+- Opus（OmpClipVerifyFix）提出的源码补丁（运行中 belowFloor=after.length）：实测 chrome 路径 4→2、8→3（不彻底），且上游 `composer-inline-shrink` 6 条用例失败 → 不采纳，不移植。
+
+### 词条吸收
+- summer-omp-cn（基于 18.4.4，源码级 t()）：en/zh 按键 join 5475 对，0 乱码；在 18.13.1 中原样存在 4072，我们缺 1893。
+- 只取 ≥3 词长句，剔除 advisor/computer use 译法（我们保留英文）20 条，门碰撞 5 条 → `dict/staging/out-summer-18131.json` 1231 条，生效 1133。1200 条冲突保留我方译法；单词级短词不收。
+- 构建：translated 4159→5583，Gate OK，verify 25/25，--version omp/18.13.1，helpCJK 2037。
