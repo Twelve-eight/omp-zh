@@ -1279,3 +1279,30 @@ Response/SSE handler 收到非法 header 名即崩。
 - Release `v18.13.3-zh` 已发布（tag → 1454e77，资产 omp-zh-18133.exe + SHA256SUMS）。
 - 交付 DEFERRED：`G:\omp\omp-zh.exe` 被 5 个运行中的 omp-zh 进程占用（EPERM），候选 `omp-zh.exe.new`（sha256 `9f921b1a…`）已就位，看护 pid 8824。旧版备份 `G:\omp\omp-zh-18.13.1.exe`（`14d42d65…`）。全部 omp-zh 会话退出后由看护按同一 sha256 落位。
 - 懒加载 chunk 冒烟（同日补）：304 个被改动的模块逐个 `node --check`，0 个语法失败；`config --help`（mod906，单引号字面量内含 `"global"`）、`plugin --help`（mod867）均 exit 0 并输出新译文；`\u2026`/`\u2014` 两条（xd:// 挂载通知、SSH 剪贴板）确认已写入产物。
+
+## 2026-10-29 会话交接（换会话前落盘）
+
+### 当前产物与仓库
+- 汉化版 **18.13.3**：`G:/omp/omp-zh.exe` sha `9f921b1a…`，11-16:25 已交付。Release `v18.13.3-zh`（tag `1454e77`）资产 `omp-zh-18133.exe`。
+- 仓库 HEAD `443124c` 与远端一致、工作区干净；tag `v18.13.1-zh`→`73af538`、`v18.13.3-zh`→`1454e77`（tag 之后还有两个只改 DEVLOG 的 commit）。
+- **陷阱**：`work/omp-zh.exe` 仍是 18.13.1 的字节（`14d42d65`）；当前版本是 `work/omp-zh-18133.exe`。重新发布前先 `cp work/omp-zh-18133.exe work/omp-zh.exe`。
+
+### 本会话完成
+- codeKey 门收窄 + 扩充（见 `docs/omp-zh-update-pipeline.md` 字典硬规则）。
+- 18.13.1：10 补丁 + 15 条设置译文，verify 25→26；18.13.3：锚点重定位 + 44 条译文，verify 27/27。
+- summer-omp-cn 吸收：按 en/zh 键 join 5475 对，只收 ≥3 词长句，剔除术语分歧 20、门碰撞 5、模型可见文本 376，最终 855 条 `dict/staging/out-summer-18131.json`（18.13.3 沿用）。
+- 事故与撤回：首发 `d084067e` 把 todo 工具结果 `Remaining items: none.` 译了；交付前按 pid 停看护、删 `.new`，已装版本未受影响。新增 verify 断言"工具结果保持英文"，坏版负对照恰好挂该条。
+
+### TUI 截断（上游问题，与汉化无关）
+- 证实（VirtualTerminal 复现 + Opus 静态核验）：
+  1. 运行中输入框上方 chrome 高于空闲 floor（working loader 算持久 chrome，todo/subagent/progress 为 selfClearing）→ 被 `composer.ts` `drop` 裁掉的已完成行既不在屏也不在回滚区；chrome +5/+10 → 缺 4/8 行，闲置后补回。`tui.completeScrollback: true` 归零。
+  2. 回复上方有未定稿工具卡 → `#peekBatch` 在首个未定稿块停下，整段只留最后一屏（80 段丢 70）；kimi/bedrock `streamRevision: possible` 同（69）。对应上游 #10072（OPEN）。
+  3. 表格/sixel/隐藏思考/中文 markdown 无丢失；cache/served marker 只在 message_end 设置，流式中不触发。
+  4. ConPTY 实机（Bun.Terminal 100x24，zh 与上游各一次）：定稿后 60 行正文完整、无内容截断；两版都有相邻重复行（zh 9/up 13）与状态行 emoji 宽度不一致导致的 `─╮╮` 折行。
+- 未证实：用户所说"定稿后永久缺字"本次未复现，根因未定。取证方法：在出问题的会话里设 `PI_TUI_WRITE_LOG=G:/tmp/wl.log`，复现后按出问题那一帧逐行对照（`G:/omp works/.tmp/evidence-20261029/zz-conpty-*.ts`）。
+- 未采纳：Opus 的源码补丁（运行中 `belowFloor=after.length`）实测 4→2、8→3，且打挂 6 条 #11007 用例。
+- `tui.completeScrollback` 本会话只临时开启、**未保存**；要落盘须用户确认后写 `cfg://tui/completeScrollback/save`。它只解决第 1 类。
+
+### 证据与代办
+- 证据：`G:/omp works/.tmp/evidence-20261029/`（复现测试、ConPTY 抓取脚本与回放文本、Opus 报告与 fix.diff、summer 对照数据）。
+- 代办：① 永久截断取证；② 可选链索引 `o?.["X"]` 门缺口；③ 旧字典在模型可见段内仍有 86 个源文件的译文（多为设置/用量页标签与 OAuth 报错，判断可保留，待复核）；④ 上游发新版按 `docs/omp-zh-update-pipeline.md` 末尾"现行流程"执行。

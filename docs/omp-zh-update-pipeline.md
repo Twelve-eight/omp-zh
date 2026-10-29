@@ -108,3 +108,27 @@ node update-zh.js --force --no-deliver
 - **补丁2 内容**：9 处基础设施 spawn 强制 windowsHide:true；eval kernel（py/jl/rb shouldHideKernelWindow）豁免——上游 #1960 CREATE_NO_WINDOW 致 NumPy LoadLibraryExW 死锁，且 kernel 输出本就被管道捕获。
 - **验证方法**：改前对每个 find 串在 bundle 内计数（须 ==expect；本次 8 处唯一 + MCP 1 处，kernel 3 处不动）；补丁后复查危险模式归零、windowsHide:true 字面量 21→29、kernel 调用点不变。产物 verify PASS + smoke OK（omp/18.0.1，help CJK 1643）。
 - **交付**：宿主会话占用 G:\omp\omp-zh.exe 时用 --no-deliver 先构建，退出后 `node update-zh.js --force` 补交付。
+
+---
+
+## 现行流程（18.13.x 起，2026-10）
+
+`update-zh.js` 是早期主控，现已改为**每版本一对脚本**：`tools-build-<ver>.js` + `tools-verify-<ver>.js`。
+
+1. **取上游**：下载 `omp-windows-x64.exe`，SHA256 与官方 `SHA256SUMS`/Releases `assets[].digest` 比对，放 `work/omp-dl-<ver>.exe`。
+2. **取源码**：`G:/omp works/Tools/omp-upstream/src` 内 `git fetch --tags`、`git checkout v<ver>`；每个锚点按源码语义重新定位，禁止照旧命名猜。
+3. **复制脚本**：`cp tools-build-<prev>.js tools-build-<ver>.js`，改 EXE 路径与 `patchMap`；锚点先断言出现次数，不符立即报错退出。
+4. **补译**：写入 `dict/staging/out-<ver>.json`（tracked），格式 `{from,to,mode}`，`to` 用「中文/原文」。
+5. **构建**：`node tools-build-<ver>.js`，须见 `translated N literals` / `Gate OK` / `Built: ...`。Gate FAIL 会列出碰撞条目，删除后重建。
+6. **验证**：`node tools-verify-<ver>.js` 全 PASS；并跑负对照（旧产物/上游原版应恰好挂掉对应断言）。
+7. **冒烟**：用 node 子进程 `execFileSync('work/omp-zh-<ver>.exe',['--version'])`；bash 直接调 exe 会 `command not found`。
+8. **换产物**：`cp work/omp-zh-<ver>.exe work/omp-zh.exe`。`release-zh.js` 读的是 `work/omp-zh.exe`，漏这步会发布旧字节。
+9. **发布**：`node release-zh.js <ver>`（product check → verify → tag `v<ver>-zh` → Release 说明含 SHA → push）。已存在的 Release 会被更新资产与说明。
+10. **交付**：`node deliver-zh.js --src work/omp-zh.exe --target G:/omp/omp-zh.exe --version <ver> --expect-sha256 <64hex>`。目标被占用时输出 DEFERRED 并起 `deliver-pending.js` 看护；看护只能按 pid 停止（`Stop-Process -Id <pid>`），同时删掉 `G:/omp/omp-zh.exe.new`。
+
+## 字典硬规则（违反会污染模型侧协议文本）
+
+- **模型可见文本禁译**：工具返回给模型的 `content`/`text`、prompt 模板（`*.md`/`*.txt`/`*.hbs`）、`packages/agent`、`packages/ai`，以及 `coding-agent/src/{tools,commit,prompts,lsp,task,hub,advisor,session,mcp,acp}` 内的字面量。二进制里是全量同名替换，会把工具协议文本一起改掉。实例：`Remaining items: none.` 被译过一次，已撤回并在 verify 中加断言。判定方法：bundle 内保留 `// packages/<pkg>/src/...` 分节注释，按段切分后在这类段内查译文。
+- **codeKey 门**（`translate.js` 的 `makeScanner`）：对象键（左侧 `{`/`,`、右侧 `:`）、索引（`[` 前为标识符/`)`/`]`）、成员数组（`[...]` 后接 `.includes/.indexOf/.lastIndexOf`）、字符串匹配方法实参（`startsWith/endsWith/includes/indexOf/lastIndexOf`）一律不译。已知未覆盖：可选链索引 `o?.["X"]`。
+- 枚举键（`o["Low"]`、`e["Browser"]`）与 `Cache-Control` 同类危险，不因"像 UI 文案"放行。
+- 借用外部译文：先 `en`/`zh` 按键 join 成「英文→中文」，再与本地 dict 及目标版本产物字面量比对；冲突条目保留我方译法。
