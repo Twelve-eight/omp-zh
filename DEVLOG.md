@@ -1276,3 +1276,5 @@ Response/SSE handler 收到非法 header 名即崩。
 - 与已装 18.13.1-zh 对比：CJK 字符 42803 → 43359，双语字面量 4494 → 4540，`--help` 2037 CJK 不变。唯一下降的段 `tui/src/status-line/context-usage.ts`（12 → 5）：6 条是上游删除的文本（Snapcompact 系列、"no model is selected"、"Estimated usage by category"，功能移入新 context viewer），第 7 条是统计正则把 `systemContext` 的子串误计。非汉化退步。
 - 上游已删、字典里变死的 6 条（如 `Show estimated context usage breakdown`、`Open the live Agent Hub`）保留不删：对旧版本构建仍有效，对新版本无副作用。
 - watchdog `--once` exit 0（45 个 dead-error 候选，与心跳日志一致）。
+- Release `v18.13.3-zh` 已发布（tag → 1454e77，资产 omp-zh-18133.exe + SHA256SUMS）。
+- 交付 DEFERRED：`G:\omp\omp-zh.exe` 被 5 个运行中的 omp-zh 进程占用（EPERM），候选 `omp-zh.exe.new`（sha256 `9f921b1a…`）已就位，看护 pid 8824。旧版备份 `G:\omp\omp-zh-18.13.1.exe`（`14d42d65…`）。全部 omp-zh 会话退出后由看护按同一 sha256 落位。
