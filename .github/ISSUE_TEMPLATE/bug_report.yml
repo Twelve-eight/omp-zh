@@ -1,48 +1,54 @@
-name: Bug Report
-description: Report a bug in omp-zh
-title: "[Bug]: "
+name: 问题反馈 / Bug report
+description: omp-zh 构建出现的问题（崩溃、乱码、翻译导致的功能异常等）
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for reporting a bug in omp-zh!
+        提交前请先用同版本的官方 omp 复现一次。官方版也有的问题请提交到 [上游](https://github.com/can1357/oh-my-pi/issues)。
+        Please reproduce with the official omp build of the same version first; upstream problems belong in the upstream tracker.
   - type: input
     id: version
     attributes:
-      label: Version
-      description: omp-zh version (e.g., 18.12.1)
-      placeholder: "18.12.1"
+      label: 版本 / Version
+      description: "`omp --version` 的输出"
+      placeholder: omp/18.13.3
+    validations:
+      required: true
+  - type: dropdown
+    id: official
+    attributes:
+      label: 官方版能否复现 / Reproduces with the official build?
+      options:
+        - 不能，只有 omp-zh 出现 / No, omp-zh only
+        - 没有试过 / Not tested
     validations:
       required: true
   - type: textarea
-    id: description
+    id: what
     attributes:
-      label: Description
-      description: What happened? What did you expect?
-      placeholder: "Describe the bug..."
+      label: 现象 / What happened
+      description: 实际看到了什么，期望是什么。截图或终端输出都可以。
     validations:
       required: true
   - type: textarea
-    id: reproduce
+    id: steps
     attributes:
-      label: Steps to Reproduce
-      description: How can we reproduce this?
-      placeholder: "1. Run 'omp-zh --version' ..."
+      label: 复现步骤 / Steps to reproduce
+      placeholder: |
+        1. omp
+        2. 输入 /settings
+        3. ...
     validations:
       required: true
   - type: textarea
     id: logs
     attributes:
-      label: Relevant Logs
-      description: Paste any relevant log output
-      render: shell
-  - type: checkboxes
-    id: checks
+      label: 日志 / Logs
+      description: "`%USERPROFILE%\\.omp\\logs\\` 下对应时间的日志片段（请先删去密钥、路径等个人信息）"
+      render: text
+  - type: input
+    id: env
     attributes:
-      label: Checks
-      options:
-        - label: I have verified this issue is not present in the official oh-my-pi build
-          required: true
-        - label: I have checked existing issues for duplicates
-          required: true
+      label: 环境 / Environment
+      placeholder: Windows 11 23H2, Windows Terminal

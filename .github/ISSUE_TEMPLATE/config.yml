@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 上游 omp 的功能问题 / Upstream omp issues
+    url: https://github.com/can1357/oh-my-pi/issues
+    about: 与汉化无关的问题（官方英文版也能复现）请提交到上游。Problems that also happen with the official build belong upstream.
+  - name: 使用教程 / User guide
+    url: https://github.com/Twelve-eight/omp-zh/tree/main/docs/guide
+    about: 安装、登录、配置和常见问题。Install, login, configuration and FAQ.

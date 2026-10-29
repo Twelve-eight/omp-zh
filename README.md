@@ -1,82 +1,65 @@
-# omp-zh — Oh My Pi 非官方中文汉化版
+# omp-zh
 
-基于 [can1357/oh-my-pi](https://github.com/can1357/oh-my-pi) 的 **非官方中文汉化构建**。
-上游以 [MIT 许可证](LICENSE) 发布，本仓库遵循同一许可证。
+[![CI](https://github.com/Twelve-eight/omp-zh/actions/workflows/ci.yml/badge.svg)](https://github.com/Twelve-eight/omp-zh/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/Twelve-eight/omp-zh?label=release)](https://github.com/Twelve-eight/omp-zh/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> ⚠️ 本项目与官方 oh-my-pi / omp.sh 无任何关联。问题反馈请优先到本仓库，不要去上游。
+[Oh My Pi](https://github.com/can1357/oh-my-pi)（`omp`）的非官方简体中文版，面向 Windows。
 
-## 当前版本
+omp 是一个在终端里运行的编程代理（coding agent）。omp-zh 用官方发布的 Windows 可执行文件重新打包：界面文字改为「中文/English」双语对照，另加几处针对 Windows 的行为修正。功能、配置格式和数据目录与官方版一致。
 
-最新版本见 [Releases](https://github.com/Twelve-eight/omp-zh/releases/latest)（标签格式 `v<上游版本>-zh`）。
+> 本项目与 omp 官方没有关联。汉化版自身的问题请在本仓库提交；官方英文版也能复现的问题请提交到[上游](https://github.com/can1357/oh-my-pi/issues)。
 
-- 界面全量汉化：CLI 帮助、TUI、设置界面（含全部 settings schema 标签与描述）、Web 导出页
-- 双语对照格式（`中文/English`），覆盖 CLI 帮助、TUI、设置项、Web 导出页
-- 10 类行为补丁：模型兼容、重试上限、窗口隐藏、错误分类、转录刷新等
-- 已适配 Bun 1.4.x standalone 多 chunk 分块架构与 latin1 解码缺陷（`\u` 转义预补偿）
+## 安装
 
-## 使用
+1. 从 [Releases](https://github.com/Twelve-eight/omp-zh/releases/latest) 下载 `omp-zh-<版本>.exe` 和 `SHA256SUMS.txt`。
+2. 校验文件，输出的哈希应与 `SHA256SUMS.txt` 中的一致：
 
-从 [Releases](https://github.com/Twelve-eight/omp-zh/releases) 下载 `omp-zh-*.exe`，替换/运行即可。配置、会话、技能与官方版完全兼容（共用 `~/.omp`）。
+   ```powershell
+   Get-FileHash .\omp-zh-18133.exe -Algorithm SHA256
+   ```
 
-## 构建管线（本仓库内容）
+3. 改名为 `omp.exe`，放进 `PATH` 中的任意目录，然后在项目目录里运行 `omp`。
 
-```
-update-zh.js      主控:检测新版本 -> 下载校验 -> 提取 -> 补丁门 -> 构建 -> 验证 -> 冒烟 -> 交付
-tools-build-*.js  版本化构建脚本（含锚点定义）
-tools-verify-*.js 版本化验证脚本
-rebuild.js        Bun standalone exe 模块表重建（支持分块架构）
-extract-cli.js    从 Bun standalone exe 提取入口 JS 与 Web 资产模块
-patch-zh.js       确定性模型兼容补丁(warn>0 不写回,直接中止管线)
-scan-gaps.js      新增英文文本发现器(差距清单 + 死条目)
-deliver-zh.js     唯一交付入口(复核 sha256/版本 -> 原子 rename -> 落位后回读)
-translate.js      翻译引擎（full/sub 双模式字典命中）
-dict-*.json       9 个领域字典，2400+ 条目
-docs/             管线文档与排查报告
-DEVLOG.md         开发日志（完整决策与踩坑记录）
-```
+omp-zh 与官方版共用 `%USERPROFILE%\.omp`，配置、会话和技能可以直接沿用，两者随时可以互换。目前只发布 Windows x64 版本。
 
-### 发布流程
+不要用 `omp update` 更新汉化版：它会下载官方英文版并覆盖当前文件。新版本请从 Releases 下载。
 
-每次发布到 GitHub Releases：
+## 文档
 
-```sh
-# 1. 构建并验证
-node tools-build-<version>.js
-node tools-verify-<version>.js
+- [使用教程](docs/guide/README.md)：从安装、登录模型到会话、配置、扩展和自动化，共十章。
+- [汉化版说明](docs/guide/09-omp-zh.md)：翻译范围、行为补丁、与官方版的差异。
+- [常见问题](docs/guide/10-faq.md)
 
-# 2. 生成校验和
-sha256sum work/omp-zh-<version>.exe > work/SHA256SUMS.txt
+## 与官方版的差异
 
-# 3. 创建 Release 并上传
-gh release create v<version>-zh --title "omp-zh v<version>" --notes "<release notes>" work/omp-zh-<version>.exe work/SHA256SUMS.txt
-```
+| 方面 | 内容 |
+|---|---|
+| 界面文字 | CLI 帮助、TUI、设置界面、斜杠命令说明、登录向导等约 3700 条文字双语显示。 |
+| 保持英文 | 发给模型的文字（系统提示、工具说明、工具结果）、代码里用来比较的字符串、HTTP 头和对象键。翻译它们会改变程序行为。 |
+| 行为补丁 | 子进程不再弹出或借用控制台窗口；自动续跑与重试不在固定次数后放弃；部分网关的加密推理错误按可重试处理；OpenAI 兼容端点不再强制 `tool_choice`（DeepSeek 推理模型经第三方网关时会因此返回 400）。详见 [docs/patches.md](docs/patches.md)。 |
+| 未改动 | 模型调用、权限与审批、会话格式、配置格式、网络请求。 |
 
-### 校验信任边界
+## 从源码构建
 
-镜像只用于传输 exe 字节,不提供期望摘要.摘要按序取自操作者 `OMP_TRUST_DIGEST=<64hex>`,
-官方 `SHA256SUMS.txt` 资产,官方 Releases API 的 `assets[].digest`;三者都不可用时管线
-失败关闭,不交付.上游自 v18.2.1 起不再发布 `SHA256SUMS.txt`,正常走 API digest.
-官方源不可达时,自行核实发布摘要后重跑:
+需要 Node.js 20 或更高版本，以及 `curl`。只能构建 `patches/` 下已有补丁集的上游版本。
 
-```
-set OMP_TRUST_DIGEST=<64 hex sha256>
-node update-zh.js
+```powershell
+git clone https://github.com/Twelve-eight/omp-zh.git
+cd omp-zh
+node scripts/fetch-upstream.js 18.13.3   # 下载官方 exe 并校验官方摘要
+node build.js 18.13.3                    # 输出 work/omp-zh-18133.exe
+node verify.js 18.13.3                   # 运行该版本的全部检查
 ```
 
-### 日常更新
+同一份源码与同一个官方 exe 构建出的文件逐字节相同，可以和 Releases 中的哈希直接比对。
 
-```sh
-node update-zh.js            # 上游发新版后一键重建
-node update-zh.js --check-only   # 只检测
-```
+适配上游新版本的步骤见 [docs/updating.md](docs/updating.md)，代码结构见 [docs/architecture.md](docs/architecture.md)。
 
-### 交付顺序
+## 参与
 
-顺序是硬的:**补丁门 -> 隔离构建 -> verify -> 冒烟 -> 交付**.前四步只作用于 `work\omp-zh.exe`,
-正式安装目标在最后一步之前不会被替换;任一步失败都不碰目标,不留可自动交付的候选,
-不写成功版本标记.交付只搬"刚通过验证的那一份字节"(sha256 复核).
-目标被运行中的会话锁定时报 `deliver DEFERRED`:已验证候选 staged,占用退出后自动补交付.
+欢迎提交错译、漏译和术语问题，也欢迎补丁与工具改进。请先阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 和 [字典规则](docs/dictionary.md)。
 
-## License
+## 许可
 
-MIT — 见 [LICENSE](LICENSE)。版权归上游原作者所有；汉化部分同样以 MIT 发布。
+[MIT](LICENSE)。omp 的版权归上游作者所有，汉化部分同样以 MIT 发布。

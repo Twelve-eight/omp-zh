@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Lint dictionaries
+        run: node scripts/check-dict.js
+      - name: Install script tests
+        run: node test/install.test.js
+      - name: Syntax check
+        shell: bash
+        run: for f in build.js verify.js lib/*.js scripts/*.js patches/*.js verify/*.js test/*.js; do node --check "$f"; done

@@ -1,0 +1,30 @@
+name: 翻译问题 / Translation
+description: 错译、漏译、术语不统一，或希望某段文字保持英文
+labels: ["translation"]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: 版本 / Version
+      placeholder: omp/18.13.3
+    validations:
+      required: true
+  - type: textarea
+    id: where
+    attributes:
+      label: 出现位置 / Where
+      description: 哪个界面、命令或设置项。截图最清楚。
+    validations:
+      required: true
+  - type: textarea
+    id: text
+    attributes:
+      label: 原文与现译文 / Current text
+      description: 英文原文和当前显示的中文。
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 建议译法 / Suggested translation
