@@ -1,0 +1,222 @@
+[
+  {
+    "from": "Extension Mode Control",
+    "to": "扩展模式控制/Extension Mode Control",
+    "mode": "full"
+  },
+  {
+    "from": "Let extensions enter and exit plan, vibe, goal, and loop modes via ctx.sessionModes.set(); reading mode state stays available",
+    "to": "允许扩展通过 ctx.sessionModes.set() 进入或退出计划、vibe、目标和循环模式；读取模式状态始终可用/Let extensions enter and exit plan, vibe, goal, and loop modes via ctx.sessionModes.set(); reading mode state stays available",
+    "mode": "full"
+  },
+  {
+    "from": "xd:// Mount Notices",
+    "to": "xd:// 挂载通知/xd:// Mount Notices",
+    "mode": "full"
+  },
+  {
+    "from": "Show an `xd://: mounted \\u2026` notice when MCP or extension tools are mounted or unmounted. The model still learns of the change with its next prompt.",
+    "to": "MCP 或扩展工具挂载、卸载时显示 `xd://: mounted …` 通知。模型仍会在下一次提示时得知该变化/Show an `xd://: mounted …` notice when MCP or extension tools are mounted or unmounted. The model still learns of the change with its next prompt.",
+    "mode": "full"
+  },
+  {
+    "from": "Automatically resume the most recent session in the current directory. If its model cannot be restored and model fallback is disabled, interactive startup warns and starts a new session without the saved history",
+    "to": "自动恢复当前目录中最近的会话。若其模型无法恢复且模型回退已禁用，交互式启动会发出警告，并开启一个不含已保存历史的新会话/Automatically resume the most recent session in the current directory. If its model cannot be restored and model fallback is disabled, interactive startup warns and starts a new session without the saved history",
+    "mode": "full"
+  },
+  {
+    "from": "Advisor Collapsed Lines",
+    "to": "Advisor 折叠行数/Advisor Collapsed Lines",
+    "mode": "full"
+  },
+  {
+    "from": "Maximum note lines a collapsed advisor card shows below its header (0 keeps the full preview; expand with the tool-output toggle)",
+    "to": "折叠的 advisor 卡片在标题下最多显示的备注行数（0 保留完整预览；用工具输出切换键展开）/Maximum note lines a collapsed advisor card shows below its header (0 keeps the full preview; expand with the tool-output toggle)",
+    "mode": "full"
+  },
+  {
+    "from": "Resume Worktree Scope",
+    "to": "恢复会话的工作树范围/Resume Worktree Scope",
+    "mode": "full"
+  },
+  {
+    "from": "Choose whether the resume picker's current folder includes sessions from other repository worktrees",
+    "to": "选择恢复会话选择器中的当前文件夹是否包含同一仓库其他工作树的会话/Choose whether the resume picker's current folder includes sessions from other repository worktrees",
+    "mode": "full"
+  },
+  {
+    "from": "This Directory",
+    "to": "仅本目录/This Directory",
+    "mode": "full"
+  },
+  {
+    "from": "Only sessions saved for this directory",
+    "to": "只含为本目录保存的会话/Only sessions saved for this directory",
+    "mode": "full"
+  },
+  {
+    "from": "Repository Worktrees",
+    "to": "仓库所有工作树/Repository Worktrees",
+    "mode": "full"
+  },
+  {
+    "from": "Also include sessions from sibling worktrees",
+    "to": "同时包含同一仓库其他工作树的会话/Also include sessions from sibling worktrees",
+    "mode": "full"
+  },
+  {
+    "from": "Rate Limit Walks Chain",
+    "to": "速率限制时沿回退链切换/Rate Limit Walks Chain",
+    "mode": "full"
+  },
+  {
+    "from": "On a rate limit, do not hold the retry.fallbackChains walk for a turn whose thinking is signed by the failing model. Off (the default), such a turn keeps retrying the rate-limited model until retry.maxRetries is spent before the chain is reached.",
+    "to": "遇到速率限制时，即使该回合的思考由出错模型签名，也不暂缓沿 retry.fallbackChains 回退。关闭（默认）时，这类回合会一直重试被限速的模型，耗尽 retry.maxRetries 后才进入回退链/On a rate limit, do not hold the retry.fallbackChains walk for a turn whose thinking is signed by the failing model. Off (the default), such a turn keeps retrying the rate-limited model until retry.maxRetries is spent before the chain is reached.",
+    "mode": "full"
+  },
+  {
+    "from": "Saved draft",
+    "to": "已保存的草稿/Saved draft",
+    "mode": "full"
+  },
+  {
+    "from": "Resume notes kept when an annotation was closed without sending them",
+    "to": "恢复标注关闭但未发送时保留的备注/Resume notes kept when an annotation was closed without sending them",
+    "mode": "full"
+  },
+  {
+    "from": "No saved annotation drafts in this session.",
+    "to": "本会话没有已保存的标注草稿。/No saved annotation drafts in this session.",
+    "mode": "full"
+  },
+  {
+    "from": "Resume an annotation draft",
+    "to": "恢复标注草稿/Resume an annotation draft",
+    "mode": "full"
+  },
+  {
+    "from": "Restored the saved annotation draft.",
+    "to": "已恢复保存的标注草稿。/Restored the saved annotation draft.",
+    "mode": "full"
+  },
+  {
+    "from": "System Prompt (excluding Skills)",
+    "to": "系统提示词（不含技能）/System Prompt (excluding Skills)",
+    "mode": "full"
+  },
+  {
+    "from": "Built-in Tools",
+    "to": "内置工具/Built-in Tools",
+    "mode": "full"
+  },
+  {
+    "from": "User / Developer Messages",
+    "to": "用户 / 开发者消息/User / Developer Messages",
+    "mode": "full"
+  },
+  {
+    "from": "Assistant Messages",
+    "to": "助手消息/Assistant Messages",
+    "mode": "full"
+  },
+  {
+    "from": "Assistant Thinking",
+    "to": "助手思考/Assistant Thinking",
+    "mode": "full"
+  },
+  {
+    "from": "Tool Calls",
+    "to": "工具调用/Tool Calls",
+    "mode": "full"
+  },
+  {
+    "from": "Tool Output",
+    "to": "工具输出/Tool Output",
+    "mode": "full"
+  },
+  {
+    "from": "Auto-Compact Buffer",
+    "to": "自动压缩缓冲/Auto-Compact Buffer",
+    "mode": "full"
+  },
+  {
+    "from": "Free Space",
+    "to": "剩余空间/Free Space",
+    "mode": "full"
+  },
+  {
+    "from": "Browse context usage and detailed content",
+    "to": "浏览上下文用量与详细内容/Browse context usage and detailed content",
+    "mode": "full"
+  },
+  {
+    "from": "Open the live Agent Hub (subagents, including finished ones)",
+    "to": "打开实时 Agent Hub（子代理，含已结束的）/Open the live Agent Hub (subagents, including finished ones)",
+    "mode": "full"
+  },
+  {
+    "from": "typing edits your prompt",
+    "to": "键入会编辑你的当前输入/typing edits your prompt",
+    "mode": "full"
+  },
+  {
+    "from": "Show actions without applying changes (install, uninstall, link, upgrade of marketplace plugins)",
+    "to": "只显示将执行的操作而不实际应用（适用于市场插件的 install、uninstall、link、upgrade）/Show actions without applying changes (install, uninstall, link, upgrade of marketplace plugins)",
+    "mode": "full"
+  },
+  {
+    "from": "With list: only the keys the \"global\" (config.yml in the agent dir) or \"project\" (<cwd>/.omp) layer sets, as written",
+    "to": "与 list 一起使用：只列出 \"global\"（agent 目录中的 config.yml）或 \"project\"（<cwd>/.omp）层按原样写入的键/With list: only the keys the \"global\" (config.yml in the agent dir) or \"project\" (<cwd>/.omp) layer sets, as written",
+    "mode": "full"
+  },
+  {
+    "from": "Context usage is unavailable: the model's context window is unknown or invalid.",
+    "to": "上下文用量不可用：模型的上下文窗口未知或无效。/Context usage is unavailable: the model's context window is unknown or invalid.",
+    "mode": "full"
+  },
+  {
+    "from": "Clipboard here belongs to the SSH host \\u2014 use your terminal's paste shortcut to paste from your machine",
+    "to": "这里的剪贴板属于 SSH 主机——请用终端的粘贴快捷键粘贴本机内容/Clipboard here belongs to the SSH host — use your terminal's paste shortcut to paste from your machine",
+    "mode": "full"
+  },
+  {
+    "from": "Failed to rename session: it is currently in use by another omp process",
+    "to": "重命名会话失败：它正被另一个 omp 进程使用/Failed to rename session: it is currently in use by another omp process",
+    "mode": "full"
+  },
+  {
+    "from": "Failed to rename session: it is currently in use or no longer available",
+    "to": "重命名会话失败：它正被使用或已不可用/Failed to rename session: it is currently in use or no longer available",
+    "mode": "full"
+  },
+  {
+    "from": "Rename Session",
+    "to": "重命名会话/Rename Session",
+    "mode": "full"
+  },
+  {
+    "from": "Failed to rename session.",
+    "to": "重命名会话失败。/Failed to rename session.",
+    "mode": "full"
+  },
+  {
+    "from": "Discard notes and close",
+    "to": "丢弃备注并关闭/Discard notes and close",
+    "mode": "full"
+  },
+  {
+    "from": "Confirm: discard all notes",
+    "to": "确认：丢弃全部备注/Confirm: discard all notes",
+    "mode": "full"
+  },
+  {
+    "from": "Confirm discard",
+    "to": "确认丢弃/Confirm discard",
+    "mode": "full"
+  },
+  {
+    "from": "close, keep note",
+    "to": "关闭，保留备注/close, keep note",
+    "mode": "full"
+  }
+]

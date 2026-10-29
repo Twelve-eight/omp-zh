@@ -1240,3 +1240,39 @@ Response/SSE handler 收到非法 header 名即崩。
   - 两版行为一致：定稿后 60 行正文全在、无内容截断；流式中前 59 行暂不可达（上方挂着未结束块的路径）。
   - ConPTY 输出流回放比 TUI 意图多出相邻重复行（zh 9 / up 13 处：Update Available、分隔线、用户消息行），状态行 emoji（🙈/👁）宽度两边不一致导致 `─╮╮` 折行。两版都有，属上游/ConPTY，不是汉化引入。
   - 用户描述的"定稿后永久缺字"本次未复现，根因未定；需用户在自己的会话里设 `PI_TUI_WRITE_LOG` 抓一次出问题的现场。
+
+## 2026-10-29：18.13.3 构建
+
+- 上游 v18.13.3（commit 413d278a87，2026-10-28），3488 模块（+22），官方 SHA256SUMS `ce97a82dc767f4cf…` 与下载一致。
+- `update-zh.js --no-deliver` 照旧走 `patch-zh.js`，在 18.11+ 正确拒绝（applied=0/ok=0，exit 3，未构建、未交付）。18.11 之后的版本一律走 `tools-build-<ver>.js`，update-zh 只用于下载与 `--check-only`。
+- 零改动往返：`rebuild(buf, [])` 与上游逐字节一致，`--version` = `omp/18.13.3`。
+
+### 锚点迁移（相对 18.13.1；按与变量名无关的正则全量扫描，每处唯一）
+| 补丁 | 18.13.1 | 18.13.3 |
+|---|---|---|
+| compat | 22 | **43** |
+| stopcap | 331（`le/de/ue/he`） | **656（`Z/ee/te/re`）**，各有 `#x > K` + `maxRetries: K` |
+| sessionStop | 792 `h0`（`#En >= h0`） | **801 `L0`（`#hs >= L0`）** |
+| yieldLadder | 792 `vh` | **801 `mh`**，循环 / `fe = mh - 1` / `maxRetries: mh` / `fe >= mh` 四处 |
+| tunnel/ssh/uploader | 105（`t4()`） | **37（`k4()`）**，uploader 的 Response 变量 `b` → `g` |
+| chrome | 360 | **355** |
+| pythonKernel | 93 `Eee`，调用点 368/814（`MT()`） | **23 `lte`，调用点 363/823（`YT()`）**；`hostHasInheritableConsole` 全量 9 处两版相同 |
+| encstale | 19（`de`/`Mt`） | **41（`Ee`/`Xt`）** |
+| flush | 168（`this.#v()`） | **159（`this.#S()`）**，仍为 2 处 |
+
+- 其余候选与 18.13.1 同样不打：mod 54 `yE/TE`（18.13.1 的 mod 33 `AE/ME`）、mod 648 `lvt`（18.13.1 的 mod 651 `jwt`）。
+- 无 `windowsHide` 的 `Bun.spawn` 两版均 31 处，按变量名归一化后无新增调用点。
+
+### 补译（`dict/staging/out-18133.json`，44 条，全部双语 full）
+- 设置：Extension Mode Control、xd:// Mount Notices、Auto Resume 新描述、Advisor Collapsed Lines、Resume Worktree Scope（含 This Directory / Repository Worktrees 选项）、Rate Limit Walks Chain。
+- 新 context viewer（`tui/src/chrome/context-view-model.ts`、`overlays/context-viewer-overview.ts`）分类标签 9 条；`/context`、`/hub` 新描述。
+- annotate 草稿、会话重命名、SSH 剪贴板提示、plugin/config 命令选项。
+- 落点预检：44 条全部只命中 UI/设置段，无对象键、无模型可见段（工具/agent 源）。`Discard notes and close` 是 `var ZF`，所有用点按变量身份比较，译文不影响逻辑。
+- 未收：model 可见段的新英文（session/tools/ai 下的日志与错误）与模板串，按既有规则保留英文。
+
+### 结果
+- translated 5210 literals，Gate OK（4998 个比较字面量，0 冲突），verify **27/27 PASS**（新增第 21 条：18.13.3 新增文案已译）。
+- 产物 `work/omp-zh-18133.exe` 262,816,768 字节，sha256 `9f921b1acb4b4da85ec6844ec2f582234c568e84b9d3695aed1eccb70eda6215`。
+- 与已装 18.13.1-zh 对比：CJK 字符 42803 → 43359，双语字面量 4494 → 4540，`--help` 2037 CJK 不变。唯一下降的段 `tui/src/status-line/context-usage.ts`（12 → 5）：6 条是上游删除的文本（Snapcompact 系列、"no model is selected"、"Estimated usage by category"，功能移入新 context viewer），第 7 条是统计正则把 `systemContext` 的子串误计。非汉化退步。
+- 上游已删、字典里变死的 6 条（如 `Show estimated context usage breakdown`、`Open the live Agent Hub`）保留不删：对旧版本构建仍有效，对新版本无副作用。
+- watchdog `--once` exit 0（45 个 dead-error 候选，与心跳日志一致）。
