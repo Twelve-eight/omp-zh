@@ -2,6 +2,12 @@
 
 本文件记录 omp-zh 各版本的变化。版本号与上游 [oh-my-pi](https://github.com/can1357/oh-my-pi/releases) 一致，标签格式为 `v<上游版本>-zh`。上游自身的改动请看上游的发布说明。
 
+## 未发布
+
+- 常见问题新增“运行中部分输出暂时不见”一条（`tui.completeScrollback`，上游 [#17423](https://github.com/can1357/oh-my-pi/issues/17423)）。
+- `scripts/release.js`：上次运行在推送标签前中断时，重跑会检查远端并补推标签。
+- P10 的问题已报告上游：[#17422](https://github.com/can1357/oh-my-pi/issues/17422)。
+
 ## 18.14.0-zh（2026-10-30）
 
 - 适配上游 v18.14.0，全部补丁按新版本源码重新定位。

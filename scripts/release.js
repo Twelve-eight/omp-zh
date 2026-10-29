@@ -59,16 +59,19 @@ const sums = `${sha}  ${path.basename(EXE)}\n`;
 if (!DRY) fs.writeFileSync(sumsPath, sums);
 log('SHA256SUMS.txt: ' + sums.trim());
 
-// 5. Tag.
+// 5. Tag. Checked against the remote as well, so a run that died after tagging locally but
+// before pushing still publishes the tag when re-run.
 const head = sh('git', ['rev-parse', 'HEAD']).trim();
 let tagged = null;
 try { tagged = sh('git', ['rev-parse', '--verify', '--quiet', `refs/tags/${TAG}^{commit}`]).trim(); } catch { /* new tag */ }
 if (tagged !== head) {
   log(`tag ${TAG} -> ${head.slice(0, 8)}`);
-  if (!DRY) {
-    sh('git', ['tag', '-f', TAG, head]);
-    sh('git', ['push', '--force', 'origin', `refs/tags/${TAG}`]);
-  }
+  if (!DRY) sh('git', ['tag', '-f', TAG, head]);
+}
+const remoteTag = (sh('git', ['ls-remote', '--tags', 'origin', `refs/tags/${TAG}`]).trim().split(/\s+/)[0]) || null;
+if (remoteTag !== head) {
+  log(`push tag ${TAG} (remote: ${remoteTag ? remoteTag.slice(0, 8) : 'none'})`);
+  if (!DRY) sh('git', ['push', '--force', 'origin', `refs/tags/${TAG}`]);
 }
 
 // 6. Release notes and assets.

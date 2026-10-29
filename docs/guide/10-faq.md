@@ -32,6 +32,16 @@ Windows 不允许覆盖正在运行的 exe。退出所有 omp 会话后再替换
 
 如果是界面上的说明文字没有翻译，欢迎 [提交翻译问题](https://github.com/Twelve-eight/omp-zh/issues/new?template=translation.yml)。
 
+### 运行中往上翻，部分输出暂时不见了
+
+待办列表、子代理列表这类底部面板在运行中变高时，被挤出屏幕的已完成内容会暂时既不在屏幕上、也不在终端回滚区里，面板缩回或运行结束后才补回。把 `tui.completeScrollback` 设为 `true` 可以避免，代价是面板缩回时转录和输入框之间会暂留几行空白，直到新输出填满：
+
+```powershell
+omp config set tui.completeScrollback true
+```
+
+也可以在 `/settings` 的外观（Appearance）页里打开。上游问题：[#17423](https://github.com/can1357/oh-my-pi/issues/17423)。
+
 ### 图标显示为方块或问号
 
 终端字体缺少相应字符。可以把 `symbolPreset` 设为 `ascii`；装了 Nerd Font 并在终端中启用后，可以设为 `nerd`。默认值是 `unicode`。设置方法见 [第五章](./05-config-and-context.md)。

@@ -67,7 +67,7 @@ P7 与上游的取舍相反。上游注释（issue #1960）说明，没有控制
 
 补丁让下限在思考按输出计价的模型上（Claude 系列，compat 规则 `thinking-replay-tokens "output"`）不再计入思考文本。同一会话的下限降为 190K，与计费数一致。计费数仍然参与判断，不受影响。
 
-代价：同时使用载荷压缩扩展（如 Headroom）和 Claude 时，下限会偏低，压缩可能晚一些触发。上游 `packages/agent/test/tokenizer.test.ts` 中有 4 项测试断言下限包含思考文本，与本补丁的取舍相反。
+代价：同时使用载荷压缩扩展（如 Headroom）和 Claude 时，下限会偏低，压缩可能晚一些触发。上游 `packages/agent/test/tokenizer.test.ts` 中有 4 项测试断言下限包含思考文本，与本补丁的取舍相反。已报告上游：[can1357/oh-my-pi#17422](https://github.com/can1357/oh-my-pi/issues/17422)。
 
 ## 适配新版本
 
