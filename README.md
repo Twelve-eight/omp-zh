@@ -16,7 +16,7 @@ omp 是一个在终端里运行的编程代理（coding agent）。omp-zh 用官
 2. 校验文件，输出的哈希应与 `SHA256SUMS.txt` 中的一致：
 
    ```powershell
-   Get-FileHash .\omp-zh-18133.exe -Algorithm SHA256
+   Get-FileHash .\omp-zh-18140.exe -Algorithm SHA256
    ```
 
 3. 改名为 `omp.exe`，放进 `PATH` 中的任意目录，然后在项目目录里运行 `omp`。
@@ -37,7 +37,7 @@ omp-zh 与官方版共用 `%USERPROFILE%\.omp`，配置、会话和技能可以�
 |---|---|
 | 界面文字 | CLI 帮助、TUI、设置界面、斜杠命令说明、登录向导等约 3700 条文字双语显示。 |
 | 保持英文 | 发给模型的文字（系统提示、工具说明、工具结果）、代码里用来比较的字符串、HTTP 头和对象键。翻译它们会改变程序行为。 |
-| 行为补丁 | 子进程不再弹出或借用控制台窗口；自动续跑与重试不在固定次数后放弃；部分网关的加密推理错误按可重试处理；OpenAI 兼容端点不再强制 `tool_choice`（DeepSeek 推理模型经第三方网关时会因此返回 400）。详见 [docs/patches.md](docs/patches.md)。 |
+| 行为补丁 | 子进程不再弹出或借用控制台窗口；自动续跑与重试不在固定次数后放弃；部分网关的加密推理错误按可重试处理；Claude 历史思考不再让自动压缩提前触发；OpenAI 兼容端点不再强制 `tool_choice`（DeepSeek 推理模型经第三方网关时会因此返回 400）。详见 [docs/patches.md](docs/patches.md)。 |
 | 未改动 | 模型调用、权限与审批、会话格式、配置格式、网络请求。 |
 
 ## 从源码构建
@@ -47,9 +47,9 @@ omp-zh 与官方版共用 `%USERPROFILE%\.omp`，配置、会话和技能可以�
 ```powershell
 git clone https://github.com/Twelve-eight/omp-zh.git
 cd omp-zh
-node scripts/fetch-upstream.js 18.13.3   # 下载官方 exe 并校验官方摘要
-node build.js 18.13.3                    # 输出 work/omp-zh-18133.exe
-node verify.js 18.13.3                   # 运行该版本的全部检查
+node scripts/fetch-upstream.js 18.14.0   # 下载官方 exe 并校验官方摘要
+node build.js 18.14.0                    # 输出 work/omp-zh-18140.exe
+node verify.js 18.14.0                   # 运行该版本的全部检查
 ```
 
 同一份源码与同一个官方 exe 构建出的文件逐字节相同，可以和 Releases 中的哈希直接比对。

@@ -19,9 +19,9 @@
 ```powershell
 git clone https://github.com/Twelve-eight/omp-zh.git
 cd omp-zh
-node scripts/fetch-upstream.js 18.13.3
-node build.js 18.13.3
-node verify.js 18.13.3
+node scripts/fetch-upstream.js 18.14.0
+node build.js 18.14.0
+node verify.js 18.14.0
 ```
 
 ## 修改译文

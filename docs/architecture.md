@@ -33,9 +33,9 @@ flowchart LR
   G --> H[omp-zh exe]
 ```
 
-1. `lib/rebuild.js` 找到 `.bun` 节，读出模块表。v18.13.3 有 3488 个模块：3083 个 JS 模块（其中 1065 个是 `chunks/cli-*.js` 代码分块），其余是 Markdown 提示词、HTML 模板、Python 脚本等资源。
+1. `lib/rebuild.js` 找到 `.bun` 节，读出模块表。v18.14.0 有 3557 个模块：3150 个 JS 模块（其中 1126 个是 `chunks/cli-*.js` 代码分块），其余是 Markdown 提示词、HTML 模板、Python 脚本等资源。
 2. `patches/<版本>.js` 按模块序号改写源码。
-3. `lib/translate.js` 对每个 JS 模块应用字典。只有被改动的模块会写回，v18.13.3 约 300 个。
+3. `lib/translate.js` 对每个 JS 模块应用字典。只有被改动的模块会写回，v18.14.0 是 324 个。
 4. 门禁：字典里不允许出现代码用来比较的字面量（见 [dictionary.md](dictionary.md)）。
 5. 改动过的模块里，所有非 ASCII 字符写成 `\uXXXX`。Bun standalone 加载器按 latin1 解码模块源码，直接写 UTF-8 中文会显示为乱码。
 6. 重建 exe。

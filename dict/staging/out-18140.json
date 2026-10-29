@@ -1,0 +1,217 @@
+[
+  {
+    "from": "Model to use (fuzzy match: \"opus\", \"gpt-5.2\"; exact with a provider: \"openai/gpt-5.2\")",
+    "to": "使用的模型（模糊匹配，如 opus、gpt-5.2；带提供商时精确匹配，如 openai/gpt-5.2）/Model to use (fuzzy match: \"opus\", \"gpt-5.2\"; exact with a provider: \"openai/gpt-5.2\")",
+    "mode": "full"
+  },
+  {
+    "from": "Refuse git commands that discard or move shared work in a repository's main checkout: stash, reset --hard or to another commit, and checkout/switch/restore outside a merge or rebase conflict. In a linked worktree they run, saving uncommitted changes they discard first",
+    "to": "在仓库主检出中拒绝会丢弃或移动共享工作的 git 命令：stash、reset --hard 或重置到其他提交，以及在合并或变基冲突之外执行 checkout/switch/restore。在关联工作树中照常执行，并先保存会被丢弃的未提交更改/Refuse git commands that discard or move shared work in a repository's main checkout: stash, reset --hard or to another commit, and checkout/switch/restore outside a merge or rebase conflict. In a linked worktree they run, saving uncommitted changes they discard first",
+    "mode": "full"
+  },
+  {
+    "from": "Return to the planning model and re-arm the handoff (default prewalk.from \\u2192 prewalk.into)",
+    "to": "返回规划模型并重新启用交接（默认 prewalk.from → prewalk.into）/Return to the planning model and re-arm the handoff (default prewalk.from → prewalk.into)",
+    "mode": "full"
+  },
+  {
+    "from": "auto-selected after timeout \\u2014 not a user choice",
+    "to": "超时后自动选择——不是用户的选择/auto-selected after timeout — not a user choice",
+    "mode": "full"
+  },
+  {
+    "from": "Extension Reply Renderers",
+    "to": "扩展回复渲染器/Extension Reply Renderers",
+    "mode": "full"
+  },
+  {
+    "from": "Let extensions change how assistant replies are drawn, redraw a reply in place, and receive clicks on their own links; the session, exports and model context keep the reply as written",
+    "to": "允许扩展改变助手回复的绘制方式、原地重绘回复，并接收其自身链接的点击；会话、导出和模型上下文仍保留回复原文/Let extensions change how assistant replies are drawn, redraw a reply in place, and receive clicks on their own links; the session, exports and model context keep the reply as written",
+    "mode": "full"
+  },
+  {
+    "from": "Task Instructions from Files",
+    "to": "从文件读取任务说明/Task Instructions from Files",
+    "mode": "full"
+  },
+  {
+    "from": "Let the task tool read subagent instructions from a file (taskFile), recording its path and SHA-256.",
+    "to": "允许 task 工具从文件（taskFile）读取子代理说明，并记录文件路径和 SHA-256。/Let the task tool read subagent instructions from a file (taskFile), recording its path and SHA-256.",
+    "mode": "full"
+  },
+  {
+    "from": "Out",
+    "to": "输出/Out",
+    "mode": "full"
+  },
+  {
+    "from": "Let the agent reply mid-task by writing to out://, shown like a response without ending its turn. Unset: on in the interactive TUI, off in print, RPC, and ACP",
+    "to": "允许代理在任务中途写入 out:// 来回复，显示效果与普通回复相同，但不结束当前回合。未设置时：交互式 TUI 中开启，print、RPC 和 ACP 中关闭/Let the agent reply mid-task by writing to out://, shown like a response without ending its turn. Unset: on in the interactive TUI, off in print, RPC, and ACP",
+    "mode": "full"
+  },
+  {
+    "from": "Smart when the judge role resolves to a native TypeSafe jev model, else Always",
+    "to": "judge 角色解析为原生 TypeSafe jev 模型时为智能模式，否则为总是/Smart when the judge role resolves to a native TypeSafe jev model, else Always",
+    "mode": "full"
+  },
+  {
+    "from": "Prewalk planning model",
+    "to": "预检规划模型/Prewalk planning model",
+    "mode": "full"
+  },
+  {
+    "from": "Prewalk target",
+    "to": "预检目标/Prewalk target",
+    "mode": "full"
+  },
+  {
+    "from": "Model or role (default '@default') that /prewalk restart returns to for planning.",
+    "to": "/prewalk restart 返回规划时使用的模型或角色（默认 '@default'）。/Model or role (default '@default') that /prewalk restart returns to for planning.",
+    "mode": "full"
+  },
+  {
+    "from": "Model or role (default '@smol') that prewalk hands off to at the first edit/write: /prewalk, /prewalk restart, Enable Prewalk, and --prewalk. Auto-prewalk uses its own target.",
+    "to": "预检在首次编辑/写入时交接到的模型或角色（默认 '@smol'），用于 /prewalk、/prewalk restart、启用预检和 --prewalk。自动预检使用自己的目标。/Model or role (default '@smol') that prewalk hands off to at the first edit/write: /prewalk, /prewalk restart, Enable Prewalk, and --prewalk. Auto-prewalk uses its own target.",
+    "mode": "full"
+  },
+  {
+    "from": "Usage: /prewalk [into] | restart [from] [into] | off",
+    "to": "用法：/prewalk [into] | restart [from] [into] | off/Usage: /prewalk [into] | restart [from] [into] | off",
+    "mode": "full"
+  },
+  {
+    "from": "Pick an extension link on screen by its hint tag",
+    "to": "按提示标签选择屏幕上的扩展链接/Pick an extension link on screen by its hint tag",
+    "mode": "full"
+  },
+  {
+    "from": "Pick an extension link on screen by its tag",
+    "to": "按标签选择屏幕上的扩展链接/Pick an extension link on screen by its tag",
+    "mode": "full"
+  },
+  {
+    "from": "Pin the selected session in the resume picker",
+    "to": "在恢复会话选择器中置顶所选会话/Pin the selected session in the resume picker",
+    "mode": "full"
+  },
+  {
+    "from": "Unpin the selected session in the resume picker",
+    "to": "在恢复会话选择器中取消置顶所选会话/Unpin the selected session in the resume picker",
+    "mode": "full"
+  },
+  {
+    "from": "Pin",
+    "to": "置顶/Pin",
+    "mode": "full"
+  },
+  {
+    "from": "Unpin",
+    "to": "取消置顶/Unpin",
+    "mode": "full"
+  },
+  {
+    "from": "No extension links on screen",
+    "to": "屏幕上没有扩展链接/No extension links on screen",
+    "mode": "full"
+  },
+  {
+    "from": "Too many extension links on one row to tag; widen the terminal",
+    "to": "同一行的扩展链接太多，无法逐个标记；请加宽终端/Too many extension links on one row to tag; widen the terminal",
+    "mode": "full"
+  },
+  {
+    "from": "Type a link tag \\xB7 Esc cancels",
+    "to": "输入链接标签 · Esc 取消/Type a link tag · Esc cancels",
+    "mode": "full"
+  },
+  {
+    "from": "Update available",
+    "to": "有可用更新/Update available",
+    "mode": "full"
+  },
+  {
+    "from": "Tangent dispatched",
+    "to": "旁路任务已派发/Tangent dispatched",
+    "mode": "full"
+  },
+  {
+    "from": "Background job completed",
+    "to": "后台任务已完成/Background job completed",
+    "mode": "full"
+  },
+  {
+    "from": "Supervised process completed",
+    "to": "受监管进程已完成/Supervised process completed",
+    "mode": "full"
+  },
+  {
+    "from": "Supervised process failed",
+    "to": "受监管进程失败/Supervised process failed",
+    "mode": "full"
+  },
+  {
+    "from": "Looking for more models\\u2026",
+    "to": "正在查找更多模型…/Looking for more models…",
+    "mode": "full"
+  },
+  {
+    "from": "No model highlighted",
+    "to": "未选中模型/No model highlighted",
+    "mode": "full"
+  },
+  {
+    "from": "No models yet. Skip this step and run /login to sign in to a provider.",
+    "to": "还没有可用模型。跳过此步骤，之后运行 /login 登录提供商。/No models yet. Skip this step and run /login to sign in to a provider.",
+    "mode": "full"
+  },
+  {
+    "from": "Saving the default model",
+    "to": "正在保存默认模型/Saving the default model",
+    "mode": "full"
+  },
+  {
+    "from": "Saving\\u2026",
+    "to": "正在保存…/Saving…",
+    "mode": "full"
+  },
+  {
+    "from": "Set as default",
+    "to": "设为默认/Set as default",
+    "mode": "full"
+  },
+  {
+    "from": "Used by new sessions. Change it with /model.",
+    "to": "新会话将使用此模型，可用 /model 更改。/Used by new sessions. Change it with /model.",
+    "mode": "full"
+  },
+  {
+    "from": "Default model",
+    "to": "默认模型/Default model",
+    "mode": "full"
+  },
+  {
+    "from": "You're all set",
+    "to": "一切就绪/You're all set",
+    "mode": "full"
+  },
+  {
+    "from": "You can connect more than one.",
+    "to": "可以连接多个提供商。/You can connect more than one.",
+    "mode": "full"
+  },
+  {
+    "from": "Pick a provider to sign in \\u2014 you can connect more than one.",
+    "to": "选择要登录的提供商——可以连接多个。/Pick a provider to sign in — you can connect more than one.",
+    "mode": "full"
+  },
+  {
+    "from": "Exit setup",
+    "to": "退出设置/Exit setup",
+    "mode": "full"
+  },
+  {
+    "from": "Local shortcut (this machine only): ",
+    "to": "本地快捷链接（仅限本机）：",
+    "mode": "sub"
+  }
+]

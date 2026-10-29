@@ -31,11 +31,11 @@ omp-zh 不修改上游源码，而是在官方 exe 里逐个替换字符串字�
 
 构建还会收集所有用于比较的字面量（`===`、`!==`、`case`、`values: [...]`），字典里只要有一条 `from` 与之相同，构建就以退出码 3 中止。
 
-已知未覆盖：可选链索引 `o?.["X"]` 不在跳过范围内。v18.13.3 中没有译文落在这个位置，新增条目时请留意。
+已知未覆盖：可选链索引 `o?.["X"]` 不在跳过范围内。v18.13.3 和 v18.14.0 中都没有译文落在这个位置，新增条目时请留意。
 
 ## 不能翻译的文字
 
-**发给模型的文字。** 系统提示、提示词模板（`*.md`、`*.txt`）、工具说明，以及工具返回给模型的结果。它们是模型与程序之间的协议，翻译后模型看到的内容会变，有时还会导致程序无法识别模型的输出。源码位置主要在 `packages/agent`、`packages/ai`，以及 `packages/coding-agent/src/` 下的 `tools`、`prompts`、`commit`、`lsp`、`task`、`hub`、`advisor`、`session`、`mcp`、`acp`。例如 todo 工具返回的 `Remaining items: none.` 曾被误译，`verify/18.13.3.js` 里有一项检查专门防止这类回归。
+**发给模型的文字。** 系统提示、提示词模板（`*.md`、`*.txt`）、工具说明，以及工具返回给模型的结果。它们是模型与程序之间的协议，翻译后模型看到的内容会变，有时还会导致程序无法识别模型的输出。源码位置主要在 `packages/agent`、`packages/ai`，以及 `packages/coding-agent/src/` 下的 `tools`、`prompts`、`commit`、`lsp`、`task`、`hub`、`advisor`、`session`、`mcp`、`acp`。例如 todo 工具返回的 `Remaining items: none.` 曾被误译，每个版本的 `verify/<版本>.js` 里都有一项检查专门防止这类回归。
 
 **代码使用的值。** 枚举值、设置项的取值（`auto`、`off`、`high` 这类小写词）、HTTP 头名、模型名、提供商 ID。同一个英文词可能既是界面标签又是比较值，例如 `"removed"` 被 `sub` 条目 `remove → 移除` 改成 `"移除d"` 之后，`type === "removed"` 的分支就不再命中。
 

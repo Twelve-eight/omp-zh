@@ -2,7 +2,7 @@
 
 omp-zh 在翻译之外改了少量程序行为。本文列出每处改动对应的上游源码、改了什么、为什么改，以及不改会怎样。
 
-补丁定义在 `patches/<版本>.js`。上游发布的 exe 经过压缩，变量名每个版本都会变，所以补丁按版本各写一份：以模块序号为键，在该模块源码里找到一段精确的锚点文本再替换。锚点找不到时构建直接失败，不会产出漏打补丁的文件。下表的源码位置以 v18.13.3 为准。
+补丁定义在 `patches/<版本>.js`。上游发布的 exe 经过压缩，变量名每个版本都会变，所以补丁按版本各写一份：以模块序号为键，在该模块源码里找到一段精确的锚点文本再替换。锚点找不到时构建直接失败，不会产出漏打补丁的文件。下表的源码位置以 v18.14.0 为准。
 
 ## 补丁一览
 
@@ -17,6 +17,7 @@ omp-zh 在翻译之外改了少量程序行为。本文列出每处改动对应�
 | P7 | `packages/coding-agent/src/eval/py/spawn-options.ts`、`eval/py/kernel.ts`、`ida/supervisor.ts` | Python 内核与 IDA 子进程在 Windows 上始终隐藏窗口 |
 | P8 | `packages/ai/src/error/flags.ts` | “加密内容无法解密”类错误归入可重试的过期响应错误 |
 | P9 | `packages/tui/src/chat/chat-transcript-builder.ts` | 重建会话记录时，无条件输出最后一条消息的用量信息 |
+| P10 | `packages/agent/src/tokenizer.ts` | 自动压缩的本地下限不再计入 Claude 系列模型的历史思考文本 |
 
 ## P1：不强制 `tool_choice`
 
@@ -57,6 +58,16 @@ P7 与上游的取舍相反。上游注释（issue #1960）说明，没有控制
 ## P9：会话记录用量信息不丢失
 
 `chat-transcript-builder.ts` 在重建会话记录（例如恢复会话）时，只有当前没有未完成的工具调用才输出待显示的用量信息。程序崩溃或被中断的那一轮常常留有未完成的工具调用，它后面的用量与耗时就不再显示。补丁去掉这个条件，改为每次都输出。
+
+## P10：Claude 思考文本不计入压缩下限
+
+自动压缩按两个数中较大的一个判断是否超过阈值：上一轮提供商计费的上下文 token 数，以及本地对已存会话的估算（`compactionContextTokens()`，`packages/agent/src/compaction/compaction.ts`）。本地估算是一个下限，用来防止载荷压缩扩展让计费数偏低。上游在这个下限里计入了历史回合的思考文本（`packages/agent/src/tokenizer.ts` 的 `#measureMessage`）。
+
+经第三方网关使用 Claude 时，历史回合的思考并不计费，下限因此远高于实际用量。一个 Claude Opus 会话的实测数据：计费约 185K–232K token，日志中的压缩判断值为 611K，超过 60% 阈值（600K），状态栏显示 16% 时就触发了 shake 和自动交接。用上游 Tokenizer 重算这个会话的消息，下限为 504K，其中历史思考文本约 317K。
+
+补丁让下限在思考按输出计价的模型上（Claude 系列，compat 规则 `thinking-replay-tokens "output"`）不再计入思考文本。同一会话的下限降为 190K，与计费数一致。计费数仍然参与判断，不受影响。
+
+代价：同时使用载荷压缩扩展（如 Headroom）和 Claude 时，下限会偏低，压缩可能晚一些触发。上游 `packages/agent/test/tokenizer.test.ts` 中有 4 项测试断言下限包含思考文本，与本补丁的取舍相反。
 
 ## 适配新版本
 
