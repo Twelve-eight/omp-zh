@@ -85,18 +85,8 @@
     "mode": "full"
   },
   {
-    "from": "Start fresh in goal mode (interactive only; bypasses autoResume; no positional prompt, startup plan mode, or explicit reset)",
-    "to": "以目标模式全新开始（仅交互式；绕过 autoResume；不接受位置提示词、启动计划模式或显式重置）/Start fresh in goal mode (interactive only; bypasses autoResume; no positional prompt, startup plan mode, or explicit reset)",
-    "mode": "full"
-  },
-  {
     "from": "Handlebars system prompt template (mutually exclusive with --system-prompt)",
     "to": "Handlebars 系统提示模板（与 --system-prompt 互斥）/Handlebars system prompt template (mutually exclusive with --system-prompt)",
-    "mode": "full"
-  },
-  {
-    "from": "Resume a session as --resume does, then go on with what its last process left unfinished (the interrupted turn and the rest of its plan)",
-    "to": "像 --resume 那样恢复会话，然后继续其上一个进程未完成的部分（被中断的轮次及剩余计划）/Resume a session as --resume does, then go on with what its last process left unfinished (the interrupted turn and the rest of its plan)",
     "mode": "full"
   },
   {

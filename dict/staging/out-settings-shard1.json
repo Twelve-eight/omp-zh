@@ -25,11 +25,6 @@
   "mode": "full"
  },
  {
-  "from": "Use provider-native server compaction (OpenAI Responses compact, Anthropic compaction beta) when the active route supports it",
-  "to": "当活动路由支持时，使用提供商原生的服务器压缩（OpenAI Responses compact、Anthropic compaction beta）/Use provider-native server compaction (OpenAI Responses compact, Anthropic compaction beta) when the active route supports it",
-  "mode": "full"
- },
- {
   "from": "Snapcompact",
   "to": "快照压缩/Snapcompact",
   "mode": "full"

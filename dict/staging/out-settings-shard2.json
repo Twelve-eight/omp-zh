@@ -170,11 +170,6 @@
     "mode": "full"
   },
   {
-    "from": "Agent's own completion estimate",
-    "to": "代理自身的完成预估/Agent's own completion estimate",
-    "mode": "full"
-  },
-  {
     "from": "Blocker",
     "to": "阻塞项/Blocker",
     "mode": "full"

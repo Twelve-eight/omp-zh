@@ -1,181 +1,6 @@
 [
  {
   "mode": "full",
-  "from": "Paste your DeepSeek API key",
-  "to": "粘贴你的 DeepSeek API 密钥/Paste your DeepSeek API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Moonshot API key",
-  "to": "粘贴你的 Moonshot API 密钥/Paste your Moonshot API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your xAI API key",
-  "to": "粘贴你的 xAI API 密钥/Paste your xAI API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Zhipu API key",
-  "to": "粘贴你的 Zhipu API 密钥/Paste your Zhipu API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Z.AI API key",
-  "to": "粘贴你的 Z.AI API 密钥/Paste your Z.AI API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Kagi API key",
-  "to": "粘贴你的 Kagi API 密钥/Paste your Kagi API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Exa API key",
-  "to": "粘贴你的 Exa API 密钥/Paste your Exa API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Cline API key",
-  "to": "粘贴你的 Cline API 密钥/Paste your Cline API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your SiliconFlow API key",
-  "to": "粘贴你的 SiliconFlow API 密钥/Paste your SiliconFlow API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your DeepInfra API key",
-  "to": "粘贴你的 DeepInfra API 密钥/Paste your DeepInfra API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Fireworks API key",
-  "to": "粘贴你的 Fireworks API 密钥/Paste your Fireworks API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your GMI Cloud API key",
-  "to": "粘贴你的 GMI Cloud API 密钥/Paste your GMI Cloud API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Synthetic API key",
-  "to": "粘贴你的 Synthetic API 密钥/Paste your Synthetic API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Yolo-Auto API key",
-  "to": "粘贴你的 Yolo-Auto API 密钥/Paste your Yolo-Auto API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Cerebras API key",
-  "to": "粘贴你的 Cerebras API 密钥/Paste your Cerebras API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Parallel API key",
-  "to": "粘贴你的 Parallel API 密钥/Paste your Parallel API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Together API key",
-  "to": "粘贴你的 Together API 密钥/Paste your Together API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Baseten API key",
-  "to": "粘贴你的 Baseten API 密钥/Paste your Baseten API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your NanoGPT API key",
-  "to": "粘贴你的 NanoGPT API 密钥/Paste your NanoGPT API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Qianfan API key",
-  "to": "粘贴你的千帆(Qianfan)API 密钥/Paste your Qianfan API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Novita API key",
-  "to": "粘贴你的 Novita API 密钥/Paste your Novita API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Tavily API key",
-  "to": "粘贴你的 Tavily API 密钥/Paste your Tavily API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Venice API key",
-  "to": "粘贴你的 Venice API 密钥/Paste your Venice API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your ZenMux API key",
-  "to": "粘贴你的 ZenMux API 密钥/Paste your ZenMux API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Umans API key",
-  "to": "粘贴你的 Umans API 密钥/Paste your Umans API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Abliteration API key",
-  "to": "粘贴你的 Abliteration API 密钥/Paste your Abliteration API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your NVIDIA API key",
-  "to": "粘贴你的 NVIDIA API 密钥/Paste your NVIDIA API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your ai& API key",
-  "to": "粘贴你的 ai& API 密钥/Paste your ai& API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Ollama Cloud API key",
-  "to": "粘贴你的 Ollama Cloud API 密钥/Paste your Ollama Cloud API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your OpenCode Zen API key",
-  "to": "粘贴你的 OpenCode Zen API 密钥/Paste your OpenCode Zen API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your OpenCode Go API key",
-  "to": "粘贴你的 OpenCode Go API 密钥/Paste your OpenCode Go API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Sakana AI API key",
-  "to": "粘贴你的 Sakana AI API 密钥/Paste your Sakana AI API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Meta Model API key",
-  "to": "粘贴你的 Meta Model API 密钥/Paste your Meta Model API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Fire Pass API key",
-  "to": "粘贴你的 Fire Pass API 密钥/Paste your Fire Pass API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your Wafer Serverless API key",
-  "to": "粘贴你的 Wafer Serverless API 密钥/Paste your Wafer Serverless API key"
- },
- {
-  "mode": "full",
   "from": "Paste your QwenCloud Token Plan API key",
   "to": "粘贴你的 QwenCloud Token Plan API 密钥/Paste your QwenCloud Token Plan API key"
  },
@@ -183,76 +8,6 @@
   "mode": "full",
   "from": "Paste your Alibaba Coding Plan API key",
   "to": "粘贴你的阿里云百炼 Coding Plan API 密钥/Paste your Alibaba Coding Plan API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your MiniMax Token Plan API key",
-  "to": "粘贴你的 MiniMax Token Plan API 密钥/Paste your MiniMax Token Plan API key"
- },
- {
-  "mode": "full",
-  "from": "Paste your LiteLLM API key (master key or virtual key)",
-  "to": "粘贴你的 LiteLLM API 密钥(主密钥或虚拟密钥)/Paste your LiteLLM API key (master key or virtual key)"
- },
- {
-  "mode": "full",
-  "from": "Paste your Hugging Face token (HUGGINGFACE_HUB_TOKEN / HF_TOKEN)",
-  "to": "粘贴你的 Hugging Face 令牌(HUGGINGFACE_HUB_TOKEN / HF_TOKEN)/Paste your Hugging Face token (HUGGINGFACE_HUB_TOKEN / HF_TOKEN)"
- },
- {
-  "mode": "full",
-  "from": "Paste your Xiaomi Token Plan China API key (tp-...)",
-  "to": "粘贴你的小米 Token Plan 中国区 API 密钥(tp-..)/Paste your Xiaomi Token Plan China API key (tp-..)"
- },
- {
-  "mode": "full",
-  "from": "Paste your Xiaomi Token Plan Europe API key (tp-...)",
-  "to": "粘贴你的小米 Token Plan 欧洲区 API 密钥(tp-..)/Paste your Xiaomi Token Plan Europe API key (tp-..)"
- },
- {
-  "mode": "full",
-  "from": "Paste your Xiaomi Token Plan Singapore API key (tp-...)",
-  "to": "粘贴你的小米 Token Plan 新加坡区 API 密钥(tp-..)/Paste your Xiaomi Token Plan Singapore API key (tp-..)"
- },
- {
-  "mode": "full",
-  "from": "Paste your Xiaomi API key (sk-... or token-plan tp-...)",
-  "to": "粘贴你的小米 API 密钥(sk-.. 或 token-plan tp-..)/Paste your Xiaomi API key (sk-.. or token-plan tp-..)"
- },
- {
-  "mode": "full",
-  "from": "Paste your llama.cpp API key (optional for local no-auth)",
-  "to": "粘贴你的 llama.cpp API 密钥(本地无鉴权可留空)/Paste your llama.cpp API key (optional for local no-auth)"
- },
- {
-  "mode": "full",
-  "from": "Paste your llama.cpp API key if your server requires auth. Leave empty for local no-auth mode (default base URL: http://127.0.0.1:8080; set LLAMA_CPP_BASE_URL to customize).",
-  "to": "若你的 llama.cpp 服务器需要鉴权,请粘贴 API 密钥.本地无鉴权模式留空即可(默认 base URL: http://127.0.0.1:8080;设 LLAMA_CPP_BASE_URL 可自定义)/Paste your llama.cpp API key if your server requires auth. Leave empty for local no-auth mode (default base URL: http://127.0.0.1:8080; set LLAMA_CPP_BASE_URL to customize)"
- },
- {
-  "mode": "full",
-  "from": "Paste your vLLM API key (optional for local no-auth)",
-  "to": "粘贴你的 vLLM API 密钥(本地无鉴权可留空)/Paste your vLLM API key (optional for local no-auth)"
- },
- {
-  "mode": "full",
-  "from": "Paste your vLLM API key if your server requires auth. Leave empty for local no-auth mode (default base URL: http://127.0.0.1:8000/v1).",
-  "to": "若你的 vLLM 服务器需要鉴权,请粘贴 API 密钥.本地无鉴权模式留空即可(默认 base URL: http://127.0.0.1:8000/v1)./Paste your vLLM API key if your server requires auth. Leave empty for local no-auth mode (default base URL: http://127.0.0.1:8000/v1)."
- },
- {
-  "mode": "full",
-  "from": "Paste your Ollama API key/token (optional)",
-  "to": "粘贴你的 Ollama API 密钥/令牌(可选)/Paste your Ollama API key/token (optional)"
- },
- {
-  "mode": "full",
-  "from": "Paste your Qwen OAuth token or API key",
-  "to": "粘贴你的 Qwen OAuth 令牌或 API 密钥/Paste your Qwen OAuth token or API key"
- },
- {
-  "mode": "full",
-  "from": "Copy your Qwen OAuth token or API key",
-  "to": "复制你的 Qwen OAuth 令牌或 API 密钥/Copy your Qwen OAuth token or API key"
  },
  {
   "mode": "full",
@@ -271,128 +26,8 @@
  },
  {
   "mode": "full",
-  "from": "Copy your API key from the Coding Plan dashboard",
-  "to": "从 Coding Plan 控制面板复制你的 API 密钥/Copy your API key from the Coding Plan dashboard"
- },
- {
-  "mode": "full",
-  "from": "Copy your Vercel AI Gateway API key from the Vercel dashboard",
-  "to": "从 Vercel 控制面板复制你的 Vercel AI Gateway API 密钥/Copy your Vercel AI Gateway API key from the Vercel dashboard"
- },
- {
-  "mode": "full",
-  "from": "Copy your Kagi Search API key from Kagi API settings. Search API access is beta-only; if unavailable, email support@kagi.com.",
-  "to": "从 Kagi API 设置复制你的 Kagi Search API 密钥.搜索 API 目前仅限测试版;如不可用,请邮件联系 support@kagi.com/Copy your Kagi Search API key from Kagi API settings. Search API access is beta-only; if unavailable, email support@kagi.com."
- },
- {
-  "mode": "full",
-  "from": "Copy your Parallel API key from the Parallel settings page.",
-  "to": "从 Parallel 设置页复制你的 Parallel API 密钥/Copy your Parallel API key from the Parallel settings page."
- },
- {
-  "mode": "full",
-  "from": "Copy your Tavily API key from the API Keys page.",
-  "to": "从 API Keys 页面复制你的 Tavily API 密钥/Copy your Tavily API key from the API Keys page."
- },
- {
-  "mode": "full",
-  "from": "Copy your API key from the Sakana AI console",
-  "to": "从 Sakana AI 控制台复制你的 API 密钥/Copy your API key from the Sakana AI console"
- },
- {
-  "mode": "full",
-  "from": "Copy your API key from NVIDIA NGC Personal Keys",
-  "to": "从 NVIDIA NGC Personal Keys 复制你的 API 密钥/Copy your API key from the NVIDIA NGC Personal Keys"
- },
- {
-  "mode": "full",
-  "from": "Copy your API key from the Abliteration console",
-  "to": "从 Abliteration 控制台复制你的 API 密钥/Copy your API key from the Abliteration console"
- },
- {
-  "mode": "full",
-  "from": "Copy your API key from the Synthetic dashboard",
-  "to": "从 Synthetic 控制面板复制你的 API 密钥/Copy your API key from the Synthetic dashboard"
- },
- {
-  "mode": "full",
-  "from": "Copy your API key from the Cerebras dashboard",
-  "to": "从 Cerebras 控制面板复制你的 API 密钥/Copy your API key from the Cerebras dashboard"
- },
- {
-  "mode": "full",
-  "from": "Copy your API key from the Moonshot dashboard",
-  "to": "从 Moonshot 控制面板复制你的 API 密钥/Copy your API key from the Moonshot dashboard"
- },
- {
-  "mode": "full",
-  "from": "Copy your API key from the Together dashboard",
-  "to": "从 Together 控制面板复制你的 API 密钥/Copy your API key from the Together dashboard"
- },
- {
-  "mode": "full",
-  "from": "Copy your API key from the Baseten dashboard",
-  "to": "从 Baseten 控制面板复制你的 API 密钥/Copy your API key from the Baseten dashboard"
- },
- {
-  "mode": "full",
-  "from": "Copy your API key from the Venice dashboard",
-  "to": "从 Venice 控制面板复制你的 API 密钥/Copy your API key from the Venice dashboard"
- },
- {
-  "mode": "full",
-  "from": "Copy your Qianfan API key from the console",
-  "to": "从控制台复制你的千帆(Qianfan)API 密钥/Copy your Qianfan API key from the console"
- },
- {
-  "mode": "full",
-  "from": "Copy your API key from the ai& console",
-  "to": "从 ai& 控制台复制你的 API 密钥/Copy your API key from the ai& console"
- },
- {
-  "mode": "full",
-  "from": "Copy your API key from the dashboard",
-  "to": "从控制面板复制你的 API 密钥/Copy your API key from the dashboard"
- },
- {
-  "mode": "full",
-  "from": "Log in to the OpenCode Zen console and copy your OpenCode Zen API key",
-  "to": "登录 OpenCode Zen 控制台并复制你的 OpenCode Zen API 密钥/Log in to the OpenCode Zen console and copy your OpenCode Zen API key"
- },
- {
-  "mode": "full",
-  "from": "Log in to the OpenCode Zen console and copy your OpenCode Go API key",
-  "to": "登录 OpenCode Zen 控制台并复制你的 OpenCode Go API 密钥/Log in to the OpenCode Zen console and copy your OpenCode Go API key"
- },
- {
-  "mode": "full",
-  "from": "Copy your token-plan API key for the China region",
-  "to": "复制你的中国区 token-plan API 密钥/Copy your token-plan API key for the China region"
- },
- {
-  "mode": "full",
-  "from": "Copy your token-plan API key for the Europe region",
-  "to": "复制你的欧洲区 token-plan API 密钥/Copy your token-plan API key for the Europe region"
- },
- {
-  "mode": "full",
-  "from": "Copy your token-plan API key for the Singapore region",
-  "to": "复制你的新加坡区 token-plan API 密钥/Copy your token-plan API key for the Singapore region"
- },
- {
-  "mode": "full",
   "from": "Copy your Token Plan API key for the custom endpoint",
   "to": "复制你的自定义端点 Token Plan API 密钥/Copy your Token Plan API key for the custom endpoint"
- },
- {
-  "mode": "full",
-  "from": "Paste your CoreWeave Serverless Inference API key",
-  "to": "复制你的 CoreWeave Serverless Inference API 密钥/Copy your CoreWeave Serverless Inference API key"
- },
- {
-  "mode": "full",
-  "from": "Subscribe to Token Plan and copy your API key",
-  "to": "订阅 Token Plan 并复制你的 API 密钥/Subscribe to Token Plan and copy your API key"
  },
  {
   "mode": "full",
@@ -403,16 +38,6 @@
   "mode": "full",
   "from": "Subscribe to Token Plan Individual and copy its dedicated API key. Keep this page open; the next prompt explains how to enable optional quota reporting.",
   "to": "订阅 Token Plan Individual 并复制其专属 API 密钥.保持此页面打开;下一条提示会说明如何启用可选的配额上报/Subscribe to Token Plan Individual and copy its dedicated API key. Keep this page open; the next prompt explains how to enable optional quota reporting."
- },
- {
-  "mode": "full",
-  "from": "No Anthropic credentials found. Set ANTHROPIC_SEARCH_API_KEY or ANTHROPIC_API_KEY, or configure Anthropic OAuth.",
-  "to": "未找到 Anthropic 凭据.请设置 ANTHROPIC_SEARCH_API_KEY 或 ANTHROPIC_API_KEY,或配置 Anthropic OAuth/No Anthropic credentials found. Set ANTHROPIC_SEARCH_API_KEY or ANTHROPIC_API_KEY, or configure Anthropic OAuth."
- },
- {
-  "mode": "full",
-  "from": "No Codex OAuth credentials found. Login with 'omp /login openai-codex' to enable Codex web search.",
-  "to": "未找到 Codex OAuth 凭据.用 'omp /login openai-codex' 登录以启用 Codex 网页搜索/No Codex OAuth credentials found. Login with 'omp /login openai-codex' to enable Codex web search."
  },
  {
   "mode": "full",
@@ -436,21 +61,6 @@
  },
  {
   "mode": "full",
-  "from": "Kimi Code search (requires a Kimi Code Console key via KIMI_SEARCH_API_KEY/MOONSHOT_SEARCH_API_KEY or /login kimi-code; not MOONSHOT_API_KEY)",
-  "to": "Kimi Code 搜索(需通过 KIMI_SEARCH_API_KEY/MOONSHOT_SEARCH_API_KEY 或 /login kimi-code 配置 Kimi Code Console 密钥;不是 MOONSHOT_API_KEY)/Kimi Code search (requires a Kimi Code Console key via KIMI_SEARCH_API_KEY/MOONSHOT_SEARCH_API_KEY or /login kimi-code; not MOONSHOT_API_KEY)"
- },
- {
-  "mode": "full",
-  "from": "No xAI credentials. Run /login \\u2192 xAI Grok OAuth (SuperGrok or X Premium+) or set XAI_API_KEY.",
-  "to": "无 xAI 凭据.运行 /login -> xAI Grok OAuth(SuperGrok 或 X Premium+)或设置 XAI_API_KEY/No xAI credentials. Run /login -> xAI Grok OAuth (SuperGrok or X Premium+) or set XAI_API_KEY."
- },
- {
-  "mode": "full",
-  "from": "No DeepInfra credentials. Run /login \\u2192 DeepInfra or set DEEPINFRA_API_KEY.",
-  "to": "无 DeepInfra 凭据.运行 /login -> DeepInfra 或设置 DEEPINFRA_API_KEY/No DeepInfra credentials. Run /login -> DeepInfra or set DEEPINFRA_API_KEY."
- },
- {
-  "mode": "full",
   "from": "No stored provider credentials to log out. Remove env or config auth at its source.",
   "to": "没有已存储的提供商凭据可登出.请从源头移除环境变量或配置中的鉴权/No stored provider credentials to log out. Remove env or config auth at its source."
  },
@@ -471,11 +81,6 @@
  },
  {
   "mode": "full",
-  "from": "GitHub Copilot access denied (HTTP 403). Your account may not have access to this model or feature. Check your Copilot plan or model policy settings.",
-  "to": "GitHub Copilot 拒绝访问(HTTP 403).你的账户可能无权使用此模型或功能.请检查你的 Copilot 套餐或模型策略设置/GitHub Copilot access denied (HTTP 403). Your account may not have access to this model or feature. Check your Copilot plan or model policy settings."
- },
- {
-  "mode": "full",
   "from": "Could not connect to OAuth server. Please check the URLs and your network connection.",
   "to": "无法连接 OAuth 服务器.请检查 URL 与网络连接/Could not connect to OAuth server. Please check the URLs and your network connection."
  },
@@ -493,16 +98,6 @@
   "mode": "full",
   "from": "OMP_AUTH_BROKER_URL must be set (or `auth.broker.url` in config.yml). `migrate` uploads local credentials to a configured broker.",
   "to": "必须设置 OMP_AUTH_BROKER_URL(或 config.yml 中的 `auth.broker.url`).`migrate` 会把本地凭据上传到已配置的 broker/OMP_AUTH_BROKER_URL must be set (or `auth.broker.url` in config.yml). `migrate` uploads local credentials to a configured broker."
- },
- {
-  "mode": "full",
-  "from": "RemoteAuthCredentialStore is read-only on the client. Use `omp auth-broker logout <provider>` to mutate credentials.",
-  "to": "客户端上的 RemoteAuthCredentialStore 为只读.要修改凭据请使用 `omp auth-broker logout <provider>`/RemoteAuthCredentialStore is read-only on the client. Use `omp auth-broker logout <provider>` to mutate credentials."
- },
- {
-  "mode": "full",
-  "from": "RemoteAuthCredentialStore is read-only on the client. Use `omp auth-broker login <provider>` to mutate credentials.",
-  "to": "客户端上的 RemoteAuthCredentialStore 为只读.要修改凭据请使用 `omp auth-broker login <provider>`/RemoteAuthCredentialStore is read-only on the client. Use `omp auth-broker login <provider>` to mutate credentials."
  },
  {
   "mode": "full",
@@ -561,18 +156,8 @@
  },
  {
   "mode": "full",
-  "from": "Smithery API key (Esc to cancel)",
-  "to": "Smithery API 密钥(Esc 取消)/Smithery API key (Esc to cancel)"
- },
- {
-  "mode": "full",
   "from": "OAuth login already in progress. Paste the redirect URL with /login <url>.",
   "to": "OAuth 登录已在进行中.请用 /login <url> 粘贴重定向 URL/OAuth login already in progress. Paste the redirect URL with /login <url>."
- },
- {
-  "mode": "full",
-  "from": "Paste the authorization code (or full redirect URL), then press Enter:",
-  "to": "粘贴授权码(或完整重定向 URL),然后按回车:/Paste the authorization code (or full redirect URL), then press Enter:"
  },
  {
   "mode": "full",
@@ -626,16 +211,6 @@
  },
  {
   "mode": "full",
-  "from": "OAuth authentication failed",
-  "to": "OAuth 认证失败/OAuth authentication failed"
- },
- {
-  "mode": "full",
-  "from": "OAuth flow not available",
-  "to": "OAuth 流程不可用/OAuth flow not available"
- },
- {
-  "mode": "full",
   "from": "OAuth launch URL is no longer active",
   "to": "OAuth 启动 URL 已失效/OAuth launch URL is no longer active"
  },
@@ -683,11 +258,6 @@
   "mode": "full",
   "from": "OAuth application callback was not a valid URL",
   "to": "OAuth 应用回调不是有效的 URL/OAuth application callback was not a valid URL"
- },
- {
-  "mode": "full",
-  "from": "OAuth parameters could not be discovered.",
-  "to": "无法发现 OAuth 参数/OAuth parameters could not be discovered."
  },
  {
   "mode": "full",
@@ -748,11 +318,6 @@
   "mode": "full",
   "from": "Select QwenCloud Token Plan region: 1=International (default), 2=China (Beijing), 3=Custom \\u2014 enter 1, 2, or 3",
   "to": "选择 QwenCloud Token Plan 区域: 1=国际(默认), 2=中国(北京), 3=自定义 - 输入 1, 2 或 3/Select QwenCloud Token Plan region: 1=International (default), 2=China (Beijing), 3=Custom - enter 1, 2, or 3"
- },
- {
-  "mode": "full",
-  "from": "Select the transport type:",
-  "to": "选择传输类型:/Select the transport type:"
  },
  {
   "mode": "full",
@@ -861,11 +426,6 @@
  },
  {
   "mode": "full",
-  "from": "Missing projectId in antigravity credentials",
-  "to": "antigravity 凭据中缺少 projectId/Missing projectId in antigravity credentials"
- },
- {
-  "mode": "full",
   "from": "No API key available",
   "to": "无可用 API 密钥/No API key available"
  },
@@ -908,11 +468,6 @@
   "mode": "full",
   "from": "No allowed model had usable credentials during default resolution; dry-balance will report OAuth failures for the first allowed model.",
   "to": "默认解析期间没有任何被允许的模型具备可用凭据;dry-balance 将报告第一个被允许模型的 OAuth 失败/No allowed model had usable credentials during default resolution; dry-balance will report OAuth failures for the first allowed model."
- },
- {
-  "mode": "full",
-  "from": "GitHub API rate limit exceeded while fetching release metadata; retry later or set GITHUB_TOKEN or GH_TOKEN",
-  "to": "获取 release 元数据时 GitHub API 限流;请稍后重试或设置 GITHUB_TOKEN 或 GH_TOKEN/GitHub API rate limit exceeded while fetching release metadata; retry later or set GITHUB_TOKEN or GH_TOKEN"
  },
  {
   "mode": "full",

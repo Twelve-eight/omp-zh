@@ -55,16 +55,6 @@
     "mode": "full"
   },
   {
-    "from": "Prevent the system sleeping during active sessions. Each level is cumulative \\u2014 it adds the flags of all lower levels.",
-    "to": "在活动会话期间阻止系统睡眠。每一级都是累积的 — 它会叠加所有更低级别的标志/Prevent the system sleeping during active sessions. Each level is cumulative \\u2014 it adds the flags of all lower levels.",
-    "mode": "full"
-  },
-  {
-    "from": "Keep the system awake while a session is open (macOS `caffeinate -i`)",
-    "to": "会话打开期间让系统保持唤醒（macOS `caffeinate -i`）/Keep the system awake while a session is open (macOS `caffeinate -i`)",
-    "mode": "full"
-  },
-  {
     "from": "Also keep the display from idle-sleeping (macOS `caffeinate -i -d`)",
     "to": "同时防止显示器空闲休眠（macOS `caffeinate -i -d`）/Also keep the display from idle-sleeping (macOS `caffeinate -i -d`)",
     "mode": "full"

@@ -1,3 +1,6 @@
+# Downloaded upstream binaries, build output and scan reports
 work/
 *.exe
-cli-*.js
+
+# Local maintainer notes (kept outside version control)
+DEVLOG.md

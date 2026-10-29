@@ -1,27 +1,36 @@
 {
   "name": "omp-zh",
   "version": "18.13.3",
-  "description": "Chinese localization build of can1357/oh-my-pi",
-  "main": "update-zh.js",
-  "scripts": {
-    "build": "node tools-build-18133.js",
-    "verify": "node tools-verify-18133.js",
-    "update": "node update-zh.js",
-    "scan": "node scan-gaps.js"
-  },
-  "engines": {
-    "node": ">=20"
-  },
+  "private": true,
+  "description": "Unofficial Simplified Chinese build of Oh My Pi (omp), the coding agent by can1357/oh-my-pi",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Twelve-eight/omp-zh.git"
   },
+  "homepage": "https://github.com/Twelve-eight/omp-zh#readme",
+  "bugs": {
+    "url": "https://github.com/Twelve-eight/omp-zh/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "fetch": "node scripts/fetch-upstream.js",
+    "check": "node scripts/fetch-upstream.js --check",
+    "build": "node build.js",
+    "verify": "node verify.js",
+    "gaps": "node scripts/scan-gaps.js",
+    "check-dict": "node scripts/check-dict.js",
+    "test": "node scripts/check-dict.js && node test/install.test.js",
+    "release": "node scripts/release.js"
+  },
   "keywords": [
     "oh-my-pi",
+    "omp",
+    "coding-agent",
     "localization",
     "chinese",
-    "cli",
-    "tui"
+    "zh-CN"
   ]
 }

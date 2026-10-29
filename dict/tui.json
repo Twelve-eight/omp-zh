@@ -1,0 +1,637 @@
+[
+  {
+    "from": "Waiting for pasted authorization code...",
+    "to": "等待粘贴授权码.../Waiting for pasted authorization code...",
+    "mode": "full"
+  },
+  {
+    "from": "Waiting for browser authentication...",
+    "to": "等待浏览器认证.../Waiting for browser authentication...",
+    "mode": "full"
+  },
+  {
+    "from": "Interrupt current operation",
+    "to": "中断当前操作/Interrupt current operation",
+    "mode": "full"
+  },
+  {
+    "from": "Toggle thinking mode",
+    "to": "切换思考模式/Toggle thinking mode",
+    "mode": "full"
+  },
+  {
+    "from": "Toggle session path display",
+    "to": "切换会话路径显示/Toggle session path display",
+    "mode": "full"
+  },
+  {
+    "from": "Toggle session sort order",
+    "to": "切换会话排序方式/Toggle session sort order",
+    "mode": "full"
+  },
+  {
+    "from": "Toggle plan mode",
+    "to": "切换计划模式/Toggle plan mode",
+    "mode": "full"
+  },
+  {
+    "from": "Interrupt on prose and tool streams",
+    "to": "在正文与工具流上中断/Interrupt on prose and tool streams",
+    "mode": "full"
+  },
+  {
+    "from": "Interrupt only on reply/thinking matches",
+    "to": "仅在回复/思考匹配时中断/Interrupt only on reply/thinking matches",
+    "mode": "full"
+  },
+  {
+    "from": "Interrupt only on tool-call argument matches",
+    "to": "仅在工具调用参数匹配时中断/Interrupt only on tool-call argument matches",
+    "mode": "full"
+  },
+  {
+    "from": "Toggle Network",
+    "to": "切换网络/Toggle Network",
+    "mode": "full"
+  },
+  {
+    "from": "MCP Server Management",
+    "to": "MCP 服务器管理/MCP Server Management",
+    "mode": "full"
+  },
+  {
+    "from": "Waiting for input",
+    "to": "等待输入/Waiting for input",
+    "mode": "full"
+  },
+  {
+    "from": "Waiting for workflow runs for this commit.",
+    "to": "等待本次提交的工作流运行。/Waiting for workflow runs for this commit.",
+    "mode": "full"
+  },
+  {
+    "from": "Interrupted: emit a tool call instead of more planning",
+    "to": "已中断：改为发出工具调用而非继续规划/Interrupted: emit a tool call instead of more planning",
+    "mode": "full"
+  },
+  {
+    "from": "Waiting for your answer",
+    "to": "等待你的回答/Waiting for your answer",
+    "mode": "full"
+  },
+  {
+    "from": "Waiting for the OMP Browser Relay extension to connect (omp browser-relay install)...",
+    "to": "等待 OMP Browser Relay 扩展连接（omp browser-relay install）.../Waiting for the OMP Browser Relay extension to connect (omp browser-relay install)...",
+    "mode": "full"
+  },
+  {
+    "from": "Set working directory for commands",
+    "to": "设置命令的工作目录/Set working directory for commands",
+    "mode": "full"
+  },
+  {
+    "from": "Interrupted by user",
+    "to": "已被用户中断/Interrupted by user",
+    "mode": "full"
+  },
+  {
+    "from": "No sessions found",
+    "to": "未找到会话/No sessions found",
+    "mode": "full"
+  },
+  {
+    "from": "New session started",
+    "to": "新会话已开始/New session started",
+    "mode": "full"
+  },
+  {
+    "from": "Cancelled",
+    "to": "已取消/Cancelled",
+    "mode": "full"
+  },
+  {
+    "from": "Aborted",
+    "to": "已中止/Aborted",
+    "mode": "full"
+  },
+  {
+    "from": "Manage Model Context Protocol (MCP) servers for external tool integrations.",
+    "to": "管理用于外部工具集成的模型上下文协议（MCP）服务器。/Manage Model Context Protocol (MCP) servers for external tool integrations.",
+    "mode": "full"
+  },
+  {
+    "from": "Manage SSH host configurations for remote command execution.",
+    "to": "管理用于远程命令执行的 SSH 主机配置。/Manage SSH host configurations for remote command execution.",
+    "mode": "full"
+  },
+  {
+    "from": "SSH Host Management",
+    "to": "SSH 主机管理/SSH Host Management",
+    "mode": "full"
+  },
+  {
+    "from": "Commands:",
+    "to": "命令：/Commands:",
+    "mode": "full"
+  },
+  {
+    "from": "Speculatively summarize in the background as context nears the compaction threshold, then splice the ready result in when the threshold is crossed",
+    "to": "当上下文接近压缩阈值时在后台推测性汇总，越过阈值后拼入已就绪的结果/Speculatively summarize in the background as context nears the compaction threshold, then splice the ready result in when the threshold is crossed",
+    "mode": "full"
+  },
+  {
+    "from": "Preferred fallback order for automatic context maintenance; unavailable or failed methods advance to the next choice",
+    "to": "自动上下文维护的首选回退顺序；不可用或失败的方法将推进到下一选项/Preferred fallback order for automatic context maintenance; unavailable or failed methods advance to the next choice",
+    "mode": "full"
+  },
+  {
+    "from": "Archive history onto dense bitmap images the active vision model reads back; no LLM call",
+    "to": "将历史记录归档为密集位图图像，由当前视觉模型读回；不调用 LLM/Archive history onto dense bitmap images the active vision model reads back; no LLM call",
+    "mode": "full"
+  },
+  {
+    "from": "Summarize via OpenAI-compatible server compaction, then fall back to a local summary",
+    "to": "通过 OpenAI 兼容服务器压缩进行汇总，然后回退到本地汇总/Summarize via OpenAI-compatible server compaction, then fall back to a local summary",
+    "mode": "full"
+  },
+  {
+    "from": "Backgrounded early to handle an incoming message; the cell keeps running.",
+    "to": "提前转入后台以处理传入消息；该单元继续运行/Backgrounded early to handle an incoming message; the cell keeps running.",
+    "mode": "full"
+  },
+  {
+    "from": "Automatically background long-running eval cells and deliver the result later",
+    "to": "自动将长时间运行的 eval 单元转入后台，稍后交付结果/Automatically background long-running eval cells and deliver the result later",
+    "mode": "full"
+  },
+  {
+    "from": "Tool execution was cancelled while an extension handler was pending",
+    "to": "扩展处理器挂起期间，工具执行被取消/Tool execution was cancelled while an extension handler was pending",
+    "mode": "full"
+  },
+  {
+    "from": "List and control daemon-supervised background processes (logs, stop, kill, restart)",
+    "to": "列出并控制守护进程监管的后台进程（日志、停止、强杀、重启）/List and control daemon-supervised background processes (logs, stop, kill, restart)",
+    "mode": "full"
+  },
+  {
+    "from": "Extension file delete fallback handler threw; trying next handler",
+    "to": "扩展文件删除回退处理器抛出异常；正在尝试下一个处理器/Extension file delete fallback handler threw; trying next handler",
+    "mode": "full"
+  },
+  {
+    "from": "Extension file write fallback handler threw; trying next handler",
+    "to": "扩展文件写入回退处理器抛出异常；正在尝试下一个处理器/Extension file write fallback handler threw; trying next handler",
+    "mode": "full"
+  },
+  {
+    "from": "Cleanse cancelled.",
+    "to": "cleanse 已取消/Cleanse cancelled.",
+    "mode": "full"
+  },
+  {
+    "from": "less than a minute ago",
+    "to": "不到一分钟前/less than a minute ago",
+    "mode": "full"
+  },
+  {
+    "from": "  No recently used models yet",
+    "to": "  尚无最近使用的模型/No recently used models yet",
+    "mode": "full"
+  },
+  {
+    "from": "  Using cached model list. Live refresh is still pending.",
+    "to": "  正在使用缓存的模型列表，实时刷新仍在进行。/Using cached model list. Live refresh is still pending.",
+    "mode": "full"
+  },
+  {
+    "from": "  Provider unavailable.",
+    "to": "  提供商不可用。/Provider unavailable.",
+    "mode": "full"
+  },
+  {
+    "from": "  Provider requires authentication before models can be discovered.",
+    "to": "  需先完成提供商认证才能发现模型。/Provider requires authentication before models can be discovered.",
+    "mode": "full"
+  },
+  {
+    "from": "  Provider has not been refreshed yet.",
+    "to": "  提供商尚未刷新。/Provider has not been refreshed yet.",
+    "mode": "full"
+  },
+  {
+    "from": "  Discovery succeeded but returned 0 models. Check that /models returns { data: [{ id }] }.",
+    "to": "  发现成功但返回 0 个模型。请检查 /models 是否返回 { data: [{ id }] }。/Discovery succeeded but returned 0 models.",
+    "mode": "full"
+  },
+  {
+    "from": "  Add an API key for this provider in config.",
+    "to": "  在配置中为此提供商添加 API 密钥。/Add an API key for this provider in config.",
+    "mode": "full"
+  },
+  {
+    "from": "Adding fallback for",
+    "to": "正在为以下模型添加后备：/Adding fallback for",
+    "mode": "full"
+  },
+  {
+    "from": "Replacing fallback of",
+    "to": "正在替换以下模型的后备：/Replacing fallback of",
+    "mode": "full"
+  },
+  {
+    "from": "adds a retry fallback, cleared roles fall back to auto-selection",
+    "to": "添加重试后备，清空的角色回退到自动选择",
+    "mode": "sub"
+  },
+  {
+    "from": "Cleared roles fall back to auto-selection",
+    "to": "清空的角色回退到自动选择/Cleared roles fall back to auto-selection",
+    "mode": "sub"
+  },
+  {
+    "from": "save preset",
+    "to": "存预设",
+    "mode": "sub"
+  },
+  {
+    "from": "compaction limit",
+    "to": "压缩上限",
+    "mode": "sub"
+  },
+  {
+    "from": "new model/provider fallback chain",
+    "to": "新建 模型/服务商 后备链",
+    "mode": "sub"
+  },
+  {
+    "from": "add fallback",
+    "to": "加后备",
+    "mode": "sub"
+  },
+  {
+    "from": "clear chain",
+    "to": "清空链",
+    "mode": "sub"
+  },
+  {
+    "from": "add another",
+    "to": "再加",
+    "mode": "sub"
+  },
+  {
+    "from": "type to search",
+    "to": "键入搜索",
+    "mode": "sub"
+  },
+  {
+    "from": " rows \\xB7 ",
+    "to": " 行 \\xB7 ",
+    "mode": "sub"
+  },
+  {
+    "from": " pick \\xB7 ",
+    "to": " 选择 \\xB7 ",
+    "mode": "sub"
+  },
+  {
+    "from": " pick \\xB7",
+    "to": " 选择 \\xB7",
+    "mode": "sub"
+  },
+  {
+    "from": " providers \\xB7",
+    "to": " 个服务商 \\xB7",
+    "mode": "sub"
+  },
+  {
+    "from": " providers \\xB7 ",
+    "to": " 个服务商 \\xB7 ",
+    "mode": "sub"
+  },
+  {
+    "from": " fallback \\xB7",
+    "to": " 后备 \\xB7",
+    "mode": "sub"
+  },
+  {
+    "from": " cycle \\xB7",
+    "to": " 循环 \\xB7",
+    "mode": "sub"
+  },
+  {
+    "from": "cycle is empty \\u2014 press ",
+    "to": "循环为空 \\u2014 按 ",
+    "mode": "sub"
+  },
+  {
+    "from": " on a role to add it",
+    "to": " 在角色上添加",
+    "mode": "sub"
+  },
+  {
+    "from": " cycle:",
+    "to": " 循环:",
+    "mode": "sub"
+  },
+  {
+    "from": "Assigning ",
+    "to": "指派中 ",
+    "mode": "sub"
+  },
+  {
+    "from": " assigns, ",
+    "to": " 指派，",
+    "mode": "sub"
+  },
+  {
+    "from": " cancels",
+    "to": " 取消",
+    "mode": "sub"
+  },
+  {
+    "from": "New fallback chain \\u2014 ",
+    "to": "新建后备链 \\u2014 ",
+    "mode": "sub"
+  },
+  {
+    "from": " picks the model it protects, ",
+    "to": " 选择被保护的模型，",
+    "mode": "sub"
+  },
+  {
+    "from": "Applying model\\u2026",
+    "to": "应用模型中\\u2026",
+    "mode": "sub"
+  },
+  {
+    "from": "log in \\xB7",
+    "to": "登录 \\xB7",
+    "mode": "sub"
+  },
+  {
+    "from": "refreshing model list\\u2026",
+    "to": "刷新模型列表中\\u2026",
+    "mode": "sub"
+  },
+  {
+    "from": "not configured",
+    "to": "未配置",
+    "mode": "sub"
+  },
+  {
+    "from": "Preset name:",
+    "to": "预设名:/Preset name:",
+    "mode": "full"
+  },
+  {
+    "from": "Leave cycle",
+    "to": "离开循环",
+    "mode": "sub"
+  },
+  {
+    "from": "Add to cycle",
+    "to": "加入循环",
+    "mode": "sub"
+  },
+  {
+    "from": " of the quick-switch cycle",
+    "to": " 站（快速切换循环）",
+    "mode": "sub"
+  },
+  {
+    "from": " clear${",
+    "to": " 清除${",
+    "mode": "sub"
+  },
+  {
+    "from": "assign/clear",
+    "to": "指派/清除",
+    "mode": "sub"
+  },
+  {
+    "from": "Assign / clear",
+    "to": "指派 / 清除/Assign / clear",
+    "mode": "full"
+  },
+  {
+    "from": " assign \\xB7 ",
+    "to": " 指派 \\xB7 ",
+    "mode": "sub"
+  },
+  {
+    "from": " replace \\xB7 ",
+    "to": " 替换 \\xB7 ",
+    "mode": "sub"
+  },
+  {
+    "from": " apply \\xB7 ",
+    "to": " 应用 \\xB7 ",
+    "mode": "sub"
+  },
+  {
+    "from": " choose \\xB7 ",
+    "to": " 选择 \\xB7 ",
+    "mode": "sub"
+  },
+  {
+    "from": " save scope \\xB7 ",
+    "to": " 存作用域 \\xB7 ",
+    "mode": "sub"
+  },
+  {
+    "from": " thinking level \\xB7 ",
+    "to": " 思考级别 \\xB7 ",
+    "mode": "sub"
+  },
+  {
+    "from": " pick the protected model \\xB7 ",
+    "to": " 选择被保护的模型 \\xB7 ",
+    "mode": "sub"
+  },
+  {
+    "from": " create + pick model \\xB7 ",
+    "to": " 创建并选模型 \\xB7 ",
+    "mode": "sub"
+  },
+  {
+    "from": " pick fallback \\xB7 ",
+    "to": " 选后备 \\xB7 ",
+    "mode": "sub"
+  },
+  {
+    "from": "Save to scope",
+    "to": "存入作用域/Save to scope",
+    "mode": "full"
+  },
+  {
+    "from": "\\xB7 --models scope",
+    "to": "\\xB7 --models 作用域",
+    "mode": "sub"
+  },
+  {
+    "from": "New role name:",
+    "to": "新角色名：/New role name:",
+    "mode": "full"
+  },
+  {
+    "from": "(letters, digits, - and _)",
+    "to": "（字母、数字、- 和 _）/(letters, digits, - and _)",
+    "mode": "full"
+  },
+  {
+    "from": "+ New role\\u2026",
+    "to": "+ 新建角色\\u2026/+ New role\\u2026",
+    "mode": "full"
+  },
+  {
+    "from": "+ New fallback\\u2026",
+    "to": "+ 新建后备\\u2026/+ New fallback\\u2026",
+    "mode": "full"
+  },
+  {
+    "from": " \\xB7 --models scope",
+    "to": " \\xB7 --models 作用域/ \\xB7 --models scope",
+    "mode": "full"
+  },
+  {
+    "from": "Models",
+    "to": "模型/Models",
+    "mode": "full"
+  },
+  {
+    "from": "Type to search",
+    "to": "输入以搜索/Type to search",
+    "mode": "full"
+  },
+  {
+    "from": "  Type to search",
+    "to": "  输入以搜索/Type to search",
+    "mode": "full"
+  },
+  {
+    "from": "Synthetic input",
+    "to": "合成输入/Synthetic input",
+    "mode": "full"
+  },
+  {
+    "from": "branch summary",
+    "to": "分支摘要/branch summary",
+    "mode": "full"
+  },
+  {
+    "from": "service tier",
+    "to": "服务档位/service tier",
+    "mode": "full"
+  },
+  {
+    "from": "credential pin",
+    "to": "凭据固定/credential pin",
+    "mode": "full"
+  },
+  {
+    "from": "ttsr injection",
+    "to": "ttsr 注入/ttsr injection",
+    "mode": "full"
+  },
+  {
+    "from": "reset boundary",
+    "to": "重置边界/reset boundary",
+    "mode": "full"
+  },
+  {
+    "from": "session init",
+    "to": "会话初始化/session init",
+    "mode": "full"
+  },
+  {
+    "from": "user: ",
+    "to": "用户：/user: ",
+    "mode": "full"
+  },
+  {
+    "from": "developer: ",
+    "to": "开发者：/developer: ",
+    "mode": "full"
+  },
+  {
+    "from": "assistant: ",
+    "to": "助手：/assistant: ",
+    "mode": "full"
+  },
+  {
+    "from": "advisor: ",
+    "to": "顾问：/advisor: ",
+    "mode": "full"
+  },
+  {
+    "from": "(no content)",
+    "to": "（无内容）/(no content)",
+    "mode": "full"
+  },
+  {
+    "from": "(cleared)",
+    "to": "（已清除）/(cleared)",
+    "mode": "full"
+  },
+  {
+    "from": "(aborted)",
+    "to": "（已中止）/(aborted)",
+    "mode": "full"
+  },
+  {
+    "from": " [no-tools]",
+    "to": " [无工具]",
+    "mode": "full"
+  },
+  {
+    "from": " [user]",
+    "to": " [用户]",
+    "mode": "full"
+  },
+  {
+    "from": " [labeled]",
+    "to": " [已标记]",
+    "mode": "full"
+  },
+  {
+    "from": " [all]",
+    "to": " [全部]",
+    "mode": "full"
+  },
+  {
+    "from": "[default]",
+    "to": "[默认]",
+    "mode": "full"
+  },
+  {
+    "from": "Search:",
+    "to": "搜索：/Search:",
+    "mode": "full"
+  },
+  {
+    "from": "Label (empty to remove):",
+    "to": "标签（留空移除）：/Label (empty to remove):",
+    "mode": "full"
+  },
+  {
+    "from": "Session-only model: ",
+    "to": "仅本会话模型: ",
+    "mode": "sub"
+  },
+  {
+    "from": " or /model for roles.",
+    "to": " 或 /model 设置角色。",
+    "mode": "sub"
+  },
+  {
+    "from": "[/] reorder",
+    "to": "[/] 排序",
+    "mode": "sub"
+  },
+  {
+    "from": "reorder \\xB7",
+    "to": "排序 \\xB7",
+    "mode": "sub"
+  }
+]

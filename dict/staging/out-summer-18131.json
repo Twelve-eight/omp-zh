@@ -55,11 +55,6 @@
   "mode": "full"
  },
  {
-  "from": "Describe what to fix…",
-  "to": "描述要修复的内容…/Describe what to fix…",
-  "mode": "full"
- },
- {
   "from": "--agents must be a positive integer",
   "to": "--agents 必须是正整数/--agents must be a positive integer",
   "mode": "full"
@@ -150,11 +145,6 @@
   "mode": "full"
  },
  {
-  "from": "Handing off to the normal CLI…",
-  "to": "正在交给普通 CLI……/Handing off to the normal CLI…",
-  "mode": "full"
- },
- {
   "from": "Ask anything, edit files, run tools",
   "to": "提出问题、编辑文件或运行工具/Ask anything, edit files, run tools",
   "mode": "full"
@@ -172,26 +162,6 @@
  {
   "from": "Switch Task Model",
   "to": "切换任务模型/Switch Task Model",
-  "mode": "full"
- },
- {
-  "from": "Session-only switch — role models stay unchanged",
-  "to": "仅切换本会话——角色模型保持不变/Session-only switch — role models stay unchanged",
-  "mode": "full"
- },
- {
-  "from": "Quick role switch — applies its model and thinking for this session",
-  "to": "快速角色切换——为本会话应用其模型和思考设置/Quick role switch — applies its model and thinking for this session",
-  "mode": "full"
- },
- {
-  "from": "Task subagent switch — spawned task agents use this model (session-only)",
-  "to": "任务子代理切换——派生的任务代理将使用此模型（仅本会话）/Task subagent switch — spawned task agents use this model (session-only)",
-  "mode": "full"
- },
- {
-  "from": "Search models, @ for quick roles…",
-  "to": "搜索模型，输入 @ 显示快速角色…/Search models, @ for quick roles…",
   "mode": "full"
  },
  {
@@ -232,11 +202,6 @@
  {
   "from": "No sessions in current folder. Press ",
   "to": "当前文件夹中没有会话。按 /No sessions in current folder. Press ",
-  "mode": "full"
- },
- {
-  "from": "Loading all projects…",
-  "to": "正在加载所有项目…/Loading all projects…",
   "mode": "full"
  },
  {
@@ -295,16 +260,6 @@
   "mode": "full"
  },
  {
-  "from": "✓ Health check passed",
-  "to": "✓ 健康检查通过/✓ Health check passed",
-  "mode": "full"
- },
- {
-  "from": "⚠ Health check failed (will still save config)",
-  "to": "⚠ 健康检查失败（仍会保存配置）/⚠ Health check failed (will still save config)",
-  "mode": "full"
- },
- {
   "from": "OAuth login cannot start without a host OAuth handler.",
   "to": "缺少宿主 OAuth 处理器，无法启动 OAuth 登录。/OAuth login cannot start without a host OAuth handler.",
   "mode": "full"
@@ -357,11 +312,6 @@
  {
   "from": "Turn the plugin and its features on and off, and change its settings.",
   "to": "开关此插件及其功能，并更改其设置。/Turn the plugin and its features on and off, and change its settings.",
-  "mode": "full"
- },
- {
-  "from": "Loading installed plugins…",
-  "to": "正在加载已安装的插件……/Loading installed plugins…",
   "mode": "full"
  },
  {
@@ -460,18 +410,8 @@
   "mode": "full"
  },
  {
-  "from": "Pick a provider to sign in — you can connect more than one.",
-  "to": "选择要登录的提供商——可以连接多个提供商。/Pick a provider to sign in — you can connect more than one.",
-  "mode": "full"
- },
- {
   "from": "Local shortcut (this machine only):",
   "to": "本地快捷链接（仅限本机）：/Local shortcut (this machine only):",
-  "mode": "full"
- },
- {
-  "from": "Starting OAuth flow…",
-  "to": "正在启动 OAuth 流程……/Starting OAuth flow…",
   "mode": "full"
  },
  {
@@ -502,11 +442,6 @@
  {
   "from": "Search configured models and save the model used for new sessions.",
   "to": "搜索已配置的模型，并保存用于新会话的模型。/Search configured models and save the model used for new sessions.",
-  "mode": "full"
- },
- {
-  "from": "Discovering available models…",
-  "to": "正在发现可用模型……/Discovering available models…",
   "mode": "full"
  },
  {
@@ -560,28 +495,8 @@
   "mode": "full"
  },
  {
-  "from": "Loading saved agents…",
-  "to": "正在加载已保存的代理…/Loading saved agents…",
-  "mode": "full"
- },
- {
   "from": "New fallback chain",
   "to": "新建回退链/New fallback chain",
-  "mode": "full"
- },
- {
-  "from": "+ New fallback…",
-  "to": "+ 新建回退…/+ New fallback…",
-  "mode": "full"
- },
- {
-  "from": "New fallback chain…",
-  "to": "新建回退链…/New fallback chain…",
-  "mode": "full"
- },
- {
-  "from": "cycle is empty — press ",
-  "to": "循环为空 — 按 /cycle is empty — press ",
   "mode": "full"
  },
  {
@@ -592,11 +507,6 @@
  {
   "from": "Log in with OAuth",
   "to": "使用 OAuth 登录/Log in with OAuth",
-  "mode": "full"
- },
- {
-  "from": "New fallback chain — pick the model it protects",
-  "to": "新建回退链 — 选择它保护的模型/New fallback chain — pick the model it protects",
   "mode": "full"
  },
  {
@@ -650,31 +560,6 @@
   "mode": "full"
  },
  {
-  "from": "Show the agent run state in the terminal title's separator — an animated spinner while working (a static ':' under WSL), '>' when it's your turn, '!' when the agent is waiting on you",
-  "to": "在终端标题的分隔符中显示代理运行状态 —— 工作时显示动画加载（WSL 下为静态 ':'），轮到你时显示 '>'，代理等待你时显示 '!'/Show the agent run state in the terminal title's separator — an animated spinner while working (a static ':' under WSL), '>' when it's your turn, '!' when the agent is waiting on you",
-  "mode": "full"
- },
- {
-  "from": "Glyph set for the working-state spinner in the terminal title — braille sweep, filling moon, single-dot cycle, or ASCII-safe line",
-  "to": "终端标题中工作状态加载动画的字形集 —— 盲文扫描、渐盈月、单点循环或 ASCII 安全线条/Glyph set for the working-state spinner in the terminal title — braille sweep, filling moon, single-dot cycle, or ASCII-safe line",
-  "mode": "full"
- },
- {
-  "from": "Classic ⠋⠙⠹ sweep (default)",
-  "to": "经典 ⠋⠙⠹ 扫描（默认）/Classic ⠋⠙⠹ sweep (default)",
-  "mode": "full"
- },
- {
-  "from": "Moon filling ○◑● then emptying",
-  "to": "月相渐盈 ○◑● 再渐亏/Moon filling ○◑● then emptying",
-  "mode": "full"
- },
- {
-  "from": "ASCII - \\ | / for fonts without braille coverage",
-  "to": "Braille 未覆盖的字体使用 ASCII - \\ | / 线条/ASCII - \\ | / for fonts without braille coverage",
-  "mode": "full"
- },
- {
   "from": "Let standalone jevify append its hidden bulk-judge classification notice",
   "to": "允许独立出现的 jevify 追加其隐藏的批量评审分类提示/Let standalone jevify append its hidden bulk-judge classification notice",
   "mode": "full"
@@ -692,21 +577,6 @@
  {
   "from": "Apple silicon GPU via mlx-lm (Python subprocess; macOS arm64)",
   "to": "通过 mlx-lm 使用 Apple 芯片 GPU（Python 子进程；macOS arm64）/Apple silicon GPU via mlx-lm (Python subprocess; macOS arm64)",
-  "mode": "full"
- },
- {
-  "from": "One shared bank — every project sees the same memories",
-  "to": "一个共享记忆库——所有项目看到相同记忆/One shared bank — every project sees the same memories",
-  "mode": "full"
- },
- {
-  "from": "Isolated bank per cwd basename — projects cannot see each other's memories",
-  "to": "每个 cwd 基名使用隔离记忆库——项目之间无法看到彼此的记忆/Isolated bank per cwd basename — projects cannot see each other's memories",
-  "mode": "full"
- },
- {
-  "from": "Read curated reflect summaries (mental models) into developer instructions at boot. Loads existing models on the bank — does not write. Pair with hindsight.mentalModelAutoSeed to also auto-create the built-in seed set.",
-  "to": "启动时将整理后的 reflect 摘要（心智模型）读入开发者指令。加载记忆库中的现有模型，不执行写入；配合 hindsight.mentalModelAutoSeed 可自动创建内置种子集。/Read curated reflect summaries (mental models) into developer instructions at boot. Loads existing models on the bank — does not write. Pair with hindsight.mentalModelAutoSeed to also auto-create the built-in seed set.",
   "mode": "full"
  },
  {
@@ -775,33 +645,13 @@
   "mode": "full"
  },
  {
-  "from": "  /skills install <@scope/name[@range]>… [-g]   Install into this project (-g: user-global)",
-  "to": "  /skills install <@scope/name[@range]>… [-g]   安装到当前项目（-g：用户全局）/  /skills install <@scope/name[@range]>… [-g]   Install into this project (-g: user-global)",
-  "mode": "full"
- },
- {
   "from": "  /skills installed                             List installed registry skills",
   "to": "  /skills installed                             列出已安装的注册表技能/  /skills installed                             List installed registry skills",
   "mode": "full"
  },
  {
-  "from": "  /skills update [@scope/name…] [-g]            Update within the ranges in skills.json",
-  "to": "  /skills update [@scope/name…] [-g]            在 skills.json 的范围内更新/  /skills update [@scope/name…] [-g]            Update within the ranges in skills.json",
-  "mode": "full"
- },
- {
   "from": "Usage: /skills search <query>",
   "to": "用法：/skills search <query>/Usage: /skills search <query>",
-  "mode": "full"
- },
- {
-  "from": "Usage: /skills install <@scope/name[@range]>… [--global]",
-  "to": "用法：/skills install <@scope/name[@range]>… [--global]/Usage: /skills install <@scope/name[@range]>… [--global]",
-  "mode": "full"
- },
- {
-  "from": "Checking the registry for updates…",
-  "to": "正在检查注册表更新…/Checking the registry for updates…",
   "mode": "full"
  },
  {
@@ -1030,11 +880,6 @@
   "mode": "full"
  },
  {
-  "from": "No background jobs running. (Background jobs run async tools — e.g. long-running bash, debug, or task subagents that would otherwise tie up a turn. They appear here while alive and briefly after (until their result is delivered; at most ~5 minutes).)",
-  "to": "没有正在运行的后台任务。（后台任务运行异步工具——例如耗时的 bash、debug 或任务子代理，否则它们会占用一个回合。它们在存活期间及结束后短暂出现在此处（直到结果送达；最多约 5 分钟）。）/No background jobs running. (Background jobs run async tools — e.g. long-running bash, debug, or task subagents that would otherwise tie up a turn. They appear here while alive and briefly after (until their result is delivered; at most ~5 minutes).)",
-  "mode": "full"
- },
- {
   "from": "Show token usage",
   "to": "显示令牌用量/Show token usage",
   "mode": "full"
@@ -1085,11 +930,6 @@
   "mode": "full"
  },
  {
-  "from": "Open the live Agent Hub",
-  "to": "打开实时 Agent Hub/Open the live Agent Hub",
-  "mode": "full"
- },
- {
   "from": "Rewind to a previous message, keeping the old path as a branch",
   "to": "回退到之前的消息，并将旧路径保留为分支/Rewind to a previous message, keeping the old path as a branch",
   "mode": "full"
@@ -1097,11 +937,6 @@
  {
   "from": "Login: choose provider",
   "to": "登录：选择提供商/Login: choose provider",
-  "mode": "full"
- },
- {
-  "from": "OAuth callback received; completing login…",
-  "to": "已收到 OAuth 回调；正在完成登录…/OAuth callback received; completing login…",
   "mode": "full"
  },
  {
@@ -1347,11 +1182,6 @@
  {
   "from": "Open this session's trace in the stats dashboard",
   "to": "在统计面板中打开本会话的追踪/Open this session's trace in the stats dashboard",
-  "mode": "full"
- },
- {
-  "from": "No session file yet — send a message first.",
-  "to": "尚无会话文件 — 请先发送一条消息。/No session file yet — send a message first.",
   "mode": "full"
  },
  {
@@ -1715,28 +1545,13 @@
   "mode": "full"
  },
  {
-  "from": "━━━ OAuth Authorization Required ━━━",
-  "to": "━━━ 需要 OAuth 授权 ━━━/━━━ OAuth Authorization Required ━━━",
-  "mode": "full"
- },
- {
   "from": "Preparing browser authorization...",
   "to": "正在准备浏览器授权……/Preparing browser authorization...",
   "mode": "full"
  },
  {
-  "from": "→ Attempting to open browser...",
-  "to": "→ 正在尝试打开浏览器……/→ Attempting to open browser...",
-  "mode": "full"
- },
- {
   "from": "Alternative if browser did not open:",
   "to": "如果浏览器未打开，可使用：/Alternative if browser did not open:",
-  "mode": "full"
- },
- {
-  "from": "✓ Authorization completed in browser.",
-  "to": "✓ 已在浏览器中完成授权。/✓ Authorization completed in browser.",
   "mode": "full"
  },
  {
@@ -1802,11 +1617,6 @@
  {
   "from": "Configured MCP Servers",
   "to": "已配置的 MCP 服务器/Configured MCP Servers",
-  "mode": "full"
- },
- {
-  "from": " ○ not connected",
-  "to": " ○ 未连接/ ○ not connected",
   "mode": "full"
  },
  {
@@ -2005,11 +1815,6 @@
   "mode": "full"
  },
  {
-  "from": "_(empty — background reflect may still be running)_",
-  "to": "_（空 — 后台反思可能仍在运行）_/_(empty — background reflect may still be running)_",
-  "mode": "full"
- },
- {
   "from": "Mental-model cache reloaded.",
   "to": "心智模型缓存已重新加载。/Mental-model cache reloaded.",
   "mode": "full"
@@ -2120,11 +1925,6 @@
   "mode": "full"
  },
  {
-  "from": "Chat about this isn't available when re-answering from the tree — pick an option or type a custom answer instead.",
-  "to": "从树中重新回答时无法就该内容进行对话 — 请改为选择一个选项或输入自定义答案。/Chat about this isn't available when re-answering from the tree — pick an option or type a custom answer instead.",
-  "mode": "full"
- },
- {
   "from": "No session file to delete (in-memory session)",
   "to": "没有可删除的会话文件（内存中的会话）/No session file to delete (in-memory session)",
   "mode": "full"
@@ -2135,38 +1935,13 @@
   "mode": "full"
  },
  {
-  "from": "Loading provider accounts…",
-  "to": "正在加载提供商账户…/Loading provider accounts…",
-  "mode": "full"
- },
- {
-  "from": "Checking saved rate-limit resets…",
-  "to": "正在检查已保存的速率限制重置…/Checking saved rate-limit resets…",
-  "mode": "full"
- },
- {
-  "from": "No saved resets available — some accounts couldn't be reached (try /login).",
-  "to": "没有可用的已保存重置 — 部分账户无法访问（请尝试 /login）。/No saved resets available — some accounts couldn't be reached (try /login).",
-  "mode": "full"
- },
- {
   "from": "No saved rate-limit resets available to spend right now.",
   "to": "当前没有可使用的已保存速率限制重置。/No saved rate-limit resets available to spend right now.",
   "mode": "full"
  },
  {
-  "from": "That subagent is gone — open the hub for live agents",
-  "to": "该子代理已消失 —— 打开 hub 查看存活的代理/That subagent is gone — open the hub for live agents",
-  "mode": "full"
- },
- {
   "from": "Local execution is host-only during a collab session",
   "to": "协作会话期间本地执行仅限主机使用/Local execution is host-only during a collab session",
-  "mode": "full"
- },
- {
-  "from": "This collab link is read-only — prompting is disabled",
-  "to": "此协作链接为只读 —— 已禁用发送消息/This collab link is read-only — prompting is disabled",
   "mode": "full"
  },
  {
@@ -2245,11 +2020,6 @@
   "mode": "full"
  },
  {
-  "from": "Failed to save paste to a file — attached as a text chip instead",
-  "to": "无法将粘贴内容保存到文件 —— 已改为作为文本块附加/Failed to save paste to a file — attached as a text chip instead",
-  "mode": "full"
- },
- {
   "from": "Failed to copy to clipboard",
   "to": "复制到剪贴板失败/Failed to copy to clipboard",
   "mode": "full"
@@ -2262,11 +2032,6 @@
  {
   "from": "Only one role model available",
   "to": "只有一个角色模型可用/Only one role model available",
-  "mode": "full"
- },
- {
-  "from": "Thinking is off — enable thinking to show blocks",
-  "to": "思考已关闭 —— 请启用思考以显示思考块/Thinking is off — enable thinking to show blocks",
   "mode": "full"
  },
  {
@@ -2335,16 +2100,6 @@
   "mode": "full"
  },
  {
-  "from": "Global — all projects (~/.omp/agent/rules)",
-  "to": "全局 — 所有项目 (~/.omp/agent/rules)/Global — all projects (~/.omp/agent/rules)",
-  "mode": "full"
- },
- {
-  "from": "Amend with feedback…",
-  "to": "根据反馈修改…/Amend with feedback…",
-  "mode": "full"
- },
- {
   "from": "Usage: /omfg <complaint>",
   "to": "用法：/omfg <complaint>/Usage: /omfg <complaint>",
   "mode": "full"
@@ -2375,18 +2130,8 @@
   "mode": "full"
  },
  {
-  "from": "Choose where to save or amend the TTSR rule…",
-  "to": "选择保存或修改 TTSR 规则的位置…/Choose where to save or amend the TTSR rule…",
-  "mode": "full"
- },
- {
   "from": "Save TTSR rule where?",
   "to": "将 TTSR 规则保存到哪里？/Save TTSR rule where?",
-  "mode": "full"
- },
- {
-  "from": "Describe how to amend the rule…",
-  "to": "描述如何修改该规则…/Describe how to amend the rule…",
   "mode": "full"
  },
  {
@@ -2545,16 +2290,6 @@
   "mode": "full"
  },
  {
-  "from": "Finish or clear the current prompt to answer",
-  "to": "请先完成或清空当前输入，再进行回答/Finish or clear the current prompt to answer",
-  "mode": "full"
- },
- {
-  "from": "Next → continue  ",
-  "to": "下一步 → 继续  /Next → continue  ",
-  "mode": "full"
- },
- {
   "from": "Queued message with image for after compaction",
   "to": "已排队一条带图片的消息，将在压缩后发送/Queued message with image for after compaction",
   "mode": "full"
@@ -2577,11 +2312,6 @@
  {
   "from": "Plan mode disabled.",
   "to": "计划模式已关闭。/Plan mode disabled.",
-  "mode": "full"
- },
- {
-  "from": "Plan mode is paused — run /plan again to fully exit.",
-  "to": "计划模式已暂停 —— 再次运行 /plan 可完全退出。/Plan mode is paused — run /plan again to fully exit.",
   "mode": "full"
  },
  {
@@ -2732,21 +2462,6 @@
  {
   "from": "Plan updated in external editor.",
   "to": "计划已在外部编辑器中更新。/Plan updated in external editor.",
-  "mode": "full"
- },
- {
-  "from": "Plan approved, but compaction was cancelled — execution not dispatched. Submit a turn to continue.",
-  "to": "计划已批准，但压缩被取消 —— 未派发执行。提交一轮以继续。/Plan approved, but compaction was cancelled — execution not dispatched. Submit a turn to continue.",
-  "mode": "full"
- },
- {
-  "from": "No plan to review yet — write one to a local://<slug>-plan.md file first.",
-  "to": "暂无可审查的计划 —— 请先写入一个 local://<slug>-plan.md 文件。/No plan to review yet — write one to a local://<slug>-plan.md file first.",
-  "mode": "full"
- },
- {
-  "from": "Still closing… (flushing memory backend / network)",
-  "to": "仍在关闭…（正在刷新内存后端 / 网络）/Still closing… (flushing memory backend / network)",
   "mode": "full"
  },
  {
@@ -2990,11 +2705,6 @@
   "mode": "full"
  },
  {
-  "from": "Loading changed files…",
-  "to": "正在加载已更改文件…/Loading changed files…",
-  "mode": "full"
- },
- {
   "from": "No omp process broker runs here. ",
   "to": "此处没有 omp 进程代理运行。/No omp process broker runs here. ",
   "mode": "full"
@@ -3027,11 +2737,6 @@
  {
   "from": "Close the editor. Unsaved changes are discarded.",
   "to": "关闭编辑器。未保存的更改将被丢弃。/Close the editor. Unsaved changes are discarded.",
-  "mode": "full"
- },
- {
-  "from": "Transcript lives on the host — not available.",
-  "to": "转录位于主机上——不可用。/Transcript lives on the host — not available.",
   "mode": "full"
  },
  {
@@ -3082,11 +2787,6 @@
  {
   "from": "Describe what the agent should do; the architect drafts its name, when to use it and its system prompt.",
   "to": "描述代理应做什么；架构师会起草其名称、使用时机和系统提示词。/Describe what the agent should do; the architect drafts its name, when to use it and its system prompt.",
-  "mode": "full"
- },
- {
-  "from": "New agent — describe it and let the architect draft it",
-  "to": "新建代理 — 描述它并让架构师起草/New agent — describe it and let the architect draft it",
   "mode": "full"
  },
  {
@@ -3180,11 +2880,6 @@
   "mode": "full"
  },
  {
-  "from": "Applying your selection — this can take a moment while context is prepared.",
-  "to": "正在应用你的选择——准备上下文可能需要一点时间。/Applying your selection — this can take a moment while context is prepared.",
-  "mode": "full"
- },
- {
   "from": "No provider accounts with saved resets",
   "to": "没有保存重置的提供商账户/No provider accounts with saved resets",
   "mode": "full"
@@ -3215,11 +2910,6 @@
   "mode": "full"
  },
  {
-  "from": "Loading usage history…",
-  "to": "正在加载使用历史…/Loading usage history…",
-  "mode": "full"
- },
- {
   "from": "Usage history unavailable.",
   "to": "使用历史不可用。/Usage history unavailable.",
   "mode": "full"
@@ -3230,18 +2920,8 @@
   "mode": "full"
  },
  {
-  "from": "Please use nerdfont 😭.",
-  "to": "请使用 nerdfont 😭。/Please use nerdfont 😭.",
-  "mode": "full"
- },
- {
   "from": "No context window",
   "to": "无上下文窗口/No context window",
-  "mode": "full"
- },
- {
-  "from": "Estimated usage by category",
-  "to": "按类别估算的使用量/Estimated usage by category",
   "mode": "full"
  },
  {
@@ -3262,11 +2942,6 @@
  {
   "from": "Theme preview superseded by a newer request",
   "to": "主题预览已被更新的请求取代/Theme preview superseded by a newer request",
-  "mode": "full"
- },
- {
-  "from": "Waiting for your answer…",
-  "to": "等待你的回答…/Waiting for your answer…",
   "mode": "full"
  },
  {
@@ -3500,11 +3175,6 @@
   "mode": "full"
  },
  {
-  "from": "log tail unavailable",
-  "to": "日志尾部不可用/log tail unavailable",
-  "mode": "full"
- },
- {
   "from": "waiting for workflow jobs...",
   "to": "正在等待工作流任务.../waiting for workflow jobs...",
   "mode": "full"
@@ -3560,11 +3230,6 @@
   "mode": "full"
  },
  {
-  "from": "Generating TTSR rule…",
-  "to": "正在生成 TTSR 规则…/Generating TTSR rule…",
-  "mode": "full"
- },
- {
   "from": "Rule was not saved.",
   "to": "规则未保存。/Rule was not saved.",
   "mode": "full"
@@ -3610,11 +3275,6 @@
   "mode": "full"
  },
  {
-  "from": "Open dashboard ↗",
-  "to": "打开仪表盘 ↗/Open dashboard ↗",
-  "mode": "full"
- },
- {
   "from": "No tools are currently visible to the agent.",
   "to": "当前没有对智能体可见的工具。/No tools are currently visible to the agent.",
   "mode": "full"
@@ -3637,11 +3297,6 @@
  {
   "from": "not usable right now",
   "to": "当前不可用/not usable right now",
-  "mode": "full"
- },
- {
-  "from": "Not in a git repository — autoresearch will run without branch isolation, baseline reset, or auto-commits.",
-  "to": "不在 git 仓库中 — autoresearch 将在没有分支隔离、基线重置或自动提交的情况下运行。/Not in a git repository — autoresearch will run without branch isolation, baseline reset, or auto-commits.",
   "mode": "full"
  },
  {
@@ -3785,11 +3440,6 @@
   "mode": "full"
  },
  {
-  "from": " — log_experiment required",
-  "to": "— 需要 log_experiment/ — log_experiment required",
-  "mode": "full"
- },
- {
   "from": "A discovery agent figures out the command to run",
   "to": "发现代理会找出要运行的命令/A discovery agent figures out the command to run",
   "mode": "full"
@@ -3797,11 +3447,6 @@
  {
   "from": "Raw Provider Stream",
   "to": "原始提供方流/Raw Provider Stream",
-  "mode": "full"
- },
- {
-  "from": "Stage by description…",
-  "to": "按描述暂存…/Stage by description…",
   "mode": "full"
  },
  {
@@ -3825,18 +3470,8 @@
   "mode": "full"
  },
  {
-  "from": "⚠ Config problems — dropped while loading:",
-  "to": "⚠ 配置问题 — 加载时被丢弃：/⚠ Config problems — dropped while loading:",
-  "mode": "full"
- },
- {
   "from": "No side questions yet. Use /btw QUESTION to start one.",
   "to": "尚无旁问。使用 /btw QUESTION 开始一个。/No side questions yet. Use /btw QUESTION to start one.",
-  "mode": "full"
- },
- {
-  "from": "✓ Copied to clipboard",
-  "to": "✓ 已复制到剪贴板/✓ Copied to clipboard",
   "mode": "full"
  },
  {
@@ -3867,11 +3502,6 @@
  {
   "from": "auto-selected after timeout — not a user choice",
   "to": "超时后自动选择 — 非用户选择/auto-selected after timeout — not a user choice",
-  "mode": "full"
- },
- {
-  "from": "Run `omp auth-gateway token` or `omp auth-gateway serve` to create a bearer token.\n",
-  "to": "运行 `omp auth-gateway token` 或 `omp auth-gateway serve` 来创建 bearer token。\n/Run `omp auth-gateway token` or `omp auth-gateway serve` to create a bearer token.\n",
   "mode": "full"
  },
  {
@@ -3912,11 +3542,6 @@
  {
   "from": "Extension disconnected; waiting for it to reconnect...",
   "to": "扩展已断开连接；正在等待其重新连接.../Extension disconnected; waiting for it to reconnect...",
-  "mode": "full"
- },
- {
-  "from": "Count a file or text with every embedded offline tokenizer (OpenAI, Claude, Qwen, …)",
-  "to": "使用每个内置离线 tokenizer 统计文件或文本（OpenAI、Claude、Qwen、…）/Count a file or text with every embedded offline tokenizer (OpenAI, Claude, Qwen, …)",
   "mode": "full"
  },
  {
@@ -3962,11 +3587,6 @@
  {
   "from": "Word completion (spelling.autocomplete auto/smollm)",
   "to": "单词补全 (spelling.autocomplete auto/smollm)/Word completion (spelling.autocomplete auto/smollm)",
-  "mode": "full"
- },
- {
-  "from": "Disable inbound bearer-token auth (serve). Useful when bound to loopback — any caller is allowed.",
-  "to": "禁用入站 bearer-token auth（serve）。绑定到 loopback 时有用 — 允许任何调用方。/Disable inbound bearer-token auth (serve). Useful when bound to loopback — any caller is allowed.",
   "mode": "full"
  },
  {

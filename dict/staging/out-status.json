@@ -56,11 +56,6 @@
  },
  {
   "mode": "full",
-  "from": "Checking availability\\u2026",
-  "to": "正在检查可用性.."
- },
- {
-  "mode": "full",
   "from": "Loading themes\\u2026",
   "to": "正在加载主题.."
  },

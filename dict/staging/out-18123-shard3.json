@@ -1,10 +1,5 @@
 [
   {
-    "from": "1h TTL where the provider supports it; pricier writes, only warmed during active runs",
-    "to": "在提供商支持时使用 1h TTL；写入更贵，仅在活动运行期间预热/1h TTL where the provider supports it; pricier writes, only warmed during active runs",
-    "mode": "full"
-  },
-  {
     "from": "Cache Warming",
     "to": "缓存预热/Cache Warming",
     "mode": "full"
