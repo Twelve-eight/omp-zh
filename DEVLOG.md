@@ -1278,3 +1278,4 @@ Response/SSE handler 收到非法 header 名即崩。
 - watchdog `--once` exit 0（45 个 dead-error 候选，与心跳日志一致）。
 - Release `v18.13.3-zh` 已发布（tag → 1454e77，资产 omp-zh-18133.exe + SHA256SUMS）。
 - 交付 DEFERRED：`G:\omp\omp-zh.exe` 被 5 个运行中的 omp-zh 进程占用（EPERM），候选 `omp-zh.exe.new`（sha256 `9f921b1a…`）已就位，看护 pid 8824。旧版备份 `G:\omp\omp-zh-18.13.1.exe`（`14d42d65…`）。全部 omp-zh 会话退出后由看护按同一 sha256 落位。
+- 懒加载 chunk 冒烟（同日补）：304 个被改动的模块逐个 `node --check`，0 个语法失败；`config --help`（mod906，单引号字面量内含 `"global"`）、`plugin --help`（mod867）均 exit 0 并输出新译文；`\u2026`/`\u2014` 两条（xd:// 挂载通知、SSH 剪贴板）确认已写入产物。
