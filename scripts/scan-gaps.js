@@ -39,7 +39,11 @@ const isNonUi = (s) => s.length < 6 || s.length > 200 || !/\s/.test(s) || /[\r\n
 const { mods } = loadModules(fs.readFileSync(SRC));
 const gaps = new Map(); // literal -> first module name
 const used = new Set();
-let total = 0;
+let total = 0, vendorSkips = 0;
+// Vendored third-party bundles carry thousands of English messages that must never be
+// translated (axe-core ships its strings as UTF-16 text). Their literals still count for
+// dictionary usage, so dead-entry detection stays accurate, but they are not gaps.
+const VENDOR = /(?:^|\/)axe\.min/;
 for (const m of mods) {
   const name = moduleName(m);
   if (!name.endsWith('.js')) continue;
@@ -47,12 +51,13 @@ for (const m of mods) {
     total++;
     if (fulls.has(lit.content)) used.add(lit.content + '|full');
     for (const e of subs) if (lit.content.includes(e.from)) used.add(e.from + '|sub');
+    if (VENDOR.test(name)) { vendorSkips++; continue; }
     if (!lit.codeKey && !hits(lit) && !isNonUi(lit.content) && !gaps.has(lit.content)) gaps.set(lit.content, name);
   }
 }
 const dead = dict.filter((e) => !used.has(e.from + '|' + e.mode));
 
-const lines = [`# omp ${version}: ${total} literals scanned, ${gaps.size} untranslated sentence-like, ${dead.length} dead entries`, '', '## Untranslated'];
+const lines = [`# omp ${version}: ${total} literals scanned (${vendorSkips} in vendored bundles skipped), ${gaps.size} untranslated sentence-like, ${dead.length} dead entries`, '', '## Untranslated'];
 for (const [s, mod] of [...gaps].sort((a, b) => a[1].localeCompare(b[1]) || a[0].localeCompare(b[0]))) lines.push(`${mod.replace(/^.*\/~BUN\/root\//, '')}\t${JSON.stringify(s)}`);
 lines.push('', '## Dead entries');
 for (const e of dead) lines.push(`[${e.mode}] ${JSON.stringify(e.from)}`);

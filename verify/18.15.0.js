@@ -117,6 +117,15 @@ module.exports = function checks({ exe, official, root }) {
     return r.trim() === 'omp/18.15.0';
   })()]
   ,
+  ['vendored axe bundle is byte-identical to upstream', (() => {
+    const ob = fs.readFileSync(official);
+    const oP = parseExe(ob).bun, oDs = oP.rawPtr + 8;
+    const oH = Number(BigInt(ob.readUInt32LE(oP.rawPtr)) | (BigInt(ob.readUInt32LE(oP.rawPtr + 4)) << 32n));
+    const oO = oDs + oH - 16 - 32;
+    const orig = readModules(ob, oDs, ob.readUInt32LE(oO + 8), ob.readUInt32LE(oO + 12));
+    const i = orig.findIndex((m) => m.contents.toString('latin1').includes('axe.min'));
+    return i >= 0 && orig[i].contents.equals(mods[i].contents);
+  })()],
   ['header keys stay ASCII and match upstream count (object-key gate)', (() => {
     const all = mods.map(m => m.contents.toString('utf8')).join('\n');
     // Object-key pollution: a quoted string holding a literal \uXXXX escape used as a
