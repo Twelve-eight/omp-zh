@@ -13,7 +13,7 @@ const crypto = require('crypto');
 const { rebuild } = require('./lib/rebuild.js');
 const { translate } = require('./lib/translate.js');
 const { loadDict } = require('./lib/dict.js');
-const { loadModules, moduleName, moduleSource, asciiEscape, comparedLiterals } = require('./lib/bundle.js');
+const { loadModules, moduleName, moduleSource, asciiEscape, comparedLiterals, argumentLiterals } = require('./lib/bundle.js');
 
 const args = process.argv.slice(2);
 const opt = (name) => { const i = args.indexOf('--' + name); return i >= 0 ? args[i + 1] : null; };
@@ -79,6 +79,10 @@ if (offenders.length) {
   process.exit(3);
 }
 console.log('Gate OK: no dictionary entry collides with ' + compared.size + ' compared/cased literals.');
+const argLike = argumentLiterals(mods);
+const argOffenders = dict.filter((e) => argLike.has(e.from)).map((e) => e.from);
+if (argOffenders.length)
+  console.log('Advisory: ' + argOffenders.length + ' entries sit in argument/tag positions; verify each is a label, not an identifier (docs/dictionary.md).');
 
 const out = rebuild(buf, newContents);
 fs.mkdirSync(path.dirname(OUT), { recursive: true });

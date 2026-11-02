@@ -39,6 +39,8 @@ omp-zh 不修改上游源码，而是在官方 exe 里逐个替换字符串字�
 
 **代码使用的值。** 枚举值、设置项的取值（`auto`、`off`、`high` 这类小写词）、HTTP 头名、模型名、提供商 ID。同一个英文词可能既是界面标签又是比较值，例如 `"removed"` 被 `sub` 条目 `remove → 移除` 改成 `"移除d"` 之后，`type === "removed"` 的分支就不再命中。
 
+**作为参数或映射值出现的单个词。** 同一个词既可能是界面标签，也可能是代码使用的值：`xmlTag(xml, "Message")` 的 `"Message"` 是 XML 标签名，`map.set(path, "Read")` 的 `"Read"` 是压缩摘要里的读写标记。这类位置不在扫描器的跳过范围里，构建会打印 "Advisory: N entries sit in argument/tag positions" 提示；确认是标签还是标识符，标识符一律不译。
+
 **专有名词。** 产品名和协议名保持英文，例如 Bash、LSP、MCP、Amazon S3。
 
 ## 新增条目

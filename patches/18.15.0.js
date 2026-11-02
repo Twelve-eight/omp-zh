@@ -36,14 +36,15 @@ module.exports = {
       s = replaceExact(s, 47, 'compat',
         'supportsForcedToolChoice: !t.requiresEnabledThinking && !(t.isOpenCodeHost && t.isDeepseekReasoning),',
         'supportsForcedToolChoice: false,');
-      // P11 emptystop (ai/src/messages/transform.ts shouldDropTruncatedThinkingOnlyAssistant, K7):
-      // upstream only drops length/error/aborted turns, so an assistant reply that ended with
-      // stopReason "stop" and no text or tool call stays in the transcript and is replayed on every
-      // later request. A relay that returns empty replies then keeps returning them. Treating an
-      // empty "stop" turn as droppable removes it from the replayed history.
+      // P11 emptystop (ai/src/providers/transform-messages.ts
+      // shouldDropTruncatedThinkingOnlyAssistant, K7): upstream only drops length/error/aborted
+      // turns and deliberately KEEPS thinking-only stop turns (replay round-trips for OpenAI
+      // reasoning_text / Google signed thought parts), so the empty turn a relay returns
+      // (content: [], stopReason "stop") stays in the transcript and is replayed forever.
+      // Drop only the truly empty case: a turn with no content parts at all.
       return replaceExact(s, 47, 'empty stop drop',
         'function K7(e) {\n  const t = e.stopReason === "length" || e.stopReason === "error" || e.stopReason === "aborted";\n  return t && !e.content.some((r) => r.type === "toolCall" || r.type === "text");\n}',
-        'function K7(e) {\n  const t = e.stopReason === "length" || e.stopReason === "error" || e.stopReason === "aborted" || e.stopReason === "stop";\n  return t && !e.content.some((r) => r.type === "toolCall" || r.type === "text");\n}');
+        'function K7(e) {\n  const t = e.stopReason === "length" || e.stopReason === "error" || e.stopReason === "aborted";\n  return t && !e.content.some((r) => r.type === "toolCall" || r.type === "text") || e.content.length === 0 && e.stopReason === "stop";\n}');
     },
 
     // P2 stopcap (coding-agent/src/session/turn-recovery.ts)

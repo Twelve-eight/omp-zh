@@ -18,7 +18,7 @@ omp-zh 在翻译之外改了少量程序行为。本文列出每处改动对应�
 | P8 | `packages/ai/src/error/flags.ts` | “加密内容无法解密”类错误归入可重试的过期响应错误 |
 | P9 | `packages/tui/src/chat/chat-transcript-builder.ts` | 重建会话记录时，无条件输出最后一条消息的用量信息 |
 | P10 | `packages/agent/src/tokenizer.ts` | 自动压缩的本地下限不再计入 Claude 系列模型的历史思考文本 |
-| P11 | `packages/ai/src/messages/transform.ts` | 空回复（`stopReason: "stop"` 且无正文、无工具调用）也视为可丢弃，不再当作历史反复重放 |
+| P11 | `packages/ai/src/providers/transform-messages.ts` | 内容完全为空、`stopReason: "stop"` 的助手消息视为可丢弃，不再当作历史反复重放 |
 
 ## P1：不强制 `tool_choice`
 
@@ -72,9 +72,9 @@ P7 与上游的取舍相反。上游注释（issue #1960）说明，没有控制
 
 ## P11：空回复不再留在历史里
 
-`shouldDropTruncatedThinkingOnlyAssistant()`（压缩后为 `K7`）只丢弃 `stopReason` 为 `length`、`error`、`aborted` 的助手消息。中转返回空回复时，消息的 `stopReason` 是 `stop`，内容为空，因此被当作正常历史保留；此后每个请求都会重放这条空消息，中转继续回空，会话彻底卡死（即使换版本、压缩上下文也不恢复）。
+`shouldDropTruncatedThinkingOnlyAssistant()`（压缩后为 `K7`，`packages/ai/src/providers/transform-messages.ts`）只丢弃 `stopReason` 为 `length`、`error`、`aborted` 的助手消息。中转返回空回复时，消息是 `content: []`、`stopReason: "stop"`，因此被当作正常历史保留；此后每个请求都会重放这条空消息，中转继续回空，会话彻底卡死（换版本、压缩上下文都不恢复）。
 
-补丁把判定条件补上 `stopReason === "stop"`：没有正文、也没有工具调用的 `stop` 助手消息在重放前被丢弃，会话从下一轮开始恢复正常。带正文或工具调用的 `stop` 消息不受影响。
+上游对 `stopReason: "stop"` 的**思考内容**消息是有意保留的：它们用于思考回放往返（OpenAI 的 `reasoning_text`、Google 的签名思考片段），源码注释写明了这一点。所以补丁只处理真正空的那一种：内容长度为 0 且 `stopReason` 为 `stop` 时丢弃。带思考、带正文或带工具调用的 `stop` 消息完全不受影响。
 
 ## 适配新版本
 

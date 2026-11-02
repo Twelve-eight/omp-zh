@@ -26,12 +26,13 @@ module.exports = function checks({ exe, official, root }) {
   })()],
   // Each patch: patched text present AND original text gone (no vacuous substring checks).
   ['patch compat: mod 47', txt(47).includes('supportsForcedToolChoice: false,') && !txt(47).includes('supportsForcedToolChoice: !t.requiresEnabledThinking')],
-  ['patch emptystop: mod 47 drops empty stop turns', txt(47).includes('|| e.stopReason === "stop";\n  return t && !e.content.some')],
-  ['patch emptystop: behavior (empty stop dropped, textual stop kept)', (() => {
+  ['patch emptystop: mod 47 drops empty stop turns', txt(47).includes('|| e.content.length === 0 && e.stopReason === "stop";')],
+  ['patch emptystop: behavior (empty stop dropped, thinking-only stop kept)', (() => {
     const src = txt(47).match(/function K7\(e\) \{[\s\S]*?\n\}/);
     if (!src) return false;
     const K7 = new Function(src[0] + '; return K7;')();
     return K7({ stopReason: 'stop', content: [] }) === true
+      && K7({ stopReason: 'stop', content: [{ type: 'thinking', thinking: 'x' }] }) === false
       && K7({ stopReason: 'stop', content: [{ type: 'text', text: 'hi' }] }) === false
       && K7({ stopReason: 'stop', content: [{ type: 'toolCall', name: 'read' }] }) === false
       && K7({ stopReason: 'error', content: [] }) === true
@@ -117,6 +118,14 @@ module.exports = function checks({ exe, official, root }) {
     return r.trim() === 'omp/18.15.0';
   })()]
   ,
+  ['code value: AWS XML tag name stays English', (() => {
+    const s = txt(47);
+    return /\w\(\w+, "Message"\)/.test(s) && !s.includes('消息/Message');
+  })()],
+  ['code value: compaction read/write markers stay English', (() => {
+    const s = txt(59);
+    return s.includes('.set(u, "Read")') && s.includes('"RW" : "Write"') && !s.includes('读取/Read') && !s.includes('写入/Write');
+  })()],
   ['vendored axe bundle is byte-identical to upstream', (() => {
     const ob = fs.readFileSync(official);
     const oP = parseExe(ob).bun, oDs = oP.rawPtr + 8;

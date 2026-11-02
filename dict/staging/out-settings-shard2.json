@@ -265,11 +265,6 @@
     "mode": "full"
   },
   {
-    "from": "Message",
-    "to": "消息/Message",
-    "mode": "full"
-  },
-  {
     "from": "schema overridden",
     "to": "schema 已覆盖/schema overridden",
     "mode": "full"

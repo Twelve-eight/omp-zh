@@ -1180,11 +1180,6 @@
   "mode": "full"
  },
  {
-  "from": "Read",
-  "to": "读取/Read",
-  "mode": "full"
- },
- {
   "from": "Report",
   "to": "报告/Report",
   "mode": "full"
@@ -1307,11 +1302,6 @@
  {
   "from": "Weekly",
   "to": "每周/Weekly",
-  "mode": "full"
- },
- {
-  "from": "Write",
-  "to": "写入/Write",
   "mode": "full"
  }
 ]
