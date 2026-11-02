@@ -166,11 +166,6 @@
  },
  {
   "mode": "full",
-  "from": "Paste the returned code or redirect URL when prompted.",
-  "to": "出现提示时粘贴返回的代码或重定向 URL/Paste the returned code or redirect URL when prompted."
- },
- {
-  "mode": "full",
   "from": "OAuth authorization code is invalid or expired. Please try again.",
   "to": "OAuth 授权码无效或已过期.请重试/OAuth authorization code is invalid or expired. Please try again."
  },
@@ -453,11 +448,6 @@
   "mode": "full",
   "from": "Copy URL:",
   "to": "复制 URL:/Copy URL:"
- },
- {
-  "mode": "full",
-  "from": "Selected model",
-  "to": "已选模型/Selected model"
  },
  {
   "mode": "full",

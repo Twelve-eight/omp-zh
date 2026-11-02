@@ -565,8 +565,8 @@
   "mode": "full"
  },
  {
-  "from": "Lowest-latency serving; OpenAI API preview access, or Codex models that advertise it",
-  "to": "最低延迟的服务；需 OpenAI API 预览访问，或支持该特性的 Codex 模型/Lowest-latency serving; OpenAI API preview access, or Codex models that advertise it",
+  "from": "Lowest-latency serving; OpenAI API preview access, or Codex and relay models that advertise it",
+  "to": "最低延迟的服务；需 OpenAI API 预览访问，或支持该特性的 Codex 与中转模型/Lowest-latency serving; OpenAI API preview access, or Codex and relay models that advertise it",
   "mode": "full"
  },
  {
@@ -995,8 +995,8 @@
   "mode": "full"
  },
  {
-  "from": "Enable Ultrafast (OpenAI API, or Codex models that offer it)",
-  "to": "启用极速（OpenAI API，或提供该能力的 Codex 模型）/Enable Ultrafast (OpenAI API, or Codex models that offer it)",
+  "from": "Enable Ultrafast (OpenAI API, or Codex and relay models that offer it)",
+  "to": "启用极速（OpenAI API，或提供该能力的 Codex 与中转模型）/Enable Ultrafast (OpenAI API, or Codex and relay models that offer it)",
   "mode": "full"
  },
  {
@@ -1132,11 +1132,6 @@
  {
   "from": "Use default or standard-pricing context windows",
   "to": "使用默认或标准定价的上下文窗口/Use default or standard-pricing context windows",
-  "mode": "full"
- },
- {
-  "from": "Return to @default and re-arm the handoff to @smol",
-  "to": "返回 @default 并重新启用向 @smol 的交接/Return to @default and re-arm the handoff to @smol",
   "mode": "full"
  },
  {
@@ -2150,11 +2145,6 @@
   "mode": "full"
  },
  {
-  "from": "Returned to main session",
-  "to": "已返回主会话/Returned to main session",
-  "mode": "full"
- },
- {
   "from": "Focus attachment and main-session recovery both failed",
   "to": "聚焦附加与主会话恢复均失败/Focus attachment and main-session recovery both failed",
   "mode": "full"
@@ -2870,9 +2860,9 @@
   "mode": "full"
  },
  {
-  "from": "Local shortcut (this machine only): ",
-  "to": "本地快捷方式（仅此机器）：/Local shortcut (this machine only): ",
-  "mode": "full"
+  "from": "Local shortcut (this machine only):",
+  "to": "本地快捷方式（仅此机器）：/Local shortcut (this machine only):",
+  "mode": "sub"
  },
  {
   "from": "Pick the account to sign out",
@@ -3497,11 +3487,6 @@
  {
   "from": "to change thinking effort",
   "to": "更改思考投入/to change thinking effort",
-  "mode": "full"
- },
- {
-  "from": "auto-selected after timeout — not a user choice",
-  "to": "超时后自动选择 — 非用户选择/auto-selected after timeout — not a user choice",
   "mode": "full"
  },
  {

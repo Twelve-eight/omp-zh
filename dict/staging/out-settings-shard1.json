@@ -195,11 +195,6 @@
   "mode": "full"
  },
  {
-  "from": "Refuse git commands that discard or move shared work in the bash tool: stash, reset --hard or to another commit, and checkout/switch/restore outside a merge or rebase conflict",
-  "to": "在 bash 工具中拒绝会丢弃或移动共享工作的 git 命令：stash、reset --hard 或重置到其他提交，以及在合并或变基冲突之外执行 checkout/switch/restore/Refuse git commands that discard or move shared work in the bash tool: stash, reset --hard or to another commit, and checkout/switch/restore outside a merge or rebase conflict",
-  "mode": "full"
- },
- {
   "from": "Eval & Runtimes",
   "to": "Eval 与运行时/Eval & Runtimes",
   "mode": "full"

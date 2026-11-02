@@ -60,8 +60,8 @@
     "mode": "full"
   },
   {
-    "from": "Hand a session to another machine: pack it, unpack it, or mark the local copy moved",
-    "to": "把会话移交到另一台机器：打包、解包或标记本地副本已移走/Hand a session to another machine: pack it, unpack it, or mark the local copy moved",
+    "from": "Hand a session to another machine (pack, unpack, moved) or check which sessions a running omp owns (lease)",
+    "to": "把会话移交到另一台机器（pack、unpack、moved），或查看运行中的 omp 持有哪些会话（lease）/Hand a session to another machine (pack, unpack, moved) or check which sessions a running omp owns (lease)",
     "mode": "full"
   },
   {

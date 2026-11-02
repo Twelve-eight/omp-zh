@@ -1,0 +1,202 @@
+[
+  {
+    "from": "Ask interrupted by message",
+    "to": "提问被消息打断/Ask interrupted by message",
+    "mode": "full"
+  },
+  {
+    "from": "Short summary failed",
+    "to": "简短摘要失败/Short summary failed",
+    "mode": "full"
+  },
+  {
+    "from": "Job caption brief failed",
+    "to": "作业标题简述失败/Job caption brief failed",
+    "mode": "full"
+  },
+  {
+    "from": "Job caption failed",
+    "to": "作业标题生成失败/Job caption failed",
+    "mode": "full"
+  },
+  {
+    "from": "Queued compaction failed",
+    "to": "排队的压缩失败/Queued compaction failed",
+    "mode": "full"
+  },
+  {
+    "from": "Queued compaction for when the agent yields",
+    "to": "已排队压缩，待代理让出时执行/Queued compaction for when the agent yields",
+    "mode": "full"
+  },
+  {
+    "from": "Conversation changed before /compact ran; returned it to the editor",
+    "to": "对话在 /compact 执行前已改变，已退回编辑器/Conversation changed before /compact ran; returned it to the editor",
+    "mode": "full"
+  },
+  {
+    "from": "Conversation changed: queued input returned to the editor",
+    "to": "对话已改变：排队输入已退回编辑器/Conversation changed: queued input returned to the editor",
+    "mode": "full"
+  },
+  {
+    "from": "Run stopped: queued compaction returned to the editor",
+    "to": "运行已停止：排队的压缩已退回编辑器/Run stopped: queued compaction returned to the editor",
+    "mode": "full"
+  },
+  {
+    "from": "Skipped queued compaction: context is already compacting",
+    "to": "跳过排队压缩：上下文已在压缩/Skipped queued compaction: context is already compacting",
+    "mode": "full"
+  },
+  {
+    "from": "Generating the commit message\\u2026",
+    "to": "正在生成提交信息\\u2026/Generating the commit message\\u2026",
+    "mode": "full"
+  },
+  {
+    "from": "Nothing to commit",
+    "to": "没有可提交的更改/Nothing to commit",
+    "mode": "full"
+  },
+  {
+    "from": "Write a summary line first",
+    "to": "请先写一行摘要/Write a summary line first",
+    "mode": "full"
+  },
+  {
+    "from": "use a narrower selector (path:A-B), or proceed",
+    "to": "使用更窄的选择器（path:A-B），或继续/use a narrower selector (path:A-B), or proceed",
+    "mode": "full"
+  },
+  {
+    "from": "snapcompact would not reduce context",
+    "to": "snapcompact 不会缩减上下文/snapcompact would not reduce context",
+    "mode": "full"
+  },
+  {
+    "from": "snapcompact would not reduce context; trying the next preferred compaction method.",
+    "to": "snapcompact 不会缩减上下文；正在尝试下一个首选的压缩方式。/snapcompact would not reduce context; trying the next preferred compaction method.",
+    "mode": "full"
+  },
+  {
+    "from": "Failed to deliver ACP lifetime update",
+    "to": "发送 ACP 生命周期更新失败/Failed to deliver ACP lifetime update",
+    "mode": "full"
+  },
+  {
+    "from": "Failed to record ACP session handle",
+    "to": "记录 ACP 会话句柄失败/Failed to record ACP session handle",
+    "mode": "full"
+  },
+  {
+    "from": "Ignoring unreadable ACP session handle map",
+    "to": "忽略无法读取的 ACP 会话句柄映射/Ignoring unreadable ACP session handle map",
+    "mode": "full"
+  },
+  {
+    "from": "IRC wake after compaction failed",
+    "to": "压缩后的 IRC 唤醒失败/IRC wake after compaction failed",
+    "mode": "full"
+  },
+  {
+    "from": "judgment.attemptTimeoutMs must be a positive safe integer",
+    "to": "judgment.attemptTimeoutMs 必须是正的安全整数/judgment.attemptTimeoutMs must be a positive safe integer",
+    "mode": "full"
+  },
+  {
+    "from": "Accept `model` in eval agent() and workpool() only",
+    "to": "仅在 eval 的 agent() 与 workpool() 中接受 `model`/Accept `model` in eval agent() and workpool() only",
+    "mode": "full"
+  },
+  {
+    "from": "Accept `model` on task items and in eval agent()/workpool()",
+    "to": "在 task 项以及 eval 的 agent()/workpool() 中接受 `model`/Accept `model` on task items and in eval agent()/workpool()",
+    "mode": "full"
+  },
+  {
+    "from": "Reject `model` on task items and eval agent()/workpool()",
+    "to": "拒绝 task 项以及 eval 的 agent()/workpool() 中的 `model`/Reject `model` on task items and eval agent()/workpool()",
+    "mode": "full"
+  },
+  {
+    "from": "Every prompt",
+    "to": "每条提示词/Every prompt",
+    "mode": "full"
+  },
+  {
+    "from": "Every 3 prompts",
+    "to": "每 3 条提示词/Every 3 prompts",
+    "mode": "full"
+  },
+  {
+    "from": "Every 5 prompts",
+    "to": "每 5 条提示词/Every 5 prompts",
+    "mode": "full"
+  },
+  {
+    "from": "Every 10 prompts",
+    "to": "每 10 条提示词/Every 10 prompts",
+    "mode": "full"
+  },
+  {
+    "from": "Every this many operator prompts, ask the judge model whether a generated session title still fits the conversation, and regenerate it if not",
+    "to": "每隔这么多条操作员提示词，询问评审模型生成的会话标题是否仍符合对话，不符合则重新生成/Every this many operator prompts, ask the judge model whether a generated session title still fits the conversation, and regenerate it if not",
+    "mode": "full"
+  },
+  {
+    "from": "Per-Call Model",
+    "to": "单次调用模型/Per-Call Model",
+    "mode": "full"
+  },
+  {
+    "from": "Per-Call Model Allowlist",
+    "to": "单次调用模型白名单/Per-Call Model Allowlist",
+    "mode": "full"
+  },
+  {
+    "from": "Refresh Title After Prompts",
+    "to": "提示词后刷新标题/Refresh Title After Prompts",
+    "mode": "full"
+  },
+  {
+    "from": "Which of these sessions a running process (this one included) owns, probed without taking ownership. Ids in neither list are free; `unknown` could not be probed.",
+    "to": "这些会话中有哪些正被某个运行中的进程（包括本进程）持有，探测时不取得所有权。两个列表都没有的 id 是空闲的；`unknown` 表示无法探测。/Which of these sessions a running process (this one included) owns, probed without taking ownership. Ids in neither list are free; `unknown` could not be probed.",
+    "mode": "full"
+  },
+  {
+    "from": "retained-backend record write failed; unmount the workspace manually",
+    "to": "保留后端记录写入失败；请手动卸载工作区/retained-backend record write failed; unmount the workspace manually",
+    "mode": "full"
+  },
+  {
+    "from": "Failed to remove staged artifact",
+    "to": "移除暂存产物失败/Failed to remove staged artifact",
+    "mode": "full"
+  },
+  {
+    "from": "Credential store close after OAuth refresh drain failed",
+    "to": "OAuth 刷新排空后关闭凭据存储失败/Credential store close after OAuth refresh drain failed",
+    "mode": "full"
+  },
+  {
+    "from": "sessionIds must be an array of strings",
+    "to": "sessionIds 必须是字符串数组/sessionIds must be an array of strings",
+    "mode": "full"
+  },
+  {
+    "from": "pack, unpack, moved, or lease",
+    "to": "pack、unpack、moved 或 lease/pack, unpack, moved, or lease",
+    "mode": "full"
+  },
+  {
+    "from": "Print {held, unknown} session id lists as JSON (lease)",
+    "to": "以 JSON 打印 {held, unknown} 会话 id 列表（lease）/Print {held, unknown} session id lists as JSON (lease)",
+    "mode": "full"
+  },
+  {
+    "from": "Session .jsonl path or id (pack, moved); archive path (unpack); session ids (lease)",
+    "to": "会话 .jsonl 路径或 id（pack、moved）；存档路径（unpack）；会话 id（lease）/Session .jsonl path or id (pack, moved); archive path (unpack); session ids (lease)",
+    "mode": "full"
+  }
+]

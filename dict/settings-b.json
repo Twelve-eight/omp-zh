@@ -1155,8 +1155,8 @@
     "mode": "full"
   },
   {
-    "from": "Maximum reasoning effort allowed for the task tool's per-spawn effort hint. Lower values prevent callers from escalating subagents above this ceiling; the default preserves the model's full range.",
-    "to": "task 工具每次生成的 effort 提示所允许的最大推理努力。较低的值可防止调用方将子代理升级到该上限之上；默认值保留模型的完整范围/Maximum reasoning effort allowed for the task tool's per-spawn effort hint. Lower values prevent callers from escalating subagents above this ceiling; the default preserves the model's full range.",
+    "from": "Maximum reasoning effort allowed for the task tool's per-spawn effort hint or a per-call model. An explicit `:level` is clamped to the highest supported effort at or below this ceiling, and an omitted `:level` inherits the agent's thinking level capped at this value; cold revival re-applies the cap. Unset, `:inherit` and `:off` keep their existing meaning. A per-call model must support an effort at or below this ceiling; the default preserves the model's full range.",
+    "to": "task 工具每次生成 effort 提示或单次调用模型所允许的最大推理努力。显式的 `:level` 会被夹到该上限以下所支持的最高层级；省略 `:level` 时继承代理的思考层级并受此值限制；冷启动恢复时会重新应用该上限。未设置、`:inherit` 与 `:off` 保持原有含义。单次调用模型必须支持不高于该上限的 effort；默认值保留模型的完整范围/Maximum reasoning effort allowed for the task tool's per-spawn effort hint or a per-call model. An explicit `:level` is clamped to the highest supported effort at or below this ceiling, and an omitted `:level` inherits the agent's thinking level capped at this value; cold revival re-applies the cap. Unset, `:inherit` and `:off` keep their existing meaning. A per-call model must support an effort at or below this ceiling; the default preserves the model's full range.",
     "mode": "full"
   },
   {
@@ -1440,8 +1440,8 @@
     "mode": "full"
   },
   {
-    "from": "snapcompact could not bring the context under the limit.",
-    "to": "snapcompact 无法将上下文压到限制以内/snapcompact could not bring the context under the limit.",
+    "from": "snapcompact could not bring the context under the limit",
+    "to": "snapcompact 无法将上下文压到限制以内/snapcompact could not bring the context under the limit",
     "mode": "full"
   },
   {
@@ -1455,8 +1455,8 @@
     "mode": "full"
   },
   {
-    "from": "snapcompact: kept history alone exceeds the context budget.",
-    "to": "snapcompact：仅历史记录就超出上下文预算/snapcompact: kept history alone exceeds the context budget.",
+    "from": "snapcompact cannot run: kept history alone exceeds the context budget",
+    "to": "snapcompact 无法运行：仅历史记录就超出上下文预算/snapcompact cannot run: kept history alone exceeds the context budget",
     "mode": "full"
   },
   {
@@ -1490,8 +1490,8 @@
     "mode": "full"
   },
   {
-    "from": "snapcompact produced too much standing image payload.",
-    "to": "snapcompact 产生了过多的常驻图像负载/snapcompact produced too much standing image payload.",
+    "from": "snapcompact produced too much standing image payload for one request",
+    "to": "snapcompact 产生了过多的常驻图像负载，超出单次请求的承载/snapcompact produced too much standing image payload for one request",
     "mode": "full"
   },
   {

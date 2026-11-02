@@ -2,6 +2,13 @@
 
 本文件记录 omp-zh 各版本的变化。版本号与上游 [oh-my-pi](https://github.com/can1357/oh-my-pi/releases) 一致，标签格式为 `v<上游版本>-zh`。上游自身的改动请看上游的发布说明。
 
+## 18.15.0-zh（2026-11-03）
+
+- 适配上游 v18.15.0。上游这一版把大量模块合并成大文件（3557 → 3570 个模块，若干模块上万行），全部补丁按源码语义重新定位：`turn-recovery` 的重试上限现在是 `ee/te/re/se` 四个（`Z` 变成字符串、`ye` 是流卡顿超时，都不再改）；会话续跑与子代理让出上限在 `agent-session` 同一模块的第 10935、21861 行。
+- 新增补丁 P11：中转返回空回复（`stopReason: "stop"` 且无正文、无工具调用）时，该消息仍被当作历史反复重放，会话从此永远空转。补丁把这类消息也视为可丢弃，重放前剔除（见 [docs/patches.md](docs/patches.md#p11空回复不再留在历史里)）。
+- 新增 40 条界面翻译：单次调用模型及其白名单、提示词后刷新标题、作业标题与排队压缩的提示、`session lease` 子命令、ACP 句柄记录失败提示等。
+- 修复 16 条失效字典条目：`--model` 说明、git 保护说明、snapcompact 四类提示、Ultrafast 与服务层级说明、计划模型交接、本地快捷方式（改为 `sub`，随模板插值）、超时自动选择（上游改用 `\u2014` 转义）；删除 4 条上游已移除的文案（OAuth 粘贴提示、`Selected model`、`Returned to main session` 等）。
+
 ## 未发布
 
 - 常见问题新增“运行中部分输出暂时不见”一条（`tui.completeScrollback`，上游 [#17423](https://github.com/can1357/oh-my-pi/issues/17423)）。

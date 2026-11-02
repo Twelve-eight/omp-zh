@@ -18,6 +18,7 @@ omp-zh 在翻译之外改了少量程序行为。本文列出每处改动对应�
 | P8 | `packages/ai/src/error/flags.ts` | “加密内容无法解密”类错误归入可重试的过期响应错误 |
 | P9 | `packages/tui/src/chat/chat-transcript-builder.ts` | 重建会话记录时，无条件输出最后一条消息的用量信息 |
 | P10 | `packages/agent/src/tokenizer.ts` | 自动压缩的本地下限不再计入 Claude 系列模型的历史思考文本 |
+| P11 | `packages/ai/src/messages/transform.ts` | 空回复（`stopReason: "stop"` 且无正文、无工具调用）也视为可丢弃，不再当作历史反复重放 |
 
 ## P1：不强制 `tool_choice`
 
@@ -68,6 +69,12 @@ P7 与上游的取舍相反。上游注释（issue #1960）说明，没有控制
 补丁让下限在思考按输出计价的模型上（Claude 系列，compat 规则 `thinking-replay-tokens "output"`）不再计入思考文本。同一会话的下限降为 190K，与计费数一致。计费数仍然参与判断，不受影响。
 
 代价：同时使用载荷压缩扩展（如 Headroom）和 Claude 时，下限会偏低，压缩可能晚一些触发。上游 `packages/agent/test/tokenizer.test.ts` 中有 4 项测试断言下限包含思考文本，与本补丁的取舍相反。已报告上游：[can1357/oh-my-pi#17422](https://github.com/can1357/oh-my-pi/issues/17422)。
+
+## P11：空回复不再留在历史里
+
+`shouldDropTruncatedThinkingOnlyAssistant()`（压缩后为 `K7`）只丢弃 `stopReason` 为 `length`、`error`、`aborted` 的助手消息。中转返回空回复时，消息的 `stopReason` 是 `stop`，内容为空，因此被当作正常历史保留；此后每个请求都会重放这条空消息，中转继续回空，会话彻底卡死（即使换版本、压缩上下文也不恢复）。
+
+补丁把判定条件补上 `stopReason === "stop"`：没有正文、也没有工具调用的 `stop` 助手消息在重放前被丢弃，会话从下一轮开始恢复正常。带正文或工具调用的 `stop` 消息不受影响。
 
 ## 适配新版本
 

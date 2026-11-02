@@ -95,8 +95,8 @@
     "mode": "full"
   },
   {
-    "from": "Draw a live widget for each running background job (charts, bars, status grids derived from its output) in the wait card, the jobs pill and the jobs sheet. The `widget` model role (default: `smol`) writes one spec per job; updates need no further model calls",
-    "to": "为每个运行中的后台作业绘制实时组件（由其输出生成的图表、条形、状态网格），显示在等待卡片、作业胶囊和作业面板中。`widget` 模型角色（默认：`smol`）为每个作业写一份规格；更新无需再调用模型/Draw a live widget for each running background job (charts, bars, status grids derived from its output) in the wait card, the jobs pill and the jobs sheet. The `widget` model role (default: `smol`) writes one spec per job; updates need no further model calls",
+    "from": "Draw a live widget for each running background job (charts, bars, status grids derived from its output) in the wait card, the jobs pill and the jobs sheet, and caption long shell commands with one line on what they do. The `widget` model role (default: `smol`) writes one spec and at most one caption per job; updates need no further model calls",
+    "to": "为每个运行中的后台作业绘制实时组件（由其输出生成的图表、条形、状态网格），显示在等待卡片、作业胶囊和作业面板中，并用一行文字为较长的 shell 命令加注其作用。`widget` 模型角色（默认：`smol`）为每个作业写一份规格和至多一条标题；更新无需再调用模型/Draw a live widget for each running background job (charts, bars, status grids derived from its output) in the wait card, the jobs pill and the jobs sheet, and caption long shell commands with one line on what they do. The `widget` model role (default: `smol`) writes one spec and at most one caption per job; updates need no further model calls",
     "mode": "full"
   },
   {
