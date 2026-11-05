@@ -840,11 +840,6 @@
   "mode": "full"
  },
  {
-  "from": "release every managed tab",
-  "to": "释放每个受管标签页/release every managed tab",
-  "mode": "full"
- },
- {
   "from": "Varint exceeds 32 bits",
   "to": "varint 超过 32 位/Varint exceeds 32 bits",
   "mode": "full"

@@ -1,0 +1,132 @@
+[
+  {
+    "from": "Exchanging sign-in for a Mistral API key...",
+    "to": "正在用登录换取 Mistral API 密钥…/Exchanging sign-in for a Mistral API key...",
+    "mode": "full"
+  },
+  {
+    "from": "Failed to exchange Mistral sign-in for an API key",
+    "to": "无法用 Mistral 登录换取 API 密钥/Failed to exchange Mistral sign-in for an API key",
+    "mode": "full"
+  },
+  {
+    "from": "Failed to start Mistral browser sign-in",
+    "to": "无法启动 Mistral 浏览器登录/Failed to start Mistral browser sign-in",
+    "mode": "full"
+  },
+  {
+    "from": "Mistral sign-in completed without an exchange token",
+    "to": "Mistral 登录完成但没有换取令牌/Mistral sign-in completed without an exchange token",
+    "mode": "full"
+  },
+  {
+    "from": "Mistral sign-in expired; run /login again",
+    "to": "Mistral 登录已过期；请重新运行 /login/Mistral sign-in expired; run /login again",
+    "mode": "full"
+  },
+  {
+    "from": "Mistral sign-in failed",
+    "to": "Mistral 登录失败/Mistral sign-in failed",
+    "mode": "full"
+  },
+  {
+    "from": "Mistral sign-in was denied",
+    "to": "Mistral 登录被拒绝/Mistral sign-in was denied",
+    "mode": "full"
+  },
+  {
+    "from": "Sign in with your Mistral account and approve Mistral Vibe access, then return here.",
+    "to": "用你的 Mistral 账号登录并批准 Mistral Vibe 访问，然后回到这里。/Sign in with your Mistral account and approve Mistral Vibe access, then return here.",
+    "mode": "full"
+  },
+  {
+    "from": "Waiting for Mistral sign-in to complete...",
+    "to": "正在等待 Mistral 登录完成…/Waiting for Mistral sign-in to complete...",
+    "mode": "full"
+  },
+  {
+    "from": "Your Mistral workspace can't be used for Mistral Vibe; run /login again and pick another workspace in the browser, or ask your administrator",
+    "to": "你的 Mistral 工作区不能用于 Mistral Vibe；请重新运行 /login 并在浏览器里选择其他工作区，或联系管理员/Your Mistral workspace can't be used for Mistral Vibe; run /login again and pick another workspace in the browser, or ask your administrator",
+    "mode": "full"
+  },
+  {
+    "from": "Send a /btw answer's steering prompt to the main session",
+    "to": "把 /btw 回答里的引导提示发送到主会话/Send a /btw answer's steering prompt to the main session",
+    "mode": "full"
+  },
+  {
+    "from": "When you ask /btw for a steering prompt, it drafts one in <inject> tags, highlighted in the answer; Alt+I (app.btw.inject) sends it to the main session",
+    "to": "当你向 /btw 要一条引导提示时，它会在回答里用 <inject> 标签起草并高亮显示；Alt+I（app.btw.inject）会把它发送到主会话/When you ask /btw for a steering prompt, it drafts one in <inject> tags, highlighted in the answer; Alt+I (app.btw.inject) sends it to the main session",
+    "mode": "full"
+  },
+  {
+    "from": "/btw Steering Inject",
+    "to": "/btw 引导注入/btw Steering Inject",
+    "mode": "full"
+  },
+  {
+    "from": "/btw prompt not sent",
+    "to": "/btw 提示未发送/btw prompt not sent",
+    "mode": "full"
+  },
+  {
+    "from": "a /btw prompt is still sending",
+    "to": "仍有 /btw 提示正在发送/a /btw prompt is still sending",
+    "mode": "full"
+  },
+  {
+    "from": "Inject into main session",
+    "to": "注入主会话/Inject into main session",
+    "mode": "full"
+  },
+  {
+    "from": "Injected into main session",
+    "to": "已注入主会话/Injected into main session",
+    "mode": "full"
+  },
+  {
+    "from": "Inject into main",
+    "to": "注入主会话/Inject into main",
+    "mode": "full"
+  },
+  {
+    "from": "Hindsight Global Scope",
+    "to": "Hindsight 全局作用域/Hindsight Global Scope",
+    "mode": "full"
+  },
+  {
+    "from": "Let retain and learn take scope: global, which stores a memory without the project tag so every project recalls it. Needs global or per-project-tagged scoping",
+    "to": "让 retain 与 learn 使用 global 作用域：保存记忆时不带项目标签，所有项目都能回忆。需要 global 或带项目标签的作用域/Let retain and learn take scope: global, which stores a memory without the project tag so every project recalls it. Needs global or per-project-tagged scoping",
+    "mode": "full"
+  },
+  {
+    "from": "Hindsight global scope is off; set hindsight.globalScope to true to enable it.",
+    "to": "Hindsight 全局作用域已关闭；将 hindsight.globalScope 设为 true 以启用。/Hindsight global scope is off; set hindsight.globalScope to true to enable it.",
+    "mode": "full"
+  },
+  {
+    "from": "Hindsight global scope requires global or per-project-tagged scoping.",
+    "to": "Hindsight 全局作用域需要 global 或带项目标签的作用域。/Hindsight global scope requires global or per-project-tagged scoping.",
+    "mode": "full"
+  },
+  {
+    "from": "Prediction Alternatives",
+    "to": "备选预测/Prediction Alternatives",
+    "mode": "full"
+  },
+  {
+    "from": "gh: origin remote check failed; keeping gh's repo pick",
+    "to": "gh：origin 远端检查失败；保留 gh 选择的仓库/gh: origin remote check failed; keeping gh's repo pick",
+    "mode": "full"
+  },
+  {
+    "from": "Timed out waiting for the relay's detach report",
+    "to": "等待中继的分离报告超时/Timed out waiting for the relay's detach report",
+    "mode": "full"
+  },
+  {
+    "from": "Nothing to resume",
+    "to": "没有可恢复的内容/Nothing to resume",
+    "mode": "full"
+  }
+]
