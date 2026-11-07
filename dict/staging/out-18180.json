@@ -13,7 +13,6 @@
   { "from": "auto-update: stopped", "to": "自动更新：已停止/auto-update: stopped", "mode": "full" },
   { "from": "Failed to check for updates", "to": "检查更新失败/Failed to check for updates", "mode": "full" },
   { "from": "Update failed", "to": "更新失败/Update failed", "mode": "full" },
-  { "from": " update failed", "to": " 更新失败/ update failed", "mode": "sub" },
   { "from": " updating\\u2026", "to": " 正在更新\\u2026/ updating\\u2026", "mode": "sub" },
   { "from": " next launch", "to": " 下次启动/ next launch", "mode": "sub" },
   { "from": "Startup changelog failed", "to": "启动更新日志获取失败/Startup changelog failed", "mode": "full" },

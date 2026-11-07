@@ -8,8 +8,8 @@
 // Minified names were located in this release's modules by source semantics (use sites), not
 // carried over from 18.16.0:
 //   P2 mod 330 turn-recovery.ts: retry caps are te/re/ie/ne (`#x > cap` + `maxRetries:`);
-//      `ee` is now the string "thinking-loop-redirect", `be = 15000` the stall timeout and
-//      `Re = 1000` the backoff base.
+//      `ee` is now the string "thinking-loop-redirect", `be = 15000` is
+//      UNEXPECTED_STOP_TIMEOUT_MS and `Re = 1000` SIBLING_UNBLOCK_BUFFER_MS.
 //   P3 mod 465 agent-session.ts: `var Ix = 8;` is SESSION_STOP_CONTINUATION_CAP (`this.#Ts >= Ix`,
 //      "session_stop continuation cap reached", `cap: Ix`).
 //   P4 mod 465 task/executor.ts: `var wc = 3;` is MAX_YIELD_RETRIES (`!s.yieldCalled() && Y < wc`).
