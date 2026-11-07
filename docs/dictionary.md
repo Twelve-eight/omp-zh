@@ -70,6 +70,8 @@ Power: { key: "电源/Power", code: "电源/Power" },
 node scripts/check-overtranslation.js <版本> [--exe <本地化.exe>]
 ```
 
+门本身要能证明会响：`node scripts/check-overtranslation.js --self-test` 内置负对照，9 种缺陷形态（结构字段、对象键、计算索引、可选链、比较值、Map 键、匹配实参、正则来源、枚举键写入）必须全部命中，5 种显示形态（数组字面量、`keys:` 数组、`label:`、`action:`、`value:`）必须全部不命中；任何一条不符即退出码 1。改过 `lib/overtranslation.js` 之后必须跑它——只对一个干净产物跑扫描，和门被判据写空了的表现一模一样。
+
 发现命中时不要改补丁，删掉或收窄对应的字典条目（英文标签优于错代码值）。上面 `Power` 一例就是删掉条目解决的。
 
 注意：数组字面量 `return ["…"]`、`keys: ["…"]` 和 `label: "…"` 是显示文本，扫描器不会误报（索引规则要求 `[` 前紧邻标识符/`)`/`]`）。
