@@ -85,8 +85,8 @@
     "mode": "full"
   },
   {
-    "from": "Pick an extension link on screen by its tag",
-    "to": "按标签选择屏幕上的扩展链接/Pick an extension link on screen by its tag",
+    "from": "Pick an extension link on screen by its tag; press again to browse the whole transcript",
+    "to": "按标签选择屏幕上的扩展链接/Pick an extension link on screen by its tag; press again to browse the whole transcript",
     "mode": "full"
   },
   {
@@ -110,8 +110,8 @@
     "mode": "full"
   },
   {
-    "from": "No extension links on screen",
-    "to": "屏幕上没有扩展链接/No extension links on screen",
+    "from": "No extension links in the transcript",
+    "to": "屏幕上没有扩展链接/No extension links in the transcript",
     "mode": "full"
   },
   {

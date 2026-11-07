@@ -765,8 +765,8 @@
   "mode": "full"
  },
  {
-  "from": "No active session to pin.",
-  "to": "没有可固定的活动会话。/No active session to pin.",
+  "from": "Session is not pinned.",
+  "to": "没有可固定的活动会话。/Session is not pinned.",
   "mode": "full"
  },
  {

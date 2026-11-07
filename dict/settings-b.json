@@ -130,13 +130,13 @@
     "mode": "full"
   },
   {
-    "from": "Animation style for working/loading messages",
-    "to": "工作/加载消息的动画样式/Animation style for working/loading messages",
+    "from": "Animation style for working/loading messages; off under reduced or no Motion",
+    "to": "工作/加载消息的动画样式/Animation style for working/Animation style for working/loading messages; off under reduced or no Motion",
     "mode": "full"
   },
   {
-    "from": "Reveal assistant text and streamed tool input smoothly while chunks arrive",
-    "to": "在分块到达时平滑显示助手文本和流式工具输入/Reveal assistant text and streamed tool input smoothly while chunks arrive",
+    "from": "Reveal assistant text and streamed tool input smoothly while chunks arrive (Tern types assistant text out itself)",
+    "to": "在分块到达时平滑显示助手文本和流式工具输入/Reveal assistant text and streamed tool input smoothly while chunks arrive (Tern types assistant text out itself)",
     "mode": "full"
   },
   {
@@ -695,8 +695,8 @@
     "mode": "full"
   },
   {
-    "from": "Select the edit tool variant (replace, patch, hashline, or apply_patch)",
-    "to": "选择编辑工具变体（replace、patch、hashline 或 apply_patch）/Select the edit tool variant (replace, patch, hashline, or apply_patch)",
+    "from": "Select the edit tool variant (replace, patch, hashline, or apply_patch); none removes the edit tool and keeps bash enabled",
+    "to": "选择编辑工具变体（replace、patch、hashline 或 apply_patch）/Select the edit tool variant (replace, patch, hashline, or apply_patch); none removes the edit tool and keeps bash enabled",
     "mode": "full"
   },
   {
@@ -1250,8 +1250,8 @@
     "mode": "full"
   },
   {
-    "from": "Websocket policy for OpenAI Codex models (auto uses model defaults, on forces, off disables)",
-    "to": "OpenAI Codex 模型的 WebSocket 策略（auto 使用模型默认值，on 强制启用，off 禁用）/Websocket policy for OpenAI Codex models (auto uses model defaults, on forces, off disables)",
+    "from": "WebSocket policy for OpenAI Codex models only",
+    "to": "OpenAI Codex 模型的 WebSocket 策略（auto 使用模型默认值，on 强制启用，off 禁用）/WebSocket policy for OpenAI Codex models only",
     "mode": "full"
   },
   {
@@ -3580,13 +3580,13 @@
     "mode": "full"
   },
   {
-    "from": "Prefer concise responses",
-    "to": "偏好简洁回复/Prefer concise responses",
+    "from": "Prefer concise responses (default)",
+    "to": "偏好简洁回复/Prefer concise responses (default)",
     "mode": "full"
   },
   {
-    "from": "Balance brevity and detail (default)",
-    "to": "平衡简洁与详尽（默认）/Balance brevity and detail (default)",
+    "from": "Balance brevity and detail",
+    "to": "平衡简洁与详尽（默认）/Balance brevity and detail",
     "mode": "full"
   },
   {
@@ -4095,8 +4095,8 @@
     "mode": "full"
   },
   {
-    "from": "Let the PAL pick the best available backend",
-    "to": "让 PAL 选择最佳可用后端/Let the PAL pick the best available backend",
+    "from": "Isolated subagents use ovnfs checkouts when ovnfs is found; otherwise (and for worktrees) the PAL picks the best available backend",
+    "to": "让 PAL 选择最佳可用后端/Isolated subagents use ovnfs checkouts when ovnfs is found; otherwise (and for worktrees) the PAL picks the best available backend",
     "mode": "full"
   },
   {
@@ -4185,13 +4185,13 @@
     "mode": "full"
   },
   {
-    "from": "Use model/provider default websocket behavior",
-    "to": "使用模型/提供商默认 WebSocket 行为/Use model/provider default websocket behavior",
+    "from": "Use Codex model defaults",
+    "to": "使用模型/提供商默认 WebSocket 行为/Use model/Use Codex model defaults",
     "mode": "full"
   },
   {
-    "from": "Disable websockets for OpenAI Codex models",
-    "to": "对 OpenAI Codex 模型禁用 WebSocket/Disable websockets for OpenAI Codex models",
+    "from": "Disable WebSockets for OpenAI Codex models",
+    "to": "对 OpenAI Codex 模型禁用 WebSocket/Disable WebSockets for OpenAI Codex models",
     "mode": "full"
   },
   {

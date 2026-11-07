@@ -240,11 +240,6 @@
     "mode": "full"
   },
   {
-    "from": "Hover",
-    "to": "悬停/Hover",
-    "mode": "full"
-  },
-  {
     "from": "Diagnostics",
     "to": "诊断/Diagnostics",
     "mode": "full"
