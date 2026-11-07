@@ -1441,7 +1441,7 @@
   },
   {
     "from": "OpenAI Codex WebSockets",
-    "to": "OpenAI WebSockets/OpenAI Codex WebSockets",
+    "to": "OpenAI Codex WebSocket/OpenAI Codex WebSockets",
     "mode": "full"
   },
   {

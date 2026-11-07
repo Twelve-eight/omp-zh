@@ -766,7 +766,7 @@
  },
  {
   "from": "Session is not pinned.",
-  "to": "没有可固定的活动会话。/Session is not pinned.",
+  "to": "会话未固定。/Session is not pinned.",
   "mode": "full"
  },
  {
