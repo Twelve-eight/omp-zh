@@ -2,6 +2,10 @@
 
 本文件记录 omp-zh 各版本的变化。版本号与上游 [oh-my-pi](https://github.com/can1357/oh-my-pi/releases) 一致，标签格式为 `v<上游版本>-zh`。上游自身的改动请看上游的发布说明。
 
+## 未发布
+
+- 新增过度汉化硬门：`build.js` 写盘前扫描对象键、计算索引（含 `?.[`）、比较值、Map/Set 键、匹配实参、`new RegExp` 实参与 `key/code/type/id/role` 结构字段，命中即 `GATE FAIL`（退出码 3）。对已构建/已安装产物可用 `node scripts/check-overtranslation.js <版本>` 复查。判据与排查步骤写入 [docs/dictionary.md](docs/dictionary.md#过度汉化每个版本都要排查) 与 [docs/updating.md](docs/updating.md)。
+
 ## 18.18.0-zh（2026-11-05）
 
 - 适配上游 v18.18.0（3631 个模块，较 18.16.0 增加 56 个；上游这一版新增 42 万行）。补丁 P1–P11 全部按新版本源码重新定位：P1/P11 在模块 47（判定函数由 `N9` 更名 `tY`），P2 在 330（上限簇改为 `te/be/re/ie/ne`，其中 `be = 15000` 是流卡顿超时不动），P3/P4 在 465（`var Ix = 8`、`var wc = 3`），P5 在 40，P6 在 240，P7 在 23，P8 在 44（`var Gt` 取代 `Xt`），P9 在 118，P10 在 59。

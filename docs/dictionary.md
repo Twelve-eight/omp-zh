@@ -43,6 +43,37 @@ omp-zh 不修改上游源码，而是在官方 exe 里逐个替换字符串字�
 
 **专有名词。** 产品名和协议名保持英文，例如 Bash、LSP、MCP、Amazon S3。
 
+## 过度汉化（每个版本都要排查）
+
+同一个英文词常常既是界面标签又是代码取值。字典按文本匹配，无法按位置区分，于是把代码取值也译了。典型例子：`Power` 既是设置页的分节标题，又是 puppeteer 键盘布局里的键名。
+
+```js
+// 错：key/code 是发给浏览器的按键标识，译了之后 keyboard.press("Power") 送错键
+Power: { key: "电源/Power", code: "电源/Power" },
+```
+
+判据是位置，不是词义。以下位置出现中文一定是缺陷：
+
+| 位置 | 例子 |
+|---|---|
+| 对象键 | `{ "已启用/Enabled": 1 }` |
+| 计算索引 | `o["已启用/Enabled"]`、`o?.["已启用/Enabled"]` |
+| 比较值 | `x === "已启用/Enabled"`、`case "…"` |
+| Map/Set 键 | `.set("…")`、`.get("…")`、`.has("…")` |
+| 匹配实参 | `.includes("…")`、`.startsWith("…")`、`.split("…")` |
+| 正则来源 | `new RegExp("…")` |
+| 结构字段 | `key`/`code`/`type`/`id`/`role: "…"` |
+
+`build.js` 在写盘前跑 `lib/overtranslation.js` 的扫描，命中即 `GATE FAIL` 退出（退出码 3），不会产出带缺陷的 exe。对已构建或已安装的产物可以单独复查：
+
+```powershell
+node scripts/check-overtranslation.js <版本> [--exe <本地化.exe>]
+```
+
+发现命中时不要改补丁，删掉或收窄对应的字典条目（英文标签优于错代码值）。上面 `Power` 一例就是删掉条目解决的。
+
+注意：数组字面量 `return ["…"]`、`keys: ["…"]` 和 `label: "…"` 是显示文本，扫描器不会误报（索引规则要求 `[` 前紧邻标识符/`)`/`]`）。
+
 ## 新增条目
 
 1. 运行 `node scripts/scan-gaps.js <版本>`，在 `work/gaps-<版本>.txt` 里找到要翻译的英文。报告按模块列出，模块名能看出它属于界面还是提示词。

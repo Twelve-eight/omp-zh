@@ -14,6 +14,7 @@ const { rebuild } = require('./lib/rebuild.js');
 const { translate } = require('./lib/translate.js');
 const { loadDict } = require('./lib/dict.js');
 const { loadModules, moduleName, moduleSource, asciiEscape, comparedLiterals, argumentLiterals } = require('./lib/bundle.js');
+const { scan: scanOverTranslation } = require('./lib/overtranslation.js');
 
 const args = process.argv.slice(2);
 const opt = (name) => { const i = args.indexOf('--' + name); return i >= 0 ? args[i + 1] : null; };
@@ -83,6 +84,16 @@ const argLike = argumentLiterals(mods);
 const argOffenders = dict.filter((e) => argLike.has(e.from)).map((e) => e.from);
 if (argOffenders.length)
   console.log('Advisory: ' + argOffenders.length + ' entries sit in argument/tag positions; verify each is a label, not an identifier (docs/dictionary.md).');
+
+const translated = newContents.map((c, i) => c ? { index: i, text: c.toString('latin1') } : null).filter(Boolean);
+const over = scanOverTranslation(translated);
+if (over.length) {
+  console.error('GATE FAIL: ' + over.length + ' translated literals sit in code positions (over-translation):');
+  over.slice(0, 25).forEach((v) => console.error('  ! mod ' + v.module + ' [' + v.kind + '] ' + v.literal));
+  console.error('Delete or narrow the offending dictionary entries (docs/dictionary.md).');
+  process.exit(3);
+}
+console.log('Gate OK: no translated literal sits in a code position (' + translated.length + ' modules scanned).');
 
 const out = rebuild(buf, newContents);
 fs.mkdirSync(path.dirname(OUT), { recursive: true });

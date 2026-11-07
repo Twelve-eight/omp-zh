@@ -74,7 +74,10 @@ node scripts/scan-gaps.js <new>
 node scripts/check-dict.js
 node build.js <new>
 node verify.js <new>
+node scripts/check-overtranslation.js <new>
 ```
+
+`build.js` 会在写盘前做过度汉化检查，命中直接 `GATE FAIL`；上面这条命令用于复查已构建的产物（例如另一个会话改过字典之后）。判据见 [dictionary.md](dictionary.md#过度汉化每个版本都要排查)。
 
 构建要看到 `Gate OK` 和 `Built:` 两行。之后启动 `work/omp-zh-<tag>.exe`，打开设置、模型选择、`/tree` 等界面，确认显示正常。
 
