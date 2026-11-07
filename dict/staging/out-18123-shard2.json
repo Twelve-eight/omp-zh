@@ -50,11 +50,6 @@
     "mode": "full"
   },
   {
-    "from": "Power",
-    "to": "电源/Power",
-    "mode": "full"
-  },
-  {
     "from": "Also keep the display from idle-sleeping (macOS `caffeinate -i -d`)",
     "to": "同时防止显示器空闲休眠（macOS `caffeinate -i -d`）/Also keep the display from idle-sleeping (macOS `caffeinate -i -d`)",
     "mode": "full"

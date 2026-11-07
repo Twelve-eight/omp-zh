@@ -139,6 +139,14 @@ module.exports = function checks({ exe, official, root }) {
     const s = txt(59);
     return s.includes('.set(c, "Read")') && s.includes('"RW" : "Write"') && !s.includes('读取/Read') && !s.includes('写入/Write');
   })()],
+  ['code value: no CJK in key/code/type/id fields', (() => {
+    const all = mods.map(m => dec(m.contents.toString('utf8'))).join('\n');
+    return !/(?:^|[{,])\s*(?:key|code|type|id|role):\s*"[^"\n]*[\u4e00-\u9fff]/.test(all);
+  })()],
+  ['code value: puppeteer keyboard layout stays ASCII', (() => {
+    const s = txt(1162);
+    return s.includes('Power: { key: "Power", code: "Power" }');
+  })()],
   ['vendored axe bundle is byte-identical to upstream', (() => {
     const ob = fs.readFileSync(official);
     const oP = parseExe(ob).bun, oDs = oP.rawPtr + 8;
