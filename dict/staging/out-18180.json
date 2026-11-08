@@ -37,7 +37,7 @@
   { "from": "Up to 4 workers", "to": "最多 4 个工作线程/Up to 4 workers", "mode": "full" },
   { "from": "Up to 8 workers", "to": "最多 8 个工作线程/Up to 8 workers", "mode": "full" },
   { "from": "Main thread only", "to": "仅主线程/Main thread only", "mode": "full" },
-  { "from": "OpenAI Responses WebSockets", "to": "OpenAI Responses WebSocket/OpenAI Responses WebSockets", "mode": "full" },
+  
   { "from": "Opt in for catalog-supported standard Responses models; model or request false disables it", "to": "为目录中支持的标准 Responses 模型启用；模型或请求层面的 false 会将其关闭/Opt in for catalog-supported standard Responses models; model or request false disables it", "mode": "full" },
   { "from": "Spotlight Experiment", "to": "Spotlight 实验/Spotlight Experiment", "mode": "full" },
   { "from": "Shape tool output and rank find results with Stencil Spotlight, and log each shaped result to the session", "to": "用 Stencil Spotlight 塑造工具输出并排序 find 结果，并把每个塑造后的结果记录到会话/Shape tool output and rank find results with Stencil Spotlight, and log each shaped result to the session", "mode": "full" },

@@ -4,11 +4,7 @@
   "to": "Advisor 模型/Advisor model",
   "mode": "full"
  },
- {
-  "from": "Advisor",
-  "to": "Advisor/Advisor",
-  "mode": "full"
- },
+ 
   {
     "from": "Clear search",
     "to": "清除搜索/Clear search",

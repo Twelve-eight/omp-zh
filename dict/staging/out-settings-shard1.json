@@ -309,16 +309,8 @@
   "to": "ZFS 快照 + 克隆/ZFS snapshot + clone",
   "mode": "full"
  },
- {
-  "from": "macOS clonefile reflink (APFS)",
-  "to": "macOS clonefile reflink（APFS）/macOS clonefile reflink (APFS)",
-  "mode": "full"
- },
- {
-  "from": "Windows FSCTL_DUPLICATE_EXTENTS_TO_FILE (NTFS/ReFS)",
-  "to": "Windows FSCTL_DUPLICATE_EXTENTS_TO_FILE（NTFS/ReFS）/Windows FSCTL_DUPLICATE_EXTENTS_TO_FILE (NTFS/ReFS)",
-  "mode": "full"
- },
+ 
+ 
  {
   "from": "Block clone",
   "to": "块克隆/Block clone",

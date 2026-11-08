@@ -2024,31 +2024,11 @@
     "to": "直接公网 URL/Direct public URL",
     "mode": "full"
   },
-  {
-    "from": "Amazon S3",
-    "to": "Amazon S3/Amazon S3",
-    "mode": "full"
-  },
-  {
-    "from": "Google Cloud Storage",
-    "to": "Google Cloud Storage/Google Cloud Storage",
-    "mode": "full"
-  },
-  {
-    "from": "Azure Blob Storage",
-    "to": "Azure Blob Storage/Azure Blob Storage",
-    "mode": "full"
-  },
-  {
-    "from": "Cloudflare R2",
-    "to": "Cloudflare R2/Cloudflare R2",
-    "mode": "full"
-  },
-  {
-    "from": "Backblaze B2",
-    "to": "Backblaze B2/Backblaze B2",
-    "mode": "full"
-  },
+  
+  
+  
+  
+  
   {
     "from": "S3 access key ID",
     "to": "S3 访问密钥 ID/S3 access key ID",
@@ -2279,11 +2259,7 @@
     "to": "API 端点/API endpoint",
     "mode": "full"
   },
-  {
-    "from": "API URL",
-    "to": "API URL/API URL",
-    "mode": "full"
-  },
+  
   {
     "from": "API key",
     "to": "API 密钥/API key",
@@ -2384,11 +2360,7 @@
     "to": "帖子 ID/Thread ID",
     "mode": "full"
   },
-  {
-    "from": "Webhook URL",
-    "to": "Webhook URL/Webhook URL",
-    "mode": "full"
-  },
+  
   {
     "from": "Protocol",
     "to": "协议/Protocol",
@@ -2609,11 +2581,7 @@
     "to": "WebGPU/Metal 后端/WebGPU/Metal backend",
     "mode": "full"
   },
-  {
-    "from": "NVIDIA CUDA (Linux x64)",
-    "to": "NVIDIA CUDA（Linux x64）/NVIDIA CUDA (Linux x64)",
-    "mode": "full"
-  },
+  
   {
     "from": "DirectML backend (Windows)",
     "to": "DirectML 后端（Windows）/DirectML backend (Windows)",
@@ -3114,31 +3082,15 @@
     "to": "5 小时/5 Hour",
     "mode": "full"
   },
-  {
-    "from": "Rust (cargo check)",
-    "to": "Rust（cargo check）/Rust (cargo check)",
-    "mode": "full"
-  },
-  {
-    "from": "TypeScript (tsc --noEmit)",
-    "to": "TypeScript（tsc --noEmit）/TypeScript (tsc --noEmit)",
-    "mode": "full"
-  },
+  
+  
   {
     "from": "Go workspace (go build)",
     "to": "Go 工作区（go build）/Go workspace (go build)",
     "mode": "full"
   },
-  {
-    "from": "Go (go build)",
-    "to": "Go（go build）/Go (go build)",
-    "mode": "full"
-  },
-  {
-    "from": "Python (pyright)",
-    "to": "Python（pyright）/Python (pyright)",
-    "mode": "full"
-  },
+  
+  
   {
     "from": "Unknown project type",
     "to": "未知项目类型/Unknown project type",
@@ -3154,11 +3106,7 @@
     "to": "ShareX 委托文件上传器/ShareX delegated file uploader",
     "mode": "full"
   },
-  {
-    "from": "FTP / FTPS / SFTP",
-    "to": "FTP / FTPS / SFTP/FTP / FTPS / SFTP",
-    "mode": "full"
-  },
+  
   {
     "from": "puush-compatible endpoint",
     "to": "puush 兼容端点/puush-compatible endpoint",
@@ -3214,11 +3162,7 @@
     "to": "ShareX 自定义文件上传器/ShareX custom file uploader",
     "mode": "full"
   },
-  {
-    "from": "Parakeet TDT v3 (SoTA)",
-    "to": "Parakeet TDT v3（SoTA）/Parakeet TDT v3 (SoTA)",
-    "mode": "full"
-  },
+  
   {
     "from": "When I Say Submit",
     "to": "说「提交」时提交/When I Say Submit",
@@ -3254,136 +3198,80 @@
     "to": "Nerd 图标/Nerd",
     "mode": "full"
   },
-  {
-    "from": "Powerline",
-    "to": "Powerline/Powerline",
-    "mode": "full"
-  },
+  
   {
     "from": "Thin chevron",
     "to": "细 V 形箭头/Thin chevron",
     "mode": "full"
   },
-  {
-    "from": "1 KB",
-    "to": "1 KB/1 KB",
-    "mode": "full"
-  },
+  
   {
     "from": "~250 tokens",
     "to": "约 250 token/~250 tokens",
     "mode": "full"
   },
-  {
-    "from": "2.5 KB",
-    "to": "2.5 KB/2.5 KB",
-    "mode": "full"
-  },
+  
   {
     "from": "~625 tokens",
     "to": "约 625 token/~625 tokens",
     "mode": "full"
   },
-  {
-    "from": "5 KB",
-    "to": "5 KB/5 KB",
-    "mode": "full"
-  },
+  
   {
     "from": "~1.25K tokens",
     "to": "约 1.25K token/~1.25K tokens",
     "mode": "full"
   },
-  {
-    "from": "10 KB",
-    "to": "10 KB/10 KB",
-    "mode": "full"
-  },
+  
   {
     "from": "~2.5K tokens",
     "to": "约 2.5K token/~2.5K tokens",
     "mode": "full"
   },
-  {
-    "from": "20 KB",
-    "to": "20 KB/20 KB",
-    "mode": "full"
-  },
+  
   {
     "from": "~5K tokens",
     "to": "约 5K token/~5K tokens",
     "mode": "full"
   },
-  {
-    "from": "30 KB",
-    "to": "30 KB/30 KB",
-    "mode": "full"
-  },
+  
   {
     "from": "~7.5K tokens",
     "to": "约 7.5K token/~7.5K tokens",
     "mode": "full"
   },
-  {
-    "from": "50 KB",
-    "to": "50 KB/50 KB",
-    "mode": "full"
-  },
-  {
-    "from": "75 KB",
-    "to": "75 KB/75 KB",
-    "mode": "full"
-  },
+  
+  
   {
     "from": "~19K tokens",
     "to": "约 19K token/~19K tokens",
     "mode": "full"
   },
-  {
-    "from": "100 KB",
-    "to": "100 KB/100 KB",
-    "mode": "full"
-  },
+  
   {
     "from": "~25K tokens",
     "to": "约 25K token/~25K tokens",
     "mode": "full"
   },
-  {
-    "from": "200 KB",
-    "to": "200 KB/200 KB",
-    "mode": "full"
-  },
+  
   {
     "from": "~50K tokens",
     "to": "约 50K token/~50K tokens",
     "mode": "full"
   },
-  {
-    "from": "500 KB",
-    "to": "500 KB/500 KB",
-    "mode": "full"
-  },
+  
   {
     "from": "~125K tokens",
     "to": "约 125K token/~125K tokens",
     "mode": "full"
   },
-  {
-    "from": "1 MB",
-    "to": "1 MB/1 MB",
-    "mode": "full"
-  },
+  
   {
     "from": "~250K tokens",
     "to": "约 250K token/~250K tokens",
     "mode": "full"
   },
-  {
-    "from": "0 KB",
-    "to": "0 KB/0 KB",
-    "mode": "full"
-  },
+  
   {
     "from": "No per-line cap",
     "to": "单行不设上限/No per-line cap",
@@ -3789,81 +3677,33 @@
     "to": "接近上下文上限/Near context limit",
     "mode": "full"
   },
-  {
-    "from": "25K tokens",
-    "to": "25K token/25K tokens",
-    "mode": "full"
-  },
-  {
-    "from": "50K tokens",
-    "to": "50K token/50K tokens",
-    "mode": "full"
-  },
-  {
-    "from": "100K tokens",
-    "to": "100K token/100K tokens",
-    "mode": "full"
-  },
-  {
-    "from": "150K tokens",
-    "to": "150K token/150K tokens",
-    "mode": "full"
-  },
-  {
-    "from": "200K tokens",
-    "to": "200K token/200K tokens",
-    "mode": "full"
-  },
+  
+  
+  
+  
+  
   {
     "from": "Full standard context window",
     "to": "标准上下文窗口全量/Full standard context window",
     "mode": "full"
   },
-  {
-    "from": "300K tokens",
-    "to": "300K token/300K tokens",
-    "mode": "full"
-  },
+  
   {
     "from": "Large context window",
     "to": "大上下文窗口/Large context window",
     "mode": "full"
   },
-  {
-    "from": "500K tokens",
-    "to": "500K token/500K tokens",
-    "mode": "full"
-  },
+  
   {
     "from": "Very large context window",
     "to": "超大上下文窗口/Very large context window",
     "mode": "full"
   },
-  {
-    "from": "400K tokens",
-    "to": "400K token/400K tokens",
-    "mode": "full"
-  },
-  {
-    "from": "600K tokens",
-    "to": "600K token/600K tokens",
-    "mode": "full"
-  },
-  {
-    "from": "700K tokens",
-    "to": "700K token/700K tokens",
-    "mode": "full"
-  },
-  {
-    "from": "800K tokens",
-    "to": "800K token/800K tokens",
-    "mode": "full"
-  },
-  {
-    "from": "900K tokens",
-    "to": "900K token/900K tokens",
-    "mode": "full"
-  },
+  
+  
+  
+  
+  
   {
     "from": "30 minutes",
     "to": "30 分钟/30 minutes",
@@ -4379,16 +4219,8 @@
     "to": "版本控制/Version control",
     "mode": "full"
   },
-  {
-    "from": "Anthropic API",
-    "to": "Anthropic API/Anthropic API",
-    "mode": "full"
-  },
-  {
-    "from": "OpenAI API",
-    "to": "OpenAI API/OpenAI API",
-    "mode": "full"
-  },
+  
+  
   {
     "from": "Exa search",
     "to": "Exa 搜索/Exa search",
@@ -5094,11 +4926,7 @@
     "to": "8x13 字形置于 11x16 单元——加大字距避免粘连。Anthropic 默认。/8x13 glyphs on an 11x16 cell \\u2014 extra letter spacing so characters don't merge. Default for Anthropic.",
     "mode": "full"
   },
-  {
-    "from": "Silver 16, CJK",
-    "to": "Silver 16，CJK/Silver 16, CJK",
-    "mode": "full"
-  },
+  
   {
     "from": "Embedded Silver TrueType font on a 16px grid for CJK and other non-Latin text.",
     "to": "内嵌 Silver TrueType 字体的 16px 网格，适配中日韩等非拉丁文字。/Embedded Silver TrueType font on a 16px grid for CJK and other non-Latin text.",

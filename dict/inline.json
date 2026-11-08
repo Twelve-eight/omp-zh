@@ -68,10 +68,5 @@
   "from": "Messages:",
   "to": "消息：/Messages:",
   "mode": "full"
- },
- {
-  "from": "Tokens:",
-  "to": "Token：/Tokens:",
-  "mode": "full"
  }
 ]

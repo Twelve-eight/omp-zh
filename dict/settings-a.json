@@ -289,21 +289,9 @@
     "to": "温度/Temperature",
     "mode": "full"
   },
-  {
-    "from": "Top P",
-    "to": "Top P/Top P",
-    "mode": "full"
-  },
-  {
-    "from": "Top K",
-    "to": "Top K/Top K",
-    "mode": "full"
-  },
-  {
-    "from": "Min P",
-    "to": "Min P/Min P",
-    "mode": "full"
-  },
+  
+  
+  
   {
     "from": "Presence Penalty",
     "to": "存在惩罚/Presence Penalty",
@@ -729,11 +717,7 @@
     "to": "Mnemopi LLM 模型/Mnemopi LLM Model",
     "mode": "full"
   },
-  {
-    "from": "Hindsight API URL",
-    "to": "Hindsight API URL/Hindsight API URL",
-    "mode": "full"
-  },
+  
   {
     "from": "Hindsight API Token",
     "to": "Hindsight API 令牌/Hindsight API Token",
@@ -774,11 +758,7 @@
     "to": "Hindsight 心智模型自动初始化/Hindsight Mental Model Auto-Seed",
     "mode": "full"
   },
-  {
-    "from": "TTSR",
-    "to": "TTSR/TTSR",
-    "mode": "full"
-  },
+  
   {
     "from": "TTSR Context Mode",
     "to": "TTSR 上下文模式/TTSR Context Mode",
@@ -894,11 +874,7 @@
     "to": "内联读取预览/Inline Read Previews",
     "mode": "full"
   },
-  {
-    "from": "LSP",
-    "to": "LSP/LSP",
-    "mode": "full"
-  },
+  
   {
     "from": "Lazy LSP Startup",
     "to": "延迟 LSP 启动/Lazy LSP Startup",
@@ -929,11 +905,7 @@
     "to": "诊断去重/Deduplicate Diagnostics",
     "mode": "full"
   },
-  {
-    "from": "Bash",
-    "to": "Bash/Bash",
-    "mode": "full"
-  },
+  
   {
     "from": "Bash Auto-Background",
     "to": "Bash 自动后台化/Bash Auto-Background",
@@ -1019,16 +991,8 @@
     "to": "自动创建待办/Create Todos Automatically",
     "mode": "full"
   },
-  {
-    "from": "Glob",
-    "to": "Glob/Glob",
-    "mode": "full"
-  },
-  {
-    "from": "Grep",
-    "to": "Grep/Grep",
-    "mode": "full"
-  },
+  
+  
   {
     "from": "Grep Context Before",
     "to": "Grep 前文上下文/Grep Context Before",
@@ -1039,11 +1003,7 @@
     "to": "Grep 后文上下文/Grep Context After",
     "mode": "full"
   },
-  {
-    "from": "AST Grep",
-    "to": "AST Grep/AST Grep",
-    "mode": "full"
-  },
+  
   {
     "from": "AST Edit",
     "to": "AST 编辑/AST Edit",
@@ -1099,11 +1059,7 @@
     "to": "Obsidian 库/Obsidian Vault",
     "mode": "full"
   },
-  {
-    "from": "GitHub CLI",
-    "to": "GitHub CLI/GitHub CLI",
-    "mode": "full"
-  },
+  
   {
     "from": "GitHub View Cache",
     "to": "GitHub 视图缓存/GitHub View Cache",
@@ -1439,11 +1395,7 @@
     "to": "Kimi API 格式/Kimi API Format",
     "mode": "full"
   },
-  {
-    "from": "OpenAI Codex WebSockets",
-    "to": "OpenAI Codex WebSocket/OpenAI Codex WebSockets",
-    "mode": "full"
-  },
+  
   {
     "from": "Stream First Event Timeout",
     "to": "流式首个事件超时/Stream First Event Timeout",
@@ -1489,11 +1441,7 @@
     "to": "仅追加上下文/Append-Only Context",
     "mode": "full"
   },
-  {
-    "from": "Exa",
-    "to": "Exa/Exa",
-    "mode": "full"
-  },
+  
   {
     "from": "Exa Search Delay",
     "to": "Exa 搜索延迟/Exa Search Delay",

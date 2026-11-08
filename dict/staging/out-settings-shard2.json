@@ -374,16 +374,8 @@
     "to": "主题/Theme",
     "mode": "full"
   },
-  {
-    "from": "Unicode",
-    "to": "Unicode/Unicode",
-    "mode": "full"
-  },
-  {
-    "from": "Nerd Font",
-    "to": "Nerd Font/Nerd Font",
-    "mode": "full"
-  },
+  
+  
   {
     "from": "Requires a Nerd Font, or a Glyph Protocol terminal (icons ship in-band)",
     "to": "需要 Nerd Font，或支持 Glyph Protocol 的终端（图标在带内传输）/Requires a Nerd Font, or a Glyph Protocol terminal (icons ship in-band)",
