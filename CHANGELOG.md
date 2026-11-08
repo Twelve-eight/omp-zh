@@ -4,7 +4,10 @@
 
 ## 未发布
 
-- 新增过度汉化硬门：`build.js` 写盘前扫描对象键、计算索引（含 `?.[`）、比较值、Map/Set 键、匹配实参、`new RegExp` 实参与 `key/code/type/id/role` 结构字段，命中即 `GATE FAIL`（退出码 3）。对已构建/已安装产物可用 `node scripts/check-overtranslation.js <版本>` 复查。判据与排查步骤写入 [docs/dictionary.md](docs/dictionary.md#过度汉化每个版本都要排查) 与 [docs/updating.md](docs/updating.md)。
+- 删除 63 条「英文重复」条目：`to` 的中文半区是纯 ASCII（多数等于原文），界面会显示成 `Glob/Glob`、`1 KB/1 KB`、`OpenAI API/OpenAI API`。删除后这些标签回到纯英文，`check-dict` 警告 88 → 35。
+- 删除条目 `Security`：它落在 Keep-a-Changelog 小节名数组里（`["Breaking Changes", …, "Security"]`），被 `!v.includes(h)` 与 `new Set(…)` 当查找集用，导致 `/changelog` 的安全分类永远不匹配（对抗性复核发现）。过度汉化门新增「成员数组」规则。
+- P11 加固：`content` 为 `null` 或缺失时不再抛 TypeError，仅对真正的空数组生效。
+- 新增过度汉化硬门：`build.js` 写盘前扫描对象键、计算索引（含 `?.[`）、比较值、Map/Set 键、匹配实参、成员数组、`new RegExp` 实参与 `key/code/type/id/role` 结构字段，命中即 `GATE FAIL`（退出码 3）。对已构建/已安装产物可用 `node scripts/check-overtranslation.js <版本>` 复查（`--self-test` 是门自身的负对照）。判据与排查步骤写入 [docs/dictionary.md](docs/dictionary.md#过度汉化每个版本都要排查) 与 [docs/updating.md](docs/updating.md)。
 
 ## 18.18.0-zh（2026-11-05）
 
