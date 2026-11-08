@@ -72,6 +72,7 @@ node scripts/scan-gaps.js <new>
 
 ```powershell
 node scripts/check-dict.js
+node scripts/dict-diff.js --ref HEAD   # 批量改字典后：证明只动了预期条目
 node build.js <new>
 node verify.js <new>
 node scripts/check-overtranslation.js <new>

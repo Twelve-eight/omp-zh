@@ -43,6 +43,14 @@ omp-zh 不修改上游源码，而是在官方 exe 里逐个替换字符串字�
 
 **专有名词。** 产品名和协议名保持英文，例如 Bash、LSP、MCP、Amazon S3。
 
+## 批量改字典时的做法
+
+批量删除或改写条目不要手写大括号扫描去切 JSON——一次拼接失手就会产出非法 JSON（`JSON.parse` 只在写盘前拦得住语法错误，拦不住两条条目被合并）。安全路径：
+
+1. `JSON.parse` 读入、按 `(mode, from)` 过滤、`JSON.stringify(arr, null, 2)` 写回；格式变化是一次性 diff，比字符串切片安全。
+2. 改完用 `node scripts/dict-diff.js --ref <改前的提交>` 对照：输出的 `removed` 必须正好是预期条目，`added` 与 `modified in place` 必须为 0。
+3. 再跑 `node scripts/check-dict.js` 与 `node build.js <版本>`。
+
 ## 过度汉化（每个版本都要排查）
 
 同一个英文词常常既是界面标签又是代码取值。字典按文本匹配，无法按位置区分，于是把代码取值也译了。典型例子：`Power` 既是设置页的分节标题，又是 puppeteer 键盘布局里的键名。
