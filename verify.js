@@ -22,6 +22,27 @@ for (const [what, p] of [['verification suite', suite], ['localized exe', exe], 
 }
 
 const checks = require(suite)({ exe, official, root });
+
+// Structural guard: a suite that was edited incrementally has twice shipped a duplicated or
+// half-written entry, which runs fine but silently drops a check. Fail fast instead.
+{
+  const bad = [];
+  const names = new Map();
+  for (const [i, c] of checks.entries()) {
+    if (!Array.isArray(c) || c.length !== 2) { bad.push(`entry ${i} is not [name, pass]`); continue; }
+    const [name, pass] = c;
+    if (typeof name !== 'string' || name.trim() === '') bad.push(`entry ${i} has no name`);
+    if (typeof pass !== 'boolean') bad.push(`check "${name}" did not evaluate to a boolean (got ${typeof pass})`);
+    if (names.has(name)) bad.push(`duplicate check name "${name}" (entries ${names.get(name)} and ${i})`);
+    else names.set(name, i);
+  }
+  if (bad.length) {
+    console.error('SUITE INVALID:');
+    for (const b of bad) console.error('  ! ' + b);
+    process.exit(2);
+  }
+}
+
 let fail = 0;
 for (const [name, pass] of checks) {
   console.log((pass ? 'PASS' : 'FAIL') + '  ' + name);
