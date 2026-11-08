@@ -28,6 +28,7 @@ if (args.includes('--self-test')) {
     ['matcher arg', 's.includes("\u5df2\u542f\u7528/Enabled");'],
     ['RegExp source', 'new RegExp("\u5df2\u542f\u7528/Enabled");'],
     ['enum key write', 'e["\u5df2\u542f\u7528/Enabled"] = "enabled";'],
+    ['membership array', 'var v = ["Breaking Changes", "\u5b89\u5168/Security"];\nfunction f(h) { return !v.includes(h); }'],
   ];
   const legit = [
     ['array literal', 'return ["\u5df2\u542f\u7528/Enabled"];'],
@@ -35,6 +36,7 @@ if (args.includes('--self-test')) {
     ['label field', 'var l = { label: "\u5df2\u542f\u7528/Enabled" };'],
     ['action field', 'var a = { action: "\u590d\u5236\u5f53\u524d\u884c/Copy current line" };'],
     ['value field', 'var v = { value: "\u672a\u7f13\u5b58/Not cached" };'],
+    ['display table array', 'var t = [{ label: "\u540d\u79f0/Name", value: "n" }];\nt[0].label;'],
   ];
   let failed = 0;
   for (const [name, text] of defects) {

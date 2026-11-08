@@ -1081,11 +1081,6 @@
     "mode": "full"
   },
   {
-    "from": "Security",
-    "to": "安全/Security",
-    "mode": "full"
-  },
-  {
     "from": "Ask",
     "to": "询问/Ask",
     "mode": "full"

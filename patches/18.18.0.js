@@ -36,7 +36,7 @@ module.exports = {
       // so only a turn with no content parts at all is dropped — the empty reply a relay returns.
       return replaceExact(s, 47, 'empty stop drop',
         'function tY(e) {\n  const t = e.stopReason === "length" || e.stopReason === "error" || e.stopReason === "aborted";\n  return t && !e.content.some((i) => i.type === "toolCall" || i.type === "text");\n}',
-        'function tY(e) {\n  const t = e.stopReason === "length" || e.stopReason === "error" || e.stopReason === "aborted";\n  return t && !e.content.some((i) => i.type === "toolCall" || i.type === "text") || e.content.length === 0 && e.stopReason === "stop";\n}');
+        'function tY(e) {\n  const t = e.stopReason === "length" || e.stopReason === "error" || e.stopReason === "aborted";\n  return t && !e.content.some((i) => i.type === "toolCall" || i.type === "text") || Array.isArray(e.content) && e.content.length === 0 && e.stopReason === "stop";\n}');
     },
 
     // P2 stopcap (coding-agent/src/session/turn-recovery.ts)

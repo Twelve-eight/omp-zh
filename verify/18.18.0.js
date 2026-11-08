@@ -26,7 +26,7 @@ module.exports = function checks({ exe, official, root }) {
   })()],
   // Each patch: patched text present AND original text gone (no vacuous substring checks).
   ['patch compat: mod 47', txt(47).includes('supportsForcedToolChoice: false,') && !txt(47).includes('supportsForcedToolChoice: !t.requiresEnabledThinking')],
-  ['patch emptystop: mod 47 drops empty stop turns', txt(47).includes('|| e.content.length === 0 && e.stopReason === "stop";')],
+  ['patch emptystop: mod 47 drops empty stop turns', txt(47).includes('|| Array.isArray(e.content) && e.content.length === 0 && e.stopReason === "stop";')],
   ['patch emptystop: behavior (empty stop dropped, thinking-only stop kept)', (() => {
     const src = txt(47).match(/function tY\(e\) \{[\s\S]*?\n\}/);
     if (!src) return false;
@@ -36,7 +36,9 @@ module.exports = function checks({ exe, official, root }) {
       && K7({ stopReason: 'stop', content: [{ type: 'text', text: 'hi' }] }) === false
       && K7({ stopReason: 'stop', content: [{ type: 'toolCall', name: 'read' }] }) === false
       && K7({ stopReason: 'error', content: [] }) === true
-      && K7({ stopReason: 'toolUse', content: [] }) === false;
+      && K7({ stopReason: 'toolUse', content: [] }) === false
+      && K7({ stopReason: 'stop', content: null }) === false
+      && K7({ stopReason: 'stop' }) === false;
   })()],
   ['patch stopcap: mod 330 te/re/ie/ne raised', txt(330).includes('var te = 1000000;\nvar be = 15000;\nvar re = 1000000;\nvar ie = 1000000;\nvar ne = 1000000;')],
   ['patch sessionStop: mod 465 Ix raised', txt(465).includes('var Ix = 1000000;') && !txt(465).includes('var Ix = 8;')],
@@ -146,6 +148,10 @@ module.exports = function checks({ exe, official, root }) {
   ['code value: puppeteer keyboard layout stays ASCII', (() => {
     const s = txt(1162);
     return s.includes('Power: { key: "Power", code: "Power" }');
+  })()],
+  ['code value: changelog section headings stay English', (() => {
+    const s = txt(658);
+    return s.includes('"Breaking Changes"') && s.includes('"Security"') && !s.includes('安全/Security');
   })()],
   ['vendored axe bundle is byte-identical to upstream', (() => {
     const ob = fs.readFileSync(official);
