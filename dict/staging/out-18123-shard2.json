@@ -45,8 +45,8 @@
     "mode": "full"
   },
   {
-    "from": "Auto-select the recommended ask option after this many seconds (0 disables). Also bounds cfg:// approval prompts; an unanswered approval denies the write instead of auto-selecting",
-    "to": "在此秒数后自动选择推荐的 ask 选项（0 表示禁用）。同时限制 cfg:// 审批提示的等待；未获答复的审批将拒绝写入而不是自动选择/Auto-select the recommended ask option after this many seconds (0 disables). Also bounds cfg:// approval prompts; an unanswered approval denies the write instead of auto-selecting",
+    "from": "Submit an ask form's current values (your preselected answers) after this many seconds (0 disables). Also bounds cfg:// approval prompts; an unanswered approval denies the write instead of auto-submitting",
+    "to": "在这么多秒后提交询问表单的当前值（你预选的答案）（0 表示禁用）。同时也限制 cfg:// 审批提示的等待时间；未作答的审批会拒绝写入，而不是自动提交/Submit an ask form's current values (your preselected answers) after this many seconds (0 disables). Also bounds cfg:// approval prompts; an unanswered approval denies the write instead of auto-submitting",
     "mode": "full"
   },
   {

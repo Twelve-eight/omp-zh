@@ -805,8 +805,8 @@
   "mode": "full"
  },
  {
-  "from": "Restart omp with the same launch flags, resuming this session",
-  "to": "使用相同的启动参数重启 omp，并恢复本会话/Restart omp with the same launch flags, resuming this session",
+  "from": "Restart omp with the same launch flags, resuming this session and its running subagents",
+  "to": "以相同启动参数重启 omp，恢复此会话及其正在运行的子代理/Restart omp with the same launch flags, resuming this session and its running subagents",
   "mode": "full"
  },
  {
@@ -1575,23 +1575,8 @@
   "mode": "full"
  },
  {
-  "from": "Keyword required. Usage: /mcp smithery-search <keyword> [--scope project|user] [--limit <1-100>] [--semantic]",
-  "to": "需要关键词。用法：/mcp smithery-search <keyword> [--scope project|user] [--limit <1-100>] [--semantic]/Keyword required. Usage: /mcp smithery-search <keyword> [--scope project|user] [--limit <1-100>] [--semantic]",
-  "mode": "full"
- },
- {
   "from": "Invalid --scope value. Use project or user.",
   "to": "--scope 取值无效。请使用 project 或 user。/Invalid --scope value. Use project or user.",
-  "mode": "full"
- },
- {
-  "from": "Invalid --limit value. Use an integer between 1 and 100.",
-  "to": "--limit 取值无效。请使用 1 到 100 之间的整数。/Invalid --limit value. Use an integer between 1 and 100.",
-  "mode": "full"
- },
- {
-  "from": "MCP Smithery selection cancelled.",
-  "to": "已取消 MCP Smithery 选择。/MCP Smithery selection cancelled.",
   "mode": "full"
  },
  {
@@ -1672,51 +1657,6 @@
  {
   "from": "No servers support notifications.",
   "to": "没有服务器支持通知。/No servers support notifications.",
-  "mode": "full"
- },
- {
-  "from": "Smithery API key saved.",
-  "to": "Smithery API key 已保存。/Smithery API key saved.",
-  "mode": "full"
- },
- {
-  "from": "Browser authorization started. Complete auth in your browser.",
-  "to": "已启动浏览器授权。请在浏览器中完成认证。/Browser authorization started. Complete auth in your browser.",
-  "mode": "full"
- },
- {
-  "from": "If browser auth fails, you can paste an API key.",
-  "to": "如果浏览器认证失败，你可以粘贴 API key。/If browser auth fails, you can paste an API key.",
-  "mode": "full"
- },
- {
-  "from": "rate limited by Smithery",
-  "to": "被 Smithery 限流/rate limited by Smithery",
-  "mode": "full"
- },
- {
-  "from": "forbidden/unauthorized with Smithery",
-  "to": "被 Smithery 拒绝/未授权/forbidden/unauthorized with Smithery",
-  "mode": "full"
- },
- {
-  "from": "required for smithery-search",
-  "to": "smithery-search 需要认证/required for smithery-search",
-  "mode": "full"
- },
- {
-  "from": "Smithery API key removed.",
-  "to": "已移除 Smithery API key。/Smithery API key removed.",
-  "mode": "full"
- },
- {
-  "from": "Server name cannot be empty.",
-  "to": "服务器名称不能为空。/Server name cannot be empty.",
-  "mode": "full"
- },
- {
-  "from": "MCP deploy cancelled.",
-  "to": "已取消 MCP 部署。/MCP deploy cancelled.",
   "mode": "full"
  },
  {
@@ -2932,11 +2872,6 @@
  {
   "from": "Theme preview superseded by a newer request",
   "to": "主题预览已被更新的请求取代/Theme preview superseded by a newer request",
-  "mode": "full"
- },
- {
-  "from": "No question provided",
-  "to": "未提供问题/No question provided",
   "mode": "full"
  },
  {

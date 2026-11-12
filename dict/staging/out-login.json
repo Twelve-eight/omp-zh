@@ -111,51 +111,6 @@
  },
  {
   "mode": "full",
-  "from": "Smithery authentication required. Run /mcp smithery-login in the TUI client or add an API key to ~/.omp/agent/smithery.json.",
-  "to": "需要 Smithery 认证.在 TUI 客户端运行 /mcp smithery-login,或在 ~/.omp/agent/smithery.json 中加入 API 密钥/Smithery authentication required. Run /mcp smithery-login in the TUI client or add an API key to ~/.omp/agent/smithery.json."
- },
- {
-  "mode": "full",
-  "from": "Smithery login cancelled. Run /mcp smithery-login, then retry /mcp smithery-search.",
-  "to": "Smithery 登录已取消.请运行 /mcp smithery-login,然后重试 /mcp smithery-search/Smithery login cancelled. Run /mcp smithery-login, then retry /mcp smithery-search."
- },
- {
-  "mode": "full",
-  "from": "Smithery login session expired. Please try again.",
-  "to": "Smithery 登录会话已过期.请重试/Smithery login session expired. Please try again."
- },
- {
-  "mode": "full",
-  "from": "Smithery authorization timed out after 5 minutes.",
-  "to": "Smithery 授权在 5 分钟后超时/Smithery authorization timed out after 5 minutes."
- },
- {
-  "mode": "full",
-  "from": "Smithery authorization cancelled.",
-  "to": "Smithery 授权已取消/Smithery authorization cancelled."
- },
- {
-  "mode": "full",
-  "from": "Smithery authorization failed.",
-  "to": "Smithery 授权失败/Smithery authorization failed."
- },
- {
-  "mode": "full",
-  "from": "Smithery login cancelled.",
-  "to": "Smithery 登录已取消/Smithery login cancelled."
- },
- {
-  "mode": "full",
-  "from": "Smithery API key not found after login.",
-  "to": "登录后未找到 Smithery API 密钥/Smithery API key not found after login."
- },
- {
-  "mode": "full",
-  "from": "No cached Smithery API key found.",
-  "to": "未找到缓存的 Smithery API 密钥/No cached Smithery API key found."
- },
- {
-  "mode": "full",
   "from": "OAuth login already in progress. Paste the redirect URL with /login <url>.",
   "to": "OAuth 登录已在进行中.请用 /login <url> 粘贴重定向 URL/OAuth login already in progress. Paste the redirect URL with /login <url>."
  },

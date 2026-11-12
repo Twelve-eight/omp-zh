@@ -405,21 +405,6 @@
   "mode": "full"
  },
  {
-  "from": "Search Smithery registry and deploy an MCP server",
-  "to": "搜索 Smithery 注册表并部署一个 MCP 服务器/Search Smithery registry and deploy an MCP server",
-  "mode": "full"
- },
- {
-  "from": "Login to Smithery and cache API key",
-  "to": "登录 Smithery 并缓存 API 密钥/Login to Smithery and cache API key",
-  "mode": "full"
- },
- {
-  "from": "Remove cached Smithery API key",
-  "to": "移除缓存的 Smithery API 密钥/Remove cached Smithery API key",
-  "mode": "full"
- },
- {
   "from": "Reconnect to a specific MCP server",
   "to": "重新连接到指定 MCP 服务器/Reconnect to a specific MCP server",
   "mode": "full"

@@ -30,16 +30,6 @@
     "mode": "full"
   },
   {
-    "from": "Task Instructions from Files",
-    "to": "从文件读取任务说明/Task Instructions from Files",
-    "mode": "full"
-  },
-  {
-    "from": "Let the task tool read subagent instructions from a file (taskFile), recording its path and SHA-256.",
-    "to": "允许 task 工具从文件（taskFile）读取子代理说明，并记录文件路径和 SHA-256。/Let the task tool read subagent instructions from a file (taskFile), recording its path and SHA-256.",
-    "mode": "full"
-  },
-  {
     "from": "Out",
     "to": "输出/Out",
     "mode": "full"

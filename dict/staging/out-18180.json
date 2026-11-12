@@ -1,79 +1,377 @@
 [
-  { "from": "Auto Update", "to": "自动更新/Auto Update", "mode": "full" },
-  { "from": "Keep omp up to date", "to": "保持 omp 为最新/Keep omp up to date", "mode": "full" },
-  { "from": "1  Update automatically", "to": "1  自动更新/1  Update automatically", "mode": "full" },
-  { "from": "2  Notify me", "to": "2  仅通知我/2  Notify me", "mode": "full" },
-  { "from": "Choose how new releases reach you.", "to": "选择新版本的送达方式。/Choose how new releases reach you.", "mode": "full" },
-  { "from": "Installs in the background; the next launch runs it", "to": "后台安装；下次启动即运行新版本/Installs in the background; the next launch runs it", "mode": "full" },
-  { "from": "Show a notice on startup; run omp update yourself", "to": "启动时提示；由你自己运行 omp update/Show a notice on startup; run omp update yourself", "mode": "full" },
-  { "from": "Updates install through whatever installed omp: the standalone binary, Homebrew, mise, bun, or npm. Change this later in /settings.", "to": "更新通过当初安装 omp 的方式完成：独立二进制、Homebrew、mise、bun 或 npm。之后可在 /settings 中修改。/Updates install through whatever installed omp: the standalone binary, Homebrew, mise, bun, or npm. Change this later in /settings.", "mode": "full" },
-  { "from": "Install omp updates in the background on startup; the next launch runs the new version", "to": "启动时在后台安装 omp 更新；下次启动运行新版本/Install omp updates in the background on startup; the next launch runs the new version", "mode": "full" },
-  { "from": "auto-update: status file unreadable", "to": "自动更新：状态文件不可读/auto-update: status file unreadable", "mode": "full" },
-  { "from": "auto-update: status write failed", "to": "自动更新：状态写入失败/auto-update: status write failed", "mode": "full" },
-  { "from": "auto-update: stopped", "to": "自动更新：已停止/auto-update: stopped", "mode": "full" },
-  { "from": "Failed to check for updates", "to": "检查更新失败/Failed to check for updates", "mode": "full" },
-  { "from": "Update failed", "to": "更新失败/Update failed", "mode": "full" },
-  { "from": " updating\\u2026", "to": " 正在更新\\u2026/ updating\\u2026", "mode": "sub" },
-  { "from": " next launch", "to": " 下次启动/ next launch", "mode": "sub" },
-  { "from": "Startup changelog failed", "to": "启动更新日志获取失败/Startup changelog failed", "mode": "full" },
-  { "from": "No animation", "to": "无动画/No animation", "mode": "full" },
-  { "from": "Every animation at its own setting (default)", "to": "每项动画按其自身设置（默认）/Every animation at its own setting (default)", "mode": "full" },
-  { "from": "Quiet, for many panes", "to": "安静模式，适合多窗格/Quiet, for many panes", "mode": "full" },
-  { "from": "Spinners at 250 ms, no shimmer, no blink/fade", "to": "转圈 250 毫秒，无闪光、无闪烁/Spinners at 250 ms, no shimmer, no blink/fade", "mode": "full" },
-  { "from": "Static spinners and title, no shimmer, no blink/fade", "to": "静态转圈与标题，无闪光、无闪烁/Static spinners and title, no shimmer, no blink/fade", "mode": "full" },
-  { "from": "Max Frames Per Second", "to": "最大帧率/Max Frames Per Second", "mode": "full" },
-  { "from": "Ceiling on how often the TUI repaints, streaming text included. Keystroke echo keeps 30 fps, so the pane you type in stays responsive", "to": "TUI 重绘频率上限（含流式文字）。按键回显始终 30 fps，所以输入窗格保持跟手/Ceiling on how often the TUI repaints, streaming text included. Keystroke echo keeps 30 fps, so the pane you type in stays responsive", "mode": "full" },
-  { "from": "Spinner Interval (ms)", "to": "转圈间隔（毫秒）/Spinner Interval (ms)", "mode": "full" },
-  { "from": "Milliseconds between frames of every spinner, the terminal title included; 0 shows static glyphs. Unset follows Motion", "to": "所有转圈（含终端标题）的帧间隔毫秒数；0 显示静态字形。未设置时跟随动效设置/Milliseconds between frames of every spinner, the terminal title included; 0 shows static glyphs. Unset follows Motion", "mode": "full" },
-  { "from": "One switch over spinners, shimmer, and decorative blink/fade. Streaming text is unaffected (see Max Frames Per Second). A spinner interval you set still wins", "to": "统一控制转圈、闪光与装饰性闪烁。流式文字不受影响（见最大帧率）。单独设置的转圈间隔仍然优先/One switch over spinners, shimmer, and decorative blink/fade. Streaming text is unaffected (see Max Frames Per Second). A spinner interval you set still wins", "mode": "full" },
-  { "from": "Colorful Markdown", "to": "彩色 Markdown/Colorful Markdown", "mode": "full" },
-  { "from": "Color headings by level, bold and italic text, inline code, and table headers from the theme's ANSI palette. Off uses one heading color and plain bold/italic.", "to": "按层级为标题、粗斜体、行内代码和表头上色（取主题的 ANSI 调色板）。关闭后标题只用一色、粗斜体不带颜色。/Color headings by level, bold and italic text, inline code, and table headers from the theme's ANSI palette. Off uses one heading color and plain bold/italic.", "mode": "full" },
-  { "from": "Shell Visualization", "to": "Shell 可视化/Shell Visualization", "mode": "full" },
-  { "from": "Show bash commands as an interactive execution visualization instead of plain shell commands", "to": "把 bash 命令显示为可交互的执行可视化，而不是纯文本命令/Show bash commands as an interactive execution visualization instead of plain shell commands", "mode": "full" },
-  { "from": "Native shell returned an invalid visualization presentation", "to": "原生 shell 返回了无效的可视化呈现/Native shell returned an invalid visualization presentation", "mode": "full" },
-  { "from": "Subagent Worker Threads", "to": "子代理工作线程/Subagent Worker Threads", "mode": "full" },
-  { "from": "Up to 1 worker", "to": "最多 1 个工作线程/Up to 1 worker", "mode": "full" },
-  { "from": "Up to 2 workers", "to": "最多 2 个工作线程/Up to 2 workers", "mode": "full" },
-  { "from": "Up to 4 workers", "to": "最多 4 个工作线程/Up to 4 workers", "mode": "full" },
-  { "from": "Up to 8 workers", "to": "最多 8 个工作线程/Up to 8 workers", "mode": "full" },
-  { "from": "Main thread only", "to": "仅主线程/Main thread only", "mode": "full" },
-  
-  { "from": "Opt in for catalog-supported standard Responses models; model or request false disables it", "to": "为目录中支持的标准 Responses 模型启用；模型或请求层面的 false 会将其关闭/Opt in for catalog-supported standard Responses models; model or request false disables it", "mode": "full" },
-  { "from": "Spotlight Experiment", "to": "Spotlight 实验/Spotlight Experiment", "mode": "full" },
-  { "from": "Shape tool output and rank find results with Stencil Spotlight, and log each shaped result to the session", "to": "用 Stencil Spotlight 塑造工具输出并排序 find 结果，并把每个塑造后的结果记录到会话/Shape tool output and rank find results with Stencil Spotlight, and log each shaped result to the session", "mode": "full" },
-  { "from": "Spotlight: passthrough", "to": "Spotlight：直通/Spotlight: passthrough", "mode": "full" },
-  { "from": "Extension Transcript Presenters", "to": "扩展转录呈现器/Extension Transcript Presenters", "mode": "full" },
-  { "from": "Let extensions draw transcript blocks such as tool calls in full, as one compact row, or hidden; the session, exports and model context are unchanged", "to": "允许扩展把工具调用等转录块绘制为完整、单行紧凑或隐藏；会话、导出与模型上下文不受影响/Let extensions draw transcript blocks such as tool calls in full, as one compact row, or hidden; the session, exports and model context are unchanged", "mode": "full" },
-  { "from": "Prompt Cache", "to": "提示词缓存/Prompt Cache", "mode": "full" },
-  { "from": "Chillax Keyword", "to": "Chillax 关键词/Chillax Keyword", "mode": "full" },
-  { "from": "ovnfs Binary", "to": "ovnfs 可执行文件/ovnfs Binary", "mode": "full" },
-  { "from": "Split stacked (terminal too narrow for side-by-side)", "to": "纵向分栏（终端太窄，无法并排）/Split stacked (terminal too narrow for side-by-side)", "mode": "full" },
-  { "from": "Extension links", "to": "扩展链接/Extension links", "mode": "full" },
-  { "from": "pick one anywhere in the transcript", "to": "在转录任意位置选择一个/pick one anywhere in the transcript", "mode": "full" },
-  { "from": "Type a tag or click a link \\xB7 PgUp/PgDn scroll \\xB7 Esc close", "to": "输入标签或点击链接 \\xB7 PgUp/PgDn 滚动 \\xB7 Esc 关闭/Type a tag or click a link \\xB7 PgUp/PgDn scroll \\xB7 Esc close", "mode": "full" },
-  { "from": "Too many links on one row to tag; widen the terminal \\xB7 PgUp/PgDn scroll \\xB7 Esc close", "to": "一行链接太多无法编号；请加宽终端 \\xB7 PgUp/PgDn 滚动 \\xB7 Esc 关闭/Too many links on one row to tag; widen the terminal \\xB7 PgUp/PgDn scroll \\xB7 Esc close", "mode": "full" },
-  { "from": "Esc closes", "to": "Esc 关闭/Esc closes", "mode": "full" },
-  { "from": "Escape closes", "to": "Escape 关闭/Escape closes", "mode": "full" },
-  { "from": "hidden (nothing to report)", "to": "已隐藏（无内容可报告）/hidden (nothing to report)", "mode": "full" },
-  { "from": "Likely cached", "to": "可能已缓存/Likely cached", "mode": "full" },
-  { "from": "Not cached", "to": "未缓存/Not cached", "mode": "full" },
-  { "from": "Why not cached", "to": "为何未缓存/Why not cached", "mode": "full" },
-  { "from": "Next message", "to": "下一条消息/Next message", "mode": "full" },
-  { "from": "no expiry", "to": "无过期/no expiry", "mode": "full" },
-  { "from": "never (the provider keeps it)", "to": "永不（由提供商保留）/never (the provider keeps it)", "mode": "full" },
-  { "from": "refresh scheduled", "to": "已安排刷新/refresh scheduled", "mode": "full" },
-  { "from": "refreshing now", "to": "正在刷新/refreshing now", "mode": "full" },
-  { "from": "context was compacted", "to": "上下文被压缩/context was compacted", "mode": "full" },
-  { "from": "system prompt changed", "to": "系统提示已变化/system prompt changed", "mode": "full" },
-  { "from": "tool set changed", "to": "工具集已变化/tool set changed", "mode": "full" },
-  { "from": "cache retention setting changed", "to": "缓存保留设置已变化/cache retention setting changed", "mode": "full" },
-  { "from": "omp's refresh found the entry gone", "to": "omp 刷新时发现条目已不存在/omp's refresh found the entry gone", "mode": "full" },
-  { "from": "Sign in with your Windsurf (Enterprise) account in your browser.", "to": "在浏览器中用你的 Windsurf（企业版）账号登录。/Sign in with your Windsurf (Enterprise) account in your browser.", "mode": "full" },
-  { "from": "Windsurf code exchange returned no API key", "to": "Windsurf 代码交换未返回 API 密钥/Windsurf code exchange returned no API key", "mode": "full" },
-  { "from": "Keenable credentials could not be resolved. Check your configured API key or credential helper.", "to": "无法解析 Keenable 凭据。请检查已配置的 API 密钥或凭据助手。/Keenable credentials could not be resolved. Check your configured API key or credential helper.", "mode": "full" },
-  { "from": "Keenable needs search terms; date-only queries are not supported", "to": "Keenable 需要搜索词；不支持仅日期的查询/Keenable needs search terms; date-only queries are not supported", "mode": "full" },
-  { "from": "Keenable search API returned an unexpected response shape", "to": "Keenable 搜索 API 返回了意外的响应结构/Keenable search API returned an unexpected response shape", "mode": "full" },
-  { "from": "Keenable search API returned invalid JSON", "to": "Keenable 搜索 API 返回了无效 JSON/Keenable search API returned invalid JSON", "mode": "full" },
-  { "from": "Aborted: Signal", "to": "已中止：信号/Aborted: Signal", "mode": "full" },
-  { "from": "Aborted: Timeout", "to": "已中止：超时/Aborted: Timeout", "mode": "full" }
+  {
+    "from": "Auto Update",
+    "to": "自动更新/Auto Update",
+    "mode": "full"
+  },
+  {
+    "from": "Keep omp up to date",
+    "to": "保持 omp 为最新/Keep omp up to date",
+    "mode": "full"
+  },
+  {
+    "from": "1  Update automatically",
+    "to": "1  自动更新/1  Update automatically",
+    "mode": "full"
+  },
+  {
+    "from": "2  Notify me",
+    "to": "2  仅通知我/2  Notify me",
+    "mode": "full"
+  },
+  {
+    "from": "Choose how new releases reach you.",
+    "to": "选择新版本的送达方式。/Choose how new releases reach you.",
+    "mode": "full"
+  },
+  {
+    "from": "Installs in the background; the next launch runs it",
+    "to": "后台安装；下次启动即运行新版本/Installs in the background; the next launch runs it",
+    "mode": "full"
+  },
+  {
+    "from": "Show a notice on startup; run omp update yourself",
+    "to": "启动时提示；由你自己运行 omp update/Show a notice on startup; run omp update yourself",
+    "mode": "full"
+  },
+  {
+    "from": "Updates install through whatever installed omp: the standalone binary, Homebrew, mise, bun, or npm. Change this later in /settings.",
+    "to": "更新通过当初安装 omp 的方式完成：独立二进制、Homebrew、mise、bun 或 npm。之后可在 /settings 中修改。/Updates install through whatever installed omp: the standalone binary, Homebrew, mise, bun, or npm. Change this later in /settings.",
+    "mode": "full"
+  },
+  {
+    "from": "Install omp updates in the background on startup; the next launch runs the new version",
+    "to": "启动时在后台安装 omp 更新；下次启动运行新版本/Install omp updates in the background on startup; the next launch runs the new version",
+    "mode": "full"
+  },
+  {
+    "from": "auto-update: status file unreadable",
+    "to": "自动更新：状态文件不可读/auto-update: status file unreadable",
+    "mode": "full"
+  },
+  {
+    "from": "auto-update: status write failed",
+    "to": "自动更新：状态写入失败/auto-update: status write failed",
+    "mode": "full"
+  },
+  {
+    "from": "auto-update: stopped",
+    "to": "自动更新：已停止/auto-update: stopped",
+    "mode": "full"
+  },
+  {
+    "from": "Failed to check for updates",
+    "to": "检查更新失败/Failed to check for updates",
+    "mode": "full"
+  },
+  {
+    "from": "Update failed",
+    "to": "更新失败/Update failed",
+    "mode": "full"
+  },
+  {
+    "from": " updating\\u2026",
+    "to": " 正在更新\\u2026/ updating\\u2026",
+    "mode": "sub"
+  },
+  {
+    "from": " next launch",
+    "to": " 下次启动/ next launch",
+    "mode": "sub"
+  },
+  {
+    "from": "Startup changelog failed",
+    "to": "启动更新日志获取失败/Startup changelog failed",
+    "mode": "full"
+  },
+  {
+    "from": "No animation",
+    "to": "无动画/No animation",
+    "mode": "full"
+  },
+  {
+    "from": "Every animation at its own setting (default)",
+    "to": "每项动画按其自身设置（默认）/Every animation at its own setting (default)",
+    "mode": "full"
+  },
+  {
+    "from": "Quiet, for many panes",
+    "to": "安静模式，适合多窗格/Quiet, for many panes",
+    "mode": "full"
+  },
+  {
+    "from": "Spinners at 250 ms, no shimmer, no blink/fade",
+    "to": "转圈 250 毫秒，无闪光、无闪烁/Spinners at 250 ms, no shimmer, no blink/fade",
+    "mode": "full"
+  },
+  {
+    "from": "Static spinners and title, no shimmer, no blink/fade",
+    "to": "静态转圈与标题，无闪光、无闪烁/Static spinners and title, no shimmer, no blink/fade",
+    "mode": "full"
+  },
+  {
+    "from": "Max Frames Per Second",
+    "to": "最大帧率/Max Frames Per Second",
+    "mode": "full"
+  },
+  {
+    "from": "Ceiling on how often the TUI repaints, streaming text included. Keystroke echo keeps 30 fps, so the pane you type in stays responsive",
+    "to": "TUI 重绘频率上限（含流式文字）。按键回显始终 30 fps，所以输入窗格保持跟手/Ceiling on how often the TUI repaints, streaming text included. Keystroke echo keeps 30 fps, so the pane you type in stays responsive",
+    "mode": "full"
+  },
+  {
+    "from": "Spinner Interval (ms)",
+    "to": "转圈间隔（毫秒）/Spinner Interval (ms)",
+    "mode": "full"
+  },
+  {
+    "from": "Milliseconds between frames of every spinner, the terminal title included; 0 shows static glyphs. Unset follows Motion",
+    "to": "所有转圈（含终端标题）的帧间隔毫秒数；0 显示静态字形。未设置时跟随动效设置/Milliseconds between frames of every spinner, the terminal title included; 0 shows static glyphs. Unset follows Motion",
+    "mode": "full"
+  },
+  {
+    "from": "One switch over spinners, shimmer, and decorative blink/fade. Streaming text is unaffected (see Max Frames Per Second). A spinner interval you set still wins",
+    "to": "统一控制转圈、闪光与装饰性闪烁。流式文字不受影响（见最大帧率）。单独设置的转圈间隔仍然优先/One switch over spinners, shimmer, and decorative blink/fade. Streaming text is unaffected (see Max Frames Per Second). A spinner interval you set still wins",
+    "mode": "full"
+  },
+  {
+    "from": "Colorful Markdown",
+    "to": "彩色 Markdown/Colorful Markdown",
+    "mode": "full"
+  },
+  {
+    "from": "Color headings by level, bold and italic text, inline code, and table headers from the theme's ANSI palette. Off uses one heading color and plain bold/italic.",
+    "to": "按层级为标题、粗斜体、行内代码和表头上色（取主题的 ANSI 调色板）。关闭后标题只用一色、粗斜体不带颜色。/Color headings by level, bold and italic text, inline code, and table headers from the theme's ANSI palette. Off uses one heading color and plain bold/italic.",
+    "mode": "full"
+  },
+  {
+    "from": "Shell Visualization",
+    "to": "Shell 可视化/Shell Visualization",
+    "mode": "full"
+  },
+  {
+    "from": "Show bash commands as an interactive execution visualization instead of plain shell commands",
+    "to": "把 bash 命令显示为可交互的执行可视化，而不是纯文本命令/Show bash commands as an interactive execution visualization instead of plain shell commands",
+    "mode": "full"
+  },
+  {
+    "from": "Native shell returned an invalid visualization presentation",
+    "to": "原生 shell 返回了无效的可视化呈现/Native shell returned an invalid visualization presentation",
+    "mode": "full"
+  },
+  {
+    "from": "Subagent Worker Threads",
+    "to": "子代理工作线程/Subagent Worker Threads",
+    "mode": "full"
+  },
+  {
+    "from": "Up to 1 worker",
+    "to": "最多 1 个工作线程/Up to 1 worker",
+    "mode": "full"
+  },
+  {
+    "from": "Up to 2 workers",
+    "to": "最多 2 个工作线程/Up to 2 workers",
+    "mode": "full"
+  },
+  {
+    "from": "Up to 4 workers",
+    "to": "最多 4 个工作线程/Up to 4 workers",
+    "mode": "full"
+  },
+  {
+    "from": "Up to 8 workers",
+    "to": "最多 8 个工作线程/Up to 8 workers",
+    "mode": "full"
+  },
+  {
+    "from": "Main thread only",
+    "to": "仅主线程/Main thread only",
+    "mode": "full"
+  },
+  {
+    "from": "Opt in for catalog-supported standard Responses models; model or request false disables it",
+    "to": "为目录中支持的标准 Responses 模型启用；模型或请求层面的 false 会将其关闭/Opt in for catalog-supported standard Responses models; model or request false disables it",
+    "mode": "full"
+  },
+  {
+    "from": "Spotlight Experiment",
+    "to": "Spotlight 实验/Spotlight Experiment",
+    "mode": "full"
+  },
+  {
+    "from": "Shape tool output and rank find results with Stencil Spotlight, and log each shaped result to the session",
+    "to": "用 Stencil Spotlight 塑造工具输出并排序 find 结果，并把每个塑造后的结果记录到会话/Shape tool output and rank find results with Stencil Spotlight, and log each shaped result to the session",
+    "mode": "full"
+  },
+  {
+    "from": "Spotlight: passthrough",
+    "to": "Spotlight：直通/Spotlight: passthrough",
+    "mode": "full"
+  },
+  {
+    "from": "Extension Transcript Presenters",
+    "to": "扩展转录呈现器/Extension Transcript Presenters",
+    "mode": "full"
+  },
+  {
+    "from": "Let extensions draw transcript blocks such as tool calls in full, as one compact row, or hidden; the session, exports and model context are unchanged",
+    "to": "允许扩展把工具调用等转录块绘制为完整、单行紧凑或隐藏；会话、导出与模型上下文不受影响/Let extensions draw transcript blocks such as tool calls in full, as one compact row, or hidden; the session, exports and model context are unchanged",
+    "mode": "full"
+  },
+  {
+    "from": "Prompt Cache",
+    "to": "提示词缓存/Prompt Cache",
+    "mode": "full"
+  },
+  {
+    "from": "Chillax Keyword",
+    "to": "Chillax 关键词/Chillax Keyword",
+    "mode": "full"
+  },
+  {
+    "from": "ovnfs Binary",
+    "to": "ovnfs 可执行文件/ovnfs Binary",
+    "mode": "full"
+  },
+  {
+    "from": "Split stacked (terminal too narrow for side-by-side)",
+    "to": "纵向分栏（终端太窄，无法并排）/Split stacked (terminal too narrow for side-by-side)",
+    "mode": "full"
+  },
+  {
+    "from": "Extension links",
+    "to": "扩展链接/Extension links",
+    "mode": "full"
+  },
+  {
+    "from": "pick one anywhere in the transcript",
+    "to": "在转录任意位置选择一个/pick one anywhere in the transcript",
+    "mode": "full"
+  },
+  {
+    "from": "Type a tag or click a link \\xB7 PgUp/PgDn scroll \\xB7 Esc close",
+    "to": "输入标签或点击链接 \\xB7 PgUp/PgDn 滚动 \\xB7 Esc 关闭/Type a tag or click a link \\xB7 PgUp/PgDn scroll \\xB7 Esc close",
+    "mode": "full"
+  },
+  {
+    "from": "Too many links on one row to tag; widen the terminal \\xB7 PgUp/PgDn scroll \\xB7 Esc close",
+    "to": "一行链接太多无法编号；请加宽终端 \\xB7 PgUp/PgDn 滚动 \\xB7 Esc 关闭/Too many links on one row to tag; widen the terminal \\xB7 PgUp/PgDn scroll \\xB7 Esc close",
+    "mode": "full"
+  },
+  {
+    "from": "Esc closes",
+    "to": "Esc 关闭/Esc closes",
+    "mode": "full"
+  },
+  {
+    "from": "Escape closes",
+    "to": "Escape 关闭/Escape closes",
+    "mode": "full"
+  },
+  {
+    "from": "hidden (nothing to report)",
+    "to": "已隐藏（无内容可报告）/hidden (nothing to report)",
+    "mode": "full"
+  },
+  {
+    "from": "Likely cached",
+    "to": "可能已缓存/Likely cached",
+    "mode": "full"
+  },
+  {
+    "from": "Not cached",
+    "to": "未缓存/Not cached",
+    "mode": "full"
+  },
+  {
+    "from": "Why not cached",
+    "to": "为何未缓存/Why not cached",
+    "mode": "full"
+  },
+  {
+    "from": "Next message",
+    "to": "下一条消息/Next message",
+    "mode": "full"
+  },
+  {
+    "from": "no expiry",
+    "to": "无过期/no expiry",
+    "mode": "full"
+  },
+  {
+    "from": "never (the provider keeps it)",
+    "to": "永不（由提供商保留）/never (the provider keeps it)",
+    "mode": "full"
+  },
+  {
+    "from": "refresh scheduled",
+    "to": "已安排刷新/refresh scheduled",
+    "mode": "full"
+  },
+  {
+    "from": "refreshing now",
+    "to": "正在刷新/refreshing now",
+    "mode": "full"
+  },
+  {
+    "from": "context was compacted",
+    "to": "上下文被压缩/context was compacted",
+    "mode": "full"
+  },
+  {
+    "from": "system prompt changed",
+    "to": "系统提示已变化/system prompt changed",
+    "mode": "full"
+  },
+  {
+    "from": "tool set changed",
+    "to": "工具集已变化/tool set changed",
+    "mode": "full"
+  },
+  {
+    "from": "cache retention setting changed",
+    "to": "缓存保留设置已变化/cache retention setting changed",
+    "mode": "full"
+  },
+  {
+    "from": "omp's refresh found the entry gone",
+    "to": "omp 刷新时发现条目已不存在/omp's refresh found the entry gone",
+    "mode": "full"
+  },
+  {
+    "from": "Sign in with your Windsurf (Enterprise) account in your browser.",
+    "to": "在浏览器中用你的 Windsurf（企业版）账号登录。/Sign in with your Windsurf (Enterprise) account in your browser.",
+    "mode": "full"
+  },
+  {
+    "from": "Windsurf code exchange returned no API key",
+    "to": "Windsurf 代码交换未返回 API 密钥/Windsurf code exchange returned no API key",
+    "mode": "full"
+  },
+  {
+    "from": "Keenable credentials could not be resolved. Check your configured API key or credential helper.",
+    "to": "无法解析 Keenable 凭据。请检查已配置的 API 密钥或凭据助手。/Keenable credentials could not be resolved. Check your configured API key or credential helper.",
+    "mode": "full"
+  },
+  {
+    "from": "Keenable search API returned an unexpected response shape",
+    "to": "Keenable 搜索 API 返回了意外的响应结构/Keenable search API returned an unexpected response shape",
+    "mode": "full"
+  },
+  {
+    "from": "Keenable search API returned invalid JSON",
+    "to": "Keenable 搜索 API 返回了无效 JSON/Keenable search API returned invalid JSON",
+    "mode": "full"
+  },
+  {
+    "from": "Aborted: Signal",
+    "to": "已中止：信号/Aborted: Signal",
+    "mode": "full"
+  },
+  {
+    "from": "Aborted: Timeout",
+    "to": "已中止：超时/Aborted: Timeout",
+    "mode": "full"
+  }
 ]

@@ -1,7 +1,7 @@
 [
   {
-    "from": "Enable the browser eval prelude for scripted Chromium automation (Puppeteer)",
-    "to": "启用浏览器 eval 预载，用于脚本化 Chromium 自动化（Puppeteer）/Enable the browser eval prelude for scripted Chromium automation (Puppeteer)",
+    "from": "Enable the browser eval prelude for scripted browser automation",
+    "to": "为脚本化浏览器自动化启用浏览器 eval 预置/Enable the browser eval prelude for scripted browser automation",
     "mode": "full"
   },
   {
@@ -10,13 +10,13 @@
     "mode": "full"
   },
   {
-    "from": "Inside a Tern pane, open browser tabs as picture-in-pictures over omp's pane (native web view) instead of headless Chromium; falls back to Chromium when no Tern window can host them. Explicit app options, the relay and Browser CDP URL take precedence; app.tern:false opts one open out. Set PI_BROWSER_TERN=0 or PI_BROWSER_TERN=1 to override.",
-    "to": "在 Tern 窗格内，把浏览器标签页作为画中画浮在 omp 窗格上（原生 web view），而非使用无头 Chromium；没有 Tern 窗口可承载时回退到 Chromium。显式 app 选项、中继和 Browser CDP URL 优先；app.tern:false 可让单次打开退出此模式。设置 PI_BROWSER_TERN=0 或 PI_BROWSER_TERN=1 可覆盖/Inside a Tern pane, open browser tabs as picture-in-pictures over omp's pane (native web view) instead of headless Chromium; falls back to Chromium when no Tern window can host them. Explicit app options, the relay and Browser CDP URL take precedence; app.tern:false opts one open out. Set PI_BROWSER_TERN=0 or PI_BROWSER_TERN=1 to override.",
+    "from": "Inside a Tern pane, open browser tabs as picture-in-pictures over omp's pane (native web view) instead of omp's own headless browser; falls back to that browser when no Tern window can host them. An explicit app, the relay and Browser CDP URL take precedence; app \"own\" opts one open out. Set PI_BROWSER_TERN=0 or PI_BROWSER_TERN=1 to override.",
+    "to": "在 Tern 窗格内时，把浏览器标签页以画中画形式开在 omp 窗格之上（原生网页视图），而不是 omp 自带的无头浏览器；没有 Tern 窗口可以承载时回退到该浏览器。显式指定的 app、relay 与浏览器 CDP URL 优先；app 设为 \"own\" 可让单次打开例外。设置 PI_BROWSER_TERN=0 或 PI_BROWSER_TERN=1 可覆盖/Inside a Tern pane, open browser tabs as picture-in-pictures over omp's pane (native web view) instead of omp's own headless browser; falls back to that browser when no Tern window can host them. An explicit app, the relay and Browser CDP URL take precedence; app \"own\" opts one open out. Set PI_BROWSER_TERN=0 or PI_BROWSER_TERN=1 to override.",
     "mode": "full"
   },
   {
-    "from": "Freeze OMP-owned headless browser tabs when a turn settles so animated pages stop burning CPU/GPU while idle. Tabs unfreeze automatically on next use; pass persist:true on open to opt a tab out.",
-    "to": "回合结束时冻结 OMP 自有的无头浏览器标签页，避免动画页面在空闲时消耗 CPU/GPU。下次使用时自动解冻；打开时传 persist:true 可让该标签页不受影响/Freeze OMP-owned headless browser tabs when a turn settles so animated pages stop burning CPU/GPU while idle. Tabs unfreeze automatically on next use; pass persist:true on open to opt a tab out.",
+    "from": "Freeze OMP-owned headless Chromium tabs when a turn settles so animated pages stop burning CPU/GPU while idle (WebKit tabs draw nothing unless asked). Tabs unfreeze automatically on next use; pass persist:true on open to opt a tab out.",
+    "to": "在回合结束时冻结由 OMP 管理的无头 Chromium 标签页，让动态页面在空闲时停止占用 CPU/GPU（WebKit 标签页不被要求绘制时不会渲染）。下次使用时自动解冻；在 open 时传 persist:true 可让某个标签页例外/Freeze OMP-owned headless Chromium tabs when a turn settles so animated pages stop burning CPU/GPU while idle (WebKit tabs draw nothing unless asked). Tabs unfreeze automatically on next use; pass persist:true on open to opt a tab out.",
     "mode": "full"
   },
   {
@@ -62,16 +62,6 @@
   {
     "from": "Keep the system awake while the agent is running a turn (macOS `caffeinate -i`)",
     "to": "代理运行回合期间保持系统唤醒（macOS `caffeinate -i`）/Keep the system awake while the agent is running a turn (macOS `caffeinate -i`)",
-    "mode": "full"
-  },
-  {
-    "from": "Spend saved Codex rate-limit resets automatically: restore an account blocked by an exhausted 5h or weekly window when a turn is stuck and no other account can take over, and salvage credits that are about to expire. unset asks before the first spend (with no prompt UI, it spends only a reset expiring within 5 minutes), yes spends without prompting, and no disables both checks.",
-    "to": "自动使用已存的 Codex 限速重置：当回合卡住且没有其他账号可接手时，恢复因 5 小时或每周额度耗尽而被封的账号，并抢救即将过期的额度。unset 在首次使用前询问（无提示界面时，只使用 5 分钟内过期的重置），yes 不询问直接使用，no 关闭这两项检查/Spend saved Codex rate-limit resets automatically: restore an account blocked by an exhausted 5h or weekly window when a turn is stuck and no other account can take over, and salvage credits that are about to expire. unset asks before the first spend (with no prompt UI, it spends only a reset expiring within 5 minutes), yes spends without prompting, and no disables both checks.",
-    "mode": "full"
-  },
-  {
-    "from": "Spend eligible Claude Cedar or Juniper resets automatically. Cedar is spent only for covered limits; Juniper can only recover a sole 5-hour block. unset asks before the first spend (with no prompt UI, it spends only a reset expiring within 5 minutes), yes spends without prompting, and no disables blocked recovery and expiry salvage.",
-    "to": "自动使用符合条件的 Claude Cedar 或 Juniper 重置。Cedar 只用于其覆盖的限额；Juniper 只能解除单独的 5 小时封锁。unset 在首次使用前询问（无提示界面时，只使用 5 分钟内过期的重置），yes 不询问直接使用，no 关闭封锁恢复和过期抢救/Spend eligible Claude Cedar or Juniper resets automatically. Cedar is spent only for covered limits; Juniper can only recover a sole 5-hour block. unset asks before the first spend (with no prompt UI, it spends only a reset expiring within 5 minutes), yes spends without prompting, and no disables blocked recovery and expiry salvage.",
     "mode": "full"
   }
 ]

@@ -610,11 +610,6 @@
   "mode": "full"
  },
  {
-  "from": "User did not select any options",
-  "to": "用户未选择任何选项/User did not select any options",
-  "mode": "full"
- },
- {
   "from": "Spend a saved rate-limit reset",
   "to": "消耗一次已保存的速率限制重置额度/Spend a saved rate-limit reset",
   "mode": "full"

@@ -633,5 +633,205 @@
     "from": "reorder \\xB7",
     "to": "排序 \\xB7",
     "mode": "sub"
+  },
+  {
+    "from": "(no answer)",
+    "to": "（无答案）/(no answer)",
+    "mode": "full"
+  },
+  {
+    "from": "Copy reply",
+    "to": "复制回复/Copy reply",
+    "mode": "full"
+  },
+  {
+    "from": "Edit & resend",
+    "to": "编辑并重发/Edit & resend",
+    "mode": "full"
+  },
+  {
+    "from": "Enter a full URL",
+    "to": "输入完整 URL/Enter a full URL",
+    "mode": "full"
+  },
+  {
+    "from": "Enter a number",
+    "to": "输入数字/Enter a number",
+    "mode": "full"
+  },
+  {
+    "from": "Enter an email address",
+    "to": "输入电子邮件地址/Enter an email address",
+    "mode": "full"
+  },
+  {
+    "from": "Fork from here",
+    "to": "从此处分叉/Fork from here",
+    "mode": "full"
+  },
+  {
+    "from": "New session",
+    "to": "新会话/New session",
+    "mode": "full"
+  },
+  {
+    "from": "Regular Expression",
+    "to": "正则表达式/Regular Expression",
+    "mode": "full"
+  },
+  {
+    "from": "Retry turn",
+    "to": "重试回合/Retry turn",
+    "mode": "full"
+  },
+  {
+    "from": "Rewind to here\\u2026",
+    "to": "回退到此处\\u2026/Rewind to here\\u2026",
+    "mode": "full"
+  },
+  {
+    "from": "Select at least one",
+    "to": "至少选择一项/Select at least one",
+    "mode": "full"
+  },
+  {
+    "from": "To composer",
+    "to": "回到输入框/To composer",
+    "mode": "full"
+  },
+  {
+    "from": "Key budget",
+    "to": "Key 预算/Key budget",
+    "mode": "full"
+  },
+  {
+    "from": "User budget",
+    "to": "用户预算/User budget",
+    "mode": "full"
+  },
+  {
+    "from": "Instruction Files",
+    "to": "指令文件/Instruction Files",
+    "mode": "full"
+  },
+  {
+    "from": "Instruction files",
+    "to": "指令文件/Instruction files",
+    "mode": "full"
+  },
+  {
+    "from": "Session deletion cancelled.",
+    "to": "已取消会话删除。/Session deletion cancelled.",
+    "mode": "full"
+  },
+  {
+    "from": "about 1 hour",
+    "to": "约 1 小时/about 1 hour",
+    "mode": "full"
+  },
+  {
+    "from": "less than a minute",
+    "to": "不到一分钟/less than a minute",
+    "mode": "full"
+  },
+  {
+    "from": "Add or edit a note on an ask option",
+    "to": "在询问选项上添加或编辑备注/Add or edit a note on an ask option",
+    "mode": "full"
+  },
+  {
+    "from": "Add or edit a note on the highlighted ask option",
+    "to": "在高亮的询问选项上添加或编辑备注/Add or edit a note on the highlighted ask option",
+    "mode": "full"
+  },
+  {
+    "from": "Add a note to the highlighted answer",
+    "to": "在高亮答案上添加备注/Add a note to the highlighted answer",
+    "mode": "full"
+  },
+  {
+    "from": "Another answer, added to those checked",
+    "to": "另一个答案，追加到已勾选的答案中/Another answer, added to those checked",
+    "mode": "full"
+  },
+  {
+    "from": "Fill in the form",
+    "to": "填写表单/Fill in the form",
+    "mode": "full"
+  },
+  {
+    "from": "Your own answer instead",
+    "to": "改为填写自己的答案/Your own answer instead",
+    "mode": "full"
+  },
+  {
+    "from": "All set \\xB7 Submit sends these answers",
+    "to": "已就绪 · 提交将发送这些答案/All set \\xB7 Submit sends these answers",
+    "mode": "full"
+  },
+  {
+    "from": "Previous/next question  \\u2190/\\u2192",
+    "to": "上一个/下一个问题  \\u2190/\\u2192/Previous/next question  \\u2190/\\u2192",
+    "mode": "full"
+  },
+  {
+    "from": "type your own",
+    "to": "输入自己的答案/type your own",
+    "mode": "full"
+  },
+  {
+    "from": "more option",
+    "to": "更多选项/more option",
+    "mode": "full"
+  },
+  {
+    "from": "more comment",
+    "to": "更多评论/more comment",
+    "mode": "full"
+  },
+  {
+    "from": "more replies",
+    "to": "更多回复/more replies",
+    "mode": "full"
+  },
+  {
+    "from": "more reply",
+    "to": "更多回复/more reply",
+    "mode": "full"
+  },
+  {
+    "from": "Forked into a new session",
+    "to": "已分叉到新会话/Forked into a new session",
+    "mode": "full"
+  },
+  {
+    "from": "No prompt to resend before this answer",
+    "to": "此答案之前没有可重发的提示词/No prompt to resend before this answer",
+    "mode": "full"
+  },
+  {
+    "from": "Retrying the turn",
+    "to": "正在重试该回合/Retrying the turn",
+    "mode": "full"
+  },
+  {
+    "from": "Rewind undone",
+    "to": "已撤销回退/Rewind undone",
+    "mode": "full"
+  },
+  {
+    "from": "Send or clear the draft to retry this turn",
+    "to": "发送或清空草稿以重试此回合/Send or clear the draft to retry this turn",
+    "mode": "full"
+  },
+  {
+    "from": "That message is no longer on this branch",
+    "to": "该消息已不在此分支上/That message is no longer on this branch",
+    "mode": "full"
+  },
+  {
+    "from": "Session close cancelled",
+    "to": "已取消关闭会话/Session close cancelled",
+    "mode": "full"
   }
 ]

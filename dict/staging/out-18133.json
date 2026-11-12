@@ -100,11 +100,6 @@
     "mode": "full"
   },
   {
-    "from": "System Prompt (excluding Skills)",
-    "to": "系统提示词（不含技能）/System Prompt (excluding Skills)",
-    "mode": "full"
-  },
-  {
     "from": "Built-in Tools",
     "to": "内置工具/Built-in Tools",
     "mode": "full"

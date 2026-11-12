@@ -540,8 +540,8 @@
     "mode": "full"
   },
   {
-    "from": "Optional SQLite DB path. Defaults to the agent memories directory.",
-    "to": "可选的 SQLite 数据库路径。默认为代理记忆目录/Optional SQLite DB path. Defaults to the agent memories directory.",
+    "from": "Optional SQLite DB path; a leading ~ is the home directory. Defaults to the agent memories directory.",
+    "to": "可选的 SQLite 数据库路径；开头的 ~ 表示主目录。默认为代理记忆目录/Optional SQLite DB path; a leading ~ is the home directory. Defaults to the agent memories directory.",
     "mode": "full"
   },
   {
@@ -780,11 +780,6 @@
     "mode": "full"
   },
   {
-    "from": "Enable the lsp tool for code intelligence (definitions, references, diagnostics, rename)",
-    "to": "启用 lsp 工具进行代码智能分析（定义、引用、诊断、重命名）/Enable the lsp tool for code intelligence (definitions, references, diagnostics, rename)",
-    "mode": "full"
-  },
-  {
     "from": "Start language servers on first use (lsp tool or editing a matching file type) instead of at session startup",
     "to": "在首次使用时启动语言服务器（使用 lsp 工具或编辑匹配的文件类型），而不是在会话启动时/Start language servers on first use (lsp tool or editing a matching file type) instead of at session startup",
     "mode": "full"
@@ -990,8 +985,8 @@
     "mode": "full"
   },
   {
-    "from": "Default HTTP CDP discovery endpoint (for example http://127.0.0.1:9222) to attach to instead of launching a browser. Explicit app.cdp_url or app.path on the tool call take precedence.",
-    "to": "默认附加的 HTTP CDP 发现端点（例如 http://127.0.0.1:9222），而不是启动浏览器。工具调用中显式的 app.cdp_url 或 app.path 优先/Default HTTP CDP discovery endpoint (for example http://127.0.0.1:9222) to attach to instead of launching a browser. Explicit app.cdp_url or app.path on the tool call take precedence.",
+    "from": "Default HTTP CDP discovery endpoint (for example http://127.0.0.1:9222) to attach to instead of launching a browser. An explicit app on the tool call takes precedence.",
+    "to": "默认附加的 HTTP CDP 发现端点（例如 http://127.0.0.1:9222），而不是启动浏览器。工具调用中显式指定的 app 优先/Default HTTP CDP discovery endpoint (for example http://127.0.0.1:9222) to attach to instead of launching a browser. An explicit app on the tool call takes precedence.",
     "mode": "full"
   },
   {
@@ -1000,8 +995,8 @@
     "mode": "full"
   },
   {
-    "from": "Launch browser in headless mode (disable to show browser UI)",
-    "to": "以无头模式启动浏览器（禁用则显示浏览器 UI）/Launch browser in headless mode (disable to show browser UI)",
+    "from": "Run the browser without a window (disable to show it). omp's WebKit tabs gain or lose their windows at once where the engine ships its viewer (macOS); elsewhere a visible browser is Chromium, launched in the new mode by the next open.",
+    "to": "不显示窗口运行浏览器（禁用则显示）。在内核自带查看器的平台上，omp 的 WebKit 标签页会一次性获得或失去窗口（macOS）；其他平台上，可见浏览器就是 Chromium，由下一次打开按新模式启动/Run the browser without a window (disable to show it). omp's WebKit tabs gain or lose their windows at once where the engine ships its viewer (macOS); elsewhere a visible browser is Chromium, launched in the new mode by the next open.",
     "mode": "full"
   },
   {
@@ -1107,11 +1102,6 @@
   {
     "from": "Base directory for agent-managed worktrees \\u2014 task-isolation copies, `github` PR checkouts, and `omp worktree` cleanup all live here. Unset uses ~/.omp/wt. Must be an absolute or ~-relative path; relative paths are ignored. The OMP_WORKTREE_DIR env var overrides this.",
     "to": "代理管理工作树的基础目录 — 任务隔离副本、`github` PR 检出和 `omp worktree` 清理都在这里。未设置时使用 ~/.omp/wt。必须是绝对路径或 ~ 相对路径；相对路径被忽略。OMP_WORKTREE_DIR 环境变量覆盖此设置/Base directory for agent-managed worktrees \\u2014 task-isolation copies, `github` PR checkouts, and `omp worktree` cleanup all live here. Unset uses ~/.omp/wt. Must be an absolute or ~-relative path; relative paths are ignored. The OMP_WORKTREE_DIR env var overrides this.",
-    "mode": "full"
-  },
-  {
-    "from": "How strongly to push delegating work to subagents",
-    "to": "将工作委托给子代理的推动力度/How strongly to push delegating work to subagents",
     "mode": "full"
   },
   {
@@ -2024,11 +2014,6 @@
     "to": "直接公网 URL/Direct public URL",
     "mode": "full"
   },
-  
-  
-  
-  
-  
   {
     "from": "S3 access key ID",
     "to": "S3 访问密钥 ID/S3 access key ID",
@@ -2259,7 +2244,6 @@
     "to": "API 端点/API endpoint",
     "mode": "full"
   },
-  
   {
     "from": "API key",
     "to": "API 密钥/API key",
@@ -2360,7 +2344,6 @@
     "to": "帖子 ID/Thread ID",
     "mode": "full"
   },
-  
   {
     "from": "Protocol",
     "to": "协议/Protocol",
@@ -2581,7 +2564,6 @@
     "to": "WebGPU/Metal 后端/WebGPU/Metal backend",
     "mode": "full"
   },
-  
   {
     "from": "DirectML backend (Windows)",
     "to": "DirectML 后端（Windows）/DirectML backend (Windows)",
@@ -3082,15 +3064,11 @@
     "to": "5 小时/5 Hour",
     "mode": "full"
   },
-  
-  
   {
     "from": "Go workspace (go build)",
     "to": "Go 工作区（go build）/Go workspace (go build)",
     "mode": "full"
   },
-  
-  
   {
     "from": "Unknown project type",
     "to": "未知项目类型/Unknown project type",
@@ -3106,7 +3084,6 @@
     "to": "ShareX 委托文件上传器/ShareX delegated file uploader",
     "mode": "full"
   },
-  
   {
     "from": "puush-compatible endpoint",
     "to": "puush 兼容端点/puush-compatible endpoint",
@@ -3162,7 +3139,6 @@
     "to": "ShareX 自定义文件上传器/ShareX custom file uploader",
     "mode": "full"
   },
-  
   {
     "from": "When I Say Submit",
     "to": "说「提交」时提交/When I Say Submit",
@@ -3198,80 +3174,66 @@
     "to": "Nerd 图标/Nerd",
     "mode": "full"
   },
-  
   {
     "from": "Thin chevron",
     "to": "细 V 形箭头/Thin chevron",
     "mode": "full"
   },
-  
   {
     "from": "~250 tokens",
     "to": "约 250 token/~250 tokens",
     "mode": "full"
   },
-  
   {
     "from": "~625 tokens",
     "to": "约 625 token/~625 tokens",
     "mode": "full"
   },
-  
   {
     "from": "~1.25K tokens",
     "to": "约 1.25K token/~1.25K tokens",
     "mode": "full"
   },
-  
   {
     "from": "~2.5K tokens",
     "to": "约 2.5K token/~2.5K tokens",
     "mode": "full"
   },
-  
   {
     "from": "~5K tokens",
     "to": "约 5K token/~5K tokens",
     "mode": "full"
   },
-  
   {
     "from": "~7.5K tokens",
     "to": "约 7.5K token/~7.5K tokens",
     "mode": "full"
   },
-  
-  
   {
     "from": "~19K tokens",
     "to": "约 19K token/~19K tokens",
     "mode": "full"
   },
-  
   {
     "from": "~25K tokens",
     "to": "约 25K token/~25K tokens",
     "mode": "full"
   },
-  
   {
     "from": "~50K tokens",
     "to": "约 50K token/~50K tokens",
     "mode": "full"
   },
-  
   {
     "from": "~125K tokens",
     "to": "约 125K token/~125K tokens",
     "mode": "full"
   },
-  
   {
     "from": "~250K tokens",
     "to": "约 250K token/~250K tokens",
     "mode": "full"
   },
-  
   {
     "from": "No per-line cap",
     "to": "单行不设上限/No per-line cap",
@@ -3677,33 +3639,21 @@
     "to": "接近上下文上限/Near context limit",
     "mode": "full"
   },
-  
-  
-  
-  
-  
   {
     "from": "Full standard context window",
     "to": "标准上下文窗口全量/Full standard context window",
     "mode": "full"
   },
-  
   {
     "from": "Large context window",
     "to": "大上下文窗口/Large context window",
     "mode": "full"
   },
-  
   {
     "from": "Very large context window",
     "to": "超大上下文窗口/Very large context window",
     "mode": "full"
   },
-  
-  
-  
-  
-  
   {
     "from": "30 minutes",
     "to": "30 分钟/30 minutes",
@@ -4095,13 +4045,8 @@
     "mode": "full"
   },
   {
-    "from": "Spend eligible saved resets without prompting.",
-    "to": "直接消耗符合条件的已存重置，不再询问。/Spend eligible saved resets without prompting.",
-    "mode": "full"
-  },
-  {
-    "from": "Do not run the saved-reset auto-redeem check.",
-    "to": "不运行已存重置的自动兑换检查。/Do not run the saved-reset auto-redeem check.",
+    "from": "Spend eligible saved resets without asking.",
+    "to": "直接消耗符合条件的已存重置，不再询问/Spend eligible saved resets without asking.",
     "mode": "full"
   },
   {
@@ -4219,8 +4164,6 @@
     "to": "版本控制/Version control",
     "mode": "full"
   },
-  
-  
   {
     "from": "Exa search",
     "to": "Exa 搜索/Exa search",
@@ -4926,7 +4869,6 @@
     "to": "8x13 字形置于 11x16 单元——加大字距避免粘连。Anthropic 默认。/8x13 glyphs on an 11x16 cell \\u2014 extra letter spacing so characters don't merge. Default for Anthropic.",
     "mode": "full"
   },
-  
   {
     "from": "Embedded Silver TrueType font on a 16px grid for CJK and other non-Latin text.",
     "to": "内嵌 Silver TrueType 字体的 16px 网格，适配中日韩等非拉丁文字。/Embedded Silver TrueType font on a 16px grid for CJK and other non-Latin text.",
@@ -4970,6 +4912,136 @@
   {
     "from": "Remote listen port of the ssh reverse forward that your web server proxies to",
     "to": "SSH 反向转发在远端监听、由你的 web 服务器代理的端口/Remote listen port of the ssh reverse forward that your web server proxies to",
+    "mode": "full"
+  },
+  {
+    "from": "Ask before spending; never spend without a prompt.",
+    "to": "花费前询问；没有提示时绝不花费/Ask before spending; never spend without a prompt.",
+    "mode": "full"
+  },
+  {
+    "from": "Never spend saved resets for this window.",
+    "to": "此时间窗内绝不消耗已存重置/Never spend saved resets for this window.",
+    "mode": "full"
+  },
+  {
+    "from": "WebKit Browser",
+    "to": "WebKit 浏览器/WebKit Browser",
+    "mode": "full"
+  },
+  {
+    "from": "omp's headless WebKit",
+    "to": "omp 无头 WebKit/omp's headless WebKit",
+    "mode": "full"
+  },
+  {
+    "from": "omp's headless WebKit browser",
+    "to": "omp 无头 WebKit 浏览器/omp's headless WebKit browser",
+    "mode": "full"
+  },
+  {
+    "from": "omp's WebKit browser",
+    "to": "omp WebKit 浏览器/omp's WebKit browser",
+    "mode": "full"
+  },
+  {
+    "from": "omp's WebKit browser (in a window)",
+    "to": "omp WebKit 浏览器（带窗口）/omp's WebKit browser (in a window)",
+    "mode": "full"
+  },
+  {
+    "from": "Auto Parallel",
+    "to": "自动并行/Auto Parallel",
+    "mode": "full"
+  },
+  {
+    "from": "Claude Auto-Redeem Fable Resets",
+    "to": "Claude 自动兑换 Fable 重置/Claude Auto-Redeem Fable Resets",
+    "mode": "full"
+  },
+  {
+    "from": "Claude Auto-Redeem Saved Resets (Weekly)",
+    "to": "Claude 自动兑换已保存重置（每周）/Claude Auto-Redeem Saved Resets (Weekly)",
+    "mode": "full"
+  },
+  {
+    "from": "Codex Auto-Redeem Saved Resets (Weekly)",
+    "to": "Codex 自动兑换已保存重置（每周）/Codex Auto-Redeem Saved Resets (Weekly)",
+    "mode": "full"
+  },
+  {
+    "from": "How strongly to push the main agent to delegate work; subagents keep the model's own policy",
+    "to": "多大力度推动主代理委派工作；子代理仍遵循模型自身的策略/How strongly to push the main agent to delegate work; subagents keep the model's own policy",
+    "mode": "full"
+  },
+  {
+    "from": "Judge each prompt and report the split without acting on it",
+    "to": "评判每个提示词并报告拆分结果，但不执行/Judge each prompt and report the split without acting on it",
+    "mode": "full"
+  },
+  {
+    "from": "Never split prompts",
+    "to": "从不拆分提示词/Never split prompts",
+    "mode": "full"
+  },
+  {
+    "from": "Sequential Task Steps",
+    "to": "顺序任务步骤/Sequential Task Steps",
+    "mode": "full"
+  },
+  {
+    "from": "Spend Claude Cedar or Juniper resets on 5-hour-only blocks and on expiring grants whose fullest covered limit is 5h.",
+    "to": "在仅有 5 小时的窗口上、以及在其覆盖上限为 5 小时且即将到期的授予上，消耗 Claude Cedar 或 Juniper 重置。/Spend Claude Cedar or Juniper resets on 5-hour-only blocks and on expiring grants whose fullest covered limit is 5h.",
+    "mode": "full"
+  },
+  {
+    "from": "Spend Claude Cedar resets on weekly or model-scoped blocks and on expiring grants whose fullest covered limit is weekly.",
+    "to": "在每周或按模型限定的窗口上、以及在其覆盖上限为每周且即将到期的授予上，消耗 Claude Cedar 重置。/Spend Claude Cedar resets on weekly or model-scoped blocks and on expiring grants whose fullest covered limit is weekly.",
+    "mode": "full"
+  },
+  {
+    "from": "Spend Claude Fable launch resets, which restore Fable weekly usage plus the 5h window. Only this setting governs them.",
+    "to": "消耗 Claude Fable 发布重置，可恢复 Fable 每周用量以及 5 小时窗口。只有此设置能支配它们。/Spend Claude Fable launch resets, which restore Fable weekly usage plus the 5h window. Only this setting governs them.",
+    "mode": "full"
+  },
+  {
+    "from": "Spend saved Codex resets on 5-hour-only blocks and on expiring credits whose fullest chat window is 5h.",
+    "to": "在仅有 5 小时的窗口上、以及在其最完整聊天窗口为 5 小时且即将到期的额度上，消耗已保存的 Codex 重置。/Spend saved Codex resets on 5-hour-only blocks and on expiring credits whose fullest chat window is 5h.",
+    "mode": "full"
+  },
+  {
+    "from": "Spend saved Codex resets on weekly blocks and on expiring credits whose fullest chat window is weekly. A block known only from a short 429 wait needs both Codex windows.",
+    "to": "在每周窗口上、以及在其最完整聊天窗口为每周且即将到期的额度上，消耗已保存的 Codex 重置。仅从一次很短的 429 等待推断出的阻塞需要 Codex 的两个窗口。/Spend saved Codex resets on weekly blocks and on expiring credits whose fullest chat window is weekly. A block known only from a short 429 wait needs both Codex windows.",
+    "mode": "full"
+  },
+  {
+    "from": "When a prompt splits into independent subtasks, tell the agent to delegate them in parallel",
+    "to": "当提示词可拆分为独立子任务时，告诉代理并行委派它们/When a prompt splits into independent subtasks, tell the agent to delegate them in parallel",
+    "mode": "full"
+  },
+  {
+    "from": "Claude Fable weekly",
+    "to": "Claude Fable 每周/Claude Fable weekly",
+    "mode": "full"
+  },
+  {
+    "from": "Browser WebKit Path",
+    "to": "浏览器 WebKit 路径/Browser WebKit Path",
+    "mode": "full"
+  },
+  {
+    "from": "Language-server integration: the lsp tool, diagnostics on write/edit, and format on write (--no-lsp disables for the run)",
+    "to": "语言服务器集成：lsp 工具、写入/编辑后的诊断、写入时格式化（--no-lsp 会对本次运行关闭）/Language-server integration: the lsp tool, diagnostics on write/edit, and format on write (--no-lsp disables for the run)",
+    "mode": "full"
+  },
+  {
+    "from": "Minimum idle days before stripping a session",
+    "to": "剥离空闲会话前的最小空闲天数/Minimum idle days before stripping a session",
+    "mode": "full"
+  },
+  {
+    "from": "Strip provider replay data (signatures, encrypted reasoning, cached responses) from idle sessions",
+    "to": "从空闲会话中剥离提供方的重放数据（签名、加密推理、缓存响应）/Strip provider replay data (signatures, encrypted reasoning, cached responses) from idle sessions",
     "mode": "full"
   }
 ]

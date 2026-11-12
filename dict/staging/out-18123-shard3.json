@@ -60,33 +60,13 @@
     "mode": "full"
   },
   {
-    "from": "Check eligibility, then ask before spending the first saved reset. With no prompt UI, spend only a reset expiring within 5 minutes.",
-    "to": "检查资格，然后在花费第一个已保存重置前询问。没有提示 UI 时，仅花费将在 5 分钟内过期的重置/Check eligibility, then ask before spending the first saved reset. With no prompt UI, spend only a reset expiring within 5 minutes.",
-    "mode": "full"
-  },
-  {
     "from": "With auto-redeem enabled, spend a saved Codex reset within this many hours of expiry when either chat window has meaningful usage. 0 disables early salvage; credits expiring within 5 minutes are still attempted regardless of usage.",
     "to": "启用自动兑换后，当任一聊天窗口有有效用量时，在已保存的 Codex 重置距过期还有这么多小时以内花费它。0 禁用提前抢救；将在 5 分钟内过期的额度仍会尝试，无论用量如何/With auto-redeem enabled, spend a saved Codex reset within this many hours of expiry when either chat window has meaningful usage. 0 disables early salvage; credits expiring within 5 minutes are still attempted regardless of usage.",
     "mode": "full"
   },
   {
-    "from": "Claude Auto-Redeem Resets",
-    "to": "Claude 自动兑换重置/Claude Auto-Redeem Resets",
-    "mode": "full"
-  },
-  {
-    "from": "Check live eligibility, then ask before spending the first Claude reset. With no prompt UI, spend only a reset expiring within 5 minutes.",
-    "to": "检查实时资格，然后在花费第一个 Claude 重置前询问。没有提示 UI 时，仅花费将在 5 分钟内过期的重置/Check live eligibility, then ask before spending the first Claude reset. With no prompt UI, spend only a reset expiring within 5 minutes.",
-    "mode": "full"
-  },
-  {
-    "from": "Spend eligible Claude resets without prompting.",
-    "to": "无需提示直接花费符合条件的 Claude 重置/Spend eligible Claude resets without prompting.",
-    "mode": "full"
-  },
-  {
-    "from": "Do not run Claude reset auto-redeem checks.",
-    "to": "不运行 Claude 重置自动兑换检查/Do not run Claude reset auto-redeem checks.",
+    "from": "Claude Auto-Redeem Saved Resets (5h)",
+    "to": "Claude 自动兑换已保存重置（5 小时）/Claude Auto-Redeem Saved Resets (5h)",
     "mode": "full"
   },
   {
