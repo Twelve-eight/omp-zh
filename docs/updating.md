@@ -68,6 +68,15 @@ node scripts/scan-gaps.js <new>
 
 报告列出未翻译的句子型字面量和已经失效的字典条目。补译规则见 [dictionary.md](dictionary.md)。失效条目通常是上游改了文案，找到新文案后更新 `from`；确认文案已删除的条目可以删掉，前提是删除后旧版本的构建结果不变或不再需要。
 
+失效条目多的时候，先用相似度把新文案找出来，再决定「改锚点」还是「删除」：
+
+```powershell
+node scripts/scan-gaps.js <new> --out G:/tmp/gaps.txt
+node scripts/dead-near.js work/omp-dl-<tag>.exe G:/tmp/gaps.txt
+```
+
+`dead-near.js` 按词元 Jaccard 给每条失效条目找最相似的新字面量（含分数），一眼能分出「上游改写了措辞」和「该功能整块被删」。分数高且长度接近的直接改 `from` 并同步改写 `to` 里的英文半区；分数低、或关键词在包里已完全不存在的，说明功能被移除，删除条目。批量改完必须用 `dict-diff.js` 证明只动了预期条目。
+
 ## 7. 构建与验证
 
 ```powershell

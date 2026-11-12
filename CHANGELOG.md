@@ -9,6 +9,14 @@
 - P11 加固：`content` 为 `null` 或缺失时不再抛 TypeError，仅对真正的空数组生效。
 - 新增过度汉化硬门：`build.js` 写盘前扫描对象键、计算索引（含 `?.[`）、比较值、Map/Set 键、匹配实参、成员数组、`new RegExp` 实参与 `key/code/type/id/role` 结构字段，命中即 `GATE FAIL`（退出码 3）。对已构建/已安装产物可用 `node scripts/check-overtranslation.js <版本>` 复查（`--self-test` 是门自身的负对照）。判据与排查步骤写入 [docs/dictionary.md](docs/dictionary.md#过度汉化每个版本都要排查) 与 [docs/updating.md](docs/updating.md)。
 
+## 18.19.0-zh（2026-11-12）
+
+- 适配上游 v18.19.0（3738 个模块，较 18.18.0 增加 107 个）。补丁 P1–P11 全部按新版本源码重新定位：P1/P11 在模块 50（空回复判定函数由 `tY` 更名 `CY`），P2 在 341（上限簇改为 `se/Ae/ie/ne/oe`，其中 `Ae = 15000` 是意外停止超时、不是重试上限，不动），P3/P4 在 482（`var Ex = 8`、`var Rc = 3`），P5 在 44，P7 在 26（helper 更名 `kse`），P8 在 47（`var pe` / `var Yt`），P9 在 135，P10 在 62。
+- P6 换了落点：上游把浏览器启动交给 puppeteer（`launcher.launch`），原来的 `Bun.spawn` 站点消失；补丁改打在 `@puppeteer/browsers` 的 launch 实现（模块 1184）里，它经 `child_process.spawn` 创建浏览器进程，加同样的 `windowsHide: true`（见 [docs/patches.md](docs/patches.md#p6-在-18190-换了落点)）。
+- 字典按上游文案变化更新：Smithery 系列条目（上游整块移除该功能，18.19.0 里 `Smithery` 出现 0 次）全部删除；17 条按新英文重写锚点并同步改写中文（询问自动提交、浏览器后端与 WebKit 选项、Tern 说明、headless 说明、冻结标签页、自动兑换 5 小时/每周设置、AST 工具说明等）；新增 66 条界面翻译（浏览器后端选项、自动并行、Fable 与每周重置设置、询问表单控件、TUI 动作与提示、`/gc` 空闲剥离设置等）。`scan-gaps` 死条目 0。
+- 一条被上游重写的字符串保持英文：`Server name cannot be empty` 位于 MCP 配置写入器，属模型可见范围（summer 规则）。
+- 产物 `work/omp-zh-18190.exe` sha256 `01fa15f8b2941199c7a3667f780a56cd2f5507ecb214d699add6614aa6b253cf`，翻译 5271 条字面量，验证 **38/38 PASS**，对官方包负对照 23 FAIL / 15 PASS，过度汉化门 OK。
+
 ## 18.18.0-zh（2026-11-05）
 
 - 适配上游 v18.18.0（3631 个模块，较 18.16.0 增加 56 个；上游这一版新增 42 万行）。补丁 P1–P11 全部按新版本源码重新定位：P1/P11 在模块 47（判定函数由 `N9` 更名 `tY`），P2 在 330（上限簇改为 `te/be/re/ie/ne`，其中 `be = 15000` 是 `UNEXPECTED_STOP_TIMEOUT_MS`、不是重试上限，不动），P3/P4 在 465（`var Ix = 8`、`var wc = 3`），P5 在 40，P6 在 240，P7 在 23，P8 在 44（`var Gt` 取代 `Xt`），P9 在 118，P10 在 59。

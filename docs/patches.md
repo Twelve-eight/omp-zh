@@ -13,7 +13,7 @@ omp-zh 在翻译之外改了少量程序行为。本文列出每处改动对应�
 | P3 | `packages/coding-agent/src/session/agent-session.ts` | `SESSION_STOP_CONTINUATION_CAP` 从 8 改为 1000000 |
 | P4 | `packages/coding-agent/src/task/executor.ts` | `MAX_YIELD_RETRIES`（子代理交付提醒次数）从 3 改为 1000000 |
 | P5 | `packages/coding-agent/src/blob-broker/exposure.ts`、`uploaders-self-hosted.ts` | 隧道、SSH、上传器三处 `Bun.spawn` 加 `windowsHide: true` |
-| P6 | `packages/coding-agent/src/tools/browser/registry.ts` | 启动浏览器的 `Bun.spawn` 加 `windowsHide: true` |
+| P6 | `packages/coding-agent/src/tools/browser/registry.ts`（18.19.0 起为 `@puppeteer/browsers` 的 launch 实现） | 启动浏览器的子进程加 `windowsHide: true` |
 | P7 | `packages/coding-agent/src/eval/py/spawn-options.ts`、`eval/py/kernel.ts`、`ida/supervisor.ts` | Python 内核与 IDA 子进程在 Windows 上始终隐藏窗口 |
 | P8 | `packages/ai/src/error/flags.ts` | “加密内容无法解密”类错误归入可重试的过期响应错误 |
 | P9 | `packages/tui/src/chat/chat-transcript-builder.ts` | 重建会话记录时，无条件输出最后一条消息的用量信息 |
@@ -49,6 +49,12 @@ omp-zh 在翻译之外改了少量程序行为。本文列出每处改动对应�
 - P7：`shouldHideKernelWindow()` 在 Windows 上返回 `true`，`eval/py/kernel.ts` 与 `ida/supervisor.ts` 两处调用点直接使用 `true`。
 
 P7 与上游的取舍相反。上游注释（issue #1960）说明，没有控制台的 Python 内核在加载部分原生模块（如 NumPy）时可能在 `LoadLibraryExW` 中卡住，也收不到 `Ctrl+C` 中断信号。omp-zh 选择不让内核输出污染界面；如果你的 Python 代码依赖这类原生模块并出现卡住，请换用官方版对比，并在本仓库提交问题。
+
+### P6 在 18.19.0 换了落点
+
+上游 18.19.0 把浏览器启动交给了 puppeteer：`tools/browser/registry.ts`（模块 132）改为 `launcher.launch({ headless, defaultViewport, executablePath, args, ignoreDefaultArgs, … })`，原来那处 `Bun.spawn([s, ...w], { … })` 已经不存在。真正创建浏览器进程的是 `@puppeteer/browsers` 的 launch 实现（模块 1184），它通过 `import os from "child_process"` 调用 `os.spawn(this.#e, this.#t, { detached, env, stdio })`。
+
+补丁因此改在这一处：同样的 `windowsHide: true`，只是加在 `child_process.spawn` 的选项里。它同时覆盖 `launcher.launch()` 启动的所有浏览器（Chrome for Testing、系统 Chromium），因为这些调用都经过这个 Launcher。
 
 ## P8：加密推理内容错误可重试
 
