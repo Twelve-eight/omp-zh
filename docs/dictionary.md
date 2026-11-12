@@ -60,6 +60,8 @@ omp-zh 不修改上游源码，而是在官方 exe 里逐个替换字符串字�
 Power: { key: "电源/Power", code: "电源/Power" },
 ```
 
+**同一个词也可能既是界面文字又是模型可见的工具输出。** 例：`Recent projects, newest first:` 出现在 `packages/coding-agent/src/archive/archive.ts`，是 `return { text: u.join("\n") }` 拼给模型的结果；同一函数里还有 `No projects with sessions yet.`。这类字符串在字典里看只是普通句子，翻译后模型收到的是中文工具输出。判定方法：回到模块里找最近的 `// packages/<pkg>/src/<file>` 注释，落在 `tools/`、`commit/`、`prompt`、`archive`、`session` 等模型可见目录里就不译。同批里 `Recent Commits` 是 `tools/recent-commits.ts` 的工具 schema `label`，同样不译；而 `Recent Logs`、`Recent activity`、`Recent Changes`、`Switch Model`、`Task model`、`Apply role` 都在 `tui/` 的界面描述符里，可以译。
+
 判据是位置，不是词义。以下位置出现中文一定是缺陷：
 
 | 位置 | 例子 |
