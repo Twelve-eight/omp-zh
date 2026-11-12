@@ -2,27 +2,27 @@
 
 本文件记录 omp-zh 各版本的变化。版本号与上游 [oh-my-pi](https://github.com/can1357/oh-my-pi/releases) 一致，标签格式为 `v<上游版本>-zh`。上游自身的改动请看上游的发布说明。
 
-## 未发布
+## 18.19.0-zh（2026-11-12）
+
+- 适配上游 v18.19.0（3738 个模块，较 18.18.0 增加 107 个）。补丁 P1–P11 全部按新版本源码重新定位：P1/P11 在模块 50（空回复判定函数由 `tY` 更名 `CY`），P2 在 341（上限簇改为 `se/Ae/ie/ne/oe`，其中 `Ae = 15000` 是意外停止超时、不是重试上限，不动），P3/P4 在 482（`var Ex = 8`、`var Rc = 3`），P5 在 44，P7 在 26（helper 更名 `kse`），P8 在 47（`var pe` / `var Yt`），P9 在 135，P10 在 62。
+- P6 换了落点：上游把浏览器启动交给 puppeteer（`launcher.launch`），原来的 `Bun.spawn` 站点消失；补丁改打在 `@puppeteer/browsers` 的 launch 实现（模块 1184）里，它经 `child_process.spawn` 创建浏览器进程，加同样的 `windowsHide: true`（见 [docs/patches.md](docs/patches.md#p6-在-18190-换了落点)）。
+- 字典按上游文案变化更新：Smithery 系列条目（上游整块移除该功能，18.19.0 里 `Smithery` 出现 0 次）全部删除；12 条按新英文重写锚点并同步改写中文（询问自动提交、浏览器后端与 WebKit 选项、Tern 说明、headless 说明、冻结标签页、自动兑换 5 小时/每周设置、AST 工具说明等）；新增 69 条界面翻译（浏览器后端选项、自动并行、Fable 与每周重置设置、询问表单控件、TUI 动作与提示、`/gc` 空闲剥离设置等）。`scan-gaps` 死条目 0。
+- 一条被上游重写的字符串保持英文：`Server name cannot be empty` 位于 MCP 配置写入器，属模型可见范围（summer 规则）。
+- 产物 `work/omp-zh-18190.exe` sha256 `01fa15f8b2941199c7a3667f780a56cd2f5507ecb214d699add6614aa6b253cf`，翻译 5271 条字面量，验证 **38/38 PASS**，对官方包负对照 23 FAIL / 15 PASS，过度汉化门 OK。
+
+以下四项原记在「未发布」，其改动随本版一起发行（18.18.0 的发行前复核完成后合入）：
 
 - 删除 63 条「英文重复」条目：`to` 的中文半区是纯 ASCII（多数等于原文），界面会显示成 `Glob/Glob`、`1 KB/1 KB`、`OpenAI API/OpenAI API`。删除后这些标签回到纯英文，`check-dict` 警告 88 → 35。
 - 删除条目 `Security`：它落在 Keep-a-Changelog 小节名数组里（`["Breaking Changes", …, "Security"]`），被 `!v.includes(h)` 与 `new Set(…)` 当查找集用，导致 `/changelog` 的安全分类永远不匹配（对抗性复核发现）。过度汉化门新增「成员数组」规则。
 - P11 加固：`content` 为 `null` 或缺失时不再抛 TypeError，仅对真正的空数组生效。
 - 新增过度汉化硬门：`build.js` 写盘前扫描对象键、计算索引（含 `?.[`）、比较值、Map/Set 键、匹配实参、成员数组、`new RegExp` 实参与 `key/code/type/id/role` 结构字段，命中即 `GATE FAIL`（退出码 3）。对已构建/已安装产物可用 `node scripts/check-overtranslation.js <版本>` 复查（`--self-test` 是门自身的负对照）。判据与排查步骤写入 [docs/dictionary.md](docs/dictionary.md#过度汉化每个版本都要排查) 与 [docs/updating.md](docs/updating.md)。
 
-## 18.19.0-zh（2026-11-12）
-
-- 适配上游 v18.19.0（3738 个模块，较 18.18.0 增加 107 个）。补丁 P1–P11 全部按新版本源码重新定位：P1/P11 在模块 50（空回复判定函数由 `tY` 更名 `CY`），P2 在 341（上限簇改为 `se/Ae/ie/ne/oe`，其中 `Ae = 15000` 是意外停止超时、不是重试上限，不动），P3/P4 在 482（`var Ex = 8`、`var Rc = 3`），P5 在 44，P7 在 26（helper 更名 `kse`），P8 在 47（`var pe` / `var Yt`），P9 在 135，P10 在 62。
-- P6 换了落点：上游把浏览器启动交给 puppeteer（`launcher.launch`），原来的 `Bun.spawn` 站点消失；补丁改打在 `@puppeteer/browsers` 的 launch 实现（模块 1184）里，它经 `child_process.spawn` 创建浏览器进程，加同样的 `windowsHide: true`（见 [docs/patches.md](docs/patches.md#p6-在-18190-换了落点)）。
-- 字典按上游文案变化更新：Smithery 系列条目（上游整块移除该功能，18.19.0 里 `Smithery` 出现 0 次）全部删除；17 条按新英文重写锚点并同步改写中文（询问自动提交、浏览器后端与 WebKit 选项、Tern 说明、headless 说明、冻结标签页、自动兑换 5 小时/每周设置、AST 工具说明等）；新增 66 条界面翻译（浏览器后端选项、自动并行、Fable 与每周重置设置、询问表单控件、TUI 动作与提示、`/gc` 空闲剥离设置等）。`scan-gaps` 死条目 0。
-- 一条被上游重写的字符串保持英文：`Server name cannot be empty` 位于 MCP 配置写入器，属模型可见范围（summer 规则）。
-- 产物 `work/omp-zh-18190.exe` sha256 `01fa15f8b2941199c7a3667f780a56cd2f5507ecb214d699add6614aa6b253cf`，翻译 5271 条字面量，验证 **38/38 PASS**，对官方包负对照 23 FAIL / 15 PASS，过度汉化门 OK。
-
 ## 18.18.0-zh（2026-11-05）
 
 - 适配上游 v18.18.0（3631 个模块，较 18.16.0 增加 56 个；上游这一版新增 42 万行）。补丁 P1–P11 全部按新版本源码重新定位：P1/P11 在模块 47（判定函数由 `N9` 更名 `tY`），P2 在 330（上限簇改为 `te/be/re/ie/ne`，其中 `be = 15000` 是 `UNEXPECTED_STOP_TIMEOUT_MS`、不是重试上限，不动），P3/P4 在 465（`var Ix = 8`、`var wc = 3`），P5 在 40，P6 在 240，P7 在 23，P8 在 44（`var Gt` 取代 `Xt`），P9 在 118，P10 在 59。
 - 新增 77 条界面翻译：自动更新（设置、首次引导、状态与失败提示）、动效与帧率设置（No animation / 转圈间隔 / 最大帧率 / 彩色 Markdown）、Shell 可视化、子代理工作线程、OpenAI Responses WebSockets、Spotlight 实验、扩展转录呈现器、提示词缓存原因说明、Windsurf 与 Keenable 登录错误等。
 - 删除条目 `Power`：它把 puppeteer 键盘布局里的 `key: "Power"` / `code: "Power"` 改成了中文，会破坏 CDP 键盘描述符（设置页的分组标签随之回到英文）。验证新增两项：`key/code/type/id` 字段不含中文、键盘布局保持 ASCII。
-- 发行前复核补齐（详见「未发布」）：删除 63 条英文重复标签与 `Security` 条目、P11 增加 `Array.isArray` 护栏、过度汉化门新增成员数组判据。
+- 发行前复核补齐（详见 18.19.0-zh 一节）：删除 63 条英文重复标签与 `Security` 条目、P11 增加 `Array.isArray` 护栏、过度汉化门新增成员数组判据。
 - 修复 13 条失效字典条目（上游改写文案：动效说明、edit 工具变体、WebSocket 策略、PAL 后端说明、转录呈现器、扩展链接选择器等），删除 1 条已被上游移除的条目（`Hover`）；13 条改锚点的条目同时按新文案重写了中文（其中「动画样式」「PAL 后端」两条的旧中文因英文里含 `/` 被截断，已修复）。
 
 ## 18.16.0-zh（2026-11-05）
