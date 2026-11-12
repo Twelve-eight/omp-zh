@@ -1,0 +1,72 @@
+[
+  {
+    "from": "What are we cooking?",
+    "to": "今天想做点什么？/What are we cooking?",
+    "mode": "full"
+  },
+  {
+    "from": "Update Available",
+    "to": "有可用更新/Update Available",
+    "mode": "full"
+  },
+  {
+    "from": "New version ",
+    "to": "新版本 ",
+    "mode": "sub"
+  },
+  {
+    "from": " is available. Run: ",
+    "to": " 已发布，请运行：",
+    "mode": "sub"
+  },
+  {
+    "from": "Switch Model",
+    "to": "切换模型/Switch Model",
+    "mode": "full"
+  },
+  {
+    "from": "Switch model",
+    "to": "切换模型/Switch model",
+    "mode": "full"
+  },
+  {
+    "from": "Task model",
+    "to": "任务模型/Task model",
+    "mode": "full"
+  },
+  {
+    "from": "Apply role",
+    "to": "应用角色/Apply role",
+    "mode": "full"
+  },
+  {
+    "from": "Search models\\u2026",
+    "to": "搜索模型\\u2026/Search models\\u2026",
+    "mode": "full"
+  },
+  {
+    "from": "Search models, @ for quick roles\\u2026",
+    "to": "搜索模型，@ 可快速切换角色\\u2026/Search models, @ for quick roles\\u2026",
+    "mode": "full"
+  },
+  {
+    "from": "Recent Changes",
+    "to": "最近变更/Recent Changes",
+    "mode": "full"
+  },
+  {
+    "from": "Recent Logs",
+    "to": "最近日志/Recent Logs",
+    "mode": "full"
+  },
+  {
+    "from": "Recent logs",
+    "to": "最近日志/Recent logs",
+    "mode": "full"
+  },
+  {
+    "from": "Recent activity",
+    "to": "最近活动/Recent activity",
+    "mode": "full"
+  }
+]

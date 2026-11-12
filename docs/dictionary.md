@@ -71,7 +71,7 @@ Power: { key: "电源/Power", code: "电源/Power" },
 | 匹配实参 | `.includes("…")`、`.startsWith("…")`、`.split("…")` |
 | 正则来源 | `new RegExp("…")` |
 | 结构字段 | `key`/`code`/`type`/`id`/`role: "…"` |
-| 成员数组 | 纯字面量数组被 `new Set`/`new Map`、`.includes`/`.indexOf`/`.has` 当查找集，例如 Keep-a-Changelog 小节名数组 |
+| 成员数组（**advisory，不阻断**） | 纯字面量数组被 `new Set`/`new Map`、`.includes`/`.indexOf`/`.has` 当查找集；按变量名解析、不分作用域，可能误报（同名变量在别处做布尔查找），所以只提示；真正的实例由各版本的 verify 常量检查兜底 |
 
 `build.js` 在写盘前跑 `lib/overtranslation.js` 的扫描，命中即 `GATE FAIL` 退出（退出码 3），不会产出带缺陷的 exe。对已构建或已安装的产物可以单独复查：
 

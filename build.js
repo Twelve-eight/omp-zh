@@ -86,7 +86,14 @@ if (argOffenders.length)
   console.log('Advisory: ' + argOffenders.length + ' entries sit in argument/tag positions; verify each is a label, not an identifier (docs/dictionary.md).');
 
 const translated = newContents.map((c, i) => c ? { index: i, text: c.toString('latin1') } : null).filter(Boolean);
-const over = scanOverTranslation(translated);
+const overAll = scanOverTranslation(translated);
+// Name-based membership resolution ignores variable scope (a different `u` elsewhere in the same
+// module can trigger it), so that kind is reported, not enforced. Real instances are covered by
+// the per-release verify checks for parsed surfaces (changelog headings, enum tables).
+const over = overAll.filter((v) => v.kind !== 'membership array');
+const overAdvisory = overAll.filter((v) => v.kind === 'membership array');
+if (overAdvisory.length)
+  console.log('Advisory: ' + overAdvisory.length + ' literal(s) in a membership array — check the identifier really is a lookup set (docs/dictionary.md).');
 if (over.length) {
   console.error('GATE FAIL: ' + over.length + ' translated literals sit in code positions (over-translation):');
   over.slice(0, 25).forEach((v) => console.error('  ! mod ' + v.module + ' [' + v.kind + '] ' + v.literal));

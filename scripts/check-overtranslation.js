@@ -71,7 +71,13 @@ if (!fs.existsSync(exe)) {
 
 const { mods } = loadModules(fs.readFileSync(exe));
 const modules = mods.map((m, index) => ({ index, name: moduleName(m), text: m.contents.toString('latin1') }));
-const violations = scan(modules);
+const all = scan(modules);
+const violations = all.filter((v) => v.kind !== 'membership array');
+const advisory = all.filter((v) => v.kind === 'membership array');
+if (advisory.length) {
+  console.log('Advisory: ' + advisory.length + ' literal(s) in a membership array (name-based, may be a scope false positive):');
+  for (const v of advisory.slice(0, 10)) console.log('  ~ mod ' + v.module + ' ' + v.literal);
+}
 
 if (violations.length === 0) {
   console.log(`OK: no translated literal sits in a code position (${modules.length} modules, ${path.basename(exe)})`);
