@@ -57,6 +57,16 @@ module.exports = function checks({ exe, official, root }) {
   })()],
   ['patch flush: mod 127 gate removed', !txt(127).includes('this.#t.size === 0 && this.#e.size === 0')],
   ['patch floor: mod 61 floor arm skips Claude thinking text', txt(61).includes('if (!t || x)\n              s.push(R.thinking);')],
+  // Line-anchored form of the same patch: the guard sits on a 12-space line and the push moved to
+  // 14 spaces. A mis-patch that inserts the guard but leaves the old unconditional push behind would
+  // still contain the substring above, so count the lines themselves.
+  ['patch floor: exactly one guarded push, no unguarded push left', (() => {
+    const lines = txt(61).split('\n');
+    const guarded = lines.filter((l) => l === '              s.push(R.thinking);').length;
+    const bare = lines.filter((l) => l === '            s.push(R.thinking);').length;
+    const guard = lines.filter((l) => l === '            if (!t || x)').length;
+    return guarded === 1 && bare === 0 && guard === 1;
+  })()],
   ['patch anchors: every original anchor text gone from product', (() => {
     const gone = [
       [332, 'var se = 3;\nvar Ae = 15000;'], [43, 'cwd: R$() });'], [43, 'cwd: Se.homedir() });'],
