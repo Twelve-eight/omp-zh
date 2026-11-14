@@ -40,9 +40,9 @@ module.exports = function checks({ exe, official, root }) {
       && K7({ stopReason: 'stop', content: null }) === false
       && K7({ stopReason: 'stop' }) === false;
   })()],
-  ['patch stopcap: mod 332 te/re/ie/ne raised', txt(332).includes('var se = 1000000;\nvar Ae = 15000;\nvar ie = 1000000;\nvar ne = 1000000;\nvar oe = 1000000;')],
-  ['patch sessionStop: mod 465 $x raised', txt(475).includes('var $x = 1000000;') && !txt(475).includes('var $x = 8;')],
-  ['patch yieldLadder: mod 465 Ic raised', txt(475).includes('var Ic = 1000000;') && !txt(475).includes('var Ic = 3;')],
+  ['patch stopcap: mod 332 se/ie/ne/oe raised', txt(332).includes('var se = 1000000;\nvar Ae = 15000;\nvar ie = 1000000;\nvar ne = 1000000;\nvar oe = 1000000;')],
+  ['patch sessionStop: mod 475 $x raised', txt(475).includes('var $x = 1000000;') && !txt(475).includes('var $x = 8;')],
+  ['patch yieldLadder: mod 475 Ic raised', txt(475).includes('var Ic = 1000000;') && !txt(475).includes('var Ic = 3;')],
   ['patch tunnel: mod 43', txt(43).includes('stdout: r, stderr: r, cwd: R$(), windowsHide: true });')],
   ['patch ssh: mod 43', txt(43).includes('cwd: Se.homedir(), windowsHide: true });')],
   ['patch uploader: mod 43', txt(43).includes('cwd: R$(),\n          windowsHide: true\n        });\n        const U = await new Response(g.stderr)')],
