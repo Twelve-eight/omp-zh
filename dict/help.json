@@ -573,5 +573,70 @@
     "from": "IDA Pro is installed",
     "to": "已安装 IDA Pro/IDA Pro is installed",
     "mode": "full"
+  },
+  {
+    "from": "Start fresh in goal mode (interactive only; bypasses autoResume; no positional prompt, startup plan mode, or explicit resume)",
+    "to": "以目标模式全新开始（仅交互模式；绕过 autoResume；不接受位置提示词、启动计划模式或显式 resume）/Start fresh in goal mode (interactive only; bypasses autoResume; no positional prompt, startup plan mode, or explicit resume)",
+    "mode": "full"
+  },
+  {
+    "from": "Resume a session as --resume does, then go on with what its last process left unfinished (the interrupted turn and the subagents it was running)",
+    "to": "像 --resume 一样恢复会话，然后继续其上一个进程未完成的部分（被中断的回合及其正在运行的子代理）/Resume a session as --resume does, then go on with what its last process left unfinished (the interrupted turn and the subagents it was running)",
+    "mode": "full"
+  },
+  {
+    "from": "Print mode: before exiting, wait for this run's background jobs and wake the session with each result (async.printWake); no time limit unless --max-time is set",
+    "to": "打印模式：退出前等待本次运行的后台任务，并在每个结果返回时唤醒会话（async.printWake）；未设置 --max-time 时无时间上限/Print mode: before exiting, wait for this run's background jobs and wake the session with each result (async.printWake); no time limit unless --max-time is set",
+    "mode": "full"
+  },
+  {
+    "from": "Disable context files (AGENTS.md, CLAUDE.md, ...)",
+    "to": "禁用上下文文件（AGENTS.md、CLAUDE.md 等）/Disable context files (AGENTS.md, CLAUDE.md, ...)",
+    "mode": "full"
+  },
+  {
+    "from": "Milliseconds between spinner frames (default 80; 0 = static). Overrides tui.spinnerInterval and PI_SPINNER_INTERVAL for this run",
+    "to": "转圈帧之间的毫秒数（默认 80；0 = 静态）。本次运行覆盖 tui.spinnerInterval 与 PI_SPINNER_INTERVAL/Milliseconds between spinner frames (default 80; 0 = static). Overrides tui.spinnerInterval and PI_SPINNER_INTERVAL for this run",
+    "mode": "full"
+  },
+  {
+    "from": "Repaint ceiling in frames per second (default 30; 1-120); keystroke echo keeps 30 fps. Overrides tui.maxFps and PI_MAX_FPS for this run",
+    "to": "重绘上限（帧/秒，默认 30；范围 1-120）；按键回显保持 30 fps。本次运行覆盖 tui.maxFps 与 PI_MAX_FPS/Repaint ceiling in frames per second (default 30; 1-120); keystroke echo keeps 30 fps. Overrides tui.maxFps and PI_MAX_FPS for this run",
+    "mode": "full"
+  },
+  {
+    "from": "Animation preset: full (default), reduced (250 ms spinners, no shimmer or blink), or none (static). Overrides tui.motion and PI_MOTION for this run",
+    "to": "动画预设：full（默认）、reduced（250 毫秒转圈，无流光与闪烁）或 none（静态）。本次运行覆盖 tui.motion 与 PI_MOTION/Animation preset: full (default), reduced (250 ms spinners, no shimmer or blink), or none (static). Overrides tui.motion and PI_MOTION for this run",
+    "mode": "full"
+  },
+  {
+    "from": "Warn once when the session's spend, subagents included, reaches this many USD",
+    "to": "当本次会话花费（含子代理）达到该美元数时警告一次/Warn once when the session's spend, subagents included, reaches this many USD",
+    "mode": "full"
+  },
+  {
+    "from": "Stop sending model requests once the session's spend reaches this many USD; requests already in flight can finish past it (print mode exits 3)",
+    "to": "会话花费达到该美元数后停止发送模型请求；已在途的请求可以继续完成（打印模式以退出码 3 结束）/Stop sending model requests once the session's spend reaches this many USD; requests already in flight can finish past it (print mode exits 3)",
+    "mode": "full"
+  },
+  {
+    "from": "Start working on a goal immediately",
+    "to": "立即开始处理目标/Start working on a goal immediately",
+    "mode": "sub"
+  },
+  {
+    "from": "Pick a session back up after a crash, subagents included",
+    "to": "崩溃后接着恢复会话，含子代理/Pick a session back up after a crash, subagents included",
+    "mode": "sub"
+  },
+  {
+    "from": "Browser and computer use run inside eval: toggle with the browser.enabled",
+    "to": "浏览器与计算机操作在 eval 内运行：用 browser.enabled 切换/Browser and computer use run inside eval: toggle with the browser.enabled",
+    "mode": "sub"
+  },
+  {
+    "from": "(default on) and computer.enabled (default off) settings.",
+    "to": "（默认开）与 computer.enabled（默认关）设置。/(default on) and computer.enabled (default off) settings.",
+    "mode": "sub"
   }
 ]

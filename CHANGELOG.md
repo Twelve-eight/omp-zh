@@ -5,10 +5,10 @@
 ## 18.20.0-zh（2026-11-14）
 
 - 适配上游 v18.20.0（3747 个模块，较 18.19.0 增加 9 个）。补丁 P1–P11 全部按新版本源码重新定位：P1/P11 在模块 49（空回复判定函数更名为 `FY`），P2 在 332（上限簇 `se/Ae/ie/ne/oe` 名称未变），P3/P4 在 475（`var $x = 8`、`var Ic = 3`），P5 在 43（`cwd: R$()`），P6 在 1184（puppeteer 的 `os.spawn`），P7 在 25（helper `Ose`），P8 在 46（`_e` / `Yt`），P9 在 127，P10 在 61。
-- 上游重写了 `--help` 的工具清单：旧的「Available Tools」文本块被 `Yvt` 摘要表（模块 91）+ `help-extra.ts`（模块 594）渲染取代，13 条旧条目随上游删除清出字典；新增 30 条工具摘要翻译。该表在全包只出现一次、只被 help 渲染器消费，工具 schema 用的是各自的长描述，因此不属模型可见范围；help 中文 2045 → **2257** 字符。
-- 新增 19 条翻译：`Encourage Edits`、find 校验模型、SSH 别名开关说明、OAuth 账号选择不可用、snapcompact 活动模型切换提示、优先服务回退警告、worker 线程内联扩展提示等。
-- 撤销一条越界翻译：截图工具结果里的 `The image decoder failed, so this is the original image.` 会原样进模型上下文，按「模型可见保持英文」删除。
-- 产物 `work/omp-zh-18200.exe` sha256 `99d22e41cbc368c69790df6584ce494470d1224f8d04a109a5334b2d8aa41f0a`，翻译 5276 条字面量，验证 **38/38 PASS**，对官方包负对照 23 FAIL / 15 PASS，`scan-gaps` 死条目 0。
+- 上游重写了 `--help` 的工具清单：旧的「Available Tools」文本块被 `Yvt` 摘要表（模块 91）+ `help-extra.ts`（模块 594）渲染取代，13 条旧条目随上游删除清出字典；新增 30 条工具摘要翻译。该表在全包只出现一次、只被 help 渲染器消费，工具 schema 用的是各自的长描述，因此不属模型可见范围；help 中文 2045 → **2555** 字符。
+- 新增 41 条翻译（11 条 flag/示例说明 + 30 条工具摘要）与 2 条 sub 替换：`Encourage Edits`、find 校验模型、SSH 别名开关说明、OAuth 账号选择不可用、snapcompact 活动模型切换提示、优先服务回退警告、worker 线程内联扩展提示等。
+- 撤销两条越界翻译：截图工具结果里的 ` The image decoder failed, so this is the original image.` 与 `No matches in text files`（grep 工具的 `useless().done()` 结果）都会原样进模型上下文，按「模型可见保持英文」删除。
+- 产物 `work/omp-zh-18200.exe` sha256 `3e0c9df7e6203699523f3c27e73f417aa598c75e444dfb08b7145b85adb2a15a`，翻译 5276 条字面量，验证 **38/38 PASS**，对官方包负对照 23 FAIL / 15 PASS，`scan-gaps` 死条目 0。
 ## 18.19.0-zh（2026-11-12）
 
 - 适配上游 v18.19.0（3738 个模块，较 18.18.0 增加 107 个）。补丁 P1–P11 全部按新版本源码重新定位：P1/P11 在模块 50（空回复判定函数由 `tY` 更名 `CY`），P2 在 341（上限簇改为 `se/Ae/ie/ne/oe`，其中 `Ae = 15000` 是意外停止超时、不是重试上限，不动），P3/P4 在 482（`var Ex = 8`、`var Rc = 3`），P5 在 44，P7 在 26（helper 更名 `kse`），P8 在 47（`var pe` / `var Yt`），P9 在 135，P10 在 62。

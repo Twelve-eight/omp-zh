@@ -835,11 +835,6 @@
     "mode": "full"
   },
   {
-    "from": "No matches in text files",
-    "to": "文本文件中没有匹配/No matches in text files",
-    "mode": "full"
-  },
-  {
     "from": "OAuth account selection is unavailable",
     "to": "OAuth 账号选择不可用/OAuth account selection is unavailable",
     "mode": "full"
