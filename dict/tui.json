@@ -833,5 +833,45 @@
     "from": "Session close cancelled",
     "to": "已取消关闭会话/Session close cancelled",
     "mode": "full"
+  },
+  {
+    "from": "No matches in text files",
+    "to": "文本文件中没有匹配/No matches in text files",
+    "mode": "full"
+  },
+  {
+    "from": "OAuth account selection is unavailable",
+    "to": "OAuth 账号选择不可用/OAuth account selection is unavailable",
+    "mode": "full"
+  },
+  {
+    "from": "Snapcompact skipped: the active model changed during preflight",
+    "to": "已跳过 Snapcompact：预检期间活动模型发生变化/Snapcompact skipped: the active model changed during preflight",
+    "mode": "full"
+  },
+  {
+    "from": "snapcompact stopped: the active model changed while it was preparing",
+    "to": "snapcompact 已停止：准备期间活动模型发生变化/snapcompact stopped: the active model changed while it was preparing",
+    "mode": "full"
+  },
+  {
+    "from": "snapcompact: the active model changed during preflight; trying the next preferred compaction method.",
+    "to": "snapcompact：预检期间活动模型发生变化；改为尝试下一个首选压缩方式。/snapcompact: the active model changed during preflight; trying the next preferred compaction method.",
+    "mode": "full"
+  },
+  {
+    "from": "Provider rejected priority service; request fell back to standard speed",
+    "to": "提供方拒绝了优先服务；请求已回退到标准速度/Provider rejected priority service; request fell back to standard speed",
+    "mode": "full"
+  },
+  {
+    "from": "Browser code execution did not stop after cancellation",
+    "to": "浏览器代码执行在取消后未停止/Browser code execution did not stop after cancellation",
+    "mode": "full"
+  },
+  {
+    "from": "Inline extension unavailable in worker-thread subagents; use an extension file to inherit it",
+    "to": "工作线程子代理中无法使用内联扩展；请改用扩展文件以继承它/Inline extension unavailable in worker-thread subagents; use an extension file to inherit it",
+    "mode": "full"
   }
 ]

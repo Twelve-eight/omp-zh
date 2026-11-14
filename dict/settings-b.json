@@ -210,8 +210,8 @@
     "mode": "full"
   },
   {
-    "from": "Tool names that may repeat consecutively without triggering the cross-turn loop guard",
-    "to": "允许连续重复而不触发跨轮循环保护的工具名称/Tool names that may repeat consecutively without triggering the cross-turn loop guard",
+    "from": "Tool names, or xd:// device names of write dispatches (for example mcp__peers_wait), that may repeat consecutively without triggering the cross-turn loop guard",
+    "to": "可连续重复而不触发跨回合循环护栏的工具名，或写派发的 xd:// 设备名（例如 mcp__peers_wait）/Tool names, or xd:// device names of write dispatches (for example mcp__peers_wait), that may repeat consecutively without triggering the cross-turn loop guard",
     "mode": "full"
   },
   {
@@ -5042,6 +5042,31 @@
   {
     "from": "Strip provider replay data (signatures, encrypted reasoning, cached responses) from idle sessions",
     "to": "从空闲会话中剥离提供方的重放数据（签名、加密推理、缓存响应）/Strip provider replay data (signatures, encrypted reasoning, cached responses) from idle sessions",
+    "mode": "full"
+  },
+  {
+    "from": "Encourage Edits",
+    "to": "鼓励使用编辑工具/Encourage Edits",
+    "mode": "full"
+  },
+  {
+    "from": "Require the edit tool for file edits and forbid sed/perl/python edits",
+    "to": "要求文件编辑走 edit 工具，禁止用 sed/perl/python 直接改文件/Require the edit tool for file edits and forbid sed/perl/python edits",
+    "mode": "full"
+  },
+  {
+    "from": "Find Verification Model",
+    "to": "find 校验模型/Find Verification Model",
+    "mode": "full"
+  },
+  {
+    "from": "Model selector (e.g. openrouter/liquid/d1-ultra) tried first for find's passage verification, before the judge role; filename and sketch ranking stay on the judge role. Unset: the judge role verifies too",
+    "to": "先用哪个模型做 find 的段落校验（如 openrouter/liquid/d1-ultra），优先于 judge 角色；文件名与 sketch 排序仍由 judge 角色负责。未设置时由 judge 角色一并校验/Model selector (e.g. openrouter/liquid/d1-ultra) tried first for find's passage verification, before the judge role; filename and sketch ranking stay on the judge role. Unset: the judge role verifies too",
+    "mode": "full"
+  },
+  {
+    "from": "Load SSH host aliases from ~/.ssh/config and /etc/ssh/ssh_config",
+    "to": "从 ~/.ssh/config 与 /etc/ssh/ssh_config 读取 SSH 主机别名/Load SSH host aliases from ~/.ssh/config and /etc/ssh/ssh_config",
     "mode": "full"
   }
 ]
