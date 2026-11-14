@@ -55,11 +55,6 @@
     "mode": "full"
   },
   {
-    "from": "Plan file not found at ",
-    "to": "未找到计划文件：/Plan file not found at ",
-    "mode": "sub"
-  },
-  {
     "from": "Refine plan: enter a follow-up prompt.",
     "to": "修改计划：请输入后续提示。/Refine plan: enter a follow-up prompt.",
     "mode": "full"

@@ -275,11 +275,6 @@
     "mode": "sub"
   },
   {
-    "from": "add another",
-    "to": "再加",
-    "mode": "sub"
-  },
-  {
     "from": "type to search",
     "to": "键入搜索",
     "mode": "sub"
@@ -372,11 +367,6 @@
   {
     "from": "refreshing model list\\u2026",
     "to": "刷新模型列表中\\u2026",
-    "mode": "sub"
-  },
-  {
-    "from": "not configured",
-    "to": "未配置",
     "mode": "sub"
   },
   {
