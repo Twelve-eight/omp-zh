@@ -63,6 +63,24 @@ module.exports = function checks({ exe, official, root }) {
     const i = s.indexOf('You are a helpful assistant with web search capabilities.');
     return i >= 0 && !/[\u4e00-\u9fff]/.test(s.slice(i, i + 200));
   })()],
+  ['model-visible: provider search errors stay English', (() => {
+    // These strings are thrown by the search providers and reach the model as tool errors
+    // (CTe() formats them and the web_search tool prints "Error: …"). They must never be translated.
+    const all = mods.map((m) => dec(m.contents.toString('utf8'))).join('\n');
+    const must = [
+      'Sofya credentials not found. Set SOFYA_API_KEY',
+      'Keenable credentials could not be resolved',
+      'Keenable search API returned an unexpected response shape',
+      'Keenable search API returned invalid JSON',
+      "Synthetic credentials not found. Set SYNTHETIC_API_KEY",
+    ];
+    return must.every((s) => {
+      const i = all.indexOf(s);
+      // A translated entry keeps the English half (bilingual "中文/English"), so look for CJK
+      // immediately before the English text rather than only for its presence.
+      return i >= 0 && !/[\u4e00-\u9fff]/.test(all.slice(Math.max(0, i - 40), i));
+    });
+  })()],
   ['patch floor: mod 61 floor arm skips Claude thinking text', txt(61).includes('if (!t || x)\n              s.push(R.thinking);')],
   // Line-anchored form of the same patch: the guard sits on a 12-space line and the push moved to
   // 14 spaces. A mis-patch that inserts the guard but leaves the old unconditional push behind would

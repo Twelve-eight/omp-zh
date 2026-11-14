@@ -350,21 +350,6 @@
     "mode": "full"
   },
   {
-    "from": "Keenable credentials could not be resolved. Check your configured API key or credential helper.",
-    "to": "无法解析 Keenable 凭据。请检查已配置的 API 密钥或凭据助手。/Keenable credentials could not be resolved. Check your configured API key or credential helper.",
-    "mode": "full"
-  },
-  {
-    "from": "Keenable search API returned an unexpected response shape",
-    "to": "Keenable 搜索 API 返回了意外的响应结构/Keenable search API returned an unexpected response shape",
-    "mode": "full"
-  },
-  {
-    "from": "Keenable search API returned invalid JSON",
-    "to": "Keenable 搜索 API 返回了无效 JSON/Keenable search API returned invalid JSON",
-    "mode": "full"
-  },
-  {
     "from": "Aborted: Signal",
     "to": "已中止：信号/Aborted: Signal",
     "mode": "full"

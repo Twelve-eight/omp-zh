@@ -1,32 +1,27 @@
 [
- {
-  "from": "Perform AST-aware code edits (SHOULD be preferred for codemods)",
-  "to": "执行 AST 感知的代码编辑（codemod 应优先使用）/Perform AST-aware code edits (SHOULD be preferred for codemods)",
-  "mode": "full"
- },
- {
-  "from": "Debug a running process with DAP (debugger adapter protocol)",
-  "to": "用 DAP 调试运行中的进程\\nDebug a running process with DAP (debugger adapter protocol)",
-  "mode": "full"
- },
- {
-  "from": "Query LSP (language server) for diagnostics, hover info, and references",
-  "to": "查询语言服务器的诊断、悬停与引用\\nQuery LSP (language server) for diagnostics, hover info, and references",
-  "mode": "full"
- },
- {
-  "from": "Ask the user to fill in a form",
-  "to": "请用户填写表单/Ask the user to fill in a form",
-  "mode": "full"
- },
- {
-  "from": "Search code with AST patterns (SHOULD be preferred for structural search)",
-  "to": "用 AST 模式搜索代码（结构化搜索应优先使用）/Search code with AST patterns (SHOULD be preferred for structural search)",
-  "mode": "full"
- },
- {
-  "from": "Sofya credentials not found. Set SOFYA_API_KEY or configure an API key for provider \"sofya\".",
-  "to": "未找到 Sofya 凭据。请设置 SOFYA_API_KEY，或为提供方 \"sofya\" 配置 API 密钥。/Sofya credentials not found. Set SOFYA_API_KEY or configure an API key for provider \"sofya\".",
-  "mode": "full"
- }
+  {
+    "from": "Perform AST-aware code edits (SHOULD be preferred for codemods)",
+    "to": "执行 AST 感知的代码编辑（codemod 应优先使用）/Perform AST-aware code edits (SHOULD be preferred for codemods)",
+    "mode": "full"
+  },
+  {
+    "from": "Debug a running process with DAP (debugger adapter protocol)",
+    "to": "用 DAP 调试运行中的进程\\nDebug a running process with DAP (debugger adapter protocol)",
+    "mode": "full"
+  },
+  {
+    "from": "Query LSP (language server) for diagnostics, hover info, and references",
+    "to": "查询语言服务器的诊断、悬停与引用\\nQuery LSP (language server) for diagnostics, hover info, and references",
+    "mode": "full"
+  },
+  {
+    "from": "Ask the user to fill in a form",
+    "to": "请用户填写表单/Ask the user to fill in a form",
+    "mode": "full"
+  },
+  {
+    "from": "Search code with AST patterns (SHOULD be preferred for structural search)",
+    "to": "用 AST 模式搜索代码（结构化搜索应优先使用）/Search code with AST patterns (SHOULD be preferred for structural search)",
+    "mode": "full"
+  }
 ]

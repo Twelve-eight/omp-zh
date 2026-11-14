@@ -8,10 +8,10 @@
 - 上游重写了 `--help` 的工具清单：旧的「Available Tools」文本块被 `Yvt` 摘要表（模块 91）+ `help-extra.ts`（模块 594）渲染取代，13 条旧条目随上游删除清出字典；新增 30 条工具摘要翻译。该表只被 help 渲染器（`help-extra.ts`，模块 594）消费，工具 schema 用的是各自的长描述；30 条里有 2 条（grep、reflect）同时是工具类字段（模块 475/399，TUI 工具列表用），1 条（learn）与 `prompts/tools/learn.md` 首行同文——`.md` 模块不参与翻译，产物里该提示保持英文。help 中文 2045 → **2555** 字符。
 - 新增 41 条翻译（11 条 flag/示例说明 + 30 条工具摘要）与 2 条 sub 替换：`Encourage Edits`、find 校验模型、SSH 别名开关说明、OAuth 账号选择不可用、snapcompact 活动模型切换提示、优先服务回退警告、worker 线程内联扩展提示等。
 - **修掉一条真实的提示词泄漏**（对抗性复核发现）：字典里 `Search the web` 是 `sub` 条目，会替换所有包含它的字面量，结果把中文写进了 `web/search/providers/codex.ts` 的系统提示（"You are a helpful assistant with web search capabilities. 搜索网络/Search the web to answer…"）。改为 `full` 条目（help 表里的字面量只出现一次），重建后该提示恢复纯英文，verify 新增「codex web-search system prompt stays English」守卫。
-- 按同一条规则清掉三条会进错误/工具结果的 `sub` 条目：`not configured`（SearXNG provider 的 `throw new Error`，搜索失败时作为工具错误回给模型）、`add another`（`ai/src/auth/policy.ts` 的配置异常文案）、`Plan file not found at `（plan-mode 审批错误）。审计方法改为「非精确匹配一律列出、按 `throw`/`return …text()` 判定」，余下命中都是 help/设置模板里的界面文字。
+- 按同一条规则清掉三条会进错误/工具结果的 `sub` 条目：`not configured`（SearXNG provider 的 `throw new Error`，搜索失败时作为工具错误回给模型）、`add another`（`ai/src/auth/policy.ts` 的配置异常文案）、`Plan file not found at `（plan-mode 审批错误）。审计方法改为「非精确匹配一律列出、按 `throw`/`return …text()` 判定」，余下命中都是 help/设置模板里的界面文字。复核还指出提供商错误文案属工具错误：再删 5 条——Sofya/Keenable/Synthetic 的「credentials not found」「returned invalid JSON / unexpected response shape」（经 `CTe()` 变成 `Error: …` 回给模型），verify 新增「provider search errors stay English」守卫（双语包裹也能被抓到）。
 - P10 增加行锚定负检查（对抗性复核指出：旧检查只看子串，"插了护栏但没删旧的裸 push" 这种错打不会被抓到；新检查统计 12 空格裸 push = 0、14 空格受护栏 push = 1，官方包上该检查 FAIL）。
 - 撤销两条越界翻译：截图工具结果里的 ` The image decoder failed, so this is the original image.` 与 `No matches in text files`（grep 工具的 `useless().done()` 结果）都会原样进模型上下文，按「模型可见保持英文」删除。
-- 产物 `work/omp-zh-18200.exe` sha256 `1ebc775b1edf0074507f3cc7c3d1ee553c7d8ad0a4482ea8480042e510d9a07d`，翻译 5276 条字面量，验证 **40/40 PASS**，对官方包负对照 24 FAIL / 15 PASS，`scan-gaps` 死条目 0。
+- 产物 `work/omp-zh-18200.exe` sha256 `ba58ac2ed951de0070705a1729ba000937f243cb5ccbc7a13a5002415107923c`，翻译 5276 条字面量，验证 **41/41 PASS**，对官方包负对照 24 FAIL / 15 PASS，`scan-gaps` 死条目 0。
 ## 18.19.0-zh（2026-11-12）
 
 - 适配上游 v18.19.0（3738 个模块，较 18.18.0 增加 107 个）。补丁 P1–P11 全部按新版本源码重新定位：P1/P11 在模块 50（空回复判定函数由 `tY` 更名 `CY`），P2 在 341（上限簇改为 `se/Ae/ie/ne/oe`，其中 `Ae = 15000` 是意外停止超时、不是重试上限，不动），P3/P4 在 482（`var Ex = 8`、`var Rc = 3`），P5 在 44，P7 在 26（helper 更名 `kse`），P8 在 47（`var pe` / `var Yt`），P9 在 135，P10 在 62。
