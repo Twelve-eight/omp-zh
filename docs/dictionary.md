@@ -62,6 +62,12 @@ Power: { key: "电源/Power", code: "电源/Power" },
 
 **同一个词也可能既是界面文字又是模型可见的工具输出。** 例：`Recent projects, newest first:` 出现在 `packages/coding-agent/src/archive/archive.ts`，是 `return { text: u.join("\n") }` 拼给模型的结果；同一函数里还有 `No projects with sessions yet.`。这类字符串在字典里看只是普通句子，翻译后模型收到的是中文工具输出。判定方法：回到模块里找最近的 `// packages/<pkg>/src/<file>` 注释，落在 `tools/`、`commit/`、`prompt`、`archive`、`session` 等模型可见目录里就不译。同批里 `Recent Commits` 是 `tools/recent-commits.ts` 的工具 schema `label`，同样不译；而 `Recent Logs`、`Recent activity`、`Recent Changes`、`Switch Model`、`Task model`、`Apply role` 都在 `tui/` 的界面描述符里，可以译。
 
+**`sub` 条目是子串替换，会命中所有包含它的字面量。** 2026-11-14 抓到一例真实泄漏：`Search the web` 作为 `sub` 条目，被替换进 `packages/coding-agent/src/web/search/providers/codex.ts` 的系统提示，产物里变成 "You are a helpful assistant with web search capabilities. 搜索网络/Search the web to answer…"。规则：
+
+- 只要精确字面量存在，优先写 `full`；`sub` 只用于带插值的模板片段或必须嵌在长句中间的情形。
+- 短句（3 个词以内、常见搭配）不要写成 `sub` —— 它几乎必然在别处长句里也出现。
+- 加完 `sub` 条目后，跑一次泄漏审计：对每条 `sub`，找所有「包含它但不等于它」的字面量，看落点是否在 `packages/ai/src`、`packages/agent/src`、`coding-agent/src/{tools,prompts,task,session,mcp}/` 等提示词/工具 schema 区域；命中即改 `full` 或删除。verify 里每个版本至少保留一条针对已知提示词的守卫（如 `model-visible: codex web-search system prompt stays English`）。
+
 判据是位置，不是词义。以下位置出现中文一定是缺陷：
 
 | 位置 | 例子 |

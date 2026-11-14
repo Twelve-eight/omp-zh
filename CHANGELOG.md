@@ -5,7 +5,7 @@
 ## 18.20.0-zh（2026-11-14）
 
 - 适配上游 v18.20.0（3747 个模块，较 18.19.0 增加 9 个）。补丁 P1–P11 全部按新版本源码重新定位：P1/P11 在模块 49（空回复判定函数更名为 `FY`），P2 在 332（上限簇 `se/Ae/ie/ne/oe` 名称未变），P3/P4 在 475（`var $x = 8`、`var Ic = 3`），P5 在 43（`cwd: R$()`），P6 在 1184（puppeteer 的 `os.spawn`），P7 在 25（helper `Ose`），P8 在 46（`_e` / `Yt`），P9 在 127，P10 在 61。
-- 上游重写了 `--help` 的工具清单：旧的「Available Tools」文本块被 `Yvt` 摘要表（模块 91）+ `help-extra.ts`（模块 594）渲染取代，13 条旧条目随上游删除清出字典；新增 30 条工具摘要翻译。该表在全包只出现一次、只被 help 渲染器消费，工具 schema 用的是各自的长描述，因此不属模型可见范围；help 中文 2045 → **2555** 字符。
+- 上游重写了 `--help` 的工具清单：旧的「Available Tools」文本块被 `Yvt` 摘要表（模块 91）+ `help-extra.ts`（模块 594）渲染取代，13 条旧条目随上游删除清出字典；新增 30 条工具摘要翻译。该表只被 help 渲染器（`help-extra.ts`，模块 594）消费，工具 schema 用的是各自的长描述；30 条里有 2 条（grep、reflect）同时是工具类字段（模块 475/399，TUI 工具列表用），1 条（learn）与 `prompts/tools/learn.md` 首行同文——`.md` 模块不参与翻译，产物里该提示保持英文。help 中文 2045 → **2555** 字符。
 - 新增 41 条翻译（11 条 flag/示例说明 + 30 条工具摘要）与 2 条 sub 替换：`Encourage Edits`、find 校验模型、SSH 别名开关说明、OAuth 账号选择不可用、snapcompact 活动模型切换提示、优先服务回退警告、worker 线程内联扩展提示等。
 - **修掉一条真实的提示词泄漏**（对抗性复核发现）：字典里 `Search the web` 是 `sub` 条目，会替换所有包含它的字面量，结果把中文写进了 `web/search/providers/codex.ts` 的系统提示（"You are a helpful assistant with web search capabilities. 搜索网络/Search the web to answer…"）。改为 `full` 条目（help 表里的字面量只出现一次），重建后该提示恢复纯英文，verify 新增「codex web-search system prompt stays English」守卫。
 - P10 增加行锚定负检查（对抗性复核指出：旧检查只看子串，"插了护栏但没删旧的裸 push" 这种错打不会被抓到；新检查统计 12 空格裸 push = 0、14 空格受护栏 push = 1，官方包上该检查 FAIL）。
