@@ -6,7 +6,7 @@
   },
   {
     "from": "Re-send the last request with a one-token output budget shortly before its prompt-cache entry expires",
-    "to": "在提示缓存条目过期前不久，用单 token 输出预算重发上一次请求/Re-send the last request with a one-token output budget shortly before its prompt-cache entry expires",
+    "to": "在提示词缓存条目过期前不久，用单 token 输出预算重发上一次请求/Re-send the last request with a one-token output budget shortly before its prompt-cache entry expires",
     "mode": "full"
   },
   {

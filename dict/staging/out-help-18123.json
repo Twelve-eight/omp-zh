@@ -86,7 +86,7 @@
   },
   {
     "from": "Handlebars system prompt template (mutually exclusive with --system-prompt)",
-    "to": "Handlebars 系统提示模板（与 --system-prompt 互斥）/Handlebars system prompt template (mutually exclusive with --system-prompt)",
+    "to": "Handlebars 系统提示词模板（与 --system-prompt 互斥）/Handlebars system prompt template (mutually exclusive with --system-prompt)",
     "mode": "full"
   },
   {

@@ -6,7 +6,7 @@
   },
   {
     "from": "Seconds to wait while idle before compacting; with a 1-hour prompt cache, compaction instead runs just before the cache expires",
-    "to": "压缩前空闲等待的秒数；使用 1 小时提示缓存时，压缩改为在缓存过期前才运行/Seconds to wait while idle before compacting; with a 1-hour prompt cache, compaction instead runs just before the cache expires",
+    "to": "压缩前空闲等待的秒数；使用 1 小时提示词缓存时，压缩改为在缓存过期前才运行/Seconds to wait while idle before compacting; with a 1-hour prompt cache, compaction instead runs just before the cache expires",
     "mode": "full"
   },
   {

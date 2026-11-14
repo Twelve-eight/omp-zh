@@ -471,7 +471,7 @@
   },
   {
     "from": "Disable prompt caching and cache-affinity routing",
-    "to": "禁用提示缓存与缓存亲和路由/Disable prompt caching and cache-affinity routing",
+    "to": "禁用提示词缓存与缓存亲和路由/Disable prompt caching and cache-affinity routing",
     "mode": "full"
   },
   {
@@ -526,7 +526,7 @@
   },
   {
     "from": "Prompt Cache Retention",
-    "to": "提示缓存保留/Prompt Cache Retention",
+    "to": "提示词缓存保留/Prompt Cache Retention",
     "mode": "full"
   },
   {

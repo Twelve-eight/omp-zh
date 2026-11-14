@@ -68,6 +68,16 @@ Power: { key: "电源/Power", code: "电源/Power" },
 - 短句（3 个词以内、常见搭配）不要写成 `sub` —— 它几乎必然在别处长句里也出现。
 - 加完 `sub` 条目后，跑一次泄漏审计：对每条 `sub`，找所有「包含它但不等于它」的字面量，看落点是否在 `packages/ai/src`、`packages/agent/src`、`coding-agent/src/{tools,prompts,task,session,mcp}/` 等提示词/工具 schema 区域；命中即改 `full` 或删除。verify 里每个版本至少保留一条针对已知提示词的守卫（如 `model-visible: codex web-search system prompt stays English`）。
 
+**术语以成熟的 zh-CN locale 为准，不靠散文文档。** 2026-11-14 建立的对照源（均为机器可读，按 JSON 键取值）：
+
+| 来源 | 位置 | 用途 |
+|---|---|---|
+| open-webui | `src/lib/i18n/locales/zh-CN/translation.json`（英文原文作键，中文作值） | 主 EN→zh 表，覆盖面最广 |
+| LobeChat | `locales/zh-CN/{common,chat,setting}.json` | 次级对照，确认用法 |
+| OpenAI 官方 zh-Hans 文档 | platform.openai.com | 只裁决 API 术语（context window、tool call、reasoning） |
+
+已收敛的高频词：`system prompt` = 系统提示词（不写「系统提示」）、`prompt cache` = 提示词缓存（不写「提示缓存」）、`context window` = 上下文窗口、`compaction` = 压缩、`subagent` = 子代理、`tool call` = 工具调用、`session` = 会话、`conversation` = 对话、`checkpoint` = 检查点、`skill` = 技能、`hook` = 钩子。新增或修改条目时按此表取词；`reasoning effort` 参考 open-webui 用「推理强度」，现有条目按句意微调。
+
 判据是位置，不是词义。以下位置出现中文一定是缺陷：
 
 | 位置 | 例子 |

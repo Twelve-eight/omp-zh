@@ -1,10 +1,9 @@
 [
- {
-  "from": "Advisor model",
-  "to": "Advisor 模型/Advisor model",
-  "mode": "full"
- },
- 
+  {
+    "from": "Advisor model",
+    "to": "Advisor 模型/Advisor model",
+    "mode": "full"
+  },
   {
     "from": "Clear search",
     "to": "清除搜索/Clear search",
@@ -457,7 +456,7 @@
   },
   {
     "from": "A side turn of the reply on the session's model: reads its prompt cache, adds the card icon (default)",
-    "to": "在会话模型上对回复做一次旁支轮次：读取其提示缓存，并添加卡片图标（默认）/A side turn of the reply on the session's model: reads its prompt cache, adds the card icon (default)",
+    "to": "在会话模型上对回复做一次旁支轮次：读取其提示词缓存，并添加卡片图标（默认）/A side turn of the reply on the session's model: reads its prompt cache, adds the card icon (default)",
     "mode": "full"
   },
   {

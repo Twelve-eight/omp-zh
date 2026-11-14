@@ -374,8 +374,6 @@
     "to": "主题/Theme",
     "mode": "full"
   },
-  
-  
   {
     "from": "Requires a Nerd Font, or a Glyph Protocol terminal (icons ship in-band)",
     "to": "需要 Nerd Font，或支持 Glyph Protocol 的终端（图标在带内传输）/Requires a Nerd Font, or a Glyph Protocol terminal (icons ship in-band)",
@@ -638,7 +636,7 @@
   },
   {
     "from": "Show a divider after an assistant turn whose request lost (missed) the prompt cache",
-    "to": "在请求未命中提示缓存的助手轮次之后显示分隔线/Show a divider after an assistant turn whose request lost (missed) the prompt cache",
+    "to": "在请求未命中提示词缓存的助手轮次之后显示分隔线/Show a divider after an assistant turn whose request lost (missed) the prompt cache",
     "mode": "full"
   },
   {

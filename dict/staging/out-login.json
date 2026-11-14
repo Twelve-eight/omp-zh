@@ -86,11 +86,6 @@
   },
   {
     "mode": "full",
-    "from": "OAuth token expired before request \\u2014 please retry; AuthStorage will refresh on the next attempt.",
-    "to": "请求前 OAuth 令牌已过期 - 请重试;AuthStorage 会在下次尝试时刷新/OAuth token expired before request - please retry; AuthStorage will refresh on the next attempt."
-  },
-  {
-    "mode": "full",
     "from": "OMP_AUTH_BROKER_URL must be set (or `auth.broker.url` in config.yml). `migrate` uploads local credentials to a configured broker.",
     "to": "必须设置 OMP_AUTH_BROKER_URL(或 config.yml 中的 `auth.broker.url`).`migrate` 会把本地凭据上传到已配置的 broker/OMP_AUTH_BROKER_URL must be set (or `auth.broker.url` in config.yml). `migrate` uploads local credentials to a configured broker."
   },

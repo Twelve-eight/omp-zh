@@ -155,11 +155,6 @@
     "mode": "full"
   },
   {
-    "from": "Native shell returned an invalid visualization presentation",
-    "to": "原生 shell 返回了无效的可视化呈现/Native shell returned an invalid visualization presentation",
-    "mode": "full"
-  },
-  {
     "from": "Subagent Worker Threads",
     "to": "子代理工作线程/Subagent Worker Threads",
     "mode": "full"
@@ -321,7 +316,7 @@
   },
   {
     "from": "system prompt changed",
-    "to": "系统提示已变化/system prompt changed",
+    "to": "系统提示词已变化/system prompt changed",
     "mode": "full"
   },
   {

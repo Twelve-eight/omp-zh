@@ -1321,7 +1321,7 @@
   },
   {
     "from": "Prompt-cache retention forwarded to providers that support it (Anthropic, Bedrock, OpenRouter, OpenAI)",
-    "to": "提示缓存保留转发给支持它的提供商（Anthropic、Bedrock、OpenRouter、OpenAI）/Prompt-cache retention forwarded to providers that support it (Anthropic, Bedrock, OpenRouter, OpenAI)",
+    "to": "提示词缓存保留转发给支持它的提供商（Anthropic、Bedrock、OpenRouter、OpenAI）/Prompt-cache retention forwarded to providers that support it (Anthropic, Bedrock, OpenRouter, OpenAI)",
     "mode": "full"
   },
   {
@@ -1417,11 +1417,6 @@
   {
     "from": "Generate a handoff document and continue from it as the compaction summary",
     "to": "生成交接文档，并以它作为压缩摘要继续/Generate a handoff document and continue from it as the compaction summary",
-    "mode": "full"
-  },
-  {
-    "from": "OpenAI completions stream closed before a finish_reason was received",
-    "to": "OpenAI completions 流在收到 finish_reason 之前关闭/OpenAI completions stream closed before a finish_reason was received",
     "mode": "full"
   },
   {
