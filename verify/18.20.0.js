@@ -56,6 +56,13 @@ module.exports = function checks({ exe, official, root }) {
     return re.test("The encrypted content gAAAAB.x9Q-_z could not be verified.") && !re.test('Rate limit reached for requests');
   })()],
   ['patch flush: mod 127 gate removed', !txt(127).includes('this.#t.size === 0 && this.#e.size === 0')],
+  ['model-visible: codex web-search system prompt stays English', (() => {
+    // A `sub` dictionary entry rewrites every literal containing its text, so a short entry such as
+    // "Search the web" leaked Chinese into this prompt (fixed 2026-11-14). Keep this guard.
+    const s = txt(1153);
+    const i = s.indexOf('You are a helpful assistant with web search capabilities.');
+    return i >= 0 && !/[\u4e00-\u9fff]/.test(s.slice(i, i + 200));
+  })()],
   ['patch floor: mod 61 floor arm skips Claude thinking text', txt(61).includes('if (!t || x)\n              s.push(R.thinking);')],
   // Line-anchored form of the same patch: the guard sits on a 12-space line and the push moved to
   // 14 spaces. A mis-patch that inserts the guard but leaves the old unconditional push behind would

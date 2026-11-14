@@ -638,5 +638,10 @@
     "from": "(default on) and computer.enabled (default off) settings.",
     "to": "（默认开）与 computer.enabled（默认关）设置。/(default on) and computer.enabled (default off) settings.",
     "mode": "sub"
+  },
+  {
+    "from": "Search the web",
+    "to": "搜索网络/Search the web",
+    "mode": "full"
   }
 ]

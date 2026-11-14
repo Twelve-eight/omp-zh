@@ -250,11 +250,6 @@
     "mode": "sub"
   },
   {
-    "from": "Search the web",
-    "to": "搜索网络/Search the web",
-    "mode": "sub"
-  },
-  {
     "from": "Plugin Options:",
     "to": "插件选项/Plugin Options:",
     "mode": "sub"
